@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
+export const dynamic = 'force-static';
+
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],

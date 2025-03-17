@@ -153,6 +153,7 @@ export default function Hero() {
                 src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1920"
                 alt="Interior design showcase"
                 fill
+                unoptimized={true}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
