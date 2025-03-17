@@ -33,7 +33,7 @@ A modern, responsive website for Apple Interiors, a premium interior design comp
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/apple-interiors.git
+   git clone https://github.com/apple00071/apple-interiors.git
    cd apple-interiors
    ```
 
