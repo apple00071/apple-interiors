@@ -15,7 +15,6 @@ const navLinks = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
   
   // Transform properties based on scroll position
@@ -36,16 +35,6 @@ export default function Header() {
     [0, 80],
     [1, 0.9]
   );
-
-  // Update scrolled state based on scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Animation variants for mobile menu
   const menuVariants = {

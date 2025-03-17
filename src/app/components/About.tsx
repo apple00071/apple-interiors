@@ -41,25 +41,6 @@ const slideInRight = {
   }
 };
 
-const features = [
-  {
-    title: "Innovative Design",
-    description: "We create spaces that reflect your unique style and personality with modern innovation."
-  },
-  {
-    title: "Quality Craftsmanship",
-    description: "Our team of skilled professionals ensures the highest quality in every detail of your project."
-  },
-  {
-    title: "Sustainable Materials",
-    description: "We prioritize eco-friendly and sustainable materials for a healthier home and planet."
-  },
-  {
-    title: "End-to-End Service",
-    description: "From concept to completion, we handle every aspect of your interior design project."
-  }
-];
-
 export default function About() {
   return (
     <section id="about" className="py-24 bg-background">

@@ -1,39 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-
-const footerLinks = [
-  {
-    title: "Quick Links",
-    links: [
-      { name: "Home", href: "#home" },
-      { name: "About", href: "#about" },
-      { name: "Services", href: "#services" },
-      { name: "Projects", href: "#projects" },
-      { name: "Contact", href: "#contact" },
-    ],
-  },
-  {
-    title: "Services",
-    links: [
-      { name: "Residential Design", href: "#services" },
-      { name: "Commercial Spaces", href: "#services" },
-      { name: "Renovation", href: "#services" },
-      { name: "Design Consultation", href: "#services" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { name: "Privacy Policy", href: "#" },
-      { name: "Terms of Service", href: "#" },
-      { name: "Cookie Policy", href: "#" },
-    ],
-  },
-];
 
 // Animation variants
 const fadeIn = {
@@ -50,45 +20,7 @@ const fadeIn = {
 };
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: ""
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const currentYear = new Date().getFullYear();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: ""
-      });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    }, 1500);
-  };
 
   return (
     <>

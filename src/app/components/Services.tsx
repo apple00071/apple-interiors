@@ -82,7 +82,7 @@ export default function Services() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-slate-600"
           >
-            We offer a comprehensive range of interior design services tailored to meet your specific needs, whether you're looking to transform your home, office, or commercial space.
+            We offer a comprehensive range of interior design services tailored to meet your specific needs, whether you&apos;re looking to transform your home, office, or commercial space.
           </motion.p>
         </motion.div>
 
@@ -162,7 +162,7 @@ export default function Services() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-16 text-center"
         >
-          <p className="text-lg text-slate-600 mb-6">Not sure which service is right for you? We're here to help!</p>
+          <p className="text-lg text-slate-600 mb-6">Not sure which service is right for you? We&apos;re here to help!</p>
           <motion.a
             href="#contact"
             whileHover={{ scale: 1.05 }}
