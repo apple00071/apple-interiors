@@ -1,0 +1,319 @@
+"use client";
+
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+
+const footerLinks = [
+  {
+    title: "Quick Links",
+    links: [
+      { name: "Home", href: "#home" },
+      { name: "About", href: "#about" },
+      { name: "Services", href: "#services" },
+      { name: "Projects", href: "#projects" },
+      { name: "Contact", href: "#contact" },
+    ],
+  },
+  {
+    title: "Services",
+    links: [
+      { name: "Residential Design", href: "#services" },
+      { name: "Commercial Spaces", href: "#services" },
+      { name: "Renovation", href: "#services" },
+      { name: "Design Consultation", href: "#services" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { name: "Privacy Policy", href: "#" },
+      { name: "Terms of Service", href: "#" },
+      { name: "Cookie Policy", href: "#" },
+    ],
+  },
+];
+
+// Animation variants
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.1 * i,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  })
+};
+
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: ""
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const currentYear = new Date().getFullYear();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: ""
+      });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    }, 1500);
+  };
+
+  return (
+    <>
+      {/* Project in Mind Section - Similar to the reference site */}
+      <section className="bg-secondary py-32 text-white text-center">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="max-w-4xl mx-auto"
+          >
+            <motion.h2 
+              variants={fadeIn} 
+              custom={1}
+              className="text-5xl md:text-6xl font-bold mb-6"
+            >
+              project in <span className="text-primary">mind?</span>
+            </motion.h2>
+            
+            <motion.button
+              variants={fadeIn}
+              custom={2}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-primary hover:bg-primary/90 text-white py-3 px-8 rounded-lg font-medium tracking-wider text-lg mt-6 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Request A quote
+            </motion.button>
+            
+            <motion.p
+              variants={fadeIn}
+              custom={3}
+              className="text-white/80 mt-8 max-w-2xl mx-auto"
+            >
+              Ready to transform your home or office into a stunning and functional space? Our expert team at Apple Interiors is here to help!
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-foreground text-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="mb-16 max-w-3xl">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-white/80 mb-2"
+            >
+              Reach us to discover how our services can assist you in accomplishing your objectives.
+            </motion.p>
+          </div>
+
+          <div className="grid md:grid-cols-5 gap-12">
+            {/* Contact Information - Left Column */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="md:col-span-2 space-y-8"
+            >
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-white/70 font-medium">Head Office</p>
+                    <p className="text-white/70">Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3, Sreenivasa Nagar, Kukatpally, Hyderabad</p>
+                    <p className="text-white/70">Telangana - 500072</p>
+                  </div>
+                  <div>
+                    <p className="text-white/70 font-medium">Designer Studio</p>
+                    <p className="text-white/70">H. No: LIG B-29, 1st floor, Dr A S Rao Nagar Opp SBI Kapra Branch, Hyderabad - 500062</p>
+                  </div>
+                  <div>
+                    <p className="text-white/70">aravind.bandaru@appleinteriors.in</p>
+                  </div>
+                  <div>
+                    <p className="text-white/70">+91 9603 9603 37 | 40485 64775</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Working Hours</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Monday - Friday:</span>
+                    <span className="font-medium">9:00 AM - 6:00 PM</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Saturday:</span>
+                    <span className="font-medium">10:00 AM - 4:00 PM</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Sunday:</span>
+                    <span className="font-medium">Closed</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Footer links - first set */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="md:col-span-1"
+            >
+              <h3 className="text-lg font-semibold mb-4">Pages</h3>
+              <ul className="space-y-2">
+                <li><Link href="#home" className="text-white/70 hover:text-primary transition-colors duration-300">Home</Link></li>
+                <li><Link href="#about" className="text-white/70 hover:text-primary transition-colors duration-300">About Us</Link></li>
+                <li><Link href="#services" className="text-white/70 hover:text-primary transition-colors duration-300">Services</Link></li>
+                <li><Link href="#projects" className="text-white/70 hover:text-primary transition-colors duration-300">Portfolio</Link></li>
+                <li><Link href="#contact" className="text-white/70 hover:text-primary transition-colors duration-300">Contact</Link></li>
+              </ul>
+            </motion.div>
+
+            {/* Footer links - second set */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="md:col-span-1"
+            >
+              <h3 className="text-lg font-semibold mb-4">Services</h3>
+              <ul className="space-y-2">
+                <li><Link href="#services" className="text-white/70 hover:text-primary transition-colors duration-300">Residential Design</Link></li>
+                <li><Link href="#services" className="text-white/70 hover:text-primary transition-colors duration-300">Commercial Spaces</Link></li>
+                <li><Link href="#services" className="text-white/70 hover:text-primary transition-colors duration-300">Renovation</Link></li>
+                <li><Link href="#services" className="text-white/70 hover:text-primary transition-colors duration-300">Design Consultation</Link></li>
+              </ul>
+            </motion.div>
+
+            {/* Footer links - third set */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="md:col-span-1"
+            >
+              <h3 className="text-lg font-semibold mb-4">Legal</h3>
+              <ul className="space-y-2">
+                <li><Link href="#" className="text-white/70 hover:text-primary transition-colors duration-300">Privacy Policy</Link></li>
+                <li><Link href="#" className="text-white/70 hover:text-primary transition-colors duration-300">Terms of Service</Link></li>
+                <li><Link href="#" className="text-white/70 hover:text-primary transition-colors duration-300">Cookie Policy</Link></li>
+              </ul>
+            </motion.div>
+          </div>
+
+          <motion.hr 
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="border-white/10 my-8" 
+          />
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-col md:flex-row justify-between items-center"
+          >
+            <div className="flex items-center mb-4 md:mb-0">
+              <div className="relative h-14 w-44 mr-2">
+                <Image
+                  src="/images/New-logo.png"
+                  alt="Apple Interiors Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-white/60 text-sm">
+                © {currentYear} Apple Interiors. All rights reserved.
+              </p>
+            </div>
+            <div className="flex space-x-4">
+              <motion.a 
+                whileHover={{ scale: 1.2, backgroundColor: "var(--primary)" }}
+                transition={{ duration: 0.2 }}
+                href="#" 
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.2, backgroundColor: "var(--primary)" }}
+                transition={{ duration: 0.2 }}
+                href="#" 
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.2, backgroundColor: "var(--primary)" }}
+                transition={{ duration: 0.2 }}
+                href="#" 
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </>
+  );
+} 
