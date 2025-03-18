@@ -25,7 +25,7 @@ export default function Contact() {
   return (
     <>
       {/* Project in Mind Section - Similar to the reference site */}
-      <section className="bg-secondary dark:bg-secondary py-16 md:py-32 text-white text-center">
+      <section className="bg-secondary py-16 md:py-32 text-center">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div 
             initial="hidden"
@@ -64,7 +64,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 md:py-20 bg-foreground dark:bg-foreground text-white">
+      <section id="contact" className="py-12 md:py-20 bg-foreground">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-8 md:mb-16 max-w-3xl">
             <motion.p
@@ -72,7 +72,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-white/90 dark:text-white/90 mb-3 text-xs md:text-base"
+              className="text-white/90 mb-3 text-xs md:text-base"
             >
               Reach us to discover how our services can assist you in accomplishing your objectives.
             </motion.p>
@@ -91,19 +91,19 @@ export default function Contact() {
                 <h3 className="text-base md:text-xl font-semibold mb-3 md:mb-4 text-white">Contact Information</h3>
                 <div className="space-y-3 md:space-y-4">
                   <div>
-                    <p className="text-white/90 dark:text-white/90 font-medium text-xs md:text-base">Head Office</p>
-                    <p className="text-white/80 dark:text-white/80 text-xs md:text-sm">Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3, Sreenivasa Nagar, Kukatpally, Hyderabad</p>
-                    <p className="text-white/80 dark:text-white/80 text-xs md:text-sm">Telangana - 500072</p>
+                    <p className="text-white/90 font-medium text-xs md:text-base">Head Office</p>
+                    <p className="text-white/80 text-xs md:text-sm">Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3, Sreenivasa Nagar, Kukatpally, Hyderabad</p>
+                    <p className="text-white/80 text-xs md:text-sm">Telangana - 500072</p>
                   </div>
                   <div>
-                    <p className="text-white/90 dark:text-white/90 font-medium text-xs md:text-base">Designer Studio</p>
-                    <p className="text-white/80 dark:text-white/80 text-xs md:text-sm">H. No: LIG B-29, 1st floor, Dr A S Rao Nagar Opp SBI Kapra Branch, Hyderabad - 500062</p>
+                    <p className="text-white/90 font-medium text-xs md:text-base">Designer Studio</p>
+                    <p className="text-white/80 text-xs md:text-sm">H. No: LIG B-29, 1st floor, Dr A S Rao Nagar Opp SBI Kapra Branch, Hyderabad - 500062</p>
                   </div>
                   <div>
-                    <p className="text-white/80 dark:text-white/80 text-xs md:text-sm">aravind.bandaru@appleinteriors.in</p>
+                    <p className="text-white/80 text-xs md:text-sm">aravind.bandaru@appleinteriors.in</p>
                   </div>
                   <div>
-                    <p className="text-white/80 dark:text-white/80 text-xs md:text-sm">+91 9603 9603 37 | 40485 64775</p>
+                    <p className="text-white/80 text-xs md:text-sm">+91 9603 9603 37 | 40485 64775</p>
                   </div>
                 </div>
               </div>
@@ -112,15 +112,15 @@ export default function Contact() {
                 <h3 className="text-base md:text-xl font-semibold mb-3 md:mb-4 text-white">Working Hours</h3>
                 <div className="space-y-2 md:space-y-2 text-xs md:text-sm">
                   <div className="flex justify-between items-center">
-                    <span className="text-white/80 dark:text-white/80">Monday - Friday:</span>
+                    <span className="text-white/80">Monday - Friday:</span>
                     <span className="font-medium text-white">9:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-white/80 dark:text-white/80">Saturday:</span>
+                    <span className="text-white/80">Saturday:</span>
                     <span className="font-medium text-white">10:00 AM - 4:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-white/80 dark:text-white/80">Sunday:</span>
+                    <span className="text-white/80">Sunday:</span>
                     <span className="font-medium text-white">Closed</span>
                   </div>
                 </div>
@@ -139,11 +139,11 @@ export default function Contact() {
               >
                 <h3 className="text-sm md:text-lg font-semibold mb-3 md:mb-4 text-white">Pages</h3>
                 <ul className="space-y-2 md:space-y-2">
-                  <li><Link href="#home" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Home</Link></li>
-                  <li><Link href="#about" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">About Us</Link></li>
-                  <li><Link href="#services" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Services</Link></li>
-                  <li><Link href="#projects" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Portfolio</Link></li>
-                  <li><Link href="#contact" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Contact</Link></li>
+                  <li><Link href="#home" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Home</Link></li>
+                  <li><Link href="#about" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">About Us</Link></li>
+                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Services</Link></li>
+                  <li><Link href="#projects" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Portfolio</Link></li>
+                  <li><Link href="#contact" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Contact</Link></li>
                 </ul>
               </motion.div>
 
@@ -157,10 +157,10 @@ export default function Contact() {
               >
                 <h3 className="text-sm md:text-lg font-semibold mb-3 md:mb-4 text-white">Services</h3>
                 <ul className="space-y-2 md:space-y-2">
-                  <li><Link href="#services" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Residential Design</Link></li>
-                  <li><Link href="#services" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Commercial Spaces</Link></li>
-                  <li><Link href="#services" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Renovation</Link></li>
-                  <li><Link href="#services" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Design Consultation</Link></li>
+                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Residential Design</Link></li>
+                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Commercial Spaces</Link></li>
+                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Renovation</Link></li>
+                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Design Consultation</Link></li>
                 </ul>
               </motion.div>
 
@@ -174,9 +174,9 @@ export default function Contact() {
               >
                 <h3 className="text-sm md:text-lg font-semibold mb-3 md:mb-4 text-white">Legal</h3>
                 <ul className="space-y-2 md:space-y-2">
-                  <li><Link href="#" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Privacy Policy</Link></li>
-                  <li><Link href="#" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Terms of Service</Link></li>
-                  <li><Link href="#" className="text-white/80 dark:text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Cookie Policy</Link></li>
+                  <li><Link href="#" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Privacy Policy</Link></li>
+                  <li><Link href="#" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Terms of Service</Link></li>
+                  <li><Link href="#" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Cookie Policy</Link></li>
                 </ul>
               </motion.div>
             </div>

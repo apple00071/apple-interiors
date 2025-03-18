@@ -15,6 +15,18 @@ module.exports = {
         secondary: 'var(--secondary)',
         accent: 'var(--accent)',
         muted: 'var(--muted)',
+        'text-on-light': 'var(--text-on-light)',
+        'text-on-dark': 'var(--text-on-dark)',
+        'text-light-muted': 'var(--text-light-muted)',
+        'text-dark-muted': 'var(--text-dark-muted)',
+      },
+      textColor: {
+        'default': 'var(--foreground)',
+        'inverse': 'var(--background)',
+      },
+      backgroundColor: {
+        'default': 'var(--background)',
+        'inverse': 'var(--foreground)',
       },
       fontFamily: {
         sans: ['var(--font-montserrat)'],
