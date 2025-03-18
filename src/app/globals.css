@@ -17,6 +17,12 @@
   --color-muted: var(--muted);
   --font-sans: var(--font-montserrat);
   --font-display: var(--font-playfair);
+  
+  /* Mobile-specific sizing variables */
+  --header-height-mobile: 4rem;
+  --touch-target-size: 44px;
+  --mobile-padding: 1rem;
+  --mobile-section-spacing: 3rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -54,6 +60,28 @@
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }
+  
+  /* Enhance mobile touch targets */
+  button, a {
+    min-height: var(--touch-target-size);
+    min-width: var(--touch-target-size);
+  }
+  
+  /* Improve spacing on mobile */
+  section {
+    padding-top: var(--mobile-section-spacing);
+    padding-bottom: var(--mobile-section-spacing);
+  }
+  
+  /* Enhance text readability on mobile */
+  p, li {
+    line-height: 1.6;
+  }
+  
+  /* Enhanced dark mode on mobile for better visibility */
+  .dark:root {
+    --foreground: #ffffff;
+  }
 }
 
 @layer utilities {
@@ -80,4 +108,41 @@ h1, h2, h3, h4, h5, h6 {
 /* Fix mobile tap highlight */
 a, button {
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile-friendly animations */
+@media (max-width: 768px) {
+  .animate-on-scroll {
+    transition-duration: 0.3s;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  
+  /* Better focus states for accessibility */
+  a:focus, button:focus, input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Enhanced mobile menu styles */
+.mobile-menu-overlay {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Better mobile scrolling */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.mobile-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
