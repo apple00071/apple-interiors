@@ -1,24 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 // No need for empty interface, just use the type directly
 type IconProps = React.SVGProps<SVGSVGElement>;
 
 const navigation = {
-  company: [
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Services", href: "#services" },
-    { name: "Contact", href: "#contact" },
-  ],
-  services: [
-    { name: "Interior Design", href: "#" },
-    { name: "Space Planning", href: "#" },
-    { name: "Custom Furniture", href: "#" },
-    { name: "Lighting Design", href: "#" },
-  ],
   social: [
     {
       name: "Facebook",
@@ -73,86 +60,15 @@ const navigation = {
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-900">
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <Link href="/" className="flex items-center justify-center">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Apple<span className="text-primary">Interiors</span>
-            </h2>
-          </Link>
-          <p className="mt-4 text-center text-sm leading-6 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Creating beautiful, functional spaces that inspire and delight. Our passion for design excellence drives everything we do.
-          </p>
-        </motion.div>
-
-        <motion.nav
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="mb-12 text-center"
-          aria-label="Footer"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
-            <div>
-              <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">Head Office</h3>
-              <address className="mt-6 space-y-4 not-italic">
-                <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
-                  Maneesh Enclave, 1st floor,<br />
-                  Bhagya Nagar Phase 3,<br />
-                  Sreenivasa Nagar, Kukatpally,<br />
-                  Hyderabad, Telangana - 500072
-                </p>
-              </address>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">Designer Studio</h3>
-              <address className="mt-6 space-y-4 not-italic">
-                <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
-                  H. No: LIG B-29, 1st floor,<br />
-                  Dr A S Rao Nagar,<br />
-                  Opp SBI Kapra Branch,<br />
-                  Hyderabad - 500062
-                </p>
-              </address>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">Contact Us</h3>
-              <ul role="list" className="mt-6 space-y-4">
-                <li>
-                  <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Send us an email</h4>
-                  <a href="mailto:aravind.bandaru@appleinteriors.in" className="text-sm leading-6 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
-                    aravind.bandaru@appleinteriors.in
-                  </a>
-                </li>
-                <li>
-                  <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Talk to us</h4>
-                  <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
-                    <a href="tel:+919603960337" className="hover:text-primary">+91 9603 9603 37</a>
-                  </p>
-                  <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
-                    <a href="tel:+914048564775" className="hover:text-primary">+91 40485 64775</a>
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </motion.nav>
-
+    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-8 lg:px-8">
+        {/* Social Media */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mt-16 flex justify-center space-x-10"
+          className="flex justify-center space-x-10"
         >
           {navigation.social.map((item) => (
             <a key={item.name} href={item.href} className="text-gray-400 hover:text-primary transition-colors duration-200">
@@ -162,14 +78,15 @@ export default function Footer() {
           ))}
         </motion.div>
 
+        {/* Copyright */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="mt-10 text-center text-xs leading-5 text-gray-500 dark:text-gray-400"
+          className="mt-8 text-center text-xs leading-5 text-gray-500 dark:text-gray-400"
         >
-          &copy; {new Date().getFullYear()} Apple Interiors. All rights reserved.
+          © 2023 Apple Interiors. All rights reserved.
         </motion.p>
       </div>
     </footer>

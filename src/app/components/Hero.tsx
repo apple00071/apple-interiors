@@ -10,11 +10,11 @@ const navLinks = [
   { name: "About", href: "#about" },
   { name: "Services", href: "#services" },
   { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
 ];
 
 export default function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Handle scroll behavior
   useEffect(() => {
@@ -26,21 +26,60 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const handleClickOutside = () => {
+        setIsMobileMenuOpen(false);
+      };
+      
+      // Add a slight delay to avoid immediate closing when menu is opened
+      const timeoutId = setTimeout(() => {
+        document.addEventListener('click', handleClickOutside);
+      }, 100);
+      
+      return () => {
+        clearTimeout(timeoutId);
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }
+  }, [isMobileMenuOpen]);
+
+  // Handle scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <>
-      {/* Fixed Header that changes with scroll */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md py-4" : "bg-transparent py-6"
-      }`}>
-        <div className="container mx-auto px-8 flex items-center justify-between">
+      {/* Fixed Header that changes with scroll - now with blur like CalmHome */}
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/0`}
+        style={{
+          backdropFilter: isScrolled ? 'blur(10px)' : 'blur(5px)',
+          background: isScrolled 
+            ? 'rgba(255, 255, 255, 0.75)' 
+            : 'linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%)',
+          height: isScrolled ? '4rem' : '5rem'
+        }}
+      >
+        <div className="container mx-auto h-full px-4 sm:px-8 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="relative z-10">
             <Image
               src="/images/New-logo.png"
               alt="Apple Interiors Logo"
-              width={180}
-              height={50}
-              className="object-contain"
+              width={140}
+              height={40}
+              className="w-32 sm:w-[180px] h-auto object-contain"
               priority
             />
           </Link>
@@ -62,13 +101,77 @@ export default function Hero() {
               href="#contact"
               className={`group inline-flex items-center px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
                 isScrolled 
-                ? "bg-primary text-white hover:bg-primary/90" 
+                ? "bg-primary text-black hover:bg-primary/90" 
                 : "bg-white text-[#2C2C2C] hover:bg-gray-100"
               }`}
             >
+              <span className="flex items-center">
+                Contact Us
+                <svg 
+                  className="ml-2 w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M17 8l4 4m0 0l-4 4m4-4H3" 
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle Button */}
+          <button 
+            className="md:hidden relative z-50 w-10 h-10 flex items-center justify-center"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
+            aria-label="Toggle menu"
+          >
+            <span className={`absolute w-6 h-0.5 ${isScrolled ? 'bg-gray-800' : 'bg-white'} transform transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-45' : '-translate-y-2'}`}></span>
+            <span className={`absolute w-6 h-0.5 ${isScrolled ? 'bg-gray-800' : 'bg-white'} transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+            <span className={`absolute w-6 h-0.5 ${isScrolled ? 'bg-gray-800' : 'bg-white'} transform transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45' : 'translate-y-2'}`}></span>
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      <div 
+        className={`fixed inset-0 z-40 bg-white transform transition-transform duration-300 md:hidden ${
+          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        style={{ 
+          paddingTop: isScrolled ? '4rem' : '5rem',
+          backdropFilter: 'blur(10px)',
+          background: 'rgba(255, 255, 255, 0.98)'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="container mx-auto px-6 sm:px-8 py-6 sm:py-8">
+          <nav className="flex flex-col space-y-4 sm:space-y-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-xl font-medium text-gray-800 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <a
+              href="#contact"
+              className="inline-flex items-center text-xl font-medium text-primary hover:text-primary/80 transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               Contact Us
               <svg 
-                className="ml-2 w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" 
+                className="ml-2 w-5 h-5" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -81,10 +184,10 @@ export default function Hero() {
                 />
               </svg>
             </a>
-          </div>
+          </nav>
         </div>
-      </header>
-
+      </div>
+      
       {/* Main Hero Section */}
       <section id="home" className="relative h-screen overflow-hidden">
         {/* Blurred Background Text - CalmHome style */}
@@ -135,18 +238,18 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-                className="font-normal text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] leading-[1.1] tracking-[-0.02em] text-white"
+                className="font-normal text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] leading-[1.1] tracking-[-0.02em] text-white"
               >
                 Let Your Home
-                <br />
-                Be Unique
+                <br className="hidden sm:block" />
+                <span className="sm:inline">Be Unique</span>
               </motion.h1>
               
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
-                className="mt-6 text-lg text-white/90 leading-relaxed max-w-md"
+                className="mt-4 sm:mt-6 text-base sm:text-lg text-white/90 leading-relaxed max-w-md"
               >
                 Discover our expertise in indoor decorating, tailored to make your home uniquely beautiful and inviting.
               </motion.p>
@@ -155,15 +258,15 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
-                className="mt-10"
+                className="mt-6 sm:mt-10"
               >
                 <a
                   href="#contact"
-                  className="group inline-flex items-center px-7 py-3.5 bg-white text-[#2C2C2C] rounded-full text-sm font-medium hover:bg-gray-100 transition-colors duration-300"
+                  className="group inline-flex items-center px-5 sm:px-7 py-3 sm:py-3.5 bg-white text-[#2C2C2C] rounded-full text-sm font-medium hover:bg-gray-100 transition-colors duration-300"
                 >
                   Contact Us
                   <svg 
-                    className="ml-2 w-5 h-5 transform transition-transform duration-300 group-hover:translate-x-1" 
+                    className="ml-2 w-4 sm:w-5 h-4 sm:h-5 transform transition-transform duration-300 group-hover:translate-x-1" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"

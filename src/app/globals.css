@@ -23,6 +23,9 @@
   --touch-target-size: 44px;
   --mobile-padding: 1rem;
   --mobile-section-spacing: 3rem;
+  
+  /* Font size scaling (smaller than default) */
+  --text-scale: 0.9;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,6 +42,32 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Base typography with reduced sizes */
+body {
+  font-size: 0.9rem; /* Reduced base font size */
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings with reduced sizes */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+h1 { font-size: calc(2.25rem * var(--text-scale)); }
+h2 { font-size: calc(1.875rem * var(--text-scale)); }
+h3 { font-size: calc(1.5rem * var(--text-scale)); }
+h4 { font-size: calc(1.25rem * var(--text-scale)); }
+h5 { font-size: calc(1.125rem * var(--text-scale)); }
+h6 { font-size: calc(1rem * var(--text-scale)); }
+
+p, li, a, span, button, input, textarea, select, label {
+  font-size: calc(1rem * var(--text-scale));
 }
 
 /* Modern animations */
@@ -118,19 +147,6 @@ html {
   background: var(--secondary);
 }
 
-/* Base styles */
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-}
-
 /* Modern section spacing */
 section {
   padding: 6rem 0;
@@ -197,17 +213,17 @@ section {
 
 /* Responsive typography */
 @media (max-width: 768px) {
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  h3 { font-size: 1.75rem; }
-  p { font-size: 1rem; }
+  h1 { font-size: calc(2.5rem * var(--text-scale)); }
+  h2 { font-size: calc(2rem * var(--text-scale)); }
+  h3 { font-size: calc(1.75rem * var(--text-scale)); }
+  p { font-size: calc(1rem * var(--text-scale)); }
 }
 
 @media (min-width: 769px) {
-  h1 { font-size: 3.5rem; }
-  h2 { font-size: 3rem; }
-  h3 { font-size: 2.25rem; }
-  p { font-size: 1.125rem; }
+  h1 { font-size: calc(3.5rem * var(--text-scale)); }
+  h2 { font-size: calc(3rem * var(--text-scale)); }
+  h3 { font-size: calc(2.25rem * var(--text-scale)); }
+  p { font-size: calc(1.125rem * var(--text-scale)); }
 }
 
 /* Better scrolling behavior on mobile */
