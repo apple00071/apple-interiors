@@ -3,10 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-// Define interface for SVG props
-interface IconProps extends React.SVGProps<SVGSVGElement> {
-  // This extends the standard SVG props, no need for additional properties
-}
+// No need for empty interface, just use the type directly
+type IconProps = React.SVGProps<SVGSVGElement>;
 
 const navigation = {
   company: [
