@@ -90,7 +90,7 @@ export default function Services() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our <span className="text-primary">Services</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">Our <span className="text-primary">Services</span></h2>
             <div className="w-16 md:w-20 h-1 bg-primary mx-auto mb-4 md:mb-6"></div>
           </motion.div>
           <motion.p 
@@ -142,7 +142,7 @@ export default function Services() {
                 <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mb-3 md:mb-6">{service.description}</p>
                 
                 <div className="space-y-2 md:space-y-3">
-                  <h4 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 dark:text-white">Key Features:</h4>
+                  <h4 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 text-foreground dark:text-white">Key Features:</h4>
                   <ul className="space-y-1 md:space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <motion.li 

@@ -70,7 +70,7 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 md:mb-16 max-w-3xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our <span className="text-primary">Projects</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">Our <span className="text-primary">Projects</span></h2>
           <div className="w-16 md:w-20 h-1 bg-primary mx-auto mb-4 md:mb-6"></div>
           <p className="text-foreground/70 dark:text-white/70 text-sm md:text-base">
             Explore our portfolio of carefully crafted interior designs across various spaces and styles.
@@ -93,7 +93,7 @@ export default function Projects() {
                 ${
                   activeCategory === category
                     ? "bg-primary text-white"
-                    : "bg-white dark:bg-secondary dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20"
+                    : "bg-white dark:bg-secondary dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20 text-foreground"
                 }`}
             >
               {category}
@@ -130,7 +130,7 @@ export default function Projects() {
                   </div>
                 </div>
                 <div className="p-4 md:p-5 flex-grow flex flex-col">
-                  <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 dark:text-white">{project.title}</h3>
+                  <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 text-foreground dark:text-white">{project.title}</h3>
                   <p className="text-foreground/70 dark:text-white/70 text-xs md:text-sm mb-2 md:mb-3 line-clamp-2">{project.description}</p>
                   <div className="mt-auto flex flex-wrap gap-1 md:gap-2">
                     <span className="inline-block bg-foreground/5 dark:bg-white/10 text-foreground/70 dark:text-white/70 rounded-full px-2 py-1 text-[10px] md:text-xs">
@@ -184,26 +184,26 @@ export default function Projects() {
                       <span className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-primary text-white text-xs rounded-full mb-1 md:mb-2">
                         {selectedProject.category}
                       </span>
-                      <h3 className="text-lg md:text-2xl font-bold dark:text-white">{selectedProject.title}</h3>
+                      <h3 className="text-lg md:text-2xl font-bold text-foreground dark:text-white">{selectedProject.title}</h3>
                     </div>
                   </div>
                   <p className="text-xs md:text-base text-slate-600 dark:text-slate-300 mb-3 md:mb-6">{selectedProject.description}</p>
                   <div className="grid grid-cols-2 gap-2 md:gap-4">
                     <div>
                       <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Client</h4>
-                      <p className="font-medium text-xs md:text-base dark:text-white">Sample Client</p>
+                      <p className="font-medium text-xs md:text-base text-foreground dark:text-white">Sample Client</p>
                     </div>
                     <div>
                       <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Year</h4>
-                      <p className="font-medium text-xs md:text-base dark:text-white">2023</p>
+                      <p className="font-medium text-xs md:text-base text-foreground dark:text-white">2023</p>
                     </div>
                     <div>
                       <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Area</h4>
-                      <p className="font-medium text-xs md:text-base dark:text-white">1,200 sq ft</p>
+                      <p className="font-medium text-xs md:text-base text-foreground dark:text-white">1,200 sq ft</p>
                     </div>
                     <div>
                       <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Location</h4>
-                      <p className="font-medium text-xs md:text-base dark:text-white">New York, NY</p>
+                      <p className="font-medium text-xs md:text-base text-foreground dark:text-white">New York, NY</p>
                     </div>
                   </div>
                 </div>
