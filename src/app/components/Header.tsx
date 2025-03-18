@@ -24,11 +24,7 @@ export default function Header() {
     ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.95)"]
   );
   
-  const darkHeaderBackground = useTransform(
-    scrollY,
-    [0, 80],
-    ["rgba(15, 15, 15, 0.9)", "rgba(15, 15, 15, 0.95)"]
-  );
+  // Dark mode background - applied directly in the style prop using CSS media query
   
   const headerHeight = useTransform(
     scrollY,
