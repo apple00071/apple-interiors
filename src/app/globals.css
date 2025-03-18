@@ -29,6 +29,32 @@
     --accent: #1e1e1e;
     --muted: #191919;
   }
+  
+  /* Force scrollbar color in dark mode */
+  html {
+    scrollbar-color: var(--primary) var(--background);
+  }
+}
+
+/* Better scrolling behavior on mobile */
+@media (max-width: 768px) {
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+  }
+  
+  /* Fix mobile address bar height issues */
+  :root {
+    --vh: 1vh;
+  }
+  
+  /* Adjust sticky/fixed elements for mobile */
+  .fixed, .sticky {
+    position: fixed;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
 }
 
 @layer utilities {
@@ -41,6 +67,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -49,4 +76,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-gradient {
   background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+}
+
+/* Fix mobile tap highlight */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
 }

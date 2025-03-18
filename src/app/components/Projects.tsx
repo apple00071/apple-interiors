@@ -99,100 +99,69 @@ export default function Projects() {
         </motion.div>
 
         {/* Category filter buttons */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-1.5 md:gap-4 mb-6 md:mb-12"
+          transition={{ duration: 0.6 }}
+          className="flex flex-wrap gap-2 md:gap-3 justify-center mb-8 md:mb-10"
         >
-          {categories.map((category, index) => (
-            <motion.button
+          {categories.map((category) => (
+            <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-3 md:px-6 py-1 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
-                activeCategory === category 
-                  ? "bg-primary text-white shadow-md" 
-                  : "bg-white/80 dark:bg-foreground/10 text-foreground dark:text-white/80 hover:bg-white dark:hover:bg-foreground/20"
-              }`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.4, 
-                delay: 0.1 * index,
-                hover: { duration: 0.2 },
-                tap: { duration: 0.2 }
-              }}
+              className={`px-3 md:px-5 py-1 md:py-2 text-xs md:text-sm font-medium rounded-full transition-all duration-300 shadow-sm
+                ${
+                  activeCategory === category
+                    ? "bg-primary text-white"
+                    : "bg-white dark:bg-secondary dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20"
+                }`}
             >
               {category}
-            </motion.button>
+            </button>
           ))}
         </motion.div>
 
         {/* Projects grid */}
-        <motion.div 
-          variants={containerVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8"
-        >
-          <AnimatePresence mode="wait">
-            {filteredProjects.map((project) => (
-              <motion.div
-                layout
-                key={project.id}
-                variants={itemVariant}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ y: -10 }}
-                onClick={() => setSelectedProject(project)}
-                className="cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-white dark:bg-secondary"
-              >
-                <div className="relative h-48 md:h-64 overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
+              className="group"
+            >
+              <div className="overflow-hidden rounded-lg shadow-md dark:shadow-black/20 bg-white dark:bg-secondary h-full flex flex-col">
+                <div className="relative h-48 md:h-52 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                     unoptimized={true}
-                    className="object-cover transition-all duration-500 hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 md:p-6">
-                      <span className="px-2 md:px-3 py-1 bg-primary text-white text-xs rounded-full">
-                        {project.category}
-                      </span>
-                    </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button className="bg-primary text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                      View Project
+                    </button>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
-                  <h3 className="text-base md:text-xl font-semibold mb-1 md:mb-2 dark:text-white">{project.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm">{project.description}</p>
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "100%" }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="h-0.5 bg-primary/20 dark:bg-primary/30 mt-3 md:mt-4"
-                  ></motion.div>
-                  <motion.div 
-                    className="mt-3 md:mt-4 flex items-center text-primary text-xs md:text-base font-medium"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    View Project
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3 md:w-4 md:h-4 ml-2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </motion.div>
+                <div className="p-4 md:p-5 flex-grow flex flex-col">
+                  <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 dark:text-white">{project.title}</h3>
+                  <p className="text-foreground/70 dark:text-white/70 text-xs md:text-sm mb-2 md:mb-3 line-clamp-2">{project.description}</p>
+                  <div className="mt-auto flex flex-wrap gap-1 md:gap-2">
+                    <span className="inline-block bg-foreground/5 dark:bg-white/10 text-foreground/70 dark:text-white/70 rounded-full px-2 py-1 text-[10px] md:text-xs">
+                      {project.category}
+                    </span>
+                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
         
         {/* Project Modal */}
         <AnimatePresence>

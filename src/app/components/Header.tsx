@@ -43,8 +43,8 @@ export default function Header() {
     scrollY,
     [0, 80],
     isDarkMode 
-      ? ["rgba(15, 15, 15, 0.9)", "rgba(15, 15, 15, 0.95)"] 
-      : ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.95)"]
+      ? ["rgba(15, 15, 15, 0.95)", "rgba(15, 15, 15, 0.98)"] 
+      : ["rgba(255, 255, 255, 0.95)", "rgba(255, 255, 255, 0.98)"]
   );
   
   const headerHeight = useTransform(
@@ -88,9 +88,10 @@ export default function Header() {
       style={{ 
         background: headerBackground,
         height: headerHeight,
-        backdropFilter: "blur(12px)"
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)" // For Safari support
       }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 transition-colors"
+      className="fixed top-0 left-0 right-0 z-50 px-4 transition-colors shadow-sm dark:shadow-black/30 w-full"
     >
       <div className="container mx-auto flex items-center justify-between h-full">
         {/* Logo */}
@@ -99,7 +100,7 @@ export default function Header() {
           className="flex items-center"
         >
           <Link href="#home" className="flex items-center">
-            <div className="relative h-12 w-40 md:h-16 md:w-56">
+            <div className="relative h-10 w-32 md:h-16 md:w-56">
               <Image
                 src="/images/New-logo.png"
                 alt="Apple Interiors Logo"
@@ -187,7 +188,7 @@ export default function Header() {
         initial="closed"
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
-        className="absolute top-full left-0 right-0 bg-white/95 dark:bg-foreground backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-40"
+        className="absolute top-full left-0 right-0 bg-white/95 dark:bg-foreground/95 dark:border-t dark:border-white/10 backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-40"
       >
         <nav className="container mx-auto py-6 px-4">
           <div className="flex flex-col space-y-5">
