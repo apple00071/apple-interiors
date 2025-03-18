@@ -107,7 +107,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12"
         >
           {categories.map((category, index) => (
             <motion.button
@@ -115,7 +115,7 @@ export default function Projects() {
               onClick={() => setActiveCategory(category)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
                 activeCategory === category 
                   ? "bg-primary text-white shadow-md" 
                   : "bg-white/80 text-foreground hover:bg-white"
@@ -140,7 +140,7 @@ export default function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"
         >
           <AnimatePresence mode="wait">
             {filteredProjects.map((project) => (
@@ -155,38 +155,39 @@ export default function Projects() {
                 onClick={() => setSelectedProject(project)}
                 className="cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-white"
               >
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-52 md:h-64 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
+                    unoptimized={true}
                     className="object-cover transition-all duration-500 hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-6">
+                    <div className="p-4 md:p-6">
                       <span className="px-3 py-1 bg-primary text-white text-xs rounded-full">
                         {project.category}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                  <p className="text-slate-600 text-sm">{project.description}</p>
+                <div className="p-4 md:p-6">
+                  <h3 className="text-lg md:text-xl font-semibold mb-1 md:mb-2">{project.title}</h3>
+                  <p className="text-slate-600 text-xs md:text-sm">{project.description}</p>
                   <motion.div 
                     initial={{ width: 0 }}
                     whileInView={{ width: "100%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="h-0.5 bg-primary/20 mt-4"
+                    className="h-0.5 bg-primary/20 mt-3 md:mt-4"
                   ></motion.div>
                   <motion.div 
-                    className="mt-4 flex items-center text-primary font-medium"
+                    className="mt-3 md:mt-4 flex items-center text-primary text-sm md:text-base font-medium"
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
                   >
                     View Project
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3 md:w-4 md:h-4 ml-2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                   </motion.div>
@@ -214,48 +215,49 @@ export default function Projects() {
                 className="bg-white rounded-xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="relative h-[50vh]">
+                <div className="relative h-[30vh] md:h-[50vh]">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
                     fill
+                    unoptimized={true}
                     className="object-cover"
                   />
                   <button 
                     onClick={() => setSelectedProject(null)}
-                    className="absolute top-4 right-4 bg-black/50 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
+                    className="absolute top-4 right-4 bg-black/50 hover:bg-black text-white w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-colors duration-300"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 md:w-6 md:h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-4">
+                <div className="p-4 md:p-8 overflow-y-auto">
+                  <div className="flex justify-between items-start mb-3 md:mb-4">
                     <div>
-                      <span className="inline-block px-3 py-1 bg-primary text-white text-xs rounded-full mb-2">
+                      <span className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-primary text-white text-xs rounded-full mb-1 md:mb-2">
                         {selectedProject.category}
                       </span>
-                      <h3 className="text-2xl font-bold">{selectedProject.title}</h3>
+                      <h3 className="text-xl md:text-2xl font-bold">{selectedProject.title}</h3>
                     </div>
                   </div>
-                  <p className="text-slate-600 mb-6">{selectedProject.description}</p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <p className="text-sm md:text-base text-slate-600 mb-4 md:mb-6">{selectedProject.description}</p>
+                  <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div>
-                      <h4 className="text-sm font-semibold text-slate-500 mb-1">Client</h4>
-                      <p className="font-medium">Sample Client</p>
+                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 mb-0.5 md:mb-1">Client</h4>
+                      <p className="font-medium text-sm md:text-base">Sample Client</p>
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-slate-500 mb-1">Year</h4>
-                      <p className="font-medium">2023</p>
+                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 mb-0.5 md:mb-1">Year</h4>
+                      <p className="font-medium text-sm md:text-base">2023</p>
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-slate-500 mb-1">Area</h4>
-                      <p className="font-medium">1,200 sq ft</p>
+                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 mb-0.5 md:mb-1">Area</h4>
+                      <p className="font-medium text-sm md:text-base">1,200 sq ft</p>
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-slate-500 mb-1">Location</h4>
-                      <p className="font-medium">New York, NY</p>
+                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 mb-0.5 md:mb-1">Location</h4>
+                      <p className="font-medium text-sm md:text-base">New York, NY</p>
                     </div>
                   </div>
                 </div>
@@ -270,13 +272,13 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-16"
+          className="text-center mt-10 md:mt-16"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-xl"
+            className="px-6 md:px-8 py-2.5 md:py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-xl text-sm md:text-base"
           >
             View All Projects
           </motion.button>

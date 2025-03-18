@@ -76,13 +76,14 @@ export default function Header() {
           className="flex items-center"
         >
           <Link href="#home" className="flex items-center">
-            <div className="relative h-16 w-56 md:w-72">
+            <div className="relative h-12 w-40 md:h-16 md:w-56">
               <Image
                 src="/images/New-logo.png"
                 alt="Apple Interiors Logo"
                 fill
                 className="object-contain"
                 priority
+                unoptimized={true}
               />
             </div>
           </Link>
@@ -163,10 +164,10 @@ export default function Header() {
         initial="closed"
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
-        className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg md:hidden overflow-hidden shadow-lg"
+        className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-40"
       >
         <nav className="container mx-auto py-6 px-4">
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-5">
             {navLinks.map((link) => (
               <motion.div
                 key={link.name}
@@ -189,7 +190,7 @@ export default function Header() {
             >
               <Link
                 href="#contact"
-                className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg font-medium transition-colors duration-300 inline-block"
+                className="bg-primary hover:bg-primary/90 text-white px-5 py-3 rounded-lg font-medium transition-colors duration-300 inline-block w-full text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Get Quote

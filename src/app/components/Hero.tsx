@@ -43,11 +43,11 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative min-h-screen flex items-center overflow-hidden bg-background py-20"
+      className="relative min-h-screen flex items-center overflow-hidden bg-background pt-28 pb-20 md:py-20"
     >
       {/* Background subtle effects */}
       <motion.div
-        className="absolute w-96 h-96 rounded-full bg-primary/5 blur-3xl"
+        className="absolute w-60 h-60 md:w-96 md:h-96 rounded-full bg-primary/5 blur-3xl"
         style={{ 
           x: mousePosition.x * -30, 
           y: mousePosition.y * -30,
@@ -74,27 +74,27 @@ export default function Hero() {
             <motion.div
               initial="hidden"
               animate="visible"
-              className="space-y-6"
+              className="space-y-4 md:space-y-6"
             >
               <div>
                 <motion.h1
                   variants={textVariants}
                   custom={1}
-                  className="text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight"
                 >
                   THE ART
                 </motion.h1>
                 <motion.h1
                   variants={textVariants}
                   custom={2}
-                  className="text-6xl md:text-7xl lg:text-8xl font-bold leading-tight"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
                 >
                   OF <span className="text-primary">INTERIOR</span>
                 </motion.h1>
                 <motion.h1
                   variants={textVariants}
                   custom={3}
-                  className="text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight"
                 >
                   DESIGN!
                 </motion.h1>
@@ -103,7 +103,7 @@ export default function Hero() {
               <motion.p 
                 variants={textVariants}
                 custom={4}
-                className="text-lg text-foreground/70 mt-6 max-w-xl"
+                className="text-base md:text-lg text-foreground/70 mt-4 md:mt-6 max-w-xl"
               >
                 Discover the perfect blend of style, comfort, and functionality. Experience exceptional quality, personalized service, and a seamless transformation.
               </motion.p>
@@ -111,7 +111,7 @@ export default function Hero() {
               <motion.div
                 variants={textVariants}
                 custom={5}
-                className="mt-8"
+                className="mt-6 md:mt-8"
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -120,7 +120,7 @@ export default function Hero() {
                 >
                   <Link 
                     href="#projects"
-                    className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-full text-base font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-base font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     <span>OUR WORKS</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
@@ -142,11 +142,10 @@ export default function Hero() {
             <motion.div 
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-              className="relative rounded-3xl overflow-hidden shadow-2xl"
+              className="relative rounded-3xl overflow-hidden shadow-2xl h-[300px] md:h-[500px]"
               style={{ 
-                height: "500px",
                 x: mousePosition.x * 15,
-                y: mousePosition.y * 15,
+                y: mousePosition.y * 15
               }}
             >
               <Image

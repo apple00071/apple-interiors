@@ -91,7 +91,7 @@ export default function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8"
         >
           {services.map((service, index) => (
             <motion.div
@@ -100,11 +100,12 @@ export default function Services() {
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <div className="relative h-64">
+              <div className="relative h-48 md:h-64">
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
+                  unoptimized={true}
                   className="object-cover transition-all duration-500 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -113,18 +114,18 @@ export default function Services() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 * index }}
-                  className="absolute bottom-0 left-0 p-6"
+                  className="absolute bottom-0 left-0 p-4 md:p-6"
                 >
-                  <h3 className="text-2xl font-bold text-white">{service.title}</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-white">{service.title}</h3>
                 </motion.div>
               </div>
               
-              <div className="p-6">
-                <p className="text-slate-600 mb-6">{service.description}</p>
+              <div className="p-4 md:p-6">
+                <p className="text-sm md:text-base text-slate-600 mb-4 md:mb-6">{service.description}</p>
                 
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-lg mb-2">Key Features:</h4>
-                  <ul className="space-y-2">
+                <div className="space-y-2 md:space-y-3">
+                  <h4 className="font-semibold text-base md:text-lg mb-1 md:mb-2">Key Features:</h4>
+                  <ul className="space-y-1 md:space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <motion.li 
                         key={featureIndex}
@@ -135,7 +136,7 @@ export default function Services() {
                         className="flex items-center"
                       >
                         <div className="h-1.5 w-1.5 rounded-full bg-primary mr-2"></div>
-                        <span className="text-slate-600">{feature}</span>
+                        <span className="text-sm md:text-base text-slate-600">{feature}</span>
                       </motion.li>
                     ))}
                   </ul>
@@ -145,7 +146,7 @@ export default function Services() {
                   whileHover={{ scale: 1.05, backgroundColor: "#000" }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="mt-6 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 w-full"
+                  className="mt-4 md:mt-6 px-4 md:px-6 py-2.5 md:py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 w-full text-sm md:text-base"
                 >
                   Learn More
                 </motion.button>
