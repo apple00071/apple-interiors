@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,7 +15,6 @@ const navLinks = [
 
 export default function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
   
   // Handle scroll behavior
   useEffect(() => {

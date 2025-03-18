@@ -109,7 +109,7 @@ export default function Contact() {
               transition={{ delay: 0.2 }}
               className="text-lg text-gray-600 dark:text-gray-400"
             >
-              Let's discuss your project and create something extraordinary together
+              Let&apos;s discuss your project and create something extraordinary together
             </motion.p>
           </div>
 
