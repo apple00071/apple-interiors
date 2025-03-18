@@ -61,7 +61,7 @@ export default function Projects() {
     : projects.filter(project => project.category === activeCategory);
 
   return (
-    <section id="projects" className="py-16 md:py-24 bg-accent dark:bg-accent">
+    <section id="projects" className="py-16 md:py-24 bg-muted dark:bg-accent">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -93,7 +93,7 @@ export default function Projects() {
                 ${
                   activeCategory === category
                     ? "bg-primary text-white"
-                    : "bg-white dark:bg-secondary dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20 text-foreground"
+                    : "bg-white dark:bg-secondary text-foreground dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20"
                 }`}
             >
               {category}
@@ -187,22 +187,22 @@ export default function Projects() {
                       <h3 className="text-lg md:text-2xl font-bold text-foreground dark:text-white">{selectedProject.title}</h3>
                     </div>
                   </div>
-                  <p className="text-xs md:text-base text-slate-600 dark:text-slate-300 mb-3 md:mb-6">{selectedProject.description}</p>
+                  <p className="text-xs md:text-base text-foreground/70 dark:text-slate-300 mb-3 md:mb-6">{selectedProject.description}</p>
                   <div className="grid grid-cols-2 gap-2 md:gap-4">
                     <div>
-                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Client</h4>
+                      <h4 className="text-xs md:text-sm font-semibold text-foreground/60 dark:text-slate-400 mb-0.5 md:mb-1">Client</h4>
                       <p className="font-medium text-xs md:text-base text-foreground dark:text-white">Sample Client</p>
                     </div>
                     <div>
-                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Year</h4>
+                      <h4 className="text-xs md:text-sm font-semibold text-foreground/60 dark:text-slate-400 mb-0.5 md:mb-1">Year</h4>
                       <p className="font-medium text-xs md:text-base text-foreground dark:text-white">2023</p>
                     </div>
                     <div>
-                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Area</h4>
+                      <h4 className="text-xs md:text-sm font-semibold text-foreground/60 dark:text-slate-400 mb-0.5 md:mb-1">Area</h4>
                       <p className="font-medium text-xs md:text-base text-foreground dark:text-white">1,200 sq ft</p>
                     </div>
                     <div>
-                      <h4 className="text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-0.5 md:mb-1">Location</h4>
+                      <h4 className="text-xs md:text-sm font-semibold text-foreground/60 dark:text-slate-400 mb-0.5 md:mb-1">Location</h4>
                       <p className="font-medium text-xs md:text-base text-foreground dark:text-white">New York, NY</p>
                     </div>
                   </div>

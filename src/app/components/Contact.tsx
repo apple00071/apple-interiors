@@ -11,10 +11,9 @@ const fadeIn = {
   visible: (custom: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: custom * 0.1,
-      duration: 0.6,
-      ease: [0.215, 0.61, 0.355, 1]
+    transition: { 
+      duration: 0.5,
+      delay: custom * 0.1 
     }
   })
 };
@@ -67,6 +66,15 @@ export default function Contact() {
       <section id="contact" className="py-12 md:py-20 bg-foreground">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-8 md:mb-16 max-w-3xl">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl md:text-4xl font-bold mb-4 text-white"
+            >
+              Get in <span className="text-primary">Touch</span>
+            </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -80,108 +88,128 @@ export default function Contact() {
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12">
             {/* Contact Information - Left Column */}
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="col-span-1 md:col-span-2 space-y-6 md:space-y-8"
-            >
-              <div>
-                <h3 className="text-base md:text-xl font-semibold mb-3 md:mb-4 text-white">Contact Information</h3>
-                <div className="space-y-3 md:space-y-4">
-                  <div>
-                    <p className="text-white/90 font-medium text-xs md:text-base">Head Office</p>
-                    <p className="text-white/80 text-xs md:text-sm">Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3, Sreenivasa Nagar, Kukatpally, Hyderabad</p>
-                    <p className="text-white/80 text-xs md:text-sm">Telangana - 500072</p>
+            <div className="md:col-span-2">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="space-y-6 md:space-y-8"
+              >
+                <div className="flex items-start">
+                  <div className="rounded-full bg-primary/20 p-2 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
                   </div>
                   <div>
-                    <p className="text-white/90 font-medium text-xs md:text-base">Designer Studio</p>
-                    <p className="text-white/80 text-xs md:text-sm">H. No: LIG B-29, 1st floor, Dr A S Rao Nagar Opp SBI Kapra Branch, Hyderabad - 500062</p>
-                  </div>
-                  <div>
-                    <p className="text-white/80 text-xs md:text-sm">aravind.bandaru@appleinteriors.in</p>
-                  </div>
-                  <div>
-                    <p className="text-white/80 text-xs md:text-sm">+91 9603 9603 37 | 40485 64775</p>
+                    <h4 className="text-white text-base md:text-lg font-bold mb-1 md:mb-2">Our Location</h4>
+                    <p className="text-white/70 text-xs md:text-sm">123 Design Street, Washington DC, USA</p>
                   </div>
                 </div>
-              </div>
-
-              <div>
-                <h3 className="text-base md:text-xl font-semibold mb-3 md:mb-4 text-white">Working Hours</h3>
-                <div className="space-y-2 md:space-y-2 text-xs md:text-sm">
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/80">Monday - Friday:</span>
-                    <span className="font-medium text-white">9:00 AM - 6:00 PM</span>
+                
+                <div className="flex items-start">
+                  <div className="rounded-full bg-primary/20 p-2 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                    </svg>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/80">Saturday:</span>
-                    <span className="font-medium text-white">10:00 AM - 4:00 PM</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/80">Sunday:</span>
-                    <span className="font-medium text-white">Closed</span>
+                  <div>
+                    <h4 className="text-white text-base md:text-lg font-bold mb-1 md:mb-2">Call Us</h4>
+                    <p className="text-white/70 text-xs md:text-sm">+1 (555) 123-4567</p>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Footer links - in a responsive grid on mobile */}
-            <div className="col-span-1 md:col-span-3 grid grid-cols-3 gap-4 md:gap-4">
-              {/* Footer links - first set */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="col-span-1"
-              >
-                <h3 className="text-sm md:text-lg font-semibold mb-3 md:mb-4 text-white">Pages</h3>
-                <ul className="space-y-2 md:space-y-2">
-                  <li><Link href="#home" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Home</Link></li>
-                  <li><Link href="#about" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">About Us</Link></li>
-                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Services</Link></li>
-                  <li><Link href="#projects" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Portfolio</Link></li>
-                  <li><Link href="#contact" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Contact</Link></li>
-                </ul>
-              </motion.div>
-
-              {/* Footer links - second set */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="col-span-1"
-              >
-                <h3 className="text-sm md:text-lg font-semibold mb-3 md:mb-4 text-white">Services</h3>
-                <ul className="space-y-2 md:space-y-2">
-                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Residential Design</Link></li>
-                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Commercial Spaces</Link></li>
-                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Renovation</Link></li>
-                  <li><Link href="#services" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Design Consultation</Link></li>
-                </ul>
-              </motion.div>
-
-              {/* Footer links - third set */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="col-span-1"
-              >
-                <h3 className="text-sm md:text-lg font-semibold mb-3 md:mb-4 text-white">Legal</h3>
-                <ul className="space-y-2 md:space-y-2">
-                  <li><Link href="#" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Privacy Policy</Link></li>
-                  <li><Link href="#" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Terms of Service</Link></li>
-                  <li><Link href="#" className="text-white/80 hover:text-primary transition-colors duration-300 text-xs md:text-sm">Cookie Policy</Link></li>
-                </ul>
+                
+                <div className="flex items-start">
+                  <div className="rounded-full bg-primary/20 p-2 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-white text-base md:text-lg font-bold mb-1 md:mb-2">Email Us</h4>
+                    <p className="text-white/70 text-xs md:text-sm">info@appleinteriors.com</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="rounded-full bg-primary/20 p-2 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-white text-base md:text-lg font-bold mb-1 md:mb-2">Working Hours</h4>
+                    <p className="text-white/70 text-xs md:text-sm">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                    <p className="text-white/70 text-xs md:text-sm">Saturday: 10:00 AM - 4:00 PM</p>
+                  </div>
+                </div>
               </motion.div>
             </div>
+            
+            {/* Contact Form - Right Column */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="md:col-span-3"
+            >
+              <form className="space-y-4 md:space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                  <div>
+                    <label htmlFor="name" className="text-white/90 text-xs md:text-sm block mb-1 md:mb-2">Your Name</label>
+                    <input 
+                      type="text" 
+                      id="name" 
+                      className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-3 md:py-3 md:px-4 text-white placeholder-white/50 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="John Doe" 
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="text-white/90 text-xs md:text-sm block mb-1 md:mb-2">Your Email</label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-3 md:py-3 md:px-4 text-white placeholder-white/50 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="john@example.com" 
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="subject" className="text-white/90 text-xs md:text-sm block mb-1 md:mb-2">Subject</label>
+                  <input 
+                    type="text" 
+                    id="subject" 
+                    className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-3 md:py-3 md:px-4 text-white placeholder-white/50 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="How can we help you?" 
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="text-white/90 text-xs md:text-sm block mb-1 md:mb-2">Message</label>
+                  <textarea 
+                    id="message" 
+                    rows={4}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-3 md:py-3 md:px-4 text-white placeholder-white/50 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Tell us about your project..." 
+                  ></textarea>
+                </div>
+                
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="bg-primary hover:bg-primary/90 text-white py-2 px-4 md:py-3 md:px-6 rounded-lg font-medium transition-all duration-300 text-xs md:text-sm w-full md:w-auto"
+                >
+                  Send Message
+                </motion.button>
+              </form>
+            </motion.div>
           </div>
-
+          
           <motion.hr 
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}

@@ -4,25 +4,27 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Footer link structure
 const footerLinks = [
   {
     title: "Quick Links",
     links: [
       { name: "Home", href: "#home" },
-      { name: "About", href: "#about" },
+      { name: "About Us", href: "#about" },
       { name: "Services", href: "#services" },
       { name: "Projects", href: "#projects" },
       { name: "Contact", href: "#contact" },
-    ],
+    ]
   },
   {
     title: "Services",
     links: [
       { name: "Residential Design", href: "#services" },
-      { name: "Commercial Spaces", href: "#services" },
-      { name: "Renovation", href: "#services" },
-      { name: "Design Consultation", href: "#services" },
-    ],
+      { name: "Commercial Design", href: "#services" },
+      { name: "Space Planning", href: "#services" },
+      { name: "Custom Furniture", href: "#services" },
+      { name: "Renovation Management", href: "#services" },
+    ]
   },
   {
     title: "Legal",
@@ -30,8 +32,8 @@ const footerLinks = [
       { name: "Privacy Policy", href: "#" },
       { name: "Terms of Service", href: "#" },
       { name: "Cookie Policy", href: "#" },
-    ],
-  },
+    ]
+  }
 ];
 
 export default function Footer() {

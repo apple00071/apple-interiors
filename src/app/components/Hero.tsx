@@ -31,7 +31,7 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative h-screen flex items-center bg-accent/30 dark:bg-background overflow-hidden"
+      className="relative h-screen flex items-center bg-accent dark:bg-background overflow-hidden"
     >
       {/* Animated background blob */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -51,7 +51,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="uppercase tracking-wide text-sm sm:text-base md:text-lg font-semibold text-foreground/80 dark:text-white/80 mb-2 sm:mb-3"
+              className="uppercase tracking-wide text-sm sm:text-base md:text-lg font-semibold text-foreground dark:text-white/80 mb-2 sm:mb-3"
             >
               Welcome to Apple Interiors
             </motion.h2>
@@ -60,7 +60,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:leading-tight"
+              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:leading-tight text-foreground dark:text-white"
             >
               THE ART OF <span className="text-primary">INTERIOR</span> DESIGN!
             </motion.h1>

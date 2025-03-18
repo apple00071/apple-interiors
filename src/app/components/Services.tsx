@@ -4,194 +4,171 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// Animation variants
-const containerVariant = {
-  hidden: { opacity: 0 },
-  visible: {
+// Animation variants for staggered animations
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (custom: number) => ({
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
-    }
-  }
-};
-
-const itemVariant = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
     y: 0,
-    opacity: 1,
-    transition: { duration: 0.5 }
-  }
+    transition: { 
+      duration: 0.5,
+      delay: custom * 0.1 
+    }
+  })
 };
 
-// Sample services data
-const services = [
+const serviceItems = [
   {
     title: "Residential Design",
-    description: "Transform your home into a beautiful, functional space that reflects your personal style and meets your specific needs.",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1920",
-    features: [
-      "Custom furniture selection",
-      "Color palette development",
-      "Space planning & layout",
-      "Material & finish recommendations"
-    ]
+    description: "Transform your home into a beautiful and functional space that reflects your personal style and meets your needs.",
+    icon: "/images/services/residential.svg",
+    iconFallback: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+    )
   },
   {
-    title: "Commercial Spaces",
-    description: "Create distinctive commercial environments that enhance brand identity, improve functionality and provide memorable experiences.",
-    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1920",
-    features: [
-      "Brand-aligned design concepts",
-      "Efficiency-focused layouts",
-      "Commercial-grade fixtures",
-      "Regulatory compliance"
-    ]
+    title: "Commercial Design",
+    description: "Create inspiring workspaces that boost productivity, reflect your brand identity, and impress clients and employees alike.",
+    icon: "/images/services/commercial.svg",
+    iconFallback: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+      </svg>
+    )
   },
   {
-    title: "Renovation Projects",
-    description: "Breathe new life into existing spaces with renovations that enhance functionality, update aesthetics, and increase property value.",
-    image: "https://images.unsplash.com/photo-1600607687644-a24f80c5930b?q=80&w=1920",
-    features: [
-      "Structure assessment",
-      "Modernization planning",
-      "Material & design upgrades",
-      "Project management"
-    ]
+    title: "Space Planning",
+    description: "Optimize your space for functionality and flow, ensuring every square foot is used effectively and purposefully.",
+    icon: "/images/services/planning.svg",
+    iconFallback: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="3" y1="9" x2="21" y2="9"></line>
+        <line x1="9" y1="21" x2="9" y2="9"></line>
+      </svg>
+    )
   },
   {
-    title: "Design Consultation",
-    description: "Get expert advice and guidance to help you make informed decisions about your interior design project.",
-    image: "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?q=80&w=1920",
-    features: [
-      "Professional design assessment",
-      "Budget optimization",
-      "Styling recommendations",
-      "DIY guidance"
-    ]
+    title: "Custom Furniture",
+    description: "Get unique, tailor-made furniture pieces designed specifically for your space and needs, ensuring a perfect fit and style match.",
+    icon: "/images/services/furniture.svg",
+    iconFallback: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M20 8h-9a2 2 0 0 0-2 2v8H4V6h16v2Z"></path>
+        <path d="M4 10a2 2 0 0 1 2-2h9"></path>
+        <path d="M12 12v6"></path>
+        <path d="M2 19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2H2v2Z"></path>
+      </svg>
+    )
+  },
+  {
+    title: "Color Consultation",
+    description: "Discover the perfect color palette for your space that creates the right mood, complements your style, and brings harmony to your environment.",
+    icon: "/images/services/color.svg",
+    iconFallback: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="13.5" cy="6.5" r="2.5"></circle>
+        <circle cx="17.5" cy="10.5" r="2.5"></circle>
+        <circle cx="8.5" cy="7.5" r="2.5"></circle>
+        <circle cx="6.5" cy="12.5" r="2.5"></circle>
+        <path d="M12 22v-6"></path>
+        <path d="M10 16h4"></path>
+      </svg>
+    )
+  },
+  {
+    title: "Renovation Management",
+    description: "Let us handle your renovation from concept to completion, coordinating contractors and ensuring quality results that match your vision.",
+    icon: "/images/services/renovation.svg",
+    iconFallback: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7-7H4a2 2 0 0 0-2 2v17Z"></path>
+        <path d="M16 8h6"></path>
+        <path d="M12 18h4"></path>
+        <path d="M9 15l-4-4 4-4"></path>
+        <path d="M5 11h9"></path>
+      </svg>
+    )
   }
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-background dark:bg-background">
+    <section id="services" className="py-16 md:py-24 bg-white dark:bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">Our <span className="text-primary">Services</span></h2>
-            <div className="w-16 md:w-20 h-1 bg-primary mx-auto mb-4 md:mb-6"></div>
-          </motion.div>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-600 dark:text-slate-300 text-sm md:text-base"
-          >
-            We offer a comprehensive range of interior design services tailored to meet your specific needs, whether you&apos;re looking to transform your home, office, or commercial space.
-          </motion.p>
-        </motion.div>
-
-        <motion.div 
-          variants={containerVariant}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-6 md:mt-8"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeIn}
+          custom={0}
+          className="text-center mb-12 md:mb-20 max-w-3xl mx-auto"
         >
-          {services.map((service, index) => (
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">Our <span className="text-primary">Services</span></h2>
+          <div className="w-16 md:w-20 h-1 bg-primary mx-auto mb-4 md:mb-6"></div>
+          <p className="text-foreground/70 dark:text-white/70 text-sm md:text-base">
+            We offer a comprehensive range of interior design services to transform your space into a beautiful, functional environment that reflects your personal style.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {serviceItems.map((service, index) => (
             <motion.div
-              key={index}
-              variants={itemVariant}
+              key={service.title}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeIn}
+              custom={index + 1}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="bg-white dark:bg-secondary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-accent dark:bg-secondary rounded-xl p-6 md:p-8 shadow-md dark:shadow-xl dark:shadow-black/10 flex flex-col h-full transition-all duration-300 hover:shadow-lg"
             >
-              <div className="relative h-44 md:h-64">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  unoptimized={true}
-                  className="object-cover transition-all duration-500 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.2 * index }}
-                  className="absolute bottom-0 left-0 p-4 md:p-6"
-                >
-                  <h3 className="text-lg md:text-2xl font-bold text-white">{service.title}</h3>
-                </motion.div>
+              {/* Icon */}
+              <div className="mb-6 text-primary">
+                <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20">
+                  <div className="w-6 h-6 md:w-7 md:h-7">
+                    {service.iconFallback}
+                  </div>
+                </div>
               </div>
               
-              <div className="p-4 md:p-6">
-                <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mb-3 md:mb-6">{service.description}</p>
-                
-                <div className="space-y-2 md:space-y-3">
-                  <h4 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 text-foreground dark:text-white">Key Features:</h4>
-                  <ul className="space-y-1 md:space-y-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <motion.li 
-                        key={featureIndex}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: 0.1 * featureIndex }}
-                        className="flex items-center"
-                      >
-                        <div className="h-1.5 w-1.5 rounded-full bg-primary mr-2"></div>
-                        <span className="text-xs md:text-base text-slate-600 dark:text-slate-300">{feature}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: "#000" }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                  className="mt-3 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 w-full text-xs md:text-base"
+              {/* Content */}
+              <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground dark:text-white">
+                {service.title}
+              </h3>
+              <p className="text-foreground/70 dark:text-slate-300 text-sm md:text-base mt-auto">
+                {service.description}
+              </p>
+              <div className="mt-4 pt-4">
+                <a 
+                  href="#" 
+                  className="inline-flex items-center text-primary font-medium text-sm hover:underline"
                 >
-                  Learn More
-                </motion.button>
+                  Learn more
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="ml-1"
+                  >
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
               </div>
             </motion.div>
           ))}
-        </motion.div>
-        
-        {/* Call to action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 md:mt-16 text-center"
-        >
-          <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 mb-4 md:mb-6">Not sure which service is right for you? We&apos;re here to help!</p>
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="inline-block px-6 md:px-8 py-2.5 md:py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 shadow-lg hover:shadow-xl text-sm md:text-base"
-          >
-            Contact Us
-          </motion.a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
