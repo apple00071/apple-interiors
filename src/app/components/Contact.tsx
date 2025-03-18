@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 // Animation variants
 const fadeIn = {
@@ -73,7 +72,7 @@ export default function Contact() {
               custom={3}
               className="text-white/80 mt-4 md:mt-8 max-w-2xl mx-auto text-xs md:text-base px-2 md:px-0"
             >
-              Ready to transform your home or office into a stunning and functional space? Our expert team at Apple Interiors is here to help!
+              Ready to transform your home or office into a stunning and functional space? Our expert team at Apple Interiors is here to help! © {currentYear}
             </motion.p>
           </motion.div>
         </div>
