@@ -1,170 +1,121 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
 
-// Animation variants for staggered animations
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { 
-      duration: 0.5,
-      delay: custom * 0.1 
-    }
-  })
-};
-
-const serviceItems = [
+const services = [
   {
-    title: "Residential Design",
-    description: "Transform your home into a beautiful and functional space that reflects your personal style and meets your needs.",
-    icon: "/images/services/residential.svg",
-    iconFallback: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    title: "Interior Design",
+    description: "Full-service interior design solutions tailored to your style and needs. We handle everything from concept to completion.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
       </svg>
-    )
-  },
-  {
-    title: "Commercial Design",
-    description: "Create inspiring workspaces that boost productivity, reflect your brand identity, and impress clients and employees alike.",
-    icon: "/images/services/commercial.svg",
-    iconFallback: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-      </svg>
-    )
+    ),
   },
   {
     title: "Space Planning",
-    description: "Optimize your space for functionality and flow, ensuring every square foot is used effectively and purposefully.",
-    icon: "/images/services/planning.svg",
-    iconFallback: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-        <line x1="3" y1="9" x2="21" y2="9"></line>
-        <line x1="9" y1="21" x2="9" y2="9"></line>
+    description: "Optimize your space with our expert planning services. We create efficient layouts that maximize functionality and flow.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
       </svg>
-    )
+    ),
   },
   {
     title: "Custom Furniture",
-    description: "Get unique, tailor-made furniture pieces designed specifically for your space and needs, ensuring a perfect fit and style match.",
-    icon: "/images/services/furniture.svg",
-    iconFallback: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M20 8h-9a2 2 0 0 0-2 2v8H4V6h16v2Z"></path>
-        <path d="M4 10a2 2 0 0 1 2-2h9"></path>
-        <path d="M12 12v6"></path>
-        <path d="M2 19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2H2v2Z"></path>
+    description: "Bespoke furniture design and manufacturing to create unique pieces that perfectly fit your space and style.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
       </svg>
-    )
+    ),
   },
   {
     title: "Color Consultation",
-    description: "Discover the perfect color palette for your space that creates the right mood, complements your style, and brings harmony to your environment.",
-    icon: "/images/services/color.svg",
-    iconFallback: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="13.5" cy="6.5" r="2.5"></circle>
-        <circle cx="17.5" cy="10.5" r="2.5"></circle>
-        <circle cx="8.5" cy="7.5" r="2.5"></circle>
-        <circle cx="6.5" cy="12.5" r="2.5"></circle>
-        <path d="M12 22v-6"></path>
-        <path d="M10 16h4"></path>
+    description: "Expert color selection and palette development to create the perfect atmosphere in your space.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
       </svg>
-    )
+    ),
   },
   {
-    title: "Renovation Management",
-    description: "Let us handle your renovation from concept to completion, coordinating contractors and ensuring quality results that match your vision.",
-    icon: "/images/services/renovation.svg",
-    iconFallback: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7-7H4a2 2 0 0 0-2 2v17Z"></path>
-        <path d="M16 8h6"></path>
-        <path d="M12 18h4"></path>
-        <path d="M9 15l-4-4 4-4"></path>
-        <path d="M5 11h9"></path>
+    title: "Project Management",
+    description: "Complete project oversight from start to finish, ensuring seamless execution and timely delivery.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122" />
       </svg>
-    )
-  }
+    ),
+  },
+  {
+    title: "Lighting Design",
+    description: "Strategic lighting solutions that enhance the ambiance and functionality of your space.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+      </svg>
+    ),
+  },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-white dark:bg-background">
-      <div className="container mx-auto px-4 md:px-6">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeIn}
-          custom={0}
-          className="text-center mb-12 md:mb-20 max-w-3xl mx-auto"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-white">Our <span className="text-primary">Services</span></h2>
-          <div className="w-16 md:w-20 h-1 bg-primary mx-auto mb-4 md:mb-6"></div>
-          <p className="text-foreground/70 dark:text-white/70 text-sm md:text-base">
-            We offer a comprehensive range of interior design services to transform your space into a beautiful, functional environment that reflects your personal style.
-          </p>
-        </motion.div>
+    <section id="services" className="py-24 md:py-32 bg-gray-50 dark:bg-gray-900/50">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-primary font-medium mb-4 tracking-wide uppercase"
+          >
+            Our Services
+          </motion.p>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
+          >
+            What We Offer
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-gray-600 dark:text-gray-400"
+          >
+            Comprehensive interior design services tailored to transform your space into something extraordinary
+          </motion.p>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {serviceItems.map((service, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              variants={fadeIn}
-              custom={index + 1}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="bg-accent dark:bg-secondary rounded-xl p-6 md:p-8 shadow-md dark:shadow-xl dark:shadow-black/10 flex flex-col h-full transition-all duration-300 hover:shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="group relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              {/* Icon */}
-              <div className="mb-6 text-primary">
-                <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20">
-                  <div className="w-6 h-6 md:w-7 md:h-7">
-                    {service.iconFallback}
-                  </div>
+              <div className="relative z-10">
+                <div className="w-12 h-12 mb-8 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  {service.icon}
                 </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-primary transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {service.description}
+                </p>
               </div>
-              
-              {/* Content */}
-              <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground dark:text-white">
-                {service.title}
-              </h3>
-              <p className="text-foreground/70 dark:text-slate-300 text-sm md:text-base mt-auto">
-                {service.description}
-              </p>
-              <div className="mt-4 pt-4">
-                <a 
-                  href="#" 
-                  className="inline-flex items-center text-primary font-medium text-sm hover:underline"
-                >
-                  Learn more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="ml-1"
-                  >
-                    <path d="M5 12h14"></path>
-                    <path d="m12 5 7 7-7 7"></path>
-                  </svg>
-                </a>
-              </div>
+              <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-2xl transform scale-0 group-hover:scale-100 transition-transform duration-300 ease-out" />
             </motion.div>
           ))}
         </div>

@@ -16,6 +16,8 @@ const navLinks = [
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { scrollY } = useScroll();
   
   // Check for dark mode on component mount and when color scheme changes
@@ -45,6 +47,29 @@ export default function Header() {
       };
     }
   }, [isMenuOpen]);
+
+  // Handle scroll behavior
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (typeof window !== 'undefined') {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY < lastScrollY || currentScrollY < 50) {
+          setIsVisible(true);
+        } else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          setIsVisible(false);
+        }
+        
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    window.addEventListener('scroll', controlNavbar);
+
+    return () => {
+      window.removeEventListener('scroll', controlNavbar);
+    };
+  }, [lastScrollY]);
   
   // Transform properties based on scroll position and color scheme
   const headerBackground = useTransform(
@@ -126,9 +151,10 @@ export default function Header() {
           background: headerBackground,
           height: headerHeight,
           backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)" // For Safari support
+          WebkitBackdropFilter: "blur(12px)", // For Safari support
+          transform: isVisible ? "translateY(0)" : "translateY(-100%)",
         }}
-        className="fixed top-0 left-0 right-0 z-[100] px-4 transition-colors shadow-sm dark:shadow-black/30 w-full"
+        className="fixed top-0 left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm dark:shadow-black/30 w-full"
       >
         <div className="container mx-auto flex items-center justify-between h-full">
           {/* Logo */}
