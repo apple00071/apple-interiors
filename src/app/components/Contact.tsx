@@ -40,7 +40,7 @@ export default function Contact() {
   return (
     <>
       {/* Project in Mind Section - Similar to the reference site */}
-      <section className="bg-secondary py-16 md:py-32 text-center">
+      <section className="bg-secondary py-12 sm:py-16 md:py-32 text-center">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div 
             initial="hidden"
@@ -52,7 +52,7 @@ export default function Contact() {
             <motion.h2 
               variants={fadeIn} 
               custom={1}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-3 md:mb-6 text-white"
+              className="text-xl sm:text-2xl md:text-4xl lg:text-6xl font-bold mb-3 md:mb-6 text-white"
             >
               project in <span className="text-primary">mind?</span>
             </motion.h2>
@@ -62,7 +62,7 @@ export default function Contact() {
               custom={2}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-primary hover:bg-primary/90 text-white py-2 px-5 md:py-3 md:px-8 rounded-lg font-medium tracking-wider text-sm md:text-lg mt-3 md:mt-6 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="bg-primary hover:bg-primary/90 text-white py-2 px-4 sm:px-5 md:py-3 md:px-8 rounded-lg font-medium tracking-wider text-sm md:text-lg mt-3 md:mt-6 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Request A quote
             </motion.button>
@@ -79,14 +79,14 @@ export default function Contact() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 md:py-32 bg-white dark:bg-gray-900">
+      <section id="contact" className="py-16 sm:py-24 md:py-32 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
+          <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 md:mb-24">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-primary font-medium mb-4 tracking-wide uppercase"
+              className="text-primary font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
             >
               Contact Us
             </motion.p>
@@ -96,7 +96,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6"
             >
               Get in Touch
             </motion.h2>
@@ -106,13 +106,13 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-lg text-gray-600 dark:text-gray-400"
+              className="text-base sm:text-lg text-gray-600 dark:text-gray-400"
             >
               Let&apos;s discuss your project and create something extraordinary together
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
             {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}

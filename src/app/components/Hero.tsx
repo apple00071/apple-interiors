@@ -189,11 +189,11 @@ export default function Hero() {
       </div>
       
       {/* Main Hero Section */}
-      <section id="home" className="relative h-screen overflow-hidden">
+      <section id="home" className="relative min-h-screen w-full overflow-hidden">
         {/* Blurred Background Text - CalmHome style */}
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
-            <h2 className="text-[20vw] font-serif text-[#f1f1f1] dark:text-[#1a1a1a]/10 text-center font-bold opacity-70 blur-[50px]">
+            <h2 className="text-[15vw] sm:text-[20vw] font-serif text-[#f1f1f1] dark:text-[#1a1a1a]/10 text-center font-bold opacity-70 blur-[50px]">
               Calm & style preferred
             </h2>
           </div>
@@ -202,7 +202,7 @@ export default function Hero() {
         {/* Full-width Image Background */}
         <div className="absolute inset-0 w-full h-full">
           {/* Image with curved corner at bottom-left */}
-          <div className="relative w-full h-full rounded-bl-[40%] overflow-hidden">
+          <div className="relative w-full h-full rounded-bl-[25%] sm:rounded-bl-[40%] overflow-hidden">
             <div style={{ 
               position: 'absolute', 
               borderRadius: 'inherit',
@@ -231,9 +231,9 @@ export default function Hero() {
         </div>
 
         {/* Hero Content */}
-        <div className="absolute inset-0 flex items-center z-20 pt-20">
-          <div className="container mx-auto px-8">
-            <div className="w-full lg:w-[45%]">
+        <div className="absolute inset-0 flex items-center z-20 pt-16 sm:pt-20">
+          <div className="container mx-auto px-4 sm:px-8">
+            <div className="w-full sm:w-[80%] md:w-[60%] lg:w-[45%]">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
