@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,16 +15,37 @@ const navLinks = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const { scrollY } = useScroll();
+  
+  // Check for dark mode on component mount and when color scheme changes
+  useEffect(() => {
+    // Check initial color scheme
+    if (typeof window !== 'undefined') {
+      const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      setIsDarkMode(darkModeQuery.matches);
+      
+      // Add listener for changes
+      const darkModeListener = (e: MediaQueryListEvent) => {
+        setIsDarkMode(e.matches);
+      };
+      
+      darkModeQuery.addEventListener('change', darkModeListener);
+      
+      return () => {
+        darkModeQuery.removeEventListener('change', darkModeListener);
+      };
+    }
+  }, []);
   
   // Transform properties based on scroll position and color scheme
   const headerBackground = useTransform(
     scrollY,
     [0, 80],
-    ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.95)"]
+    isDarkMode 
+      ? ["rgba(15, 15, 15, 0.9)", "rgba(15, 15, 15, 0.95)"] 
+      : ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.95)"]
   );
-  
-  // Dark mode background - applied directly in the style prop using CSS media query
   
   const headerHeight = useTransform(
     scrollY,
@@ -69,9 +90,9 @@ export default function Header() {
         height: headerHeight,
         backdropFilter: "blur(12px)"
       }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 transition-colors dark:bg-opacity-90 dark:[&>div]:bg-foreground"
+      className="fixed top-0 left-0 right-0 z-50 px-4 transition-colors"
     >
-      <div className="container mx-auto flex items-center justify-between h-full dark:bg-opacity-0">
+      <div className="container mx-auto flex items-center justify-between h-full">
         {/* Logo */}
         <motion.div 
           style={{ scale: logoScale }}
@@ -102,7 +123,7 @@ export default function Header() {
             >
               <Link
                 href={link.href}
-                className="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group"
+                className="text-foreground dark:text-white hover:text-primary transition-colors duration-300 text-sm font-medium relative group"
               >
                 {link.name}
                 <motion.span 
@@ -146,17 +167,17 @@ export default function Header() {
           <motion.span
             animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="w-6 h-0.5 bg-foreground block"
+            className="w-6 h-0.5 bg-foreground dark:bg-white block"
           />
           <motion.span
             animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="w-6 h-0.5 bg-foreground block"
+            className="w-6 h-0.5 bg-foreground dark:bg-white block"
           />
           <motion.span
             animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="w-6 h-0.5 bg-foreground block"
+            className="w-6 h-0.5 bg-foreground dark:bg-white block"
           />
         </motion.button>
       </div>
@@ -166,7 +187,7 @@ export default function Header() {
         initial="closed"
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
-        className="absolute top-full left-0 right-0 bg-white/95 dark:bg-foreground/95 backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-40"
+        className="absolute top-full left-0 right-0 bg-white/95 dark:bg-foreground backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-40"
       >
         <nav className="container mx-auto py-6 px-4">
           <div className="flex flex-col space-y-5">
