@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,11 +15,27 @@ const navLinks = [
 export default function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hideHeader, setHideHeader] = useState(false);
+  const lastScrollY = useRef(0);
   
   // Handle scroll behavior
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      
+      // Determine if scrolled past threshold
+      setIsScrolled(currentScrollY > 50);
+      
+      // Determine scroll direction and hide/show header
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scrolling down & past initial header height
+        setHideHeader(true);
+      } else {
+        // Scrolling up
+        setHideHeader(false);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -60,15 +76,18 @@ export default function Hero() {
 
   return (
     <>
-      {/* Fixed Header that changes with scroll - now with blur like CalmHome */}
+      {/* Fixed Header that changes with scroll - now with hide-on-scroll behavior */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/0`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          hideHeader ? '-translate-y-full' : 'translate-y-0'
+        }`}
         style={{
           backdropFilter: isScrolled ? 'blur(10px)' : 'blur(5px)',
           background: isScrolled 
             ? 'rgba(255, 255, 255, 0.75)' 
             : 'linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%)',
-          height: isScrolled ? '4rem' : '5rem'
+          height: isScrolled ? '4rem' : '5rem',
+          boxShadow: isScrolled ? '0 2px 10px rgba(0, 0, 0, 0.05)' : 'none'
         }}
       >
         <div className="container mx-auto h-full px-4 sm:px-8 flex items-center justify-between">
@@ -234,22 +253,31 @@ export default function Hero() {
         <div className="absolute inset-0 flex items-center z-20 pt-16 sm:pt-20">
           <div className="container mx-auto px-4 sm:px-8">
             <div className="w-full sm:w-[80%] md:w-[60%] lg:w-[45%]">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-                className="font-normal text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] leading-[1.1] tracking-[-0.02em] text-white"
-              >
-                Let Your Home
-                <br className="hidden sm:block" />
-                <span className="sm:inline">Be Unique</span>
-              </motion.h1>
+              <div className="font-serif font-medium text-white">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                  className="text-[2.25rem] sm:text-[3rem] md:text-[4rem] lg:text-[5rem] leading-[1.1] tracking-[-0.02em]"
+                >
+                  Let Your Home
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.05, ease: [0.33, 1, 0.68, 1] }}
+                  className="text-[2.25rem] sm:text-[3rem] md:text-[4rem] lg:text-[5rem] leading-[1.1] tracking-[-0.02em]"
+                >
+                  Be Unique
+                </motion.div>
+              </div>
               
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
-                className="mt-4 sm:mt-6 text-base sm:text-lg text-white/90 leading-relaxed max-w-md"
+                className="mt-4 sm:mt-6 text-base sm:text-lg text-white/90 leading-relaxed max-w-md font-light"
               >
                 Discover our expertise in indoor decorating, tailored to make your home uniquely beautiful and inviting.
               </motion.p>
