@@ -43,11 +43,11 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative min-h-screen flex items-center overflow-hidden bg-background pt-28 pb-20 md:py-20"
+      className="relative min-h-screen flex items-center overflow-hidden bg-background dark:bg-background pt-28 pb-16 md:pt-28 md:pb-20"
     >
       {/* Background subtle effects */}
       <motion.div
-        className="absolute w-60 h-60 md:w-96 md:h-96 rounded-full bg-primary/5 blur-3xl"
+        className="absolute w-60 h-60 md:w-96 md:h-96 rounded-full bg-primary/5 dark:bg-primary/10 blur-3xl"
         style={{ 
           x: mousePosition.x * -30, 
           y: mousePosition.y * -30,
@@ -65,7 +65,7 @@ export default function Hero() {
       />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Text Content */}
           <motion.div 
             style={{ y: y1, opacity }}
@@ -74,27 +74,27 @@ export default function Hero() {
             <motion.div
               initial="hidden"
               animate="visible"
-              className="space-y-4 md:space-y-6"
+              className="space-y-3 md:space-y-6"
             >
               <div>
                 <motion.h1
                   variants={textVariants}
                   custom={1}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-foreground dark:text-white leading-tight"
                 >
                   THE ART
                 </motion.h1>
                 <motion.h1
                   variants={textVariants}
                   custom={2}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight"
                 >
                   OF <span className="text-primary">INTERIOR</span>
                 </motion.h1>
                 <motion.h1
                   variants={textVariants}
                   custom={3}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-foreground dark:text-white leading-tight"
                 >
                   DESIGN!
                 </motion.h1>
@@ -103,7 +103,7 @@ export default function Hero() {
               <motion.p 
                 variants={textVariants}
                 custom={4}
-                className="text-base md:text-lg text-foreground/70 mt-4 md:mt-6 max-w-xl"
+                className="text-sm md:text-lg text-foreground/70 dark:text-white/80 mt-3 md:mt-6 max-w-xl"
               >
                 Discover the perfect blend of style, comfort, and functionality. Experience exceptional quality, personalized service, and a seamless transformation.
               </motion.p>
@@ -111,7 +111,7 @@ export default function Hero() {
               <motion.div
                 variants={textVariants}
                 custom={5}
-                className="mt-6 md:mt-8"
+                className="mt-5 md:mt-8"
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -120,7 +120,7 @@ export default function Hero() {
                 >
                   <Link 
                     href="#projects"
-                    className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-base font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 md:px-8 md:py-4 rounded-full text-sm md:text-base font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     <span>OUR WORKS</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
@@ -142,7 +142,7 @@ export default function Hero() {
             <motion.div 
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-              className="relative rounded-3xl overflow-hidden shadow-2xl h-[300px] md:h-[500px]"
+              className="relative rounded-3xl overflow-hidden shadow-xl dark:shadow-primary/5 h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px]"
               style={{ 
                 x: mousePosition.x * 15,
                 y: mousePosition.y * 15
@@ -155,7 +155,7 @@ export default function Hero() {
                 unoptimized={true}
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent dark:from-black/60"></div>
             </motion.div>
           </motion.div>
         </div>

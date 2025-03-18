@@ -17,11 +17,17 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   
-  // Transform properties based on scroll position
+  // Transform properties based on scroll position and color scheme
   const headerBackground = useTransform(
     scrollY,
     [0, 80],
     ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.95)"]
+  );
+  
+  const darkHeaderBackground = useTransform(
+    scrollY,
+    [0, 80],
+    ["rgba(15, 15, 15, 0.9)", "rgba(15, 15, 15, 0.95)"]
   );
   
   const headerHeight = useTransform(
@@ -67,9 +73,9 @@ export default function Header() {
         height: headerHeight,
         backdropFilter: "blur(12px)"
       }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 transition-colors"
+      className="fixed top-0 left-0 right-0 z-50 px-4 transition-colors dark:bg-opacity-90 dark:[&>div]:bg-foreground"
     >
-      <div className="container mx-auto flex items-center justify-between h-full">
+      <div className="container mx-auto flex items-center justify-between h-full dark:bg-opacity-0">
         {/* Logo */}
         <motion.div 
           style={{ scale: logoScale }}
@@ -164,7 +170,7 @@ export default function Header() {
         initial="closed"
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
-        className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-40"
+        className="absolute top-full left-0 right-0 bg-white/95 dark:bg-foreground/95 backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-40"
       >
         <nav className="container mx-auto py-6 px-4">
           <div className="flex flex-col space-y-5">
@@ -177,7 +183,7 @@ export default function Header() {
               >
                 <Link
                   href={link.href}
-                  className="text-foreground hover:text-primary transition-colors duration-300 text-lg font-medium block py-2"
+                  className="text-foreground dark:text-white hover:text-primary transition-colors duration-300 text-lg font-medium block py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}

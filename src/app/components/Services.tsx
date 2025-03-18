@@ -3,68 +3,87 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 // Animation variants
 const containerVariant = {
   hidden: { opacity: 0 },
-  visible: { 
+  visible: {
     opacity: 1,
-    transition: { 
-      staggerChildren: 0.15,
+    transition: {
+      staggerChildren: 0.2,
       delayChildren: 0.3
     }
   }
 };
 
 const itemVariant = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  hidden: { y: 20, opacity: 0 },
+  visible: {
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.215, 0.61, 0.355, 1]
-    }
+    opacity: 1,
+    transition: { duration: 0.5 }
   }
 };
 
+// Sample services data
 const services = [
   {
     title: "Residential Design",
-    description: "Transform your home into a personalized sanctuary with our tailored residential interior design services.",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800",
-    features: ["Space Planning", "Custom Furniture", "Color Consultation", "Lighting Design"]
+    description: "Transform your home into a beautiful, functional space that reflects your personal style and meets your specific needs.",
+    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1920",
+    features: [
+      "Custom furniture selection",
+      "Color palette development",
+      "Space planning & layout",
+      "Material & finish recommendations"
+    ]
   },
   {
     title: "Commercial Spaces",
-    description: "Create impactful commercial environments that enhance productivity and leave lasting impressions on clients.",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800",
-    features: ["Office Layout", "Brand Integration", "Ergonomic Solutions", "Acoustic Planning"]
+    description: "Create distinctive commercial environments that enhance brand identity, improve functionality and provide memorable experiences.",
+    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1920",
+    features: [
+      "Brand-aligned design concepts",
+      "Efficiency-focused layouts",
+      "Commercial-grade fixtures",
+      "Regulatory compliance"
+    ]
   },
   {
-    title: "Renovation",
-    description: "Breathe new life into existing spaces with our comprehensive renovation and remodeling services.",
-    image: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?q=80&w=800",
-    features: ["Structural Changes", "Material Selection", "Project Management", "Budget Planning"]
+    title: "Renovation Projects",
+    description: "Breathe new life into existing spaces with renovations that enhance functionality, update aesthetics, and increase property value.",
+    image: "https://images.unsplash.com/photo-1600607687644-a24f80c5930b?q=80&w=1920",
+    features: [
+      "Structure assessment",
+      "Modernization planning",
+      "Material & design upgrades",
+      "Project management"
+    ]
   },
   {
     title: "Design Consultation",
-    description: "Get expert advice and guidance for your interior design projects with our consultation services.",
-    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=800",
-    features: ["Design Strategy", "Concept Development", "Material Sourcing", "Space Optimization"]
+    description: "Get expert advice and guidance to help you make informed decisions about your interior design project.",
+    image: "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?q=80&w=1920",
+    features: [
+      "Professional design assessment",
+      "Budget optimization",
+      "Styling recommendations",
+      "DIY guidance"
+    ]
   }
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-background">
+    <section id="services" className="py-16 md:py-24 bg-background dark:bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -72,15 +91,15 @@ export default function Services() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bold mb-4">Our <span className="text-primary">Services</span></h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our <span className="text-primary">Services</span></h2>
+            <div className="w-16 md:w-20 h-1 bg-primary mx-auto mb-4 md:mb-6"></div>
           </motion.div>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-600"
+            className="text-slate-600 dark:text-slate-300 text-sm md:text-base"
           >
             We offer a comprehensive range of interior design services tailored to meet your specific needs, whether you&apos;re looking to transform your home, office, or commercial space.
           </motion.p>
@@ -91,16 +110,16 @@ export default function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-6 md:mt-8"
         >
           {services.map((service, index) => (
             <motion.div
               key={index}
               variants={itemVariant}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-white dark:bg-secondary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <div className="relative h-48 md:h-64">
+              <div className="relative h-44 md:h-64">
                 <Image
                   src={service.image}
                   alt={service.title}
@@ -116,15 +135,15 @@ export default function Services() {
                   transition={{ duration: 0.5, delay: 0.2 * index }}
                   className="absolute bottom-0 left-0 p-4 md:p-6"
                 >
-                  <h3 className="text-xl md:text-2xl font-bold text-white">{service.title}</h3>
+                  <h3 className="text-lg md:text-2xl font-bold text-white">{service.title}</h3>
                 </motion.div>
               </div>
               
               <div className="p-4 md:p-6">
-                <p className="text-sm md:text-base text-slate-600 mb-4 md:mb-6">{service.description}</p>
+                <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mb-3 md:mb-6">{service.description}</p>
                 
                 <div className="space-y-2 md:space-y-3">
-                  <h4 className="font-semibold text-base md:text-lg mb-1 md:mb-2">Key Features:</h4>
+                  <h4 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 dark:text-white">Key Features:</h4>
                   <ul className="space-y-1 md:space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <motion.li 
@@ -136,7 +155,7 @@ export default function Services() {
                         className="flex items-center"
                       >
                         <div className="h-1.5 w-1.5 rounded-full bg-primary mr-2"></div>
-                        <span className="text-sm md:text-base text-slate-600">{feature}</span>
+                        <span className="text-xs md:text-base text-slate-600 dark:text-slate-300">{feature}</span>
                       </motion.li>
                     ))}
                   </ul>
@@ -146,7 +165,7 @@ export default function Services() {
                   whileHover={{ scale: 1.05, backgroundColor: "#000" }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="mt-4 md:mt-6 px-4 md:px-6 py-2.5 md:py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 w-full text-sm md:text-base"
+                  className="mt-3 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 w-full text-xs md:text-base"
                 >
                   Learn More
                 </motion.button>
@@ -161,15 +180,15 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 text-center"
+          className="mt-12 md:mt-16 text-center"
         >
-          <p className="text-lg text-slate-600 mb-6">Not sure which service is right for you? We&apos;re here to help!</p>
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 mb-4 md:mb-6">Not sure which service is right for you? We&apos;re here to help!</p>
           <motion.a
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="inline-block px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 shadow-lg hover:shadow-xl"
+            className="inline-block px-6 md:px-8 py-2.5 md:py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 shadow-lg hover:shadow-xl text-sm md:text-base"
           >
             Contact Us
           </motion.a>
