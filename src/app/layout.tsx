@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
@@ -19,7 +19,13 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Apple Interiors | We Build Your Dream",
   description: "Premium interior design solutions for your home and office spaces",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
