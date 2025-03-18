@@ -17,13 +17,11 @@ const footerLinks = [
     ]
   },
   {
-    title: "Services",
+    title: "Contact Us",
     links: [
-      { name: "Residential Design", href: "#services" },
-      { name: "Commercial Design", href: "#services" },
-      { name: "Renovation", href: "#services" },
-      { name: "Space Planning", href: "#services" },
-      { name: "Custom Furniture", href: "#services" },
+      { name: "Email: aravind.bandaru@appleinteriors.in", href: "mailto:aravind.bandaru@appleinteriors.in" },
+      { name: "Phone: +91 9603 9603 37", href: "tel:+919603960337" },
+      { name: "Phone: +91 40485 64775", href: "tel:+914048564775" },
     ]
   },
   {
@@ -42,9 +40,9 @@ export default function Footer() {
   return (
     <footer className="bg-foreground text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
           {/* Logo and description */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-3">
             <div className="flex items-center mb-6">
               <div className="relative h-16 w-56">
                 <Image
@@ -56,9 +54,6 @@ export default function Footer() {
                 />
               </div>
             </div>
-            <p className="text-white/70 mb-6 text-sm">
-              Transform your space into a masterpiece with our premium interior design solutions. We create beautiful, functional spaces that reflect your unique style.
-            </p>
             <div className="flex space-x-4">
               <a href="#" className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -82,24 +77,49 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Footer links */}
-          {footerLinks.map((column, idx) => (
-            <div key={idx}>
-              <h3 className="text-lg font-semibold mb-4 text-white">{column.title}</h3>
-              <ul className="space-y-3">
-                {column.links.map((link, linkIdx) => (
-                  <li key={linkIdx}>
-                    <Link 
-                      href={link.href} 
-                      className="text-white/70 hover:text-primary text-sm transition-colors duration-300"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {/* Office Locations */}
+          <div className="lg:col-span-4">
+            <h3 className="text-lg font-semibold mb-4 text-white">Head Office</h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Maneesh Enclave, 1st floor,<br />
+              Bhagya Nagar Phase 3, Sreenivasa Nagar,<br />
+              Kukatpally, Hyderabad<br />
+              Telangana - 500072
+            </p>
+          </div>
+
+          <div className="lg:col-span-3">
+            <h3 className="text-lg font-semibold mb-4 text-white">Designer Studio</h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              H. No: LIG B-29, 1st floor,<br />
+              Dr A S Rao Nagar<br />
+              Opp SBI Kapra Branch,<br />
+              Hyderabad - 500062
+            </p>
+          </div>
+
+          {/* Quick Links and Legal */}
+          <div className="lg:col-span-2">
+            <div className="space-y-8">
+              {footerLinks.map((column, idx) => (
+                <div key={idx}>
+                  <h3 className="text-lg font-semibold mb-4 text-white">{column.title}</h3>
+                  <ul className="space-y-3">
+                    {column.links.map((link, linkIdx) => (
+                      <li key={linkIdx}>
+                        <Link 
+                          href={link.href} 
+                          className="text-white/70 hover:text-primary text-sm transition-colors duration-300"
+                        >
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
         <hr className="border-white/10 my-8" />
