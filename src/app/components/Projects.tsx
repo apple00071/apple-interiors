@@ -4,27 +4,6 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-// Animation variants
-const containerVariant = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
-    }
-  }
-};
-
-const itemVariant = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.5 }
-  }
-};
-
 // Project categories and data
 const categories = ["All", "Residential", "Commercial", "Renovation", "Consultation"];
 
@@ -132,7 +111,8 @@ export default function Projects() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="group"
+              onClick={() => setSelectedProject(project)}
+              className="group cursor-pointer"
             >
               <div className="overflow-hidden rounded-lg shadow-md dark:shadow-black/20 bg-white dark:bg-secondary h-full flex flex-col">
                 <div className="relative h-48 md:h-52 overflow-hidden">

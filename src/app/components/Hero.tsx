@@ -1,17 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Hero() {
+  // Track mouse position for mobile parallax effect (only used on desktop)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  // Track mouse position for parallax effect
+  // Track mouse position for parallax effect on desktop
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
@@ -20,25 +18,15 @@ export default function Hero() {
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    // Only add listener on desktop devices
+    if (window.innerWidth > 768) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
+    
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
-  
-  // Animation variants
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.1 * i,
-        duration: 0.8,
-        ease: [0.215, 0.61, 0.355, 1]
-      }
-    })
-  };
 
   return (
     <section 
@@ -115,10 +103,17 @@ export default function Hero() {
                 initial={{ scale: 1.2 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 1 }}
-                style={{ width: '100%', height: '100%', position: 'relative' }}
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  position: 'relative',
+                  // Apply mouse movement parallax effect
+                  x: mousePosition.x * 15,
+                  y: mousePosition.y * 15
+                }}
               >
                 <Image
-                  src="/images/hero-image.jpg"
+                  src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1920"
                   alt="Modern interior design showcase"
                   fill
                   priority
@@ -139,7 +134,7 @@ export default function Hero() {
           >
             <div className="relative h-[250px] rounded-xl overflow-hidden shadow-lg mx-auto max-w-xs">
               <Image
-                src="/images/hero-image.jpg"
+                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1920"
                 alt="Modern interior design showcase"
                 fill
                 priority
