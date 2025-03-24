@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -50,36 +50,23 @@ const brands = [
 
 export default function Brands() {
   const [currentPage, setCurrentPage] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+  const [direction, setDirection] = useState(0);
   const totalPages = Math.ceil(brands.length / getItemsPerPage());
-  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
+  const autoplayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
-  // Get the number of items to display per page based on screen size
   function getItemsPerPage() {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return 2; // Mobile: 2 logos
-      if (window.innerWidth < 1024) return 3; // Tablet: 3 logos
-      return 4; // Desktop: 4 logos
+      if (window.innerWidth < 640) return 2;
+      if (window.innerWidth < 1024) return 3;
+      return 4;
     }
-    return 4; // Default for SSR
+    return 4;
   }
   
-  useEffect(() => {
-    startAutoplay();
-    return () => stopAutoplay();
-  }, [currentPage]);
-
-  const startAutoplay = () => {
-    if (autoplayRef.current) clearTimeout(autoplayRef.current);
-    autoplayRef.current = setTimeout(() => {
-      nextPage();
-    }, 3000);
-  };
-
   const stopAutoplay = () => {
-    if (autoplayRef.current) {
-      clearTimeout(autoplayRef.current);
-      autoplayRef.current = null;
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+      autoplayTimeoutRef.current = null;
     }
   };
 
@@ -92,6 +79,22 @@ export default function Brands() {
     setDirection(-1);
     setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
   };
+
+  useEffect(() => {
+    const startAutoplay = () => {
+      stopAutoplay();
+      autoplayTimeoutRef.current = setTimeout(() => {
+        nextPage();
+        startAutoplay();
+      }, 3000);
+    };
+
+    startAutoplay();
+
+    return () => {
+      stopAutoplay();
+    };
+  }, [totalPages]);
 
   // Get current visible items
   const itemsPerPage = getItemsPerPage();
@@ -214,7 +217,6 @@ export default function Brands() {
                   stopAutoplay();
                   setDirection(index > currentPage ? 1 : -1);
                   setCurrentPage(index);
-                  startAutoplay();
                 }}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-200 focus:outline-none ${
                   index === currentPage

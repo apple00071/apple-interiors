@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
     try {
       // First get or create category
-      const [categoryResult] = await connection.execute<mysql.ResultSetHeader>(
+      await connection.execute<mysql.ResultSetHeader>(
         'INSERT IGNORE INTO portfolio_categories (name, slug) VALUES (?, ?)',
         [data.category, data.category.toLowerCase().replace(/\s+/g, '-')]
       );

@@ -51,14 +51,12 @@ export default function Contact() {
 
       // Check if response is OK and try to parse JSON
       if (response.ok) {
-        let result;
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
-          result = await response.json();
+          await response.json();
         } else {
           // If not JSON, treat as success but log warning
           console.warn('Response was not JSON, but status was OK');
-          result = { success: true };
         }
 
         // Clear form on success

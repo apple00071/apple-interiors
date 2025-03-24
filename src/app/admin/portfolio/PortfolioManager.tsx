@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 type Project = {
   id: number;
@@ -15,7 +14,6 @@ type Project = {
 };
 
 export default function PortfolioManager() {
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [project, setProject] = useState<Project>({
     id: 0,
