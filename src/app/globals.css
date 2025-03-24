@@ -357,3 +357,14 @@ footer.bg-foreground a:hover {
 .mobile-scroll::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
+
+/* Submit button styles */
+button[type="submit"] {
+  color: white !important;
+  background-color: var(--primary);
+}
+
+button[type="submit"]:hover {
+  background-color: var(--primary);
+  opacity: 0.9;
+}

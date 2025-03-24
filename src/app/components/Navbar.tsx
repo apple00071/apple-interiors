@@ -4,19 +4,21 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Services", href: "#services" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "/about" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Services", href: "/services" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   // Handle scroll effect
   useEffect(() => {
@@ -34,20 +36,23 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg" : "bg-transparent"
+          isScrolled || !isHomePage 
+            ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg" 
+            : "bg-transparent"
         }`}
       >
         <nav className="container mx-auto px-4 h-20">
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
             <Link href="/" className="relative z-50">
-              <motion.h1
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-2xl font-bold text-black dark:text-white"
-              >
-                Apple<span className="text-primary">Interiors</span>
-              </motion.h1>
+              <Image
+                src="/images/New-logo.png"
+                alt="Apple Interiors Logo"
+                width={140}
+                height={40}
+                className="w-32 sm:w-[180px] h-auto object-contain"
+                priority
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -60,18 +65,25 @@ export default function Navbar() {
                     ${
                       pathname === item.href
                         ? "text-primary"
-                        : "text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary"
+                        : isScrolled || !isHomePage
+                          ? "text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary"
+                          : "text-white hover:text-white/80"
                     }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <a
-                href="#contact"
-                className="ml-4 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-all duration-200 hover-lift"
+              <Link
+                href="/contact"
+                className={`ml-4 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover-lift
+                  ${
+                    isScrolled || !isHomePage
+                      ? "bg-primary text-white hover:bg-primary/90"
+                      : "bg-white text-[#2C2C2C] hover:bg-gray-100"
+                  }`}
               >
                 Get Started
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -85,21 +97,21 @@ export default function Navbar() {
                   className={`absolute w-6 h-0.5 transform transition-all duration-300 ${
                     isOpen
                       ? "rotate-45 translate-y-2.5 bg-white"
-                      : "rotate-0 translate-y-0.5 bg-black dark:bg-white"
+                      : `rotate-0 translate-y-0.5 ${isScrolled || !isHomePage ? "bg-gray-800" : "bg-white"}`
                   }`}
                 />
                 <span
                   className={`absolute w-6 h-0.5 transform transition-all duration-300 ${
                     isOpen
                       ? "opacity-0"
-                      : "opacity-100 translate-y-2.5 bg-black dark:bg-white"
+                      : `opacity-100 translate-y-2.5 ${isScrolled || !isHomePage ? "bg-gray-800" : "bg-white"}`
                   }`}
                 />
                 <span
                   className={`absolute w-6 h-0.5 transform transition-all duration-300 ${
                     isOpen
                       ? "-rotate-45 translate-y-2.5 bg-white"
-                      : "rotate-0 translate-y-4.5 bg-black dark:bg-white"
+                      : `rotate-0 translate-y-4.5 ${isScrolled || !isHomePage ? "bg-gray-800" : "bg-white"}`
                   }`}
                 />
               </div>

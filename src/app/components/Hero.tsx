@@ -6,10 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Projects", href: "#projects" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Portfolio", href: "/portfolio" },
 ];
 
 export default function Hero() {
@@ -183,8 +183,8 @@ export default function Hero() {
                 {link.name}
               </Link>
             ))}
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               className="inline-flex items-center text-xl font-medium text-primary hover:text-primary/80 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
@@ -202,7 +202,7 @@ export default function Hero() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3" 
                 />
               </svg>
-            </a>
+            </Link>
           </nav>
         </div>
       </div>
@@ -288,8 +288,8 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
                 className="mt-6 sm:mt-10"
               >
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="group inline-flex items-center px-5 sm:px-7 py-3 sm:py-3.5 bg-white text-[#2C2C2C] rounded-full text-sm font-medium hover:bg-gray-100 transition-colors duration-300"
                 >
                   Contact Us
@@ -306,7 +306,7 @@ export default function Hero() {
                       d="M17 8l4 4m0 0l-4 4m4-4H3" 
                     />
                   </svg>
-                </a>
+                </Link>
               </motion.div>
             </div>
           </div>
