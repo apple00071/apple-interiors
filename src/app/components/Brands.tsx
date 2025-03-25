@@ -51,7 +51,6 @@ const brands = [
 export default function Brands() {
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
-  const totalPages = Math.ceil(brands.length / getItemsPerPage());
   const autoplayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   function getItemsPerPage() {
@@ -62,23 +61,25 @@ export default function Brands() {
     }
     return 4;
   }
+
+  const totalPages = Math.ceil(brands.length / getItemsPerPage());
   
-  const stopAutoplay = () => {
+  const stopAutoplay = useCallback(() => {
     if (autoplayTimeoutRef.current) {
       clearTimeout(autoplayTimeoutRef.current);
       autoplayTimeoutRef.current = null;
     }
-  };
+  }, []);
 
   const nextPage = useCallback(() => {
     setDirection(1);
     setCurrentPage((prev) => (prev + 1) % totalPages);
   }, [totalPages]);
 
-  const prevPage = () => {
+  const prevPage = useCallback(() => {
     setDirection(-1);
     setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
-  };
+  }, [totalPages]);
 
   useEffect(() => {
     const startAutoplay = () => {
@@ -94,7 +95,7 @@ export default function Brands() {
     return () => {
       stopAutoplay();
     };
-  }, [totalPages, nextPage]);
+  }, [nextPage, stopAutoplay]);
 
   // Get current visible items
   const itemsPerPage = getItemsPerPage();
