@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/private/', '/admin/'],
+      disallow: ['/admin/', '/api/'],
     },
     sitemap: 'https://appleinteriors.in/sitemap.xml',
   }

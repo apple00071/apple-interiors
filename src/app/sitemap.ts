@@ -1,38 +1,36 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://appleinteriors.in'
-
   return [
     {
-      url: baseUrl,
+      url: 'https://appleinteriors.in',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'yearly',
       priority: 1,
     },
     {
-      url: `${baseUrl}/about`,
+      url: 'https://appleinteriors.in/about',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/services`,
+      url: 'https://appleinteriors.in/services',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/portfolio`,
+      url: 'https://appleinteriors.in/portfolio',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: 'https://appleinteriors.in/contact',
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.7,
     },
   ]
 } 

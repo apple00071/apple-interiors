@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -70,10 +70,10 @@ export default function Brands() {
     }
   };
 
-  const nextPage = () => {
+  const nextPage = useCallback(() => {
     setDirection(1);
     setCurrentPage((prev) => (prev + 1) % totalPages);
-  };
+  }, [totalPages]);
 
   const prevPage = () => {
     setDirection(-1);
