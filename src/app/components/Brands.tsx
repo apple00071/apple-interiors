@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -94,7 +94,7 @@ export default function Brands() {
     return () => {
       stopAutoplay();
     };
-  }, [totalPages]);
+  }, [totalPages, nextPage]);
 
   // Get current visible items
   const itemsPerPage = getItemsPerPage();

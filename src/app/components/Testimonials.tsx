@@ -146,7 +146,7 @@ export default function Testimonials() {
                 </div>
 
                 <p className="text-xl md:text-2xl text-gray-900 dark:text-white mb-8 font-serif italic">
-                  "{testimonials[activeTestimonial].content}"
+                  &ldquo;{testimonials[activeTestimonial].content}&rdquo;
                 </p>
 
                 <div>
