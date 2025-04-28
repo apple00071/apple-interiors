@@ -1,12 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function ProcessVideo() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
   // YouTube embed URL
   const videoEmbedUrl = "https://www.youtube.com/embed/Av5O1EjRGuA";
 

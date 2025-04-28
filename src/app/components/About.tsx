@@ -3,13 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const stats = [
-  { label: "Years Experience", value: "10+" },
-  { label: "Projects Completed", value: "200+" },
-  { label: "Happy Clients", value: "150+" },
-  { label: "Design Awards", value: "15+" },
-];
-
 const features = [
   {
     title: "Creative Design",
