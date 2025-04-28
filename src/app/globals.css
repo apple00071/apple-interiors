@@ -1,0 +1,370 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --primary: #2563eb;
+  --secondary: #1e293b;
+  --accent: #f8fafc;
+  --muted: #f1f5f9;
+  
+  /* Theme variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-montserrat);
+  --font-display: var(--font-playfair);
+  
+  /* Mobile-specific sizing */
+  --header-height-mobile: 4rem;
+  --touch-target-size: 44px;
+  --mobile-padding: 1rem;
+  --mobile-section-spacing: 3rem;
+  
+  /* Font size scaling (smaller than default) */
+  --text-scale: 0.9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --primary: #3b82f6;
+    --secondary: #1e293b;
+    --accent: #0f172a;
+    --muted: #1e293b;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base typography with reduced sizes */
+body {
+  font-size: 0.9rem; /* Reduced base font size */
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings with reduced sizes */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+h1 { font-size: calc(2.25rem * var(--text-scale)); }
+h2 { font-size: calc(1.875rem * var(--text-scale)); }
+h3 { font-size: calc(1.5rem * var(--text-scale)); }
+h4 { font-size: calc(1.25rem * var(--text-scale)); }
+h5 { font-size: calc(1.125rem * var(--text-scale)); }
+h6 { font-size: calc(1rem * var(--text-scale)); }
+
+p, li, a, span, button, input, textarea, select, label {
+  font-size: calc(1rem * var(--text-scale));
+}
+
+/* Modern animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Animation classes */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Modern section spacing */
+section {
+  padding: 6rem 0;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 4rem 0;
+  }
+}
+
+/* Enhanced container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* Modern button styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Enhanced image styles */
+.img-hover {
+  transition: transform 0.3s ease;
+}
+
+.img-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Modern card styles */
+.card {
+  background: var(--background);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  h1 { font-size: calc(2.5rem * var(--text-scale)); }
+  h2 { font-size: calc(2rem * var(--text-scale)); }
+  h3 { font-size: calc(1.75rem * var(--text-scale)); }
+  p { font-size: calc(1rem * var(--text-scale)); }
+}
+
+@media (min-width: 769px) {
+  h1 { font-size: calc(3.5rem * var(--text-scale)); }
+  h2 { font-size: calc(3rem * var(--text-scale)); }
+  h3 { font-size: calc(2.25rem * var(--text-scale)); }
+  p { font-size: calc(1.125rem * var(--text-scale)); }
+}
+
+/* Better scrolling behavior on mobile */
+@media (max-width: 768px) {
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+  }
+  
+  /* Fix mobile address bar height issues */
+  :root {
+    --vh: 1vh;
+  }
+  
+  /* Adjust sticky/fixed elements for mobile */
+  .fixed, .sticky {
+    position: fixed;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Enhance mobile touch targets */
+  button, a {
+    min-height: var(--touch-target-size);
+    min-width: var(--touch-target-size);
+  }
+  
+  /* Improve spacing on mobile */
+  section {
+    padding-top: var(--mobile-section-spacing);
+    padding-bottom: var(--mobile-section-spacing);
+  }
+  
+  /* Enhance text readability on mobile */
+  p, li {
+    line-height: 1.6;
+  }
+  
+  /* Enhanced dark mode on mobile for better visibility */
+  .dark:root {
+    --foreground: #ffffff;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Fix mobile tap highlight */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Enhanced footer styling */
+footer.bg-foreground {
+  background-color: var(--secondary);
+  color: var(--text-on-dark);
+}
+
+footer.bg-foreground a, 
+footer.bg-foreground p, 
+footer.bg-foreground h3 {
+  color: var(--text-on-dark);
+}
+
+footer.bg-foreground a:hover {
+  color: var(--primary);
+}
+
+/* Fix specific sections with contrast issues */
+.bg-foreground {
+  background-color: var(--secondary);
+  color: var(--text-on-dark);
+}
+
+.bg-background {
+  background-color: var(--background);
+  color: var(--text-on-light);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+  color: var(--text-on-dark);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+  color: var(--text-on-light);
+}
+
+.bg-white {
+  color: var(--text-on-light);
+}
+
+/* Mobile-friendly animations */
+@media (max-width: 768px) {
+  .animate-on-scroll {
+    transition-duration: 0.3s;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  
+  /* Better focus states for accessibility */
+  a:focus, button:focus, input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Enhanced mobile menu styles */
+.mobile-menu-overlay {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Better mobile scrolling */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.mobile-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Submit button styles */
+button[type="submit"] {
+  color: white !important;
+  background-color: var(--primary);
+}
+
+button[type="submit"]:hover {
+  background-color: var(--primary);
+  opacity: 0.9;
+}
