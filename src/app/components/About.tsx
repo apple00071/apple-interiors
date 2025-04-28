@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 const features = [
   {
@@ -37,33 +36,13 @@ export default function About() {
   return (
     <section id="about" className="py-24 md:py-32 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-          {/* Image Column */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800"
-                alt="Interior Design Team"
-                fill
-                className="object-cover"
-                unoptimized={true}
-              />
-            </div>
-          </motion.div>
-
+        <div className="max-w-4xl mx-auto">
           {/* Content Column */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:pl-12"
           >
             <motion.span
               initial={{ opacity: 0, y: 20 }}
@@ -94,7 +73,7 @@ export default function About() {
               At Apple Interiors, we believe that great design has the power to transform spaces and enhance lives. Our team of expert designers combines creativity with functionality to create interiors that reflect your unique style and meet your specific needs.
             </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
               {features.map((feature, index) => (
                 <motion.div
                   key={feature.title}
@@ -102,9 +81,9 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + index * 0.1 }}
-                  className="flex gap-4"
+                  className="flex flex-col items-center text-center"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary mb-4">
                     {feature.icon}
                   </div>
                   <div>

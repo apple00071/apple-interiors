@@ -237,7 +237,7 @@ export default function Hero() {
                 className="h-full w-full"
               >
                 <Image
-                  src="/images/Untitled design (9).png"
+                  src="/images/02.png"
                   alt="Modern Interior Design"
                   fill
                   className="object-cover"
