@@ -90,40 +90,37 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary font-medium mb-3 tracking-wide uppercase text-sm"
+            className="text-primary-500 font-medium mb-4 tracking-wide uppercase"
           >
             Our Portfolio
           </motion.p>
+          
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white mb-6"
+            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
           >
-            Featured Work
+            Featured <span className="text-primary-500">Projects</span>
           </motion.h2>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-wrap items-center justify-center gap-2"
-          >
+
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 text-sm transition-all duration-300 rounded-full
-                  ${activeCategory === category
-                    ? "bg-black dark:bg-white text-white dark:text-black"
-                    : "bg-transparent text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5"
-                  }`}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  activeCategory === category
+                    ? "bg-primary-500 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-primary-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-primary-900/20"
+                }`}
               >
                 {category}
               </button>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Portfolio Grid */}

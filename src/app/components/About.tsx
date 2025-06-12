@@ -44,23 +44,23 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <motion.span
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-primary font-medium tracking-wide uppercase text-sm"
+              className="text-primary-500 font-medium mb-4 tracking-wide uppercase"
             >
               About Us
-            </motion.span>
+            </motion.p>
             
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mt-4 mb-6"
+              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
             >
-              Creating Beautiful Spaces for Modern Living
+              Crafting Beautiful <span className="text-primary-500">Living Spaces</span>
             </motion.h2>
             
             <motion.p

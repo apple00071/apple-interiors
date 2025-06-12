@@ -130,20 +130,20 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              className="group relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg transform transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl"
             >
               <div className="relative z-10">
-                <div className="w-12 h-12 mb-8 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <div className="w-12 h-12 mb-8 rounded-xl bg-yellow-100/50 dark:bg-yellow-900/20 flex items-center justify-center text-yellow-600 dark:text-yellow-500 group-hover:bg-yellow-500 group-hover:text-white transition-all duration-300">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-yellow-600 dark:group-hover:text-yellow-500 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
                   {service.description}
                 </p>
               </div>
-              <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-2xl transform scale-0 group-hover:scale-100 transition-transform duration-300 ease-out" />
+              <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl transform transition-transform duration-300 ease-out group-hover:bg-yellow-50 dark:group-hover:bg-yellow-900/10" />
             </motion.div>
           ))}
         </div>

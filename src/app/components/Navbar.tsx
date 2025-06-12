@@ -18,9 +18,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -31,131 +29,106 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || !isHomePage 
-            ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg" 
-            : "bg-transparent"
-        }`}
-      >
+      <header className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-transparent"
+      }`}>
         <nav className="container mx-auto px-4 h-20">
           <div className="flex items-center justify-between h-full">
-            {/* Logo */}
-            <Link href="/" className="relative z-50">
+            <Link href="/" className="relative z-10">
               <Image
                 src="/images/New-logo.png"
                 alt="Apple Interiors Logo"
                 width={140}
                 height={40}
-                className="w-32 sm:w-[180px] h-auto object-contain"
+                className="w-32 sm:w-[180px] h-auto"
                 priority
               />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                    ${
-                      pathname === item.href
-                        ? "text-primary"
-                        : isScrolled || !isHomePage
-                          ? "text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary"
-                          : "text-white hover:text-white/80"
-                    }`}
+                  className={`text-sm font-medium transition-colors duration-300 ${
+                    pathname === item.href
+                      ? "text-primary-600 dark:text-primary-400"
+                      : isScrolled
+                        ? "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+                        : "text-white hover:text-primary-200"
+                  }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <Link
-                href="/contact"
-                className={`ml-4 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover-lift
-                  ${
-                    isScrolled || !isHomePage
-                      ? "bg-primary text-white hover:bg-primary/90"
-                      : "bg-white text-[#2C2C2C] hover:bg-gray-100"
-                  }`}
+              
+              <a
+                href="#contact"
+                className="inline-flex items-center px-4 py-2 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-sm transition-colors duration-300"
               >
-                Get Started
-              </Link>
+                Contact Us
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="relative z-50 md:hidden w-10 h-10 flex items-center justify-center"
-              aria-label="Toggle Menu"
+              className="md:hidden relative z-10 p-2 -mr-2 text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
             >
-              <div className="relative w-6 h-5">
-                <span
-                  className={`absolute w-6 h-0.5 transform transition-all duration-300 ${
-                    isOpen
-                      ? "rotate-45 translate-y-2.5 bg-white"
-                      : `rotate-0 translate-y-0.5 ${isScrolled || !isHomePage ? "bg-gray-800" : "bg-white"}`
-                  }`}
+              <span className="sr-only">Open menu</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
                 />
-                <span
-                  className={`absolute w-6 h-0.5 transform transition-all duration-300 ${
-                    isOpen
-                      ? "opacity-0"
-                      : `opacity-100 translate-y-2.5 ${isScrolled || !isHomePage ? "bg-gray-800" : "bg-white"}`
-                  }`}
-                />
-                <span
-                  className={`absolute w-6 h-0.5 transform transition-all duration-300 ${
-                    isOpen
-                      ? "-rotate-45 translate-y-2.5 bg-white"
-                      : `rotate-0 translate-y-4.5 ${isScrolled || !isHomePage ? "bg-gray-800" : "bg-white"}`
-                  }`}
-                />
-              </div>
+              </svg>
             </button>
           </div>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 md:hidden bg-primary"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 md:hidden bg-white dark:bg-gray-900"
           >
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed inset-y-0 right-0 w-full bg-primary flex items-center justify-center"
-            >
-              <div className="flex flex-col items-center space-y-8">
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-2xl font-medium text-white hover:text-white/80 transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+            <div className="flex flex-col h-full pt-20 p-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`py-3 text-lg font-medium transition-colors duration-300 ${
+                    pathname === item.href
+                      ? "text-primary-600 dark:text-primary-400"
+                      : "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              <a
+                href="#contact"
+                onClick={() => setIsOpen(false)}
+                className="mt-4 inline-flex items-center justify-center px-4 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-lg transition-colors duration-300"
+              >
+                Contact Us
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

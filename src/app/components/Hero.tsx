@@ -110,7 +110,7 @@ export default function Hero() {
                 key={link.name}
                 href={link.href}
                 className={`text-sm font-medium transition-colors duration-300 ${
-                  isScrolled ? "text-gray-800 hover:text-primary" : "text-white hover:text-white/80"
+                  isScrolled ? "text-gray-800 hover:text-primary-600" : "text-white hover:text-primary-200"
                 }`}
               >
                 {link.name}
@@ -120,8 +120,8 @@ export default function Hero() {
               href="#contact"
               className={`group inline-flex items-center px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
                 isScrolled 
-                ? "bg-primary text-black hover:bg-primary/90" 
-                : "bg-white text-[#2C2C2C] hover:bg-gray-100"
+                ? "bg-primary-500 text-white hover:bg-primary-600" 
+                : "bg-white text-gray-900 hover:bg-primary-50"
               }`}
             >
               <span className="flex items-center">
@@ -177,7 +177,7 @@ export default function Hero() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-xl font-medium text-gray-800 hover:text-primary transition-colors"
+                className="text-xl font-medium text-gray-800 hover:text-primary-600 transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
@@ -185,7 +185,7 @@ export default function Hero() {
             ))}
             <Link
               href="/contact"
-              className="inline-flex items-center text-xl font-medium text-primary hover:text-primary/80 transition-colors"
+              className="inline-flex items-center text-xl font-medium text-primary-600 hover:text-primary-700 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact Us

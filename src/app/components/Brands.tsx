@@ -171,14 +171,14 @@ export default function Brands() {
                   {visibleBrands.map((brand, index) => (
                     <div
                       key={`${currentPage}-${index}`}
-                      className="flex items-center justify-center"
+                      className="flex items-center justify-center p-4 overflow-visible"
                     >
-                      <div className="relative h-16 sm:h-20 md:h-24 w-full p-3 transition-all duration-200 hover:scale-105">
+                      <div className="relative h-16 sm:h-20 md:h-24 w-full transition-transform duration-300 ease-in-out hover:scale-105 transform-gpu">
                         <Image
                           src={brand.logo}
                           alt={`${brand.name} logo`}
                           fill
-                          className="object-contain filter dark:brightness-90 transition-all duration-200"
+                          className="object-contain filter dark:brightness-90"
                           onError={(e) => {
                             console.error(`Failed to load logo: ${brand.logo}`);
                             e.currentTarget.src = '/images/brands/placeholder-logo.svg';
