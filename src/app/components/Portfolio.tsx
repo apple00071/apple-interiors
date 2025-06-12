@@ -1,9 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import portfolioData from "../data/portfolio.json";
+import { usePathname } from "next/navigation";
+
+// Add a helper function to handle base path
+const useBasePath = () => {
+  const pathname = usePathname();
+  const isDev = process.env.NODE_ENV === 'development';
+  return isDev ? '' : '/applenew';
+};
+
+// Add a helper function to handle image paths
+const useImagePath = () => {
+  const basePath = useBasePath();
+  return (imagePath: string) => {
+    // Remove leading slash if present
+    const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
+    return `${basePath}/${cleanPath}`;
+  };
+};
 
 type PortfolioItem = {
   id: number;
@@ -17,11 +35,17 @@ type PortfolioItem = {
 };
 
 export default function Portfolio() {
+  const getImagePath = useImagePath();
   const [categories] = useState<string[]>(portfolioData.categories);
   const [portfolioItems] = useState<PortfolioItem[]>(portfolioData.items);
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const filteredItems = portfolioItems.filter(item => {
     console.log(`Filtering item: ${item.title}, Category: ${item.category}, Active Category: ${activeCategory}`);
@@ -52,6 +76,10 @@ export default function Portfolio() {
     setSelectedItem(item);
     setCurrentImageIndex(0);
   };
+
+  if (!isMounted) {
+    return null; // Return nothing until client-side hydration is complete
+  }
 
   return (
     <section id="portfolio" className="py-24 md:py-32 bg-[#FAFAFA] dark:bg-[#111111]">
@@ -101,7 +129,6 @@ export default function Portfolio() {
         {/* Portfolio Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredItems.reduce((allImages, item) => {
-            // Add all images from this item to the array
             item.images.forEach(image => {
               if (!allImages.some(existing => existing.url === image)) {
                 allImages.push({
@@ -114,7 +141,6 @@ export default function Portfolio() {
             });
             return allImages;
           }, [] as Array<{ url: string; title: string; location: string; item: PortfolioItem }>)
-          // Take only the first 6 images
           .slice(0, 6)
           .map((imageData, index) => (
             <motion.div
@@ -130,7 +156,7 @@ export default function Portfolio() {
                 onClick={() => handleItemClick(imageData.item)}
               >
                 <Image
-                  src={imageData.url}
+                  src={getImagePath(imageData.url)}
                   alt={`${imageData.title} - Image ${index + 1}`}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -140,7 +166,10 @@ export default function Portfolio() {
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   onError={(e) => {
                     console.error(`Failed to load image: ${imageData.url}`);
-                    e.currentTarget.src = '/images/placeholder.jpg';
+                    const fallbackImage = '/images/portfolio/living-room/1.png';
+                    if (e.currentTarget.src !== fallbackImage) {
+                      e.currentTarget.src = fallbackImage;
+                    }
                   }}
                 />
               </div>
@@ -187,7 +216,7 @@ export default function Portfolio() {
                   {/* Main Image */}
                   <div className="relative aspect-[16/9]">
                     <Image
-                      src={selectedItem.images[currentImageIndex]}
+                      src={getImagePath(selectedItem.images[currentImageIndex])}
                       alt={`Portfolio Image ${currentImageIndex + 1}`}
                       fill
                       className="object-cover"

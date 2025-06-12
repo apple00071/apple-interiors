@@ -4,65 +4,65 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-// Add or replace with your actual brand logos
+// Brand logos configuration
 const brands = [
   {
-    name: "Godrej Interio",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "Premium furniture and interior solutions"
+    name: "Logo",
+    logo: "/images/brands/logo.png"
   },
   {
-    name: "Asian Paints",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "High-quality paints and finishes"
+    name: "Logo 2",
+    logo: "/images/brands/logo2-300x102.png"
   },
   {
-    name: "Sleek by Asian Paints",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "Luxury modular kitchens"
+    name: "Sleek",
+    logo: "/images/brands/Sleek_logo-300x212.jpg"
   },
   {
-    name: "Kajaria",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "Designer tiles and flooring"
+    name: "Greenply",
+    logo: "/images/brands/greenply-logo-469D8F2DFE-seeklogo.com_.png"
   },
   {
-    name: "Hindware",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "Premium bathroom fixtures"
+    name: "Download",
+    logo: "/images/brands/download-300x112.png"
   },
   {
     name: "Hafele",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "Innovative hardware solutions"
+    logo: "/images/brands/hafele-300x300.jpg"
   },
   {
-    name: "Saint-Gobain",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "Glass and glazing solutions"
+    name: "Download 2",
+    logo: "/images/brands/download.jpg"
   },
   {
     name: "Hettich",
-    logo: "/images/brands/placeholder-logo.svg", // Replace with actual path to logo
-    description: "Precision furniture fittings"
+    logo: "/images/brands/hettich-300x225.png"
   }
 ];
 
 export default function Brands() {
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(4); // Default for SSR
+  const [isMounted, setIsMounted] = useState(false);
   const autoplayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
-  function getItemsPerPage() {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return 2;
-      if (window.innerWidth < 1024) return 3;
-      return 4;
+  // Update items per page based on window size
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 640) setItemsPerPage(2);
+      else if (window.innerWidth < 1024) setItemsPerPage(3);
+      else setItemsPerPage(4);
     }
-    return 4;
-  }
 
-  const totalPages = Math.ceil(brands.length / getItemsPerPage());
+    handleResize(); // Initial call
+    setIsMounted(true);
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const totalPages = Math.ceil(brands.length / itemsPerPage);
   
   const stopAutoplay = useCallback(() => {
     if (autoplayTimeoutRef.current) {
@@ -91,18 +91,18 @@ export default function Brands() {
     };
 
     startAutoplay();
-
-    return () => {
-      stopAutoplay();
-    };
+    return () => stopAutoplay();
   }, [nextPage, stopAutoplay]);
 
   // Get current visible items
-  const itemsPerPage = getItemsPerPage();
   const visibleBrands = brands.slice(
-    currentPage * itemsPerPage, 
+    currentPage * itemsPerPage,
     Math.min((currentPage + 1) * itemsPerPage, brands.length)
   );
+
+  if (!isMounted) {
+    return null; // Return nothing until client-side hydration is complete
+  }
 
   return (
     <section className="py-16 sm:py-24 bg-gray-50 dark:bg-gray-900">
@@ -126,16 +126,6 @@ export default function Brands() {
           >
             Premium Brands We Work With
           </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-400"
-          >
-            We collaborate with industry-leading brands to ensure quality, durability, and exceptional design in every project
-          </motion.p>
         </div>
 
         {/* Logo Carousel */}
@@ -163,23 +153,14 @@ export default function Brands() {
           </div>
 
           {/* Carousel Content */}
-          <div className="relative h-40 md:h-48 overflow-hidden">
+          <div className="relative h-32 md:h-40 overflow-hidden">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div 
                 key={currentPage}
                 custom={direction}
-                initial={{ 
-                  x: direction > 0 ? 300 : -300,
-                  opacity: 0 
-                }}
-                animate={{ 
-                  x: 0,
-                  opacity: 1 
-                }}
-                exit={{ 
-                  x: direction < 0 ? 300 : -300,
-                  opacity: 0 
-                }}
+                initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: direction < 0 ? 300 : -300, opacity: 0 }}
                 transition={{
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 }
@@ -190,18 +171,20 @@ export default function Brands() {
                   {visibleBrands.map((brand, index) => (
                     <div
                       key={`${currentPage}-${index}`}
-                      className="flex flex-col items-center justify-center"
+                      className="flex items-center justify-center"
                     >
-                      <div className="relative h-16 sm:h-20 md:h-24 w-full mb-4 p-3 transition-all duration-200">
+                      <div className="relative h-16 sm:h-20 md:h-24 w-full p-3 transition-all duration-200 hover:scale-105">
                         <Image
                           src={brand.logo}
                           alt={`${brand.name} logo`}
                           fill
-                          className="object-contain filter dark:brightness-90 transition-all duration-200 hover:scale-105"
-                          title={brand.description}
+                          className="object-contain filter dark:brightness-90 transition-all duration-200"
+                          onError={(e) => {
+                            console.error(`Failed to load logo: ${brand.logo}`);
+                            e.currentTarget.src = '/images/brands/placeholder-logo.svg';
+                          }}
                         />
                       </div>
-                      <h3 className="text-xs sm:text-sm text-center font-medium text-gray-600 dark:text-gray-400">{brand.name}</h3>
                     </div>
                   ))}
                 </div>
