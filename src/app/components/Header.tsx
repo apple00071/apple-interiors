@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { Variants } from "framer-motion";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -93,7 +94,7 @@ export default function Header() {
   );
 
   // Animation variants for mobile menu
-  const menuVariants = {
+  const menuVariants: Variants = {
     closed: { 
       opacity: 0,
       y: -20,
@@ -121,11 +122,11 @@ export default function Header() {
     }
   };
   
-  const menuItemVariants = {
+  const menuItemVariants: Variants = {
     closed: { 
       opacity: 0, 
       x: -20,
-      transition: { duration: 0.15, ease: "easeIn" }
+      transition: { duration: 0.15, ease: "easeInOut" }
     },
     open: { 
       opacity: 1, 

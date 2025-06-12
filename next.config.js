@@ -1,12 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Static HTML export
+  output: 'standalone',  // Changed from 'export' to 'standalone' for better routing support
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/applenew' : '',
   trailingSlash: true,  // Add trailing slashes to all routes
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/applenew' : '',
+  // Add rewrites to handle the root path
+  async rewrites() {
+    return [
+      {
+        source: '/',
+        destination: '/home',
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig 

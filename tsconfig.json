@@ -17,6 +17,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["react", "node"],
     "plugins": [
       {
         "name": "next"
@@ -29,10 +30,10 @@
     }
   },
   "include": [
+    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "next-env.d.ts",
     "out/types/**/*.ts",
     "public_html/types/**/*.ts"
   ],

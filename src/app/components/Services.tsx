@@ -1,34 +1,42 @@
 "use client";
 
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const stats = [
+  { number: '10+', label: 'Years Experience' },
+  { number: '200+', label: 'Projects Completed' },
+  { number: '150+', label: 'Happy Clients' },
+  { number: '15+', label: 'Design Awards' },
+];
 
 const services = [
   {
-    title: "Interior Design",
-    description: "Full-service interior design solutions tailored to your style and needs. We handle everything from concept to completion.",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
+      <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
       </svg>
     ),
+    title: 'Interior Design',
+    description: 'Transform your space with our expert interior design services, creating beautiful and functional environments.',
   },
   {
-    title: "Space Planning",
-    description: "Optimize your space with our expert planning services. We create efficient layouts that maximize functionality and flow.",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+      <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
       </svg>
     ),
+    title: 'Space Planning',
+    description: 'Optimize your space utilization with our expert planning services for maximum efficiency and flow.',
   },
   {
-    title: "Custom Furniture",
-    description: "Bespoke furniture design and manufacturing to create unique pieces that perfectly fit your space and style.",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+      <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
       </svg>
     ),
+    title: 'Custom Furniture',
+    description: 'Get unique, made-to-measure furniture pieces designed specifically for your space and style.',
   },
   {
     title: "Color Consultation",
@@ -61,16 +69,17 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 md:py-32 bg-gray-50 dark:bg-gray-900/50">
+    <section id="services" className="py-24 bg-gray-50 dark:bg-secondary-900">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
+        {/* Header */}
+        <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-primary font-medium mb-4 tracking-wide uppercase"
           >
-            Our Services
+            OUR SERVICES
           </motion.p>
           
           <motion.h2
@@ -78,7 +87,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
+            className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-6"
           >
             What We Offer
           </motion.h2>
@@ -88,62 +97,45 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-gray-600 dark:text-gray-400"
+            className="text-secondary-600 dark:text-gray-400"
           >
             Comprehensive interior design services tailored to transform your space into something extraordinary
           </motion.p>
         </div>
 
-        {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-16 md:mb-24"
-        >
-          {[
-            { label: "Years Experience", value: "10+" },
-            { label: "Projects Completed", value: "200+" },
-            { label: "Happy Clients", value: "150+" },
-            { label: "Design Awards", value: "15+" },
-          ].map((stat, index) => (
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+          {stats.map((stat, index) => (
             <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 + 0.4 }}
-              className="text-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg"
-            >
-              <p className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg transform transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl"
+              className="bg-white dark:bg-secondary-800 rounded-lg shadow-lg p-6 text-center"
             >
-              <div className="relative z-10">
-                <div className="w-12 h-12 mb-8 rounded-xl bg-yellow-100/50 dark:bg-yellow-900/20 flex items-center justify-center text-yellow-600 dark:text-yellow-500 group-hover:bg-yellow-500 group-hover:text-white transition-all duration-300">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-yellow-600 dark:group-hover:text-yellow-500 transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
-                  {service.description}
-                </p>
+              <h3 className="text-4xl font-bold text-primary mb-2">{stat.number}</h3>
+              <p className="text-secondary-600 dark:text-gray-400">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white dark:bg-secondary-800 rounded-lg shadow-lg p-8"
+            >
+              <div className="w-16 h-16 mb-6 rounded-full bg-primary/10 flex items-center justify-center">
+                {service.icon}
               </div>
-              <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl transform transition-transform duration-300 ease-out group-hover:bg-yellow-50 dark:group-hover:bg-yellow-900/10" />
+              <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-4">{service.title}</h3>
+              <p className="text-secondary-600 dark:text-gray-400">{service.description}</p>
             </motion.div>
           ))}
         </div>
