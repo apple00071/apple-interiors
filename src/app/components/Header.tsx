@@ -1,10 +1,55 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, HTMLMotionProps, MotionStyle } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { Variants } from "framer-motion";
+import type { StaticImageData } from "next/image";
+import type { LinkProps } from "next/link";
+import type { ImageProps } from "next/image";
+
+declare module 'react' {
+  interface JSX {
+    IntrinsicElements: {
+      [elemName: string]: any;
+    }
+  }
+}
+
+// Extend the Image component props
+interface CustomImageProps extends Omit<ImageProps, 'src'> {
+  src: string;
+  className?: string;
+}
+
+// Define types for motion components
+interface MotionHeaderProps extends HTMLMotionProps<"header"> {
+  children: React.ReactNode;
+}
+
+interface MotionDivProps extends HTMLMotionProps<"div"> {
+  children: React.ReactNode;
+}
+
+interface MotionButtonProps extends HTMLMotionProps<"button"> {
+  children: React.ReactNode;
+}
+
+interface MotionSpanProps extends HTMLMotionProps<"span"> {
+  children?: React.ReactNode;
+}
+
+// Define types for custom elements
+type CustomLinkProps = LinkProps & {
+  className?: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+};
+
+type CustomImageProps = Omit<ImageProps, "src"> & {
+  src: string;
+};
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -14,7 +59,7 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Header() {
+export default function Header(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -145,23 +190,25 @@ export default function Header() {
   const menuTextColor = isDarkMode ? 'text-white' : 'text-foreground';
   const menuBorderColor = isDarkMode ? 'border-white/10' : 'border-gray-100';
 
+  const headerStyle: MotionStyle = {
+    background: headerBackground,
+    height: headerHeight,
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
+    transform: isVisible ? "translateY(0)" : "translateY(-100%)",
+  };
+
   return (
     <>
       <motion.header
-        style={{ 
-          background: headerBackground,
-          height: headerHeight,
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)", // For Safari support
-          transform: isVisible ? "translateY(0)" : "translateY(-100%)",
-        }}
+        style={headerStyle}
         className="fixed top-0 left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm dark:shadow-black/30 w-full"
       >
         <div className="container mx-auto flex items-center justify-between h-full">
           {/* Logo */}
           <motion.div 
             style={{ scale: logoScale }}
-            className="flex items-center z-[101]" // Increased z-index to stay above menu
+            className="flex items-center z-[101]"
           >
             <Link href="#home" className="flex items-center" onClick={handleLinkClick}>
               <div className="relative h-10 w-32 md:h-16 md:w-56">
@@ -171,7 +218,7 @@ export default function Header() {
                   fill
                   className="object-contain"
                   priority
-                  unoptimized={true}
+                  unoptimized
                 />
               </div>
             </Link>
@@ -225,7 +272,7 @@ export default function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.5 }}
-            className="md:hidden w-12 h-12 flex flex-col items-center justify-center space-y-1.5 z-[101]" // Increased z-index
+            className="md:hidden w-12 h-12 flex flex-col items-center justify-center space-y-1.5 z-[101]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
             whileTap={{ scale: 0.95 }}
@@ -275,11 +322,11 @@ export default function Header() {
                 variants={menuItemVariants}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
-                className={`border-b ${menuBorderColor} pb-3`} // Added border for visual separation
+                className={`border-b ${menuBorderColor} pb-3`}
               >
                 <Link
                   href={link.href}
-                  className={`hover:text-primary transition-colors duration-300 text-lg font-medium block py-4 ${menuTextColor}`} // Increased padding for better touch
+                  className={`hover:text-primary transition-colors duration-300 text-lg font-medium block py-4 ${menuTextColor}`}
                   onClick={handleLinkClick}
                 >
                   {link.name}
@@ -288,7 +335,7 @@ export default function Header() {
             ))}
             <motion.div 
               variants={menuItemVariants}
-              className="pt-6 mt-4" // Increased spacing
+              className="pt-6 mt-4"
             >
               <Link
                 href="#contact"
