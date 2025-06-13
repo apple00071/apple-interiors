@@ -162,14 +162,14 @@ export default function Testimonials() {
           </div>
 
           {/* Testimonial Navigation Dots */}
-          <div className="flex justify-center space-x-2 mt-8">
+          <div className="flex justify-center space-x-1 sm:space-x-2 mt-6 sm:mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setActiveTestimonial(index)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                className={`w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-200 ${
                   index === activeTestimonial
-                    ? "bg-primary w-8"
+                    ? "bg-primary w-5 sm:w-8"
                     : "bg-gray-300 dark:bg-gray-700 hover:bg-primary/50"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
