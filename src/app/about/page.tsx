@@ -1,13 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-grow pt-20">
         <section className="py-24 md:py-32 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
@@ -101,7 +98,6 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 } 

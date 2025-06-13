@@ -1,13 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Link from "next/link";
 
 export default function ServicesPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-grow pt-20">
         {/* Hero Section */}
         <section className="py-24 md:py-32 bg-white">
@@ -204,12 +202,12 @@ export default function ServicesPage() {
                     whileTap={{ scale: 0.95 }}
                     className="mt-8"
                   >
-                    <a
+                    <Link
                       href="/contact"
                       className="inline-block bg-yellow-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-600 transition-colors duration-300"
                     >
                       Get Free Consultation
-                    </a>
+                    </Link>
                   </motion.div>
                 </div>
               </motion.div>
@@ -217,7 +215,6 @@ export default function ServicesPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 } 

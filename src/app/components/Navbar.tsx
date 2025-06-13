@@ -112,8 +112,8 @@ export default function Navbar() {
                 </Link>
               ))}
               
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className={`inline-flex items-center px-4 py-2 rounded-full text-white font-medium text-sm transition-colors duration-300 ${
                   isHomePage && !isScrolled
                     ? "bg-white/20 hover:bg-white/30 backdrop-blur-sm"
@@ -121,7 +121,7 @@ export default function Navbar() {
                 }`}
               >
                 Contact Us
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -220,13 +220,13 @@ export default function Navbar() {
                         {item.name}
                       </Link>
                     ))}
-                    <a
-                      href="#contact"
+                    <Link
+                      href="/contact"
                       onClick={handleLinkClick}
                       className="mt-4 inline-flex w-full items-center justify-center px-4 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-lg transition-colors duration-300"
                     >
                       Contact Us
-                    </a>
+                    </Link>
                   </nav>
                 </div>
               </div>

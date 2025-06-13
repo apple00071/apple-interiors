@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import JsonLd from './components/JsonLd'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 export const dynamic = 'force-static';
 
@@ -91,9 +93,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
@@ -105,7 +107,11 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${playfair.variable} font-sans antialiased`}
       >
-        {children}
+        <Header />
+        <main className="min-h-screen flex-1">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

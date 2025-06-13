@@ -47,10 +47,9 @@ export default function Portfolio() {
     setIsMounted(true);
   }, []);
 
-  // Get filtered items for the active category and limit to 6 images total
-  const filteredItems = portfolioItems
-    .filter(item => item.category === activeCategory)
-    .slice(0, 2); // Limit to 2 items since each item has 6 images (2 * 3 = 6 total images)
+  const filteredItems = portfolioItems.filter(item => item.category === activeCategory);
+
+  console.log(`Total filtered items: ${filteredItems.length}`);
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -124,15 +123,15 @@ export default function Portfolio() {
         {/* Portfolio Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredItems.reduce((allImages, item) => {
-            // Include first 3 images from each item to make total of 6 images
-            item.images.slice(0, 3).forEach(image => {
+            // Only take the first image from each item
+            if (!allImages.some(existing => existing.url === item.images[0])) {
               allImages.push({
-                url: image,
+                url: item.images[0],
                 title: item.title,
                 location: item.location,
                 item: item
               });
-            });
+            }
             return allImages;
           }, [] as Array<{ url: string; title: string; location: string; item: PortfolioItem }>)
           .map((imageData, index) => (
@@ -158,6 +157,12 @@ export default function Portfolio() {
                   priority={index < 4}
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <h3 className="text-lg font-semibold">{imageData.title}</h3>
+                    <p className="text-sm opacity-90">{imageData.location}</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}

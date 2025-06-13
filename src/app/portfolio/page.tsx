@@ -1,6 +1,4 @@
 import Portfolio from "../components/Portfolio";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 
 export const metadata = {
   title: "Our Portfolio | Apple Interiors",
@@ -10,11 +8,9 @@ export const metadata = {
 export default function PortfolioPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-grow pt-20">
         <Portfolio />
       </main>
-      <Footer />
     </div>
   );
 } 
