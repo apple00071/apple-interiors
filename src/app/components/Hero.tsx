@@ -22,7 +22,7 @@ export default function Hero() {
         {/* Full-width Image Background */}
         <div className="absolute inset-0 w-full h-full">
           {/* Image with curved corner at bottom-left */}
-          <div className="relative w-full h-full rounded-bl-[25%] sm:rounded-bl-[40%] overflow-hidden">
+          <div className="relative w-full h-full rounded-bl-[20%] sm:rounded-bl-[30%] overflow-hidden">
             <div style={{ 
               position: 'absolute', 
               borderRadius: 'inherit',

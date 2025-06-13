@@ -2,31 +2,24 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 const testimonials = [
   {
     id: 1,
-    content: "Apple Interiors transformed our home beyond our expectations. Their attention to detail and creative solutions made our space both beautiful and functional.",
-    author: "Priya Reddy",
-    role: "Homeowner",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200",
+    content: "I'm extremely happy with the interior work done by Apple Interiors for our independent house. Their design sense, attention to detail, and commitment to timelines are the best. The team was professional, responsive, and made the entire process smooth and enjoyable. I highly recommend them for anyone looking for quality interiors with a personal touch!",
+    author: "Srinivas Kothuri",
     rating: 5
   },
   {
     id: 2,
-    content: "Working with Apple Interiors was a fantastic experience. They understood our vision perfectly and delivered a stunning office space that our employees love.",
-    author: "Rajesh Kumar",
-    role: "CEO, Tech Solutions",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200",
+    content: "Apple interiors have been awesome!!! They were able to put to life what I had always dreamed of! They are prompt, reliable, honest, CREATIVE, ARTISTIC, and nice all at the same time which is not always easy to find designers like them! I highly recommend Apple interiors!",
+    author: "Samatha Yeluri",
     rating: 5
   },
   {
     id: 3,
-    content: "The team's professionalism and expertise are unmatched. They completed our restaurant renovation on time and within budget, exceeding our expectations.",
-    author: "Anita Sharma",
-    role: "Restaurant Owner",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200",
+    content: "We had an awesome experience with Apple interiors company for completing our Mayfair apartment interiors. Aravind garu is always reachable and he listens very well to our requirements/requests and complete the work with great quality. We liked the overall output of the interior work and the material used is of great quality. I definitely suggest Apple interiors for others as well.",
+    author: "Srikanth Ande",
     rating: 5
   }
 ];
@@ -126,16 +119,6 @@ export default function Testimonials() {
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="relative w-20 h-20 mb-6">
-                  <Image
-                    src={testimonials[activeTestimonial].image}
-                    alt={testimonials[activeTestimonial].author}
-                    fill
-                    className="object-cover rounded-full"
-                    unoptimized={true}
-                  />
-                </div>
-
                 {/* Rating Stars */}
                 <div className="flex items-center space-x-1 mb-6">
                   {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
@@ -150,12 +133,9 @@ export default function Testimonials() {
                 </p>
 
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                  <h4 className="font-semibold text-gray-900 dark:text-white">
                     {testimonials[activeTestimonial].author}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {testimonials[activeTestimonial].role}
-                  </p>
                 </div>
               </div>
             </motion.div>
