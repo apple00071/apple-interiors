@@ -128,9 +128,9 @@ export default function Navbar() {
             <button
               onClick={handleMenuToggle}
               className={`md:hidden relative z-10 p-2 -mr-2 ${
-                isHomePage && !isScrolled
+                isHomePage && !isScrolled && !isOpen
                   ? "text-white"
-                  : "text-gray-600 hover:text-primary-600"
+                  : "text-gray-600"
               }`}
             >
               <span className="sr-only">Open menu</span>
@@ -153,7 +153,7 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -165,35 +165,69 @@ export default function Navbar() {
               onClick={handleMenuToggle}
             />
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="fixed inset-0 z-41 md:hidden"
+              initial={{ opacity: 0, x: "100%" }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: "100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-xl md:hidden"
             >
-              <div className="relative w-full h-full bg-white">
-                <div className="flex flex-col h-full pt-20 p-4 overflow-y-auto">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={handleLinkClick}
-                      className={`py-3 text-lg font-medium transition-colors duration-300 ${
-                        pathname === item.href
-                          ? "text-primary-600"
-                          : "text-gray-600 hover:text-primary-600"
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                  
-                  <a
-                    href="#contact"
-                    onClick={handleLinkClick}
-                    className="mt-4 inline-flex items-center justify-center px-4 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-lg transition-colors duration-300"
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between px-4 h-20">
+                  <Link href="/" onClick={handleLinkClick}>
+                    <Image
+                      src="/images/New-logo.png"
+                      alt="Apple Interiors Logo"
+                      width={140}
+                      height={40}
+                      className="w-32 sm:w-[180px] h-auto"
+                      priority
+                    />
+                  </Link>
+                  <button
+                    onClick={handleMenuToggle}
+                    className="p-2 text-gray-600"
                   >
-                    Contact Us
-                  </a>
+                    <span className="sr-only">Close menu</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div className="flex-1 overflow-y-auto">
+                  <nav className="px-4 py-6">
+                    {navItems.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={handleLinkClick}
+                        className={`block py-3 text-lg font-medium transition-colors duration-300 ${
+                          pathname === item.href
+                            ? "text-primary-600"
+                            : "text-gray-600 hover:text-primary-600"
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                    <a
+                      href="#contact"
+                      onClick={handleLinkClick}
+                      className="mt-4 inline-flex w-full items-center justify-center px-4 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-lg transition-colors duration-300"
+                    >
+                      Contact Us
+                    </a>
+                  </nav>
                 </div>
               </div>
             </motion.div>

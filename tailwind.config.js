@@ -5,25 +5,23 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: false,
   theme: {
     extend: {
       colors: {
         background: '#ffffff',
         foreground: '#0f172a', 
         primary: {
-          DEFAULT: '#EAB308', // Yellow
-          50: '#FEFCE8',
-          100: '#FEF9C3',
-          200: '#FEF08A',
-          300: '#FDE047',
-          400: '#FACC15',
-          500: '#EAB308',
-          600: '#CA8A04',
-          700: '#A16207',
-          800: '#854D0E',
-          900: '#713F12',
-          950: '#422006'
+          50: "#fdf4f3",
+          100: "#fce8e6",
+          200: "#fad5d2",
+          300: "#f5b7b1",
+          400: "#ee8b82",
+          500: "#e35d50",
+          600: "#d13f30",
+          700: "#b02e21",
+          800: "#92291f",
+          900: "#7a2720",
+          950: "#421210",
         },
         secondary: {
           DEFAULT: '#1E293B', // Dark blue/black
@@ -54,6 +52,10 @@ module.exports = {
           lg: '4rem',
           xl: '5rem',
         },
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },

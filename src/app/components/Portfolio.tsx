@@ -47,9 +47,10 @@ export default function Portfolio() {
     setIsMounted(true);
   }, []);
 
-  const filteredItems = portfolioItems.filter(item => item.category === activeCategory);
-
-  console.log(`Total filtered items: ${filteredItems.length}`);
+  // Get filtered items for the active category and limit to 6 images total
+  const filteredItems = portfolioItems
+    .filter(item => item.category === activeCategory)
+    .slice(0, 2); // Limit to 2 items since each item has 6 images (2 * 3 = 6 total images)
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -123,8 +124,8 @@ export default function Portfolio() {
         {/* Portfolio Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredItems.reduce((allImages, item) => {
-            // Include all images from each item
-            item.images.forEach(image => {
+            // Include first 3 images from each item to make total of 6 images
+            item.images.slice(0, 3).forEach(image => {
               allImages.push({
                 url: image,
                 title: item.title,
