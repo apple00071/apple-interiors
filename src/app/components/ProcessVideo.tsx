@@ -1,15 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function ProcessVideo() {
-  // YouTube embed URL with additional parameters for better mobile experience
-  const videoEmbedUrl = "https://www.youtube.com/embed/Av5O1EjRGuA?rel=0&showinfo=0&playsinline=1";
+  // Video configuration
   const videoId = "Av5O1EjRGuA";
   const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  const videoEmbedUrl = `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&playsinline=1`;
+  
   const [isMobile, setIsMobile] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Check if device is mobile on client side
   useEffect(() => {
@@ -26,6 +29,17 @@ export default function ProcessVideo() {
     // Cleanup
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const handlePlayVideo = () => {
+    setIsPlaying(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.error("Error playing video:", error);
+        // If autoplay is prevented, open YouTube as fallback
+        window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+      });
+    }
+  };
 
   return (
     <section className="py-24 md:py-32 bg-white overflow-hidden">
@@ -62,7 +76,7 @@ export default function ProcessVideo() {
         </div>
 
         <div className="max-w-5xl mx-auto">
-          {/* Video Container with fallback for mobile */}
+          {/* Video Container */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -71,8 +85,19 @@ export default function ProcessVideo() {
             className="relative aspect-video rounded-2xl overflow-hidden bg-gray-100 shadow-xl"
           >
             {isMobile ? (
-              <div className="w-full h-full flex flex-col items-center justify-center relative">
-                <div className="absolute inset-0 w-full h-full">
+              isPlaying ? (
+                <div className="w-full h-full">
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0&playsinline=1`}
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    title="Apple Interiors Design Process"
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : (
+                <div className="w-full h-full relative">
                   <Image 
                     src={thumbnailUrl} 
                     alt="Video thumbnail" 
@@ -81,27 +106,23 @@ export default function ProcessVideo() {
                     priority
                     sizes="(max-width: 768px) 100vw, 50vw"
                     onError={(e) => {
-                      // Fallback to medium quality if max quality isn't available
                       const target = e.target as HTMLImageElement;
                       target.src = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
                     }}
                   />
-                </div>
-                <div className="relative z-10 flex flex-col items-center justify-center w-full h-full bg-black/30 p-4">
-                  <a 
-                    href={`https://www.youtube.com/watch?v=${videoId}`} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-full flex items-center justify-center transition-colors duration-300 shadow-lg"
-                    aria-label="Watch video on YouTube"
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/20"
+                    onClick={handlePlayVideo}
+                    aria-label="Play video"
                   >
-                    <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                    </svg>
-                    Watch on YouTube
-                  </a>
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-red-600 flex items-center justify-center">
+                      <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )
             ) : (
               <iframe
                 src={videoEmbedUrl}
