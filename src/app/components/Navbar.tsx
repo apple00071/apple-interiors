@@ -97,10 +97,10 @@ export default function Navbar() {
                   href={item.href}
                   className={`text-sm font-medium transition-colors duration-300 ${
                     pathname === item.href
-                      ? "text-primary-600 dark:text-primary-400"
+                      ? "text-primary-600"
                       : isHomePage && !isScrolled
                         ? "text-white hover:text-primary-200"
-                        : "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+                        : "text-gray-600 hover:text-primary-600"
                   }`}
                 >
                   {item.name}
@@ -125,7 +125,7 @@ export default function Navbar() {
               className={`md:hidden relative z-10 p-2 -mr-2 ${
                 isHomePage && !isScrolled
                   ? "text-white"
-                  : "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+                  : "text-gray-600 hover:text-primary-600"
               }`}
             >
               <span className="sr-only">Open menu</span>
@@ -155,7 +155,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 md:hidden bg-white dark:bg-gray-900"
+            className="fixed inset-0 z-40 md:hidden bg-white"
           >
             <div className="flex flex-col h-full pt-20 p-4">
               {navItems.map((item) => (
@@ -165,8 +165,8 @@ export default function Navbar() {
                   onClick={handleLinkClick}
                   className={`py-3 text-lg font-medium transition-colors duration-300 ${
                     pathname === item.href
-                      ? "text-primary-600 dark:text-primary-400"
-                      : "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+                      ? "text-primary-600"
+                      : "text-gray-600 hover:text-primary-600"
                   }`}
                 >
                   {item.name}
