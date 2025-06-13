@@ -9,12 +9,12 @@ export const metadata = {
 
 export default function PortfolioPage() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="pt-20">
+      <main className="flex-grow pt-20">
         <Portfolio />
-        <Footer />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 } 

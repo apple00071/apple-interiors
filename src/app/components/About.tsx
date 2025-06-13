@@ -60,7 +60,7 @@ export default function About() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
             >
-              Crafting Beautiful <span className="text-primary-500">Living Spaces</span>
+              Crafting Beautiful Living Spaces
             </motion.h2>
             
             <motion.p

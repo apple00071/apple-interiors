@@ -102,7 +102,7 @@ export default function Portfolio() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
           >
-            Featured <span className="text-primary-500">Projects</span>
+            Featured Projects
           </motion.h2>
 
           {/* Category Filters */}
@@ -111,10 +111,10 @@ export default function Portfolio() {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === category
-                    ? "bg-primary-500 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-primary-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-primary-900/20"
+                    ? "bg-primary-500 text-white shadow-lg shadow-primary-500/25"
+                    : "bg-gray-100 text-gray-600 hover:bg-primary-500/10 hover:text-primary-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-primary-500/20"
                 }`}
               >
                 {category}
@@ -156,7 +156,7 @@ export default function Portfolio() {
                   src={getImagePath(imageData.url)}
                   alt={`${imageData.title} - Image ${index + 1}`}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   unoptimized={false}
                   quality={75}
                   priority={index < 4}
@@ -201,7 +201,7 @@ export default function Portfolio() {
                     setSelectedItem(null);
                     setCurrentImageIndex(0);
                   }}
-                  className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-colors"
+                  className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-primary-500/20 backdrop-blur-md text-white hover:bg-primary-500/30 transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -227,7 +227,7 @@ export default function Portfolio() {
                   {/* Navigation Arrows */}
                   <button
                     onClick={handlePrevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-black/70 transition-colors"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-primary-500/20 backdrop-blur-md text-white hover:bg-primary-500/30 transition-colors"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -235,7 +235,7 @@ export default function Portfolio() {
                   </button>
                   <button
                     onClick={handleNextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-black/70 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-primary-500/20 backdrop-blur-md text-white hover:bg-primary-500/30 transition-colors"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -243,7 +243,7 @@ export default function Portfolio() {
                   </button>
 
                   {/* Image Counter */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md text-white text-sm">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-primary-500/20 backdrop-blur-md text-white text-sm">
                     {currentImageIndex + 1} / {selectedItem.images.length}
                   </div>
                 </div>

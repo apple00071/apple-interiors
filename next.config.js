@@ -1,19 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',  // Changed from 'export' to 'standalone' for better routing support
+  output: 'export',  // Changed to 'export' for static site generation
   images: {
     unoptimized: true,
   },
   trailingSlash: true,  // Add trailing slashes to all routes
-  // Add rewrites to handle the root path
-  async rewrites() {
-    return [
-      {
-        source: '/',
-        destination: '/home',
-      },
-    ];
-  },
-}
+  // Remove rewrites as they don't work with static exports
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig; 

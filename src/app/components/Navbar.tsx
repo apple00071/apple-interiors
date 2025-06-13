@@ -18,6 +18,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,9 +30,15 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-transparent"
-      }`}>
+      <header 
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          isHomePage 
+            ? isScrolled 
+              ? "bg-white/80 backdrop-blur-lg shadow-lg" 
+              : "bg-transparent"
+            : "bg-white shadow-lg"
+        }`}
+      >
         <nav className="container mx-auto px-4 h-20">
           <div className="flex items-center justify-between h-full">
             <Link href="/" className="relative z-10">
@@ -54,9 +61,9 @@ export default function Navbar() {
                   className={`text-sm font-medium transition-colors duration-300 ${
                     pathname === item.href
                       ? "text-primary-600 dark:text-primary-400"
-                      : isScrolled
-                        ? "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
-                        : "text-white hover:text-primary-200"
+                      : isHomePage && !isScrolled
+                        ? "text-white hover:text-primary-200"
+                        : "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
                   }`}
                 >
                   {item.name}
@@ -65,7 +72,11 @@ export default function Navbar() {
               
               <a
                 href="#contact"
-                className="inline-flex items-center px-4 py-2 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-sm transition-colors duration-300"
+                className={`inline-flex items-center px-4 py-2 rounded-full text-white font-medium text-sm transition-colors duration-300 ${
+                  isHomePage && !isScrolled
+                    ? "bg-white/20 hover:bg-white/30 backdrop-blur-sm"
+                    : "bg-primary-500 hover:bg-primary-600"
+                }`}
               >
                 Contact Us
               </a>
@@ -74,7 +85,11 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative z-10 p-2 -mr-2 text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+              className={`md:hidden relative z-10 p-2 -mr-2 ${
+                isHomePage && !isScrolled
+                  ? "text-white"
+                  : "text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+              }`}
             >
               <span className="sr-only">Open menu</span>
               <svg

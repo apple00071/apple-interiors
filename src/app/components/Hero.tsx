@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -42,41 +42,9 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      const handleClickOutside = () => {
-        setIsMobileMenuOpen(false);
-      };
-      
-      // Add a slight delay to avoid immediate closing when menu is opened
-      const timeoutId = setTimeout(() => {
-        document.addEventListener('click', handleClickOutside);
-      }, 100);
-      
-      return () => {
-        clearTimeout(timeoutId);
-        document.removeEventListener('click', handleClickOutside);
-      };
-    }
-  }, [isMobileMenuOpen]);
-
-  // Handle scrolling when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobileMenuOpen]);
-
   return (
     <>
-      {/* Fixed Header that changes with scroll - now with hide-on-scroll behavior */}
+      {/* Fixed Header that changes with scroll */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           hideHeader ? '-translate-y-full' : 'translate-y-0'
@@ -143,7 +111,7 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Button */}
           <button 
             className="md:hidden relative z-50 w-10 h-10 flex items-center justify-center"
             onClick={(e) => {
@@ -169,7 +137,6 @@ export default function Hero() {
           backdropFilter: 'blur(10px)',
           background: 'rgba(255, 255, 255, 0.98)'
         }}
-        onClick={(e) => e.stopPropagation()}
       >
         <div className="container mx-auto px-6 sm:px-8 py-6 sm:py-8">
           <nav className="flex flex-col space-y-4 sm:space-y-6">
@@ -206,7 +173,7 @@ export default function Hero() {
           </nav>
         </div>
       </div>
-      
+
       {/* Main Hero Section */}
       <section id="home" className="relative min-h-screen w-full overflow-hidden">
         {/* Blurred Background Text - CalmHome style */}
@@ -272,7 +239,7 @@ export default function Hero() {
                   Be Unique
                 </motion.div>
               </div>
-              
+            
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -281,32 +248,32 @@ export default function Hero() {
               >
                 Discover our expertise in indoor decorating, tailored to make your home uniquely beautiful and inviting.
               </motion.p>
-              
+            
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
                 className="mt-6 sm:mt-10"
               >
-                <Link
-                  href="/contact"
+                <a
+                  href="#contact"
                   className="group inline-flex items-center px-5 sm:px-7 py-3 sm:py-3.5 bg-white text-[#2C2C2C] rounded-full text-sm font-medium hover:bg-gray-100 transition-colors duration-300"
                 >
                   Contact Us
-                  <svg 
+                  <svg
                     className="ml-2 w-4 sm:w-5 h-4 sm:h-5 transform transition-transform duration-300 group-hover:translate-x-1" 
-                    fill="none" 
-                    stroke="currentColor" 
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M17 8l4 4m0 0l-4 4m4-4H3" 
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
                     />
                   </svg>
-                </Link>
+                </a>
               </motion.div>
             </div>
           </div>
