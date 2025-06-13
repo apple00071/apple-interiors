@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 const useBasePath = () => {
   const pathname = usePathname();
   const isDev = process.env.NODE_ENV === 'development';
-  return isDev ? '' : '/applenew';
+  return isDev ? '' : '';  // Removed '/applenew' since we're using Vercel
 };
 
 // Add a helper function to handle image paths
@@ -47,10 +47,7 @@ export default function Portfolio() {
     setIsMounted(true);
   }, []);
 
-  const filteredItems = portfolioItems.filter(item => {
-    console.log(`Filtering item: ${item.title}, Category: ${item.category}, Active Category: ${activeCategory}`);
-    return item.category === activeCategory;
-  });
+  const filteredItems = portfolioItems.filter(item => item.category === activeCategory);
 
   console.log(`Total filtered items: ${filteredItems.length}`);
 
@@ -126,19 +123,17 @@ export default function Portfolio() {
         {/* Portfolio Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredItems.reduce((allImages, item) => {
+            // Include all images from each item
             item.images.forEach(image => {
-              if (!allImages.some(existing => existing.url === image)) {
-                allImages.push({
-                  url: image,
-                  title: item.title,
-                  location: item.location,
-                  item: item
-                });
-              }
+              allImages.push({
+                url: image,
+                title: item.title,
+                location: item.location,
+                item: item
+              });
             });
             return allImages;
           }, [] as Array<{ url: string; title: string; location: string; item: PortfolioItem }>)
-          .slice(0, 6)
           .map((imageData, index) => (
             <motion.div
               key={`${imageData.item.id}-${index}`}
@@ -154,20 +149,13 @@ export default function Portfolio() {
               >
                 <Image
                   src={getImagePath(imageData.url)}
-                  alt={`${imageData.title} - Image ${index + 1}`}
+                  alt={`${imageData.title} - ${imageData.location}`}
                   fill
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   unoptimized={false}
                   quality={75}
                   priority={index < 4}
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  onError={(e) => {
-                    console.error(`Failed to load image: ${imageData.url}`);
-                    const fallbackImage = '/images/portfolio/living-room/1.png';
-                    if (e.currentTarget.src !== fallbackImage) {
-                      e.currentTarget.src = fallbackImage;
-                    }
-                  }}
                 />
               </div>
             </motion.div>

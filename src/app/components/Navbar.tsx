@@ -20,13 +20,50 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
+  // Handle scroll lock when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  // Close menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
+  const handleMenuToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -84,7 +121,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={handleMenuToggle}
               className={`md:hidden relative z-10 p-2 -mr-2 ${
                 isHomePage && !isScrolled
                   ? "text-white"
@@ -125,7 +162,7 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleLinkClick}
                   className={`py-3 text-lg font-medium transition-colors duration-300 ${
                     pathname === item.href
                       ? "text-primary-600 dark:text-primary-400"
@@ -138,7 +175,7 @@ export default function Navbar() {
               
               <a
                 href="#contact"
-                onClick={() => setIsOpen(false)}
+                onClick={handleLinkClick}
                 className="mt-4 inline-flex items-center justify-center px-4 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-lg transition-colors duration-300"
               >
                 Contact Us
