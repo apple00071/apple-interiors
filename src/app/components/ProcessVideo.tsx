@@ -1,10 +1,28 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function ProcessVideo() {
-  // YouTube embed URL
-  const videoEmbedUrl = "https://www.youtube.com/embed/Av5O1EjRGuA";
+  // YouTube embed URL with additional parameters for better mobile experience
+  const videoEmbedUrl = "https://www.youtube.com/embed/Av5O1EjRGuA?rel=0&showinfo=0&playsinline=1";
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile on client side
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Set initial value
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section className="py-24 md:py-32 bg-white overflow-hidden">
@@ -41,6 +59,7 @@ export default function ProcessVideo() {
         </div>
 
         <div className="max-w-5xl mx-auto">
+          {/* Video Container with fallback for mobile */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -48,14 +67,31 @@ export default function ProcessVideo() {
             transition={{ delay: 0.3 }}
             className="relative aspect-video rounded-2xl overflow-hidden bg-gray-100 shadow-xl"
           >
-            <iframe
-              src={videoEmbedUrl}
-              className="absolute inset-0 w-full h-full"
-              title="Apple Interiors Design Process"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            {isMobile ? (
+              <div className="w-full h-full flex flex-col items-center justify-center p-4">
+                <p className="text-gray-600 mb-4 text-center">For the best viewing experience:</p>
+                <a 
+                  href="https://www.youtube.com/watch?v=Av5O1EjRGuA" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-red-600 text-white py-2 px-4 rounded-lg flex items-center"
+                >
+                  <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                  </svg>
+                  Watch on YouTube
+                </a>
+              </div>
+            ) : (
+              <iframe
+                src={videoEmbedUrl}
+                className="absolute inset-0 w-full h-full"
+                title="Apple Interiors Design Process"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
           </motion.div>
 
           {/* Process Steps */}
