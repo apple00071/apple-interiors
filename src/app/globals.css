@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
   --background: #ffffff;
   --foreground: #0f172a;
   --primary: #eab308;
@@ -16,19 +13,6 @@
   --accent: #f8fafc;
   --muted: #f1f5f9;
   
-  /* Theme variables */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-light: var(--primary-light);
-  --color-primary-dark: var(--primary-dark);
-  --color-secondary: var(--secondary);
-  --color-accent: var(--accent);
-  --color-muted: var(--muted);
-  --font-sans: var(--font-montserrat);
-  --font-display: var(--font-playfair);
-  
   /* Mobile-specific sizing */
   --header-height-mobile: 4rem;
   --touch-target-size: 44px;
@@ -37,20 +21,6 @@
   
   /* Font size scaling (smaller than default) */
   --text-scale: 0.9;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-    --background: #0f172a;
-    --foreground: #f8fafc;
-    --primary: #facc15;
-    --primary-hover: #eab308;
-    --primary-light: #713f12;
-    --primary-dark: #fef08a;
-  }
 }
 
 /* Smooth scrolling */
@@ -139,10 +109,6 @@ p, li, a, span, button, input, textarea, select, label {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.dark .glass {
-  background: rgba(15, 23, 42, 0.8);
-}
-
 /* Modern scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -172,75 +138,6 @@ section {
   }
 }
 
-/* Enhanced container */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: 0 2rem;
-  }
-}
-
-/* Modern button styles */
-.btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.btn-primary {
-  background: var(--primary);
-  color: white;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-}
-
-/* Enhanced image styles */
-.img-hover {
-  transition: transform 0.3s ease;
-}
-
-.img-hover:hover {
-  transform: scale(1.05);
-}
-
-/* Modern card styles */
-.card {
-  background: var(--background);
-  border-radius: 1rem;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive typography */
-@media (max-width: 768px) {
-  h1 { font-size: calc(2.5rem * var(--text-scale)); }
-  h2 { font-size: calc(2rem * var(--text-scale)); }
-  h3 { font-size: calc(1.75rem * var(--text-scale)); }
-  p { font-size: calc(1rem * var(--text-scale)); }
-}
-
-@media (min-width: 769px) {
-  h1 { font-size: calc(3.5rem * var(--text-scale)); }
-  h2 { font-size: calc(3rem * var(--text-scale)); }
-  h3 { font-size: calc(2.25rem * var(--text-scale)); }
-  p { font-size: calc(1.125rem * var(--text-scale)); }
-}
-
-/* Better scrolling behavior on mobile */
 @media (max-width: 768px) {
   html, body {
     -webkit-overflow-scrolling: touch;
@@ -276,11 +173,6 @@ section {
   p, li {
     line-height: 1.6;
   }
-  
-  /* Enhanced dark mode on mobile for better visibility */
-  .dark:root {
-    --foreground: #ffffff;
-  }
 }
 
 @layer utilities {
@@ -297,13 +189,13 @@ a, button {
 /* Enhanced footer styling */
 footer.bg-foreground {
   background-color: var(--secondary);
-  color: var(--text-on-dark);
+  color: white;
 }
 
 footer.bg-foreground a, 
 footer.bg-foreground p, 
 footer.bg-foreground h3 {
-  color: var(--text-on-dark);
+  color: white;
 }
 
 footer.bg-foreground a:hover {
@@ -313,26 +205,26 @@ footer.bg-foreground a:hover {
 /* Fix specific sections with contrast issues */
 .bg-foreground {
   background-color: var(--secondary);
-  color: var(--text-on-dark);
+  color: white;
 }
 
 .bg-background {
   background-color: var(--background);
-  color: var(--text-on-light);
+  color: var(--foreground);
 }
 
 .bg-secondary {
   background-color: var(--secondary);
-  color: var(--text-on-dark);
+  color: white;
 }
 
 .bg-accent {
   background-color: var(--accent);
-  color: var(--text-on-light);
+  color: var(--foreground);
 }
 
 .bg-white {
-  color: var(--text-on-light);
+  color: var(--foreground);
 }
 
 /* Mobile-friendly animations */
@@ -354,12 +246,6 @@ footer.bg-foreground a:hover {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
   }
-}
-
-/* Enhanced mobile menu styles */
-.mobile-menu-overlay {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 /* Better mobile scrolling */

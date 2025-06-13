@@ -5,12 +5,12 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'media', // or 'class' for manual dark mode
+  darkMode: false,
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)', 
+        background: '#ffffff',
+        foreground: '#0f172a', 
         primary: {
           DEFAULT: '#EAB308', // Yellow
           50: '#FEFCE8',
@@ -39,20 +39,8 @@ module.exports = {
           900: '#0F172A',
           950: '#020617'
         },
-        accent: 'var(--accent)',
-        muted: 'var(--muted)',
-        'text-on-light': 'var(--text-on-light)',
-        'text-on-dark': 'var(--text-on-dark)',
-        'text-light-muted': 'var(--text-light-muted)',
-        'text-dark-muted': 'var(--text-dark-muted)',
-      },
-      textColor: {
-        'default': 'var(--foreground)',
-        'inverse': 'var(--background)',
-      },
-      backgroundColor: {
-        'default': 'var(--background)',
-        'inverse': 'var(--foreground)',
+        accent: '#f8fafc',
+        muted: '#f1f5f9',
       },
       fontFamily: {
         montserrat: ['var(--font-montserrat)'],

@@ -20,6 +20,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
+  // Force menu to be closed on component mount
+  useEffect(() => {
+    setIsOpen(false);
+  }, []);
+
   // Handle scroll lock when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -151,37 +156,48 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 md:hidden bg-white"
-          >
-            <div className="flex flex-col h-full pt-20 p-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={handleLinkClick}
-                  className={`py-3 text-lg font-medium transition-colors duration-300 ${
-                    pathname === item.href
-                      ? "text-primary-600"
-                      : "text-gray-600 hover:text-primary-600"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
-              <a
-                href="#contact"
-                onClick={handleLinkClick}
-                className="mt-4 inline-flex items-center justify-center px-4 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-lg transition-colors duration-300"
-              >
-                Contact Us
-              </a>
-            </div>
-          </motion.div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-black/50 md:hidden"
+              onClick={handleMenuToggle}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed inset-0 z-41 md:hidden"
+            >
+              <div className="relative w-full h-full bg-white">
+                <div className="flex flex-col h-full pt-20 p-4 overflow-y-auto">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={handleLinkClick}
+                      className={`py-3 text-lg font-medium transition-colors duration-300 ${
+                        pathname === item.href
+                          ? "text-primary-600"
+                          : "text-gray-600 hover:text-primary-600"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                  
+                  <a
+                    href="#contact"
+                    onClick={handleLinkClick}
+                    className="mt-4 inline-flex items-center justify-center px-4 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-medium text-lg transition-colors duration-300"
+                  >
+                    Contact Us
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
