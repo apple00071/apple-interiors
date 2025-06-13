@@ -14,7 +14,7 @@ export default function ProcessVideo() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary font-medium mb-3 tracking-wide uppercase text-sm"
+            className="text-yellow-500 font-medium mb-3 tracking-wide uppercase text-sm"
           >
             Our Process
           </motion.p>

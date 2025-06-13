@@ -50,7 +50,7 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary font-medium mb-4 tracking-wide uppercase text-sm"
+            className="text-yellow-500 font-medium mb-4 tracking-wide uppercase text-sm"
           >
             Testimonials
           </motion.p>
