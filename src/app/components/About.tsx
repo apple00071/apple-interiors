@@ -48,7 +48,7 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-primary-500 font-medium mb-4 tracking-wide uppercase"
+              className="text-yellow-500 font-medium mb-4 tracking-wide uppercase"
             >
               About Us
             </motion.p>
@@ -83,7 +83,7 @@ export default function About() {
                   transition={{ delay: 0.3 + index * 0.1 }}
                   className="flex flex-col items-center text-center"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary mb-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-yellow-500/10 dark:bg-yellow-500/20 flex items-center justify-center text-yellow-500 mb-4">
                     {feature.icon}
                   </div>
                   <div>

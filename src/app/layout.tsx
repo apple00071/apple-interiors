@@ -97,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth light" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/icon.png" sizes="any" />
         <link rel="shortcut icon" type="image/png" href="/icon.png" />
@@ -105,7 +105,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body
-        className={`${montserrat.variable} ${playfair.variable} font-sans antialiased`}
+        className={`${montserrat.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
         <Header />
         <main className="min-h-screen flex-1">

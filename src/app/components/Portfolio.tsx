@@ -49,7 +49,14 @@ export default function Portfolio() {
 
   const filteredItems = portfolioItems.filter(item => item.category === activeCategory);
 
-  console.log(`Total filtered items: ${filteredItems.length}`);
+  console.log(`Total filtered items for ${activeCategory}: ${filteredItems.length}`);
+  
+  // Log to debug image issues
+  useEffect(() => {
+    if (isMounted && filteredItems.length > 0) {
+      console.log(`Displaying ${filteredItems.length} items for ${activeCategory}`);
+    }
+  }, [isMounted, filteredItems, activeCategory]);
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -110,8 +117,8 @@ export default function Portfolio() {
                 onClick={() => setActiveCategory(category)}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === category
-                    ? "bg-primary-500 text-white shadow-lg shadow-primary-500/25"
-                    : "bg-gray-100 text-gray-600 hover:bg-primary-500/10 hover:text-primary-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-primary-500/20"
+                    ? "bg-yellow-500 text-white shadow-lg shadow-yellow-500/25"
+                    : "bg-gray-100 text-gray-600 hover:bg-yellow-500/10 hover:text-yellow-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-yellow-500/20"
                 }`}
               >
                 {category}
@@ -120,23 +127,11 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Portfolio Grid */}
+        {/* Portfolio Grid - Ensuring all available items are displayed (max 6) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-          {filteredItems.reduce((allImages, item) => {
-            // Only take the first image from each item
-            if (!allImages.some(existing => existing.url === item.images[0])) {
-              allImages.push({
-                url: item.images[0],
-                title: item.title,
-                location: item.location,
-                item: item
-              });
-            }
-            return allImages;
-          }, [] as Array<{ url: string; title: string; location: string; item: PortfolioItem }>)
-          .map((imageData, index) => (
+          {filteredItems.slice(0, 6).map((item, index) => (
             <motion.div
-              key={`${imageData.item.id}-${index}`}
+              key={`${item.id}-${index}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -145,11 +140,11 @@ export default function Portfolio() {
             >
               <div 
                 className="relative aspect-square overflow-hidden rounded-2xl bg-black/5 dark:bg-white/5 cursor-pointer group"
-                onClick={() => handleItemClick(imageData.item)}
+                onClick={() => handleItemClick(item)}
               >
                 <Image
-                  src={getImagePath(imageData.url)}
-                  alt={`${imageData.title} - ${imageData.location}`}
+                  src={getImagePath(item.images[0])}
+                  alt={`${item.title} - ${item.location}`}
                   fill
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   unoptimized={false}
@@ -157,12 +152,8 @@ export default function Portfolio() {
                   priority={index < 4}
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                    <h3 className="text-lg font-semibold">{imageData.title}</h3>
-                    <p className="text-sm opacity-90">{imageData.location}</p>
-                  </div>
-                </div>
+                {/* Hover effect without text */}
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </motion.div>
           ))}
@@ -195,7 +186,7 @@ export default function Portfolio() {
                     setSelectedItem(null);
                     setCurrentImageIndex(0);
                   }}
-                  className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-primary-500/20 backdrop-blur-md text-white hover:bg-primary-500/30 transition-colors"
+                  className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500/20 backdrop-blur-md text-white hover:bg-yellow-500/30 transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -221,7 +212,7 @@ export default function Portfolio() {
                   {/* Navigation Arrows */}
                   <button
                     onClick={handlePrevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-primary-500/20 backdrop-blur-md text-white hover:bg-primary-500/30 transition-colors"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-yellow-500/20 backdrop-blur-md text-white hover:bg-yellow-500/30 transition-colors"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -229,7 +220,7 @@ export default function Portfolio() {
                   </button>
                   <button
                     onClick={handleNextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-primary-500/20 backdrop-blur-md text-white hover:bg-primary-500/30 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-yellow-500/20 backdrop-blur-md text-white hover:bg-yellow-500/30 transition-colors"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -237,7 +228,7 @@ export default function Portfolio() {
                   </button>
 
                   {/* Image Counter */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-primary-500/20 backdrop-blur-md text-white text-sm">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-yellow-500/20 backdrop-blur-md text-white text-sm">
                     {currentImageIndex + 1} / {selectedItem.images.length}
                   </div>
                 </div>

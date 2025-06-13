@@ -13,7 +13,7 @@ export default function Hero() {
         {/* Blurred Background Text - CalmHome style */}
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
-            <h2 className="text-[15vw] sm:text-[20vw] font-serif text-[#f1f1f1] dark:text-[#1a1a1a]/10 text-center font-bold opacity-70 blur-[50px]">
+            <h2 className="text-[15vw] sm:text-[20vw] font-serif text-[#f1f1f1] text-center font-bold opacity-70 blur-[50px]">
               Calm & style preferred
             </h2>
           </div>

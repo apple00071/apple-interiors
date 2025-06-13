@@ -4,8 +4,7 @@
     "Dining",
     "Bedroom",
     "Kitchen",
-    "False Ceiling",
-    "Pooja Room"
+    "False Ceiling"
   ],
   "items": [
     {
@@ -43,6 +42,74 @@
       "area": "550"
     },
     {
+      "id": 11,
+      "title": "Elegant Living Area",
+      "category": "Living Room",
+      "images": [
+        "/images/portfolio/living-room/7.png",
+        "/images/portfolio/living-room/8.png",
+        "/images/portfolio/living-room/12.png",
+        "/images/portfolio/living-room/13.png",
+        "/images/portfolio/living-room/1.png",
+        "/images/portfolio/living-room/4.png"
+      ],
+      "description": "Sophisticated living space with premium materials",
+      "year": "2024",
+      "location": "Banjara Hills, Hyderabad",
+      "area": "480"
+    },
+    {
+      "id": 12,
+      "title": "Modern Living Design",
+      "category": "Living Room",
+      "images": [
+        "/images/portfolio/living-room/4.png",
+        "/images/portfolio/living-room/7.png",
+        "/images/portfolio/living-room/8.png",
+        "/images/portfolio/living-room/12.png",
+        "/images/portfolio/living-room/13.png",
+        "/images/portfolio/living-room/1.png"
+      ],
+      "description": "Contemporary living room with sleek design elements",
+      "year": "2024",
+      "location": "Kondapur, Hyderabad",
+      "area": "420"
+    },
+    {
+      "id": 13,
+      "title": "Minimalist Living Space",
+      "category": "Living Room",
+      "images": [
+        "/images/portfolio/living-room/8.png",
+        "/images/portfolio/living-room/12.png",
+        "/images/portfolio/living-room/13.png",
+        "/images/portfolio/living-room/1.png",
+        "/images/portfolio/living-room/4.png",
+        "/images/portfolio/living-room/7.png"
+      ],
+      "description": "Clean and minimalist living room design",
+      "year": "2024",
+      "location": "Madhapur, Hyderabad",
+      "area": "430"
+    },
+    {
+      "id": 14,
+      "title": "Cozy Family Living Room",
+      "category": "Living Room",
+      "images": [
+        "/images/portfolio/living-room/12.png",
+        "/images/portfolio/living-room/13.png",
+        "/images/portfolio/living-room/1.png",
+        "/images/portfolio/living-room/4.png",
+        "/images/portfolio/living-room/7.png",
+        "/images/portfolio/living-room/8.png"
+      ],
+      "description": "Warm and inviting living space for family gatherings",
+      "year": "2024",
+      "location": "HITEC City, Hyderabad",
+      "area": "470"
+    },
+    {
       "id": 3,
       "title": "Modern Dining Space",
       "category": "Dining",
@@ -75,6 +142,74 @@
       "year": "2024",
       "location": "Banjara Hills, Hyderabad",
       "area": "350"
+    },
+    {
+      "id": 15,
+      "title": "Minimalist Dining Area",
+      "category": "Dining",
+      "images": [
+        "/images/portfolio/dining/9.png",
+        "/images/portfolio/dining/10.png",
+        "/images/portfolio/dining/26.png",
+        "/images/portfolio/dining/N2.png",
+        "/images/portfolio/dining/1.png",
+        "/images/portfolio/dining/2.png"
+      ],
+      "description": "Clean and minimalist dining space design",
+      "year": "2024",
+      "location": "Kondapur, Hyderabad",
+      "area": "320"
+    },
+    {
+      "id": 16,
+      "title": "Contemporary Dining Room",
+      "category": "Dining",
+      "images": [
+        "/images/portfolio/dining/10.png",
+        "/images/portfolio/dining/26.png",
+        "/images/portfolio/dining/N2.png",
+        "/images/portfolio/dining/1.png",
+        "/images/portfolio/dining/2.png",
+        "/images/portfolio/dining/9.png"
+      ],
+      "description": "Modern dining space with stylish elements",
+      "year": "2024",
+      "location": "Gachibowli, Hyderabad",
+      "area": "330"
+    },
+    {
+      "id": 17,
+      "title": "Luxury Dining Setup",
+      "category": "Dining",
+      "images": [
+        "/images/portfolio/dining/26.png",
+        "/images/portfolio/dining/N2.png",
+        "/images/portfolio/dining/1.png",
+        "/images/portfolio/dining/2.png",
+        "/images/portfolio/dining/9.png",
+        "/images/portfolio/dining/10.png"
+      ],
+      "description": "Upscale dining room with premium finishes",
+      "year": "2024",
+      "location": "Jubilee Hills, Hyderabad",
+      "area": "360"
+    },
+    {
+      "id": 18,
+      "title": "Family Dining Area",
+      "category": "Dining",
+      "images": [
+        "/images/portfolio/dining/N2.png",
+        "/images/portfolio/dining/1.png",
+        "/images/portfolio/dining/2.png",
+        "/images/portfolio/dining/9.png",
+        "/images/portfolio/dining/10.png",
+        "/images/portfolio/dining/26.png"
+      ],
+      "description": "Comfortable dining space for family meals",
+      "year": "2024",
+      "location": "Kukatpally, Hyderabad",
+      "area": "340"
     },
     {
       "id": 5,
@@ -111,6 +246,74 @@
       "area": "300"
     },
     {
+      "id": 19,
+      "title": "Minimalist Bedroom",
+      "category": "Bedroom",
+      "images": [
+        "/images/portfolio/bedroom/J8.png",
+        "/images/portfolio/bedroom/J7.png",
+        "/images/portfolio/bedroom/104.png",
+        "/images/portfolio/bedroom/99.png",
+        "/images/portfolio/bedroom/3.png",
+        "/images/portfolio/bedroom/N3.png"
+      ],
+      "description": "Clean and simple bedroom design with essential elements",
+      "year": "2024",
+      "location": "Madhapur, Hyderabad",
+      "area": "320"
+    },
+    {
+      "id": 20,
+      "title": "Luxury Bedroom Suite",
+      "category": "Bedroom",
+      "images": [
+        "/images/portfolio/bedroom/J7.png",
+        "/images/portfolio/bedroom/104.png",
+        "/images/portfolio/bedroom/99.png",
+        "/images/portfolio/bedroom/3.png",
+        "/images/portfolio/bedroom/N3.png",
+        "/images/portfolio/bedroom/J8.png"
+      ],
+      "description": "Upscale bedroom with premium finishes and amenities",
+      "year": "2024",
+      "location": "Banjara Hills, Hyderabad",
+      "area": "380"
+    },
+    {
+      "id": 21,
+      "title": "Contemporary Bedroom",
+      "category": "Bedroom",
+      "images": [
+        "/images/portfolio/bedroom/104.png",
+        "/images/portfolio/bedroom/99.png",
+        "/images/portfolio/bedroom/3.png",
+        "/images/portfolio/bedroom/N3.png",
+        "/images/portfolio/bedroom/J8.png",
+        "/images/portfolio/bedroom/J7.png"
+      ],
+      "description": "Modern bedroom with stylish elements and decor",
+      "year": "2024",
+      "location": "HITEC City, Hyderabad",
+      "area": "340"
+    },
+    {
+      "id": 22,
+      "title": "Cozy Bedroom Design",
+      "category": "Bedroom",
+      "images": [
+        "/images/portfolio/bedroom/99.png",
+        "/images/portfolio/bedroom/3.png",
+        "/images/portfolio/bedroom/N3.png",
+        "/images/portfolio/bedroom/J8.png",
+        "/images/portfolio/bedroom/J7.png",
+        "/images/portfolio/bedroom/104.png"
+      ],
+      "description": "Warm and inviting bedroom space with comfortable elements",
+      "year": "2024",
+      "location": "Gachibowli, Hyderabad",
+      "area": "360"
+    },
+    {
       "id": 7,
       "title": "Modern Modular Kitchen",
       "category": "Kitchen",
@@ -145,6 +348,74 @@
       "area": "280"
     },
     {
+      "id": 23,
+      "title": "Minimalist Kitchen",
+      "category": "Kitchen",
+      "images": [
+        "/images/portfolio/kitchen/J2.png",
+        "/images/portfolio/kitchen/J3.png",
+        "/images/portfolio/kitchen/J4.png",
+        "/images/portfolio/kitchen/J8.png",
+        "/images/portfolio/kitchen/J9.png",
+        "/images/portfolio/kitchen/J1.png"
+      ],
+      "description": "Clean and simple kitchen design with essential elements",
+      "year": "2024",
+      "location": "Kondapur, Hyderabad",
+      "area": "260"
+    },
+    {
+      "id": 24,
+      "title": "Luxury Kitchen Setup",
+      "category": "Kitchen",
+      "images": [
+        "/images/portfolio/kitchen/J3.png",
+        "/images/portfolio/kitchen/J4.png",
+        "/images/portfolio/kitchen/J8.png",
+        "/images/portfolio/kitchen/J9.png",
+        "/images/portfolio/kitchen/J1.png",
+        "/images/portfolio/kitchen/J2.png"
+      ],
+      "description": "Upscale kitchen with premium finishes and appliances",
+      "year": "2024",
+      "location": "Jubilee Hills, Hyderabad",
+      "area": "290"
+    },
+    {
+      "id": 25,
+      "title": "Spacious Family Kitchen",
+      "category": "Kitchen",
+      "images": [
+        "/images/portfolio/kitchen/J4.png",
+        "/images/portfolio/kitchen/J8.png",
+        "/images/portfolio/kitchen/J9.png",
+        "/images/portfolio/kitchen/J1.png",
+        "/images/portfolio/kitchen/J2.png",
+        "/images/portfolio/kitchen/J3.png"
+      ],
+      "description": "Large kitchen designed for family cooking and gathering",
+      "year": "2024",
+      "location": "Gachibowli, Hyderabad",
+      "area": "300"
+    },
+    {
+      "id": 26,
+      "title": "Modern Compact Kitchen",
+      "category": "Kitchen",
+      "images": [
+        "/images/portfolio/kitchen/J8.png",
+        "/images/portfolio/kitchen/J9.png",
+        "/images/portfolio/kitchen/J1.png",
+        "/images/portfolio/kitchen/J2.png",
+        "/images/portfolio/kitchen/J3.png",
+        "/images/portfolio/kitchen/J4.png"
+      ],
+      "description": "Efficient small kitchen with smart storage solutions",
+      "year": "2024",
+      "location": "Madhapur, Hyderabad",
+      "area": "220"
+    },
+    {
       "id": 9,
       "title": "Elegant Living Room Ceiling",
       "category": "False Ceiling",
@@ -177,6 +448,74 @@
       "year": "2024",
       "location": "Miyapur, Hyderabad",
       "area": "320"
+    },
+    {
+      "id": 27,
+      "title": "Minimalist Ceiling Design",
+      "category": "False Ceiling",
+      "images": [
+        "/images/portfolio/false-ceiling/40.png",
+        "/images/portfolio/false-ceiling/73.png",
+        "/images/portfolio/false-ceiling/96.png",
+        "/images/portfolio/false-ceiling/141.png",
+        "/images/portfolio/false-ceiling/142.png",
+        "/images/portfolio/false-ceiling/2.png"
+      ],
+      "description": "Clean and simple ceiling design with subtle lighting",
+      "year": "2024",
+      "location": "Kondapur, Hyderabad",
+      "area": "340"
+    },
+    {
+      "id": 28,
+      "title": "Luxury Ceiling Installation",
+      "category": "False Ceiling",
+      "images": [
+        "/images/portfolio/false-ceiling/73.png",
+        "/images/portfolio/false-ceiling/96.png",
+        "/images/portfolio/false-ceiling/141.png",
+        "/images/portfolio/false-ceiling/142.png",
+        "/images/portfolio/false-ceiling/2.png",
+        "/images/portfolio/false-ceiling/40.png"
+      ],
+      "description": "Premium ceiling design with intricate patterns",
+      "year": "2024",
+      "location": "Jubilee Hills, Hyderabad",
+      "area": "380"
+    },
+    {
+      "id": 29,
+      "title": "Contemporary Ceiling",
+      "category": "False Ceiling",
+      "images": [
+        "/images/portfolio/false-ceiling/96.png",
+        "/images/portfolio/false-ceiling/141.png",
+        "/images/portfolio/false-ceiling/142.png",
+        "/images/portfolio/false-ceiling/2.png",
+        "/images/portfolio/false-ceiling/40.png",
+        "/images/portfolio/false-ceiling/73.png"
+      ],
+      "description": "Modern ceiling with geometric design elements",
+      "year": "2024",
+      "location": "HITEC City, Hyderabad",
+      "area": "360"
+    },
+    {
+      "id": 30,
+      "title": "Artistic Ceiling Design",
+      "category": "False Ceiling",
+      "images": [
+        "/images/portfolio/false-ceiling/141.png",
+        "/images/portfolio/false-ceiling/142.png",
+        "/images/portfolio/false-ceiling/2.png",
+        "/images/portfolio/false-ceiling/40.png",
+        "/images/portfolio/false-ceiling/73.png",
+        "/images/portfolio/false-ceiling/96.png"
+      ],
+      "description": "Creative ceiling with artistic patterns and lighting",
+      "year": "2024",
+      "location": "Banjara Hills, Hyderabad",
+      "area": "370"
     }
   ]
 } 

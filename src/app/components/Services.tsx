@@ -109,10 +109,9 @@ export default function Services() {
             >
               <div 
                 className="w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
+                style={{ color: '#eab308' }} /* Force yellow color with inline style */
               >
-                <div className="text-yellow-500">
-                  {service.icon}
-                </div>
+                {service.icon}
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-yellow-500 transition-colors duration-300">{service.title}</h3>
               <p className="text-gray-600 dark:text-gray-400">{service.description}</p>
