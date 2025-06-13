@@ -193,7 +193,7 @@ export default function Brands() {
           </div>
 
           {/* Page Indicator Dots */}
-          <div className="flex justify-center space-x-1 sm:space-x-2 mt-4 sm:mt-6">
+          <div className="hidden sm:flex justify-center space-x-2 mt-6">
             {Array.from({ length: totalPages }).map((_, index) => (
               <button
                 key={index}
@@ -202,9 +202,9 @@ export default function Brands() {
                   setDirection(index > currentPage ? 1 : -1);
                   setCurrentPage(index);
                 }}
-                className={`w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-200 focus:outline-none ${
+                className={`w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full transition-all duration-200 focus:outline-none ${
                   index === currentPage
-                    ? "bg-primary w-5 sm:w-8"
+                    ? "bg-primary w-5 md:w-8"
                     : "bg-gray-300 dark:bg-gray-700 hover:bg-primary/50"
                 }`}
                 aria-label={`Go to page ${index + 1}`}
