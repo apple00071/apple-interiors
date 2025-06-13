@@ -333,18 +333,6 @@ export default function Header(): JSX.Element {
                 </Link>
               </motion.div>
             ))}
-            <motion.div 
-              variants={menuItemVariants}
-              className="pt-6 mt-4"
-            >
-              <Link
-                href="/contact"
-                className="bg-yellow-500 hover:bg-yellow-600 text-white px-5 py-4 rounded-lg font-medium transition-colors duration-300 inline-block w-full text-center"
-                onClick={handleLinkClick}
-              >
-                Contact Us
-              </Link>
-            </motion.div>
           </div>
         </nav>
       </motion.div>
