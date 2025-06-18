@@ -9,6 +9,9 @@ const isValidEmail = (email) => {
 
 export async function POST(request) {
   try {
+    console.log('Request URL:', request.url);
+    console.log('Request method:', request.method);
+    
     // Parse request body
     const body = await request.json();
     console.log('Contact form submission received:', body);
@@ -120,7 +123,9 @@ export async function POST(request) {
 }
 
 // Handle OPTIONS requests for CORS preflight
-export async function OPTIONS() {
+export async function OPTIONS(request) {
+  console.log('OPTIONS request received:', request.url);
+  
   return NextResponse.json({}, { 
     status: 200,
     headers: {
