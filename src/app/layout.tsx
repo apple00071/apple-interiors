@@ -4,6 +4,7 @@ import "./globals.css";
 import JsonLd from './components/JsonLd'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import GoogleAnalytics from './components/GoogleAnalytics'
 
 export const dynamic = 'force-static';
 
@@ -103,6 +104,7 @@ export default function RootLayout({
         <link rel="shortcut icon" type="image/png" href="/icon.png" />
         <link rel="apple-touch-icon" href="/icon.png" />
         <JsonLd />
+        <GoogleAnalytics />
       </head>
       <body
         className={`${montserrat.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}

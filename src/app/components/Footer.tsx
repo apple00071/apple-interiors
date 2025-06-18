@@ -120,7 +120,7 @@ export default function Footer() {
 
       {/* WhatsApp Widget */}
       <a
-        href="https://wa.me/919603960337"
+        href="https://wa.me/919603960337?text=Hi%2C%20I%20am%20interested%20in%20interior%20design%20services%20for%20my%20property.%20Could%20you%20help%20me%3F"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300 z-50"
