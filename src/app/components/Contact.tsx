@@ -27,9 +27,14 @@ export default function Contact() {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      console.log('Submitting form to:', '/api/contact');
+      // Use a different URL for production vs development
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://apple-interiors.vercel.app/api/contact'
+        : '/api/contact';
       
-      const response = await fetch('/api/contact', {
+      console.log('Submitting form to:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

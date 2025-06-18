@@ -19,10 +19,12 @@ export default async function handler(req, res) {
 
   // Only allow POST method
   if (req.method !== 'POST') {
+    console.log(`Method not allowed: ${req.method}`);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   console.log('Starting contact form submission...');
+  console.log('Request body:', req.body);
 
   try {
     // Check environment variables
