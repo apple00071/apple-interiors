@@ -39,8 +39,8 @@ export default function Hero() {
                 className="h-full w-full"
               >
                 <Image
-                  src="/images/02.png"
-                  alt="Modern Interior Design"
+                  src="/images/20250322_211720.jpg"
+                  alt="Modern Living Room Interior Design"
                   fill
                   className="object-cover"
                   priority
@@ -60,7 +60,10 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-                  className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.75rem] leading-[1.1] tracking-[-0.02em] text-yellow-500 whitespace-nowrap"
+                  className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.75rem] leading-[1.1] tracking-[-0.02em] text-white whitespace-nowrap font-bold"
+                  style={{
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+                  }}
                 >
                   Let Your Home Be Unique
                 </motion.div>
@@ -70,7 +73,10 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
-                className="mt-4 sm:mt-6 text-base sm:text-lg text-black leading-relaxed max-w-md font-light"
+                className="mt-4 sm:mt-6 text-base sm:text-lg text-white leading-relaxed max-w-md font-semibold"
+                style={{
+                  textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)'
+                }}
               >
                 Discover our expertise in indoor decorating, tailored to make your home uniquely beautiful and inviting.
               </motion.p>
