@@ -1,12 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // Configure CORS headers
 const corsHeaders = {
-  'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_SITE_URL || '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Max-Age': '86400',
 };
 
 // Helper function to validate email
@@ -15,83 +14,60 @@ const isValidEmail = (email: string) => {
   return emailRegex.test(email);
 };
 
-// Helper function to create error response
-const createErrorResponse = (message: string, status: number = 500) => {
-  console.error(`API Error: ${message}`);
-  return new NextResponse(
-    JSON.stringify({ error: message }),
-    {
-      status,
-      headers: {
-        'Content-Type': 'application/json',
-        ...corsHeaders
-      }
+// Helper function to create response
+const createResponse = (data: any, status: number = 200) => {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      ...corsHeaders
     }
-  );
+  });
 };
 
-// Helper function to create success response
-const createSuccessResponse = (data: any) => {
-  return new NextResponse(
-    JSON.stringify(data),
-    {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        ...corsHeaders
-      }
-    }
-  );
-};
-
-// Handle OPTIONS request
 export async function OPTIONS() {
-  return new NextResponse(null, {
+  return new Response(null, {
     status: 204,
     headers: corsHeaders
   });
 }
 
-// Handle POST request
 export async function POST(request: NextRequest) {
   console.log('Starting contact form submission...');
   console.log('Method:', request.method);
   console.log('URL:', request.url);
-  console.log('Headers:', Object.fromEntries(request.headers.entries()));
   
   try {
     // Check environment variables
     if (!process.env.GMAIL_USER) {
       console.error('Missing GMAIL_USER environment variable');
-      return createErrorResponse('Email configuration is missing (GMAIL_USER)', 500);
+      return createResponse({ error: 'Email configuration is missing' }, 500);
     }
     
     if (!process.env.GMAIL_APP_PASSWORD) {
       console.error('Missing GMAIL_APP_PASSWORD environment variable');
-      return createErrorResponse('Email configuration is missing (GMAIL_APP_PASSWORD)', 500);
+      return createResponse({ error: 'Email configuration is missing' }, 500);
     }
 
     // Parse request body
     let body;
     try {
-      const text = await request.text();
-      console.log('Raw request body:', text);
-      body = JSON.parse(text);
-      console.log('Parsed form data:', { ...body, email: '***@***.***' }); // Log sanitized data
+      body = await request.json();
+      console.log('Parsed form data:', { ...body, email: '***@***.***' });
     } catch (e) {
       console.error('JSON parsing error:', e);
-      return createErrorResponse('Invalid JSON in request body', 400);
+      return createResponse({ error: 'Invalid JSON in request body' }, 400);
     }
 
     const { name, email, phone, type, location, message } = body;
 
     // Validation
     if (!name?.trim() || !email?.trim() || !phone?.trim() || !type?.trim() || !location?.trim()) {
-      return createErrorResponse('All fields are required', 400);
+      return createResponse({ error: 'All fields are required' }, 400);
     }
 
     if (!isValidEmail(email)) {
-      return createErrorResponse('Invalid email address', 400);
+      return createResponse({ error: 'Invalid email address' }, 400);
     }
 
     // Create transporter
@@ -108,16 +84,6 @@ export async function POST(request: NextRequest) {
         rejectUnauthorized: false
       }
     });
-
-    // Verify SMTP connection
-    try {
-      console.log('Verifying SMTP connection...');
-      await transporter.verify();
-      console.log('SMTP connection verified successfully');
-    } catch (error) {
-      console.error('SMTP Verification Error:', error);
-      return createErrorResponse('Failed to connect to email server', 503);
-    }
 
     // Create email content
     const mailOptions = {
@@ -158,16 +124,20 @@ export async function POST(request: NextRequest) {
       const info = await transporter.sendMail(mailOptions);
       console.log('Email sent successfully:', info.messageId);
 
-      return createSuccessResponse({ 
+      return createResponse({ 
         message: 'Form submitted successfully',
         messageId: info.messageId 
       });
     } catch (error) {
       console.error('Email Send Error:', error);
-      return createErrorResponse('Failed to send email: ' + (error instanceof Error ? error.message : 'Unknown error'), 500);
+      return createResponse({ 
+        error: 'Failed to send email: ' + (error instanceof Error ? error.message : 'Unknown error')
+      }, 500);
     }
   } catch (error) {
     console.error('General Error:', error);
-    return createErrorResponse('Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error'), 500);
+    return createResponse({ 
+      error: 'Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error')
+    }, 500);
   }
 } 
