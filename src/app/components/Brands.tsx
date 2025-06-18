@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 // Brand logos configuration
 const brands = [
@@ -137,18 +138,14 @@ export default function Brands() {
               className="pointer-events-auto p-2 rounded-full bg-transparent dark:bg-transparent shadow-lg flex items-center justify-center text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary"
               aria-label="Previous brands"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-              </svg>
+              <ChevronLeftIcon className="h-5 w-5" />
             </button>
             <button
               onClick={nextPage}
               className="pointer-events-auto p-2 rounded-full bg-transparent dark:bg-transparent shadow-lg flex items-center justify-center text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary"
               aria-label="Next brands"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
+              <ChevronRightIcon className="h-5 w-5" />
             </button>
           </div>
 

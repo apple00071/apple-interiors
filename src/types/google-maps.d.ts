@@ -26,6 +26,10 @@ interface PlacesServiceStatus {
   NOT_FOUND: string;
 }
 
+interface PlacesServiceConstructor {
+  new (element: HTMLElement): PlacesService;
+}
+
 interface PlacesService {
   getDetails(
     request: { placeId: string; fields: string[] },
@@ -38,7 +42,7 @@ declare global {
     google: {
       maps: {
         places: {
-          PlacesService: new (element: HTMLElement) => PlacesService;
+          PlacesService: PlacesServiceConstructor;
           PlacesServiceStatus: PlacesServiceStatus;
         };
       };

@@ -40,9 +40,11 @@ const GoogleReviews = ({
   }, [apiKey, language]);
 
   const initializeWidget = () => {
-    if (!window.google || !containerRef.current) return;
+    // Use type assertion for the entire window object
+    const win = window as any;
+    if (!win.google || !containerRef.current) return;
     
-    const { google } = window as any;
+    const { google } = win;
     
     // Create a PlacesService instance
     const service = new google.maps.places.PlacesService(containerRef.current);
