@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import emailjs from '@emailjs/browser';
 
 const propertyTypes = ["2BHK", "3BHK", "4BHK", "Villa", "Custom"];
 
@@ -28,19 +27,19 @@ export default function Contact() {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      await emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          phone: formData.phone,
-          property_type: formData.type,
-          location: formData.location,
-          message: formData.message,
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
-      );
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form');
+      }
 
       setSubmitStatus({
         type: 'success',
