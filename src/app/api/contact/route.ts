@@ -15,15 +15,50 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Helper function to validate email
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 export async function POST(request: Request) {
+  // Handle CORS
+  if (request.method === 'OPTIONS') {
+    return new NextResponse(null, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  }
+
   try {
-    const body = await request.json();
+    // Parse the request body
+    let body;
+    try {
+      body = await request.json();
+    } catch (e) {
+      return NextResponse.json(
+        { error: 'Invalid JSON in request body' },
+        { status: 400 }
+      );
+    }
+
     const { name, email, phone, type, location, message } = body;
 
-    // Validate required fields
-    if (!name || !email || !phone || !type || !location) {
+    // Enhanced validation
+    if (!name?.trim() || !email?.trim() || !phone?.trim() || !type?.trim() || !location?.trim()) {
       return NextResponse.json(
         { error: 'All fields are required' },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidEmail(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email address' },
         { status: 400 }
       );
     }
@@ -33,7 +68,10 @@ export async function POST(request: Request) {
       await transporter.verify();
     } catch (verifyError) {
       console.error('SMTP Connection Error:', verifyError);
-      throw new Error('Failed to connect to email server');
+      return NextResponse.json(
+        { error: 'Email service unavailable' },
+        { status: 503 }
+      );
     }
 
     // Create email content
@@ -42,7 +80,7 @@ export async function POST(request: Request) {
         name: 'Apple Interiors Website',
         address: process.env.GMAIL_USER as string
       },
-      to: 'aravind.bandaru@appleinteriors.in', // Recipient email
+      to: 'aravind.bandaru@appleinteriors.in',
       subject: `New Contact Form Submission: ${type}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -70,21 +108,48 @@ export async function POST(request: Request) {
     };
 
     // Send email
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Message sent: %s', info.messageId);
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Message sent: %s', info.messageId);
 
-    return NextResponse.json(
-      { message: 'Form submitted successfully' },
-      { status: 200 }
-    );
+      return new NextResponse(
+        JSON.stringify({ message: 'Form submitted successfully' }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      );
+    } catch (sendError) {
+      console.error('Error sending email:', sendError);
+      return NextResponse.json(
+        { error: 'Failed to send email' },
+        { status: 500 }
+      );
+    }
   } catch (error) {
-    console.error('Error submitting form:', error);
+    console.error('Error processing form:', error);
     return NextResponse.json(
       { 
-        error: error instanceof Error ? error.message : 'Failed to submit form',
-        details: error instanceof Error ? error.toString() : undefined
+        error: 'Internal server error',
+        details: process.env.NODE_ENV === 'development' ? 
+          error instanceof Error ? error.toString() : 'Unknown error' 
+          : undefined
       },
       { status: 500 }
     );
   }
+}
+
+export async function OPTIONS(request: Request) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
 } 
