@@ -28,16 +28,30 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return new NextResponse(null, {
+      status: 204,
+      headers: corsHeaders
+    });
+  }
+
   try {
     // Parse the request body
     let body;
     try {
-      body = await request.json();
+      body = await req.json();
     } catch (e) {
-      return NextResponse.json(
-        { error: 'Invalid JSON in request body' },
-        { status: 400, headers: corsHeaders }
+      return new NextResponse(
+        JSON.stringify({ error: 'Invalid JSON in request body' }),
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders
+          }
+        }
       );
     }
 
@@ -45,27 +59,28 @@ export async function POST(request: NextRequest) {
 
     // Enhanced validation
     if (!name?.trim() || !email?.trim() || !phone?.trim() || !type?.trim() || !location?.trim()) {
-      return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400, headers: corsHeaders }
+      return new NextResponse(
+        JSON.stringify({ error: 'All fields are required' }),
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders
+          }
+        }
       );
     }
 
     if (!isValidEmail(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email address' },
-        { status: 400, headers: corsHeaders }
-      );
-    }
-
-    // Verify transporter connection
-    try {
-      await transporter.verify();
-    } catch (verifyError) {
-      console.error('SMTP Connection Error:', verifyError);
-      return NextResponse.json(
-        { error: 'Email service unavailable' },
-        { status: 503, headers: corsHeaders }
+      return new NextResponse(
+        JSON.stringify({ error: 'Invalid email address' }),
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders
+          }
+        }
       );
     }
 
@@ -104,37 +119,56 @@ export async function POST(request: NextRequest) {
 
     // Send email
     try {
+      await transporter.verify();
       const info = await transporter.sendMail(mailOptions);
       console.log('Message sent: %s', info.messageId);
 
-      return NextResponse.json(
-        { message: 'Form submitted successfully' },
-        { status: 200, headers: corsHeaders }
+      return new NextResponse(
+        JSON.stringify({ message: 'Form submitted successfully' }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders
+          }
+        }
       );
-    } catch (sendError) {
-      console.error('Error sending email:', sendError);
-      return NextResponse.json(
-        { error: 'Failed to send email' },
-        { status: 500, headers: corsHeaders }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      return new NextResponse(
+        JSON.stringify({ error: 'Failed to send email' }),
+        {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders
+          }
+        }
       );
     }
   } catch (error) {
     console.error('Error processing form:', error);
-    return NextResponse.json(
-      { 
+    return new NextResponse(
+      JSON.stringify({
         error: 'Internal server error',
-        details: process.env.NODE_ENV === 'development' ? 
-          error instanceof Error ? error.toString() : 'Unknown error' 
+        details: process.env.NODE_ENV === 'development'
+          ? error instanceof Error ? error.toString() : 'Unknown error'
           : undefined
-      },
-      { status: 500, headers: corsHeaders }
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders
+        }
+      }
     );
   }
 }
 
-export async function OPTIONS(request: NextRequest) {
-  return NextResponse.json(null, {
-    status: 200,
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
     headers: corsHeaders
   });
 } 
