@@ -1,26 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-// Create a transporter using Gmail SMTP
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // use SSL
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false // Accept self-signed certificates
-  }
-});
-
-// Helper function to validate email
-const isValidEmail = (email: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
 // Configure CORS headers
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -28,67 +8,85 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
+// Helper function to validate email
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+// Helper function to create error response
+const createErrorResponse = (message: string, status: number = 500) => {
+  console.error(`API Error: ${message}`);
+  return new NextResponse(
+    JSON.stringify({ error: message }),
+    {
+      status,
+      headers: {
+        'Content-Type': 'application/json',
+        ...corsHeaders
+      }
+    }
+  );
+};
+
 export async function POST(req: NextRequest) {
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return new NextResponse(null, {
-      status: 204,
-      headers: corsHeaders
-    });
+  console.log('Starting contact form submission...');
+
+  // Check environment variables
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    return createErrorResponse('Email configuration is missing', 500);
   }
 
+  // Create transporter
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+
   try {
-    // Parse the request body
+    // Parse request body
     let body;
     try {
       body = await req.json();
+      console.log('Received form data:', { ...body, email: '***@***.***' }); // Log sanitized data
     } catch (e) {
-      return new NextResponse(
-        JSON.stringify({ error: 'Invalid JSON in request body' }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        }
-      );
+      return createErrorResponse('Invalid JSON in request body', 400);
     }
 
     const { name, email, phone, type, location, message } = body;
 
-    // Enhanced validation
+    // Validation
     if (!name?.trim() || !email?.trim() || !phone?.trim() || !type?.trim() || !location?.trim()) {
-      return new NextResponse(
-        JSON.stringify({ error: 'All fields are required' }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        }
-      );
+      return createErrorResponse('All fields are required', 400);
     }
 
     if (!isValidEmail(email)) {
-      return new NextResponse(
-        JSON.stringify({ error: 'Invalid email address' }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        }
-      );
+      return createErrorResponse('Invalid email address', 400);
+    }
+
+    // Verify SMTP connection
+    try {
+      console.log('Verifying SMTP connection...');
+      await transporter.verify();
+      console.log('SMTP connection verified successfully');
+    } catch (error) {
+      console.error('SMTP Verification Error:', error);
+      return createErrorResponse('Failed to connect to email server', 503);
     }
 
     // Create email content
     const mailOptions = {
       from: {
         name: 'Apple Interiors Website',
-        address: process.env.GMAIL_USER as string
+        address: process.env.GMAIL_USER
       },
       to: 'aravind.bandaru@appleinteriors.in',
       subject: `New Contact Form Submission: ${type}`,
@@ -119,12 +117,15 @@ export async function POST(req: NextRequest) {
 
     // Send email
     try {
-      await transporter.verify();
+      console.log('Attempting to send email...');
       const info = await transporter.sendMail(mailOptions);
-      console.log('Message sent: %s', info.messageId);
+      console.log('Email sent successfully:', info.messageId);
 
       return new NextResponse(
-        JSON.stringify({ message: 'Form submitted successfully' }),
+        JSON.stringify({ 
+          message: 'Form submitted successfully',
+          messageId: info.messageId 
+        }),
         {
           status: 200,
           headers: {
@@ -134,35 +135,12 @@ export async function POST(req: NextRequest) {
         }
       );
     } catch (error) {
-      console.error('Error sending email:', error);
-      return new NextResponse(
-        JSON.stringify({ error: 'Failed to send email' }),
-        {
-          status: 500,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        }
-      );
+      console.error('Email Send Error:', error);
+      return createErrorResponse('Failed to send email: ' + (error instanceof Error ? error.message : 'Unknown error'), 500);
     }
   } catch (error) {
-    console.error('Error processing form:', error);
-    return new NextResponse(
-      JSON.stringify({
-        error: 'Internal server error',
-        details: process.env.NODE_ENV === 'development'
-          ? error instanceof Error ? error.toString() : 'Unknown error'
-          : undefined
-      }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-          ...corsHeaders
-        }
-      }
-    );
+    console.error('General Error:', error);
+    return createErrorResponse('Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error'), 500);
   }
 }
 
