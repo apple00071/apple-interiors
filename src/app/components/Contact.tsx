@@ -27,6 +27,8 @@ export default function Contact() {
     setSubmitStatus({ type: null, message: '' });
 
     try {
+      console.log('Submitting form to:', '/api/contact/');
+      
       const response = await fetch('/api/contact/', {
         method: 'POST',
         headers: {
@@ -37,12 +39,23 @@ export default function Contact() {
         cache: 'no-store',
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Failed to submit form' }));
-        throw new Error(errorData.error || `Error: ${response.status}`);
+        let errorMessage = `Error: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+          console.error('API error response:', errorData);
+        } catch (e) {
+          console.error('Failed to parse error response:', e);
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
+      console.log('Success response:', data);
 
       setSubmitStatus({
         type: 'success',

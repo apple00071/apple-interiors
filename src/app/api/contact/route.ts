@@ -3,9 +3,10 @@ import nodemailer from 'nodemailer';
 
 // Configure CORS headers
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_SITE_URL || '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Max-Age': '86400',
 };
 
 // Helper function to validate email
@@ -29,10 +30,33 @@ const createErrorResponse = (message: string, status: number = 500) => {
   );
 };
 
+// Helper function to create success response
+const createSuccessResponse = (data: any) => {
+  return new NextResponse(
+    JSON.stringify(data),
+    {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        ...corsHeaders
+      }
+    }
+  );
+};
+
 export async function POST(req: NextRequest) {
   console.log('Starting contact form submission...');
   console.log('Method:', req.method);
   console.log('URL:', req.url);
+  console.log('Headers:', Object.fromEntries(req.headers.entries()));
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return new NextResponse(null, {
+      status: 204,
+      headers: corsHeaders
+    });
+  }
   
   try {
     // Check environment variables
@@ -64,8 +88,10 @@ export async function POST(req: NextRequest) {
     // Parse request body
     let body;
     try {
-      body = await req.json();
-      console.log('Received form data:', { ...body, email: '***@***.***' }); // Log sanitized data
+      const text = await req.text();
+      console.log('Raw request body:', text);
+      body = JSON.parse(text);
+      console.log('Parsed form data:', { ...body, email: '***@***.***' }); // Log sanitized data
     } catch (e) {
       console.error('JSON parsing error:', e);
       return createErrorResponse('Invalid JSON in request body', 400);
@@ -131,19 +157,10 @@ export async function POST(req: NextRequest) {
       const info = await transporter.sendMail(mailOptions);
       console.log('Email sent successfully:', info.messageId);
 
-      return new NextResponse(
-        JSON.stringify({ 
-          message: 'Form submitted successfully',
-          messageId: info.messageId 
-        }),
-        {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        }
-      );
+      return createSuccessResponse({ 
+        message: 'Form submitted successfully',
+        messageId: info.messageId 
+      });
     } catch (error) {
       console.error('Email Send Error:', error);
       return createErrorResponse('Failed to send email: ' + (error instanceof Error ? error.message : 'Unknown error'), 500);
