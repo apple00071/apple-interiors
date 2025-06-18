@@ -31,33 +31,43 @@ const createErrorResponse = (message: string, status: number = 500) => {
 
 export async function POST(req: NextRequest) {
   console.log('Starting contact form submission...');
-
-  // Check environment variables
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    return createErrorResponse('Email configuration is missing', 500);
-  }
-
-  // Create transporter
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-
+  console.log('Method:', req.method);
+  console.log('URL:', req.url);
+  
   try {
+    // Check environment variables
+    if (!process.env.GMAIL_USER) {
+      console.error('Missing GMAIL_USER environment variable');
+      return createErrorResponse('Email configuration is missing (GMAIL_USER)', 500);
+    }
+    
+    if (!process.env.GMAIL_APP_PASSWORD) {
+      console.error('Missing GMAIL_APP_PASSWORD environment variable');
+      return createErrorResponse('Email configuration is missing (GMAIL_APP_PASSWORD)', 500);
+    }
+
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+
     // Parse request body
     let body;
     try {
       body = await req.json();
       console.log('Received form data:', { ...body, email: '***@***.***' }); // Log sanitized data
     } catch (e) {
+      console.error('JSON parsing error:', e);
       return createErrorResponse('Invalid JSON in request body', 400);
     }
 
