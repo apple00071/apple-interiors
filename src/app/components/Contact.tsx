@@ -27,9 +27,9 @@ export default function Contact() {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      console.log('Submitting form to:', '/api/contact/');
+      console.log('Submitting form to:', '/api/contact');
       
-      const response = await fetch('/api/contact/', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
