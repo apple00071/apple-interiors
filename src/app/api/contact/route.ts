@@ -44,19 +44,20 @@ const createSuccessResponse = (data: any) => {
   );
 };
 
-export async function POST(req: NextRequest) {
+// Handle OPTIONS request
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders
+  });
+}
+
+// Handle POST request
+export async function POST(request: NextRequest) {
   console.log('Starting contact form submission...');
-  console.log('Method:', req.method);
-  console.log('URL:', req.url);
-  console.log('Headers:', Object.fromEntries(req.headers.entries()));
-  
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return new NextResponse(null, {
-      status: 204,
-      headers: corsHeaders
-    });
-  }
+  console.log('Method:', request.method);
+  console.log('URL:', request.url);
+  console.log('Headers:', Object.fromEntries(request.headers.entries()));
   
   try {
     // Check environment variables
@@ -70,25 +71,10 @@ export async function POST(req: NextRequest) {
       return createErrorResponse('Email configuration is missing (GMAIL_APP_PASSWORD)', 500);
     }
 
-    // Create transporter
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-      tls: {
-        rejectUnauthorized: false
-      }
-    });
-
     // Parse request body
     let body;
     try {
-      const text = await req.text();
+      const text = await request.text();
       console.log('Raw request body:', text);
       body = JSON.parse(text);
       console.log('Parsed form data:', { ...body, email: '***@***.***' }); // Log sanitized data
@@ -107,6 +93,21 @@ export async function POST(req: NextRequest) {
     if (!isValidEmail(email)) {
       return createErrorResponse('Invalid email address', 400);
     }
+
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
 
     // Verify SMTP connection
     try {
@@ -169,11 +170,4 @@ export async function POST(req: NextRequest) {
     console.error('General Error:', error);
     return createErrorResponse('Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error'), 500);
   }
-}
-
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: corsHeaders
-  });
 } 
