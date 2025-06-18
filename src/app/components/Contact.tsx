@@ -28,9 +28,10 @@ export default function Contact() {
 
     try {
       // Use a different URL for production vs development
-      const apiUrl = (process.env.NODE_ENV === 'production' 
-        ? 'https://apple-interiors.vercel.app/api/contact'
-        : '/api/contact').replace(/\/$/, ''); // Remove trailing slash if present
+      // Add trailing slash to match the API route structure
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://apple-interiors.vercel.app/api/contact/'
+        : '/api/contact/';
       
       console.log('Submitting form to:', apiUrl);
       
