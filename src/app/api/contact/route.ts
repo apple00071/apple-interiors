@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // Create a transporter using Gmail SMTP
@@ -21,19 +21,14 @@ const isValidEmail = (email: string) => {
   return emailRegex.test(email);
 };
 
-export async function POST(request: Request) {
-  // Handle CORS
-  if (request.method === 'OPTIONS') {
-    return new NextResponse(null, {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
-  }
+// Configure CORS headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
 
+export async function POST(request: NextRequest) {
   try {
     // Parse the request body
     let body;
@@ -42,7 +37,7 @@ export async function POST(request: Request) {
     } catch (e) {
       return NextResponse.json(
         { error: 'Invalid JSON in request body' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -52,14 +47,14 @@ export async function POST(request: Request) {
     if (!name?.trim() || !email?.trim() || !phone?.trim() || !type?.trim() || !location?.trim()) {
       return NextResponse.json(
         { error: 'All fields are required' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
     if (!isValidEmail(email)) {
       return NextResponse.json(
         { error: 'Invalid email address' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -70,7 +65,7 @@ export async function POST(request: Request) {
       console.error('SMTP Connection Error:', verifyError);
       return NextResponse.json(
         { error: 'Email service unavailable' },
-        { status: 503 }
+        { status: 503, headers: corsHeaders }
       );
     }
 
@@ -112,21 +107,15 @@ export async function POST(request: Request) {
       const info = await transporter.sendMail(mailOptions);
       console.log('Message sent: %s', info.messageId);
 
-      return new NextResponse(
-        JSON.stringify({ message: 'Form submitted successfully' }),
-        {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        }
+      return NextResponse.json(
+        { message: 'Form submitted successfully' },
+        { status: 200, headers: corsHeaders }
       );
     } catch (sendError) {
       console.error('Error sending email:', sendError);
       return NextResponse.json(
         { error: 'Failed to send email' },
-        { status: 500 }
+        { status: 500, headers: corsHeaders }
       );
     }
   } catch (error) {
@@ -138,18 +127,14 @@ export async function POST(request: Request) {
           error instanceof Error ? error.toString() : 'Unknown error' 
           : undefined
       },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
 
-export async function OPTIONS(request: Request) {
-  return new NextResponse(null, {
+export async function OPTIONS(request: NextRequest) {
+  return NextResponse.json(null, {
     status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
+    headers: corsHeaders
   });
 } 

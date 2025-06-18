@@ -31,15 +31,18 @@ export default function Contact() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify(formData),
+        cache: 'no-store',
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit form');
+        const errorData = await response.json().catch(() => ({ error: 'Failed to submit form' }));
+        throw new Error(errorData.error || `Error: ${response.status}`);
       }
+
+      const data = await response.json();
 
       setSubmitStatus({
         type: 'success',
@@ -55,6 +58,7 @@ export default function Contact() {
         message: '',
       });
     } catch (err) {
+      console.error('Form submission error:', err);
       setSubmitStatus({
         type: 'error',
         message: err instanceof Error ? err.message : 'Failed to submit form',

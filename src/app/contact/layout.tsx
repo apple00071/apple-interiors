@@ -16,6 +16,18 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+export const metadata: Metadata = {
+  title: "Contact Us | Apple Interiors",
+  description: "Get in touch with Apple Interiors for your interior design needs. We're here to help transform your space.",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' }
+    ],
+    apple: { url: '/icon.png', type: 'image/png' }
+  }
+};
+
 export default function ContactLayout({
   children,
 }: {

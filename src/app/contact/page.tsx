@@ -1,10 +1,8 @@
+"use client";
+
 import Contact from "../components/Contact";
 
-export const metadata = {
-  title: "Contact Us | Apple Interiors",
-  description: "Get in touch with Apple Interiors for your interior design needs. We're here to help transform your space.",
-};
-
+// Metadata needs to be in a separate layout.tsx or loading.tsx file in Next.js 13+
 export default function ContactPage() {
   return (
     <>
