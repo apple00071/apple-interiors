@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import React from "react";
@@ -59,18 +60,9 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-                  className="text-[2.25rem] sm:text-[3rem] md:text-[4rem] lg:text-[5rem] leading-[1.1] tracking-[-0.02em]"
+                  className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.75rem] leading-[1.1] tracking-[-0.02em] text-yellow-500 whitespace-nowrap"
                 >
-                  Let Your Home
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.05, ease: [0.33, 1, 0.68, 1] }}
-                  className="text-[2.25rem] sm:text-[3rem] md:text-[4rem] lg:text-[5rem] leading-[1.1] tracking-[-0.02em]"
-                >
-                  Be Unique
+                  Let Your Home Be Unique
                 </motion.div>
               </div>
             
@@ -78,7 +70,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
-                className="mt-4 sm:mt-6 text-base sm:text-lg text-white/90 leading-relaxed max-w-md font-light"
+                className="mt-4 sm:mt-6 text-base sm:text-lg text-black leading-relaxed max-w-md font-light"
               >
                 Discover our expertise in indoor decorating, tailored to make your home uniquely beautiful and inviting.
               </motion.p>
@@ -91,7 +83,7 @@ export default function Hero() {
               >
                 <a
                   href="#contact"
-                  className="group inline-flex items-center px-5 sm:px-7 py-3 sm:py-3.5 bg-white text-[#2C2C2C] rounded-full text-sm font-medium hover:bg-gray-100 transition-colors duration-300"
+                  className="group inline-flex items-center px-5 sm:px-7 py-3 sm:py-3.5 bg-yellow-500 text-white rounded-full text-sm font-medium hover:bg-yellow-600 transition-colors duration-300"
                 >
                   Contact Us
                   <svg

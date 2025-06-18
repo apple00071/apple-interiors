@@ -247,9 +247,9 @@ export default function Contact() {
             <div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Our Office</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                123 Design Street<br />
-                Hyderabad, Telangana 500081<br />
-                India
+                Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3,<br />
+                Sreenivasa Nagar, Kukatpally, Hyderabad<br />
+                Telangana - 500072.
               </p>
             </div>
 
@@ -258,14 +258,25 @@ export default function Contact() {
               <div className="space-y-2">
                 <p className="text-gray-600 dark:text-gray-400">
                   <span className="font-medium">Email:</span>{' '}
-                  <a href="mailto:info@appleinteriors.in" className="hover:text-primary transition-colors">
-                    info@appleinteriors.in
+                  <a href="mailto:aravind.bandaru@appleinteriors.in" className="hover:text-primary transition-colors">
+                    aravind.bandaru@appleinteriors.in
                   </a>
                 </p>
                 <p className="text-gray-600 dark:text-gray-400">
-                  <span className="font-medium">Phone:</span>{' '}
-                  <a href="tel:+919876543210" className="hover:text-primary transition-colors">
-                    +91 98765 43210
+                  <span className="font-medium">Mobile:</span>{' '}
+                  <div className="flex flex-col">
+                    <a href="tel:+919603960337" className="hover:text-primary transition-colors">
+                      +91 9603 9603 37
+                    </a>
+                    <a href="tel:+919160677899" className="hover:text-primary transition-colors">
+                      +91 9160 6778 99
+                    </a>
+                  </div>
+                </p>
+                <p className="text-gray-600 dark:text-gray-400">
+                  <span className="font-medium">Landline:</span>{' '}
+                  <a href="tel:+914048544775" className="hover:text-primary transition-colors">
+                    +91 40 48544775
                   </a>
                 </p>
               </div>
@@ -274,9 +285,30 @@ export default function Contact() {
             <div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Business Hours</h3>
               <div className="space-y-2 text-gray-600 dark:text-gray-400">
-                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p>Saturday: 10:00 AM - 4:00 PM</p>
-                <p>Sunday: Closed</p>
+                <p>Monday: 9:00 AM - 6:00 PM</p>
+                <p>Tuesday: Closed</p>
+                <p>Wednesday: 9:00 AM - 6:00 PM</p>
+                <p>Thursday: 9:00 AM - 6:00 PM</p>
+                <p>Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 6:00 PM</p>
+                <p>Sunday: 9:00 AM - 6:00 PM</p>
+              </div>
+            </div>
+
+            {/* Map */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Location</h3>
+              <div className="h-64 rounded-lg overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.0955913802345!2d78.39300109999999!3d17.502949700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91a9716fd36b%3A0x6ee65938c7b9a1dc!2sApple%20Interiors-%20Hyderabad!5e0!3m2!1sen!2sin!4v1742824428980!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-lg"
+                ></iframe>
               </div>
             </div>
           </motion.div>
