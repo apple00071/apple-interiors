@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react'
+import { DetailedHTMLProps, HTMLAttributes, SVGProps } from 'react'
 
 declare global {
   namespace JSX {
@@ -11,8 +11,8 @@ declare global {
       a: DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
       p: DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>
       main: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
-      svg: DetailedHTMLProps<HTMLAttributes<SVGElement>, SVGElement>
-      path: DetailedHTMLProps<HTMLAttributes<SVGPathElement>, SVGPathElement>
+      svg: SVGProps<SVGSVGElement>
+      path: SVGProps<SVGPathElement>
     }
   }
 } 
