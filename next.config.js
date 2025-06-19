@@ -10,6 +10,13 @@ const nextConfig = {
   experimental: {
     serverActions: true, // Enable server actions
   },
+  // Add React strict mode for better development experience
+  reactStrictMode: true,
+  // Ensure proper hydration
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true
+  },
 };
 
 module.exports = nextConfig; 

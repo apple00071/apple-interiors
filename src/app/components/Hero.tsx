@@ -87,8 +87,8 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
                 className="mt-6 sm:mt-10"
               >
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="group inline-flex items-center px-5 sm:px-7 py-3 sm:py-3.5 bg-yellow-500 text-white rounded-full text-sm font-medium hover:bg-yellow-600 transition-colors duration-300"
                 >
                   Contact Us
@@ -105,7 +105,7 @@ export default function Hero() {
                       d="M17 8l4 4m0 0l-4 4m4-4H3"
                     />
                   </svg>
-                </a>
+                </Link>
               </motion.div>
             </div>
           </div>
