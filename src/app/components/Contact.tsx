@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { submitContactForm } from "../actions/contact";
 
 const propertyTypes = ["2BHK", "3BHK", "4BHK", "Villa", "Custom"];
 
@@ -27,55 +28,30 @@ export default function Contact() {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      // Use a different URL for production vs development
-      // Add trailing slash to match the API route structure
-      const apiUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://apple-interiors.vercel.app/api/contact/'
-        : '/api/contact/';
+      // Call the server action directly
+      console.log('Submitting form using server action');
       
-      console.log('Submitting form to:', apiUrl);
+      const result = await submitContactForm(formData);
       
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        cache: 'no-store',
-      });
+      console.log('Server action result:', result);
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      if (result.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thank you for your message! We will get back to you soon.',
+        });
 
-      if (!response.ok) {
-        let errorMessage = `Error: ${response.status}`;
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-          console.error('API error response:', errorData);
-        } catch (e) {
-          console.error('Failed to parse error response:', e);
-        }
-        throw new Error(errorMessage);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          type: '',
+          location: '',
+          message: '',
+        });
+      } else {
+        throw new Error(result.error || 'Unknown error occurred');
       }
-
-      const data = await response.json();
-      console.log('Success response:', data);
-
-      setSubmitStatus({
-        type: 'success',
-        message: 'Thank you for your message! We will get back to you soon.',
-      });
-
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        type: '',
-        location: '',
-        message: '',
-      });
     } catch (err) {
       console.error('Form submission error:', err);
       setSubmitStatus({

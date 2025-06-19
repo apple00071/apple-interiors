@@ -1,60 +1,58 @@
-import { NextResponse } from 'next/server';
+'use server';
+
 import nodemailer from 'nodemailer';
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  type: string;
+  location: string;
+  message: string;
+}
+
 // Helper function to validate email
-const isValidEmail = (email) => {
+const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-// Add CORS headers helper function
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
-
-export async function POST(request) {
+export async function submitContactForm(formData: ContactFormData) {
   try {
-    console.log('Request URL:', request.url);
-    console.log('Request method:', request.method);
-    
-    // Parse request body
-    const body = await request.json();
-    console.log('Contact form submission received:', body);
+    console.log('Contact form submission received:', formData);
 
     // Check environment variables
     if (!process.env.GMAIL_USER) {
       console.error('Missing GMAIL_USER environment variable');
-      return NextResponse.json(
-        { error: 'Email configuration is missing' },
-        { status: 500, headers: corsHeaders }
-      );
+      return {
+        success: false,
+        error: 'Email configuration is missing'
+      };
     }
     
     if (!process.env.GMAIL_APP_PASSWORD) {
       console.error('Missing GMAIL_APP_PASSWORD environment variable');
-      return NextResponse.json(
-        { error: 'Email configuration is missing' },
-        { status: 500, headers: corsHeaders }
-      );
+      return {
+        success: false,
+        error: 'Email configuration is missing'
+      };
     }
 
-    const { name, email, phone, type, location, message } = body;
+    const { name, email, phone, type, location, message } = formData;
 
     // Validation
     if (!name?.trim() || !email?.trim() || !phone?.trim() || !type?.trim() || !location?.trim()) {
-      return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400, headers: corsHeaders }
-      );
+      return {
+        success: false,
+        error: 'All fields are required'
+      };
     }
 
     if (!isValidEmail(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email address' },
-        { status: 400, headers: corsHeaders }
-      );
+      return {
+        success: false,
+        error: 'Invalid email address'
+      };
     }
 
     // Create transporter
@@ -111,30 +109,23 @@ export async function POST(request) {
       const info = await transporter.sendMail(mailOptions);
       console.log('Email sent successfully:', info.messageId);
 
-      return NextResponse.json({ 
+      return { 
+        success: true,
         message: 'Form submitted successfully',
         messageId: info.messageId 
-      }, { status: 200, headers: corsHeaders });
+      };
     } catch (error) {
       console.error('Email Send Error:', error);
-      return NextResponse.json({ 
+      return { 
+        success: false,
         error: 'Failed to send email: ' + (error instanceof Error ? error.message : 'Unknown error')
-      }, { status: 500, headers: corsHeaders });
+      };
     }
   } catch (error) {
     console.error('General Error:', error);
-    return NextResponse.json({ 
+    return { 
+      success: false,
       error: 'Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error')
-    }, { status: 500, headers: corsHeaders });
+    };
   }
-}
-
-// Handle OPTIONS requests for CORS preflight
-export async function OPTIONS(request) {
-  console.log('OPTIONS request received:', request.url);
-  
-  return NextResponse.json({}, { 
-    status: 200,
-    headers: corsHeaders
-  });
 } 

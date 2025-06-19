@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Changed to 'export' for static site generation
   images: {
-    unoptimized: true,
+    domains: ['apple-interiors.vercel.app'],
   },
   trailingSlash: true,  // Add trailing slashes to all routes
   typescript: {
     ignoreBuildErrors: true, // Temporarily ignore TypeScript errors during build
   },
-  // Remove rewrites as they don't work with static exports
+  experimental: {
+    serverActions: true, // Enable server actions
+  },
 };
 
 module.exports = nextConfig; 
