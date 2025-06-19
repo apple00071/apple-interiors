@@ -202,8 +202,8 @@ export default function Contact() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    pattern="[0-9]{10}"
-                    title="Please enter a valid 10-digit phone number"
+                    pattern="^[+]?[0-9\s()-]{8,20}$"
+                    title="Please enter a valid phone number with or without country code"
                     className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900 dark:text-white"
                     required
                   />
