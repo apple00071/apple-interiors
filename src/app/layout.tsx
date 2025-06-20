@@ -5,6 +5,7 @@ import JsonLd from './components/JsonLd'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import GoogleAnalytics from './components/GoogleAnalytics'
+import { Providers } from './components/Providers'
 
 export const dynamic = 'force-static';
 
@@ -109,11 +110,13 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
-        <Header />
-        <main className="min-h-screen flex-1">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <Header />
+          <main className="min-h-screen flex-1 relative">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

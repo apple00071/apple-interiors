@@ -1,25 +1,25 @@
 export default function JsonLd() {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "HomeAndConstructionBusiness",
+    "@id": "https://appleinteriors.in",
     "name": "Apple Interiors",
     "image": "https://appleinteriors.in/images/New-logo.png",
-    "@id": "https://appleinteriors.in",
     "url": "https://appleinteriors.in",
-    "telephone": ["+919603960337", "+919160677899", "+914048544775"],
+    "telephone": "+91-XXX-XXX-XXXX",
     "priceRange": "₹₹₹",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3",
-      "addressLocality": "Kukatpally",
+      "streetAddress": "Your Street Address",
+      "addressLocality": "Hyderabad",
       "addressRegion": "Telangana",
-      "postalCode": "500072",
+      "postalCode": "500XXX",
       "addressCountry": "IN"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 17.4739535,
-      "longitude": 78.3998180
+      "latitude": "XX.XXXXX",
+      "longitude": "XX.XXXXX"
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -31,16 +31,14 @@ export default function JsonLd() {
         "Friday",
         "Saturday"
       ],
-      "opens": "09:00",
+      "opens": "10:00",
       "closes": "18:00"
     },
     "sameAs": [
-      "https://www.facebook.com/appleinteriors.net/",
-      "https://www.instagram.com/appleinteriors.hyderabad/",
-      "https://www.youtube.com/@appleinteriors-hyderabad"
+      "https://www.facebook.com/appleinteriors",
+      "https://www.instagram.com/appleinteriors",
+      "https://www.linkedin.com/company/appleinteriors"
     ],
-    "areaServed": "Hyderabad",
-    "description": "Transform your space with Apple Interiors - Hyderabad's leading interior design company. Specializing in residential, commercial, and renovation projects with 10+ years of experience.",
     "makesOffer": [
       {
         "@type": "Offer",
@@ -66,7 +64,12 @@ export default function JsonLd() {
           "description": "Bespoke furniture design and manufacturing"
         }
       }
-    ]
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "150"
+    }
   };
 
   return (

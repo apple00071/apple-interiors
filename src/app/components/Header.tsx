@@ -183,6 +183,20 @@ export default function Header(): JSX.Element {
     transform: isVisible ? "translateY(0)" : "translateY(-100%)",
   };
 
+  // Add navigation state management
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
+      }
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, []);
+
   return (
     <>
       <motion.header

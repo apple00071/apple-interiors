@@ -1,5 +1,33 @@
+# www.robotstxt.org/
+
+# Allow all crawlers
 User-agent: *
 Allow: /
-Disallow: /admin/
+Allow: /about
+Allow: /services
+Allow: /portfolio
+Allow: /contact
+
+# Block access to API routes and admin
 Disallow: /api/
-Sitemap: https://appleinteriors.in/sitemap.xml 
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
+
+# Block specific file types
+Disallow: /*.json$
+Disallow: /*?*
+
+# Allow media files
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.webp$
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://appleinteriors.in/sitemap.xml
+Sitemap: https://appleinteriors.in/sitemap-images.xml 
