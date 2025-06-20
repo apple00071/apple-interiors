@@ -6,16 +6,16 @@ import Link from "next/link";
 export default function ServicesPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow pt-20">
+      <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-24 md:py-32 bg-white">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-primary-500 font-medium mb-6 tracking-wide uppercase"
+                className="text-primary-500 font-medium mb-4 tracking-wide uppercase"
               >
                 OUR SERVICES
               </motion.p>
@@ -23,7 +23,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
               >
                 Complete Interior Design Services in Hyderabad
               </motion.h1>
@@ -31,7 +31,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="prose prose-lg max-w-none text-gray-600 space-y-6"
+                className="prose prose-lg max-w-none text-gray-600 space-y-4"
               >
                 <p>
                   At Apple Interiors, we offer a wide range of interior design services in Hyderabad tailored to suit your lifestyle, taste, and budget. Whether you're transforming your home or redesigning your commercial space, we deliver innovative and functional interiors that stand the test of time.
@@ -44,8 +44,8 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Residential Services */}
-        <section className="py-24 md:py-32 bg-white">
+        {/* Services Grid */}
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
               <motion.div
@@ -53,10 +53,11 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="grid md:grid-cols-2 gap-12 items-start"
+                className="grid md:grid-cols-2 gap-8 md:gap-12"
               >
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+                {/* Residential Services */}
+                <div className="bg-white rounded-2xl p-8 shadow-lg">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                     <span className="text-4xl mr-3">🏠</span>
                     Residential Interior Design in Hyderabad
                   </h2>
@@ -92,8 +93,10 @@ export default function ServicesPage() {
                     Searching for affordable interior designers in Hyderabad? We offer transparent pricing with no hidden costs, ensuring exceptional value at every step.
                   </p>
                 </div>
-                <div className="bg-white rounded-2xl p-8 shadow-sm">
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+
+                {/* Commercial Services */}
+                <div className="bg-white rounded-2xl p-8 shadow-lg">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                     <span className="text-4xl mr-3">🏢</span>
                     Commercial Interior Design Services
                   </h2>
@@ -131,7 +134,7 @@ export default function ServicesPage() {
         </section>
 
         {/* Smart & Sustainable Design */}
-        <section className="py-24 md:py-32 bg-gray-50">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <motion.div
@@ -139,6 +142,7 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
+                className="text-center"
               >
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center justify-center">
                   <span className="text-4xl mr-3">🌿</span>
@@ -158,7 +162,7 @@ export default function ServicesPage() {
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-24 md:py-32 bg-white">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <motion.div
@@ -166,11 +170,12 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
+                className="text-center"
               >
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
                   Why Choose Apple Interiors?
                 </h2>
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-6">
                   {[
                     "Award-winning interior designers in Hyderabad",
                     "Creative, experienced, and detail-oriented team",
@@ -184,7 +189,7 @@ export default function ServicesPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.3 + index * 0.1 }}
-                      className="flex items-center space-x-3 text-left bg-white p-6 rounded-lg shadow-sm"
+                      className="flex items-center space-x-3 text-left bg-white p-6 rounded-lg shadow-lg"
                     >
                       <svg className="w-5 h-5 text-yellow-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -193,14 +198,13 @@ export default function ServicesPage() {
                     </motion.div>
                   ))}
                 </div>
-                <div className="mt-12 text-gray-600">
-                  <p className="text-lg">
+                <div className="mt-12 text-center">
+                  <p className="text-lg text-gray-600 mb-8">
                     Looking to elevate your space with expert interior designers in Hyderabad? Reach out to Apple Interiors today for a free consultation and let us help you design a space that's uniquely yours.
                   </p>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="mt-8"
                   >
                     <Link
                       href="/contact"

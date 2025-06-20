@@ -1,8 +1,12 @@
-import type { Metadata } from "next";
+'use client';
+
 import { Montserrat, Playfair_Display } from "next/font/google";
-import "../globals.css";
-import Header from '../components/Header';
-import JsonLd from '../components/JsonLd';
+import Header from './Header'
+import Footer from './Footer'
+import { Providers } from './Providers'
+import { usePathname } from 'next/navigation';
+import JsonLd from './JsonLd'
+import GoogleAnalytics from './GoogleAnalytics'
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -16,23 +20,15 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Contact Us | Apple Interiors",
-  description: "Get in touch with Apple Interiors for your interior design needs. We're here to help transform your space.",
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png' }
-    ],
-    apple: { url: '/icon.png', type: 'image/png' }
-  }
-};
-
-export default function ContactLayout({
+export default function RootLayoutClient({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
+  const pathname = usePathname();
+  const hideFooterPaths = ['/contact'];
+  const shouldShowFooter = !hideFooterPaths.includes(pathname);
+
   return (
     <html lang="en" className="scroll-smooth light" suppressHydrationWarning>
       <head>
@@ -40,15 +36,18 @@ export default function ContactLayout({
         <link rel="shortcut icon" type="image/png" href="/icon.png" />
         <link rel="apple-touch-icon" href="/icon.png" />
         <JsonLd />
+        <GoogleAnalytics />
       </head>
       <body
         className={`${montserrat.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
-        <Header />
-        <main className="min-h-screen flex-1">
-          {children}
-        </main>
-        {/* No footer included for contact page */}
+        <Providers>
+          <Header />
+          <main className="min-h-screen flex-1 relative">
+            {children}
+          </main>
+          {shouldShowFooter && <Footer />}
+        </Providers>
       </body>
     </html>
   );

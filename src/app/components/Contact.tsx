@@ -320,14 +320,14 @@ export default function Contact() {
                   </p>
                   <p className="text-gray-600 dark:text-gray-400">
                     <span className="font-medium">Mobile:</span>{' '}
-                    <div className="flex flex-col">
+                    <span className="flex flex-col">
                       <a href="tel:+919603960337" className="hover:text-primary transition-colors">
                         +91 9603 9603 37
                       </a>
                       <a href="tel:+919160677899" className="hover:text-primary transition-colors">
                         +91 9160 6778 99
                       </a>
-                    </div>
+                    </span>
                   </p>
                   <p className="text-gray-600 dark:text-gray-400">
                     <span className="font-medium">Landline:</span>{' '}

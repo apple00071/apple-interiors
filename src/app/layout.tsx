@@ -1,25 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import JsonLd from './components/JsonLd'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import GoogleAnalytics from './components/GoogleAnalytics'
-import { Providers } from './components/Providers'
-
-export const dynamic = 'force-static';
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  display: "swap",
-});
+import RootLayoutClient from './components/RootLayoutClient';
 
 export const metadata: Metadata = {
   title: {
@@ -98,26 +79,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html lang="en" className="scroll-smooth light" suppressHydrationWarning>
-      <head>
-        <link rel="icon" type="image/png" href="/icon.png" sizes="any" />
-        <link rel="shortcut icon" type="image/png" href="/icon.png" />
-        <link rel="apple-touch-icon" href="/icon.png" />
-        <JsonLd />
-        <GoogleAnalytics />
-      </head>
-      <body
-        className={`${montserrat.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
-      >
-        <Providers>
-          <Header />
-          <main className="min-h-screen flex-1 relative">
-            {children}
-          </main>
-          <Footer />
-        </Providers>
-      </body>
-    </html>
-  );
+  return <RootLayoutClient>{children}</RootLayoutClient>;
 }

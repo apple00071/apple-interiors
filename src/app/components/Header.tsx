@@ -214,8 +214,9 @@ export default function Header(): JSX.Element {
                 <Image
                   src="/images/New-logo.png"
                   alt="Apple Interiors Logo"
-                  fill
-                  className="object-contain"
+                  width={224}
+                  height={64}
+                  className="object-contain w-full h-full"
                   priority
                   unoptimized
                 />
