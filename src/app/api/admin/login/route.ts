@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authenticateAdmin } from '@/app/lib/auth';
-import { cookies } from 'next/headers';
+
+const requiredEnvVars = ['NEXTAUTH_SECRET', 'ADMIN_USERNAME', 'ADMIN_PASSWORD'];
+requiredEnvVars.forEach(envVar => {
+  if (!process.env[envVar]) {
+    throw new Error(`Missing required environment variable: ${envVar}`);
+  }
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,18 +19,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await authenticateAdmin(username, password);
-
-    if (result.success && result.token) {
-      // Set the token in an HTTP-only cookie
-      cookies().set('admin_token', result.token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60, // 24 hours
-        path: '/',
-      });
-
+    if (
+      username === process.env.ADMIN_USERNAME &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
       return NextResponse.json({ success: true });
     }
 
