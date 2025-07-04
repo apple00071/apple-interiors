@@ -8,6 +8,18 @@
   ],
   "items": [
     {
+      "id": 1751645861657,
+      "title": "Family Dining Area",
+      "description": "Comfortable dining space for family meals",
+      "images": [
+        "/portfolio/1751645861657-12.webp"
+      ],
+      "category": "Dining",
+      "year": "2025",
+      "location": "Hyderabad",
+      "area": "0"
+    },
+    {
       "id": 1,
       "title": "Contemporary Living Space",
       "category": "Living Room",
@@ -193,23 +205,6 @@
       "year": "2024",
       "location": "Jubilee Hills, Hyderabad",
       "area": "360"
-    },
-    {
-      "id": 18,
-      "title": "Family Dining Area",
-      "category": "Dining",
-      "images": [
-        "/images/portfolio/dining/N2.png",
-        "/images/portfolio/dining/1.png",
-        "/images/portfolio/dining/2.png",
-        "/images/portfolio/dining/9.png",
-        "/images/portfolio/dining/10.png",
-        "/images/portfolio/dining/26.png"
-      ],
-      "description": "Comfortable dining space for family meals",
-      "year": "2024",
-      "location": "Kukatpally, Hyderabad",
-      "area": "340"
     },
     {
       "id": 5,
@@ -518,4 +513,4 @@
       "area": "370"
     }
   ]
-} 
+}

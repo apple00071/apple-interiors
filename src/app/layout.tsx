@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import RootLayoutClient from './components/RootLayoutClient';
+import { SessionProvider } from './components/SessionProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -79,5 +80,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <RootLayoutClient>{children}</RootLayoutClient>;
+  return (
+    <SessionProvider>
+      <RootLayoutClient>{children}</RootLayoutClient>
+    </SessionProvider>
+  );
 }
