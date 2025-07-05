@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import RootLayoutClient from './components/RootLayoutClient';
-import { SessionProvider } from './components/SessionProvider';
+import { initDb } from './lib/init-db';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import WhatsAppWidget from "./components/WhatsAppWidget";
+import { Providers } from "./components/Providers";
+
+// Initialize the database
+initDb();
 
 export const metadata: Metadata = {
   title: {
@@ -81,8 +87,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <SessionProvider>
-      <RootLayoutClient>{children}</RootLayoutClient>
-    </SessionProvider>
+    <html lang="en">
+      <body>
+        <Providers>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppWidget />
+        </Providers>
+      </body>
+    </html>
   );
 }

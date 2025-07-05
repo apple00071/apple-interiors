@@ -3,60 +3,81 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import portfolioData from "../data/portfolio.json";
 import { usePathname } from "next/navigation";
+
+// Define all available categories
+const DEFAULT_CATEGORIES = [
+  'Living Room',
+  'Dining',
+  'Bedroom',
+  'Kitchen',
+  'False Ceiling'
+];
+
+interface PortfolioItem {
+  id: number;
+  title: string;
+  description: string;
+  images: string[];
+  category: string;
+  year: string;
+  location: string;
+  area: string;
+}
 
 // Add a helper function to handle base path
 const useBasePath = () => {
   const pathname = usePathname();
   const isDev = process.env.NODE_ENV === 'development';
-  return isDev ? '' : '';  // Removed '/applenew' since we're using Vercel
+  return isDev ? '' : '';
 };
 
 // Add a helper function to handle image paths
 const useImagePath = () => {
   const basePath = useBasePath();
   return (imagePath: string) => {
-    // Remove leading slash if present
+    // Remove leading slash if present to avoid double slashes
     const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
-    return `${basePath}/${cleanPath}`;
+    // Only add slash if basePath exists
+    return basePath ? `${basePath}/${cleanPath}` : cleanPath;
   };
-};
-
-type PortfolioItem = {
-  id: number;
-  title: string;
-  category: string;
-  images: string[];
-  description: string;
-  year: string;
-  location: string;
-  area: string;
 };
 
 export default function Portfolio() {
   const getImagePath = useImagePath();
-  const [categories] = useState<string[]>(portfolioData.categories);
-  const [portfolioItems] = useState<PortfolioItem[]>(portfolioData.items);
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
+  const [categories, setCategories] = useState<string[]>(DEFAULT_CATEGORIES);
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>(DEFAULT_CATEGORIES[0]);
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        const response = await fetch('/api/portfolio');
+        if (!response.ok) {
+          throw new Error('Failed to fetch portfolio data');
+        }
+        const data = await response.json();
+        setPortfolioItems(data.items);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching portfolio data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
     setIsMounted(true);
   }, []);
 
-  const filteredItems = portfolioItems.filter(item => item.category === activeCategory);
-
-  console.log(`Total filtered items for ${activeCategory}: ${filteredItems.length}`);
-  
-  // Log to debug image issues
-  useEffect(() => {
-    if (isMounted && filteredItems.length > 0) {
-      console.log(`Displaying ${filteredItems.length} items for ${activeCategory}`);
-    }
-  }, [isMounted, filteredItems, activeCategory]);
+  const filteredItems = portfolioItems.filter(item => {
+    const itemCategory = item.category.toLowerCase().replace(/-/g, ' ');
+    const selectedCategory = activeCategory.toLowerCase();
+    return itemCategory === selectedCategory;
+  });
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -81,53 +102,37 @@ export default function Portfolio() {
     setCurrentImageIndex(0);
   };
 
-  if (!isMounted) {
-    return null; // Return nothing until client-side hydration is complete
+  if (!isMounted || loading) {
+    return <div className="min-h-[400px] flex items-center justify-center">Loading...</div>;
   }
 
   return (
-    <section id="portfolio" className="py-24 md:py-32 bg-[#FAFAFA] dark:bg-[#111111]">
-      <div className="container mx-auto px-4 md:px-6">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-yellow-500 font-medium mb-4 tracking-wide uppercase"
-          >
+    <section id="portfolio" className="py-16 md:py-20 lg:py-24 bg-white dark:bg-gray-900">
+      <div className="container px-4 mx-auto">
+        <div className="max-w-2xl mx-auto text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
             Our Portfolio
-          </motion.p>
-          
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
-          >
-            Featured Projects
-          </motion.h2>
-
-          {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeCategory === category
-                    ? "bg-yellow-500 text-white shadow-lg shadow-yellow-500/25"
-                    : "bg-gray-100 text-gray-600 hover:bg-yellow-500/10 hover:text-yellow-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-yellow-500/20"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          </h2>
         </div>
 
-        {/* Portfolio Grid - Ensuring all available items are displayed (max 6) */}
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeCategory === category
+                  ? 'bg-yellow-500 text-white'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-yellow-100 dark:hover:bg-gray-700'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Portfolio Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredItems.slice(0, 6).map((item, index) => (
             <motion.div
@@ -136,24 +141,22 @@ export default function Portfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative"
+              className="relative"
             >
               <div 
-                className="relative aspect-square overflow-hidden rounded-2xl bg-black/5 dark:bg-white/5 cursor-pointer group"
+                className="relative aspect-square overflow-hidden rounded-2xl cursor-pointer"
                 onClick={() => handleItemClick(item)}
               >
                 <Image
                   src={getImagePath(item.images[0])}
-                  alt={`${item.title} - ${item.location}`}
+                  alt="Portfolio Image"
                   fill
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  className="object-cover"
                   unoptimized={false}
                   quality={75}
                   priority={index < 4}
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
-                {/* Hover effect without text */}
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </motion.div>
           ))}
@@ -166,40 +169,32 @@ export default function Portfolio() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-              onClick={() => {
-                setSelectedItem(null);
-                setCurrentImageIndex(0);
-              }}
+              onClick={() => setSelectedItem(null)}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="relative w-full max-w-7xl bg-black rounded-2xl overflow-hidden"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
+                className="relative max-w-7xl w-full bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
               >
-                {/* Close button */}
+                {/* Close Button */}
                 <button
-                  onClick={() => {
-                    setSelectedItem(null);
-                    setCurrentImageIndex(0);
-                  }}
-                  className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500/20 backdrop-blur-md text-white hover:bg-yellow-500/30 transition-colors"
+                  onClick={() => setSelectedItem(null)}
+                  className="absolute right-4 top-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
 
-                {/* Main Image Container */}
                 <div className="relative">
                   {/* Main Image */}
                   <div className="relative aspect-[16/9]">
                     <Image
                       src={getImagePath(selectedItem.images[currentImageIndex])}
-                      alt={`Portfolio Image ${currentImageIndex + 1}`}
+                      alt="Portfolio Image"
                       fill
                       className="object-cover"
                       unoptimized={false}
@@ -228,7 +223,7 @@ export default function Portfolio() {
                   </button>
 
                   {/* Image Counter */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-yellow-500/20 backdrop-blur-md text-white text-sm">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md text-white text-sm">
                     {currentImageIndex + 1} / {selectedItem.images.length}
                   </div>
                 </div>

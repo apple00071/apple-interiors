@@ -1,21 +1,24 @@
-import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export default withAuth(
-  function middleware(req) {
-    // Add custom middleware logic here if needed
+export function middleware(request: NextRequest) {
+  // Skip middleware for login page and API routes
+  if (request.nextUrl.pathname === '/admin/login' || request.nextUrl.pathname.startsWith('/api/')) {
     return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => !!token,
-    },
-    pages: {
-      signIn: '/admin/login',
-    },
   }
-);
+
+  // Check for auth token on admin routes
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    const token = request.cookies.get('auth_token')?.value;
+
+    if (!token) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+  }
+
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ['/admin/dashboard/:path*']
-}; 
+  matcher: ['/admin/:path*']
+} 

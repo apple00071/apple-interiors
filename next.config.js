@@ -1,5 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['localhost'],
+    unoptimized: true,
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  // Enable serving static files from the public directory
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(png|jpe?g|gif|svg|webp)$/i,
+      type: 'asset/resource',
+    });
+    return config;
+  },
   async headers() {
     return [
       {
@@ -36,9 +55,6 @@ const nextConfig = {
         ]
       }
     ];
-  },
-  images: {
-    domains: ['apple-interiors.vercel.app'],
   },
   trailingSlash: false,  // Changed to false to prevent redirect loops
   typescript: {

@@ -2,9 +2,7 @@
   "categories": [
     "Living Room",
     "Dining",
-    "Bedroom",
-    "Kitchen",
-    "False Ceiling"
+    "Bedroom"
   ],
   "items": [
     {
@@ -12,7 +10,7 @@
       "title": "Family Dining Area",
       "description": "Comfortable dining space for family meals",
       "images": [
-        "/portfolio/1751645861657-12.webp"
+        "/portfolio/dining/1751690032561.webp"
       ],
       "category": "Dining",
       "year": "2025",
@@ -24,12 +22,12 @@
       "title": "Contemporary Living Space",
       "category": "Living Room",
       "images": [
-        "/images/portfolio/living-room/1.png",
-        "/images/portfolio/living-room/4.png",
-        "/images/portfolio/living-room/7.png",
-        "/images/portfolio/living-room/8.png",
-        "/images/portfolio/living-room/12.png",
-        "/images/portfolio/living-room/13.png"
+        "/portfolio/living-room/1751690035435.png",
+        "/portfolio/living-room/1751690040390.png",
+        "/portfolio/living-room/1751690045350.png",
+        "/portfolio/living-room/1751690050034.png",
+        "/portfolio/living-room/1751690054822.png",
+        "/portfolio/living-room/1751690059379.png"
       ],
       "description": "Modern living room with elegant furnishings and ambient lighting",
       "year": "2024",
@@ -41,12 +39,12 @@
       "title": "Luxurious Family Room",
       "category": "Living Room",
       "images": [
-        "/images/portfolio/living-room/13.png",
-        "/images/portfolio/living-room/12.png",
-        "/images/portfolio/living-room/8.png",
-        "/images/portfolio/living-room/7.png",
-        "/images/portfolio/living-room/4.png",
-        "/images/portfolio/living-room/1.png"
+        "/portfolio/living-room/1751690062066.png",
+        "/portfolio/living-room/1751690067094.png",
+        "/portfolio/living-room/1751690079268.png",
+        "/portfolio/living-room/1751690082851.png",
+        "/portfolio/living-room/1751690092778.png",
+        "/portfolio/living-room/1751690099138.png"
       ],
       "description": "Spacious family living area with premium finishes",
       "year": "2024",
@@ -58,12 +56,12 @@
       "title": "Elegant Living Area",
       "category": "Living Room",
       "images": [
-        "/images/portfolio/living-room/7.png",
-        "/images/portfolio/living-room/8.png",
-        "/images/portfolio/living-room/12.png",
-        "/images/portfolio/living-room/13.png",
-        "/images/portfolio/living-room/1.png",
-        "/images/portfolio/living-room/4.png"
+        "/portfolio/living-room/1751690101625.png",
+        "/portfolio/living-room/1751690106092.png",
+        "/portfolio/living-room/1751690110559.png",
+        "/portfolio/living-room/1751690116980.png",
+        "/portfolio/living-room/1751690121916.png",
+        "/portfolio/living-room/1751690127653.png"
       ],
       "description": "Sophisticated living space with premium materials",
       "year": "2024",
@@ -75,12 +73,12 @@
       "title": "Modern Living Design",
       "category": "Living Room",
       "images": [
-        "/images/portfolio/living-room/4.png",
-        "/images/portfolio/living-room/7.png",
-        "/images/portfolio/living-room/8.png",
-        "/images/portfolio/living-room/12.png",
-        "/images/portfolio/living-room/13.png",
-        "/images/portfolio/living-room/1.png"
+        "/portfolio/living-room/1751690130915.png",
+        "/portfolio/living-room/1751690136026.png",
+        "/portfolio/living-room/1751690142725.png",
+        "/portfolio/living-room/1751690147552.png",
+        "/portfolio/living-room/1751690160703.png",
+        "/portfolio/living-room/1751690164385.png"
       ],
       "description": "Contemporary living room with sleek design elements",
       "year": "2024",
@@ -90,31 +88,26 @@
     {
       "id": 13,
       "title": "Minimalist Living Space",
-      "category": "Living Room",
-      "images": [
-        "/images/portfolio/living-room/8.png",
-        "/images/portfolio/living-room/12.png",
-        "/images/portfolio/living-room/13.png",
-        "/images/portfolio/living-room/1.png",
-        "/images/portfolio/living-room/4.png",
-        "/images/portfolio/living-room/7.png"
-      ],
       "description": "Clean and minimalist living room design",
-      "year": "2024",
-      "location": "Madhapur, Hyderabad",
-      "area": "430"
+      "images": [
+        "/portfolio/living-room/1751690819696.webp"
+      ],
+      "category": "Living Room",
+      "year": "2025",
+      "location": "",
+      "area": ""
     },
     {
       "id": 14,
       "title": "Cozy Family Living Room",
       "category": "Living Room",
       "images": [
-        "/images/portfolio/living-room/12.png",
-        "/images/portfolio/living-room/13.png",
-        "/images/portfolio/living-room/1.png",
-        "/images/portfolio/living-room/4.png",
-        "/images/portfolio/living-room/7.png",
-        "/images/portfolio/living-room/8.png"
+        "/portfolio/living-room/1751690201073.png",
+        "/portfolio/living-room/1751690209204.png",
+        "/portfolio/living-room/1751690214743.png",
+        "/portfolio/living-room/1751690219313.png",
+        "/portfolio/living-room/1751690227647.png",
+        "/portfolio/living-room/1751690235518.png"
       ],
       "description": "Warm and inviting living space for family gatherings",
       "year": "2024",
@@ -126,12 +119,12 @@
       "title": "Modern Dining Space",
       "category": "Dining",
       "images": [
-        "/images/portfolio/dining/1.png",
-        "/images/portfolio/dining/2.png",
-        "/images/portfolio/dining/9.png",
-        "/images/portfolio/dining/10.png",
-        "/images/portfolio/dining/26.png",
-        "/images/portfolio/dining/N2.png"
+        "/portfolio/dining/1751690240499.png",
+        "/portfolio/dining/1751690246099.png",
+        "/portfolio/dining/1751690251271.png",
+        "/portfolio/dining/1751690255410.png",
+        "/portfolio/dining/1751690267059.png",
+        "/portfolio/dining/1751690268596.png"
       ],
       "description": "Contemporary dining area with custom lighting fixtures",
       "year": "2024",
@@ -143,12 +136,12 @@
       "title": "Elegant Dining Setup",
       "category": "Dining",
       "images": [
-        "/images/portfolio/dining/2.png",
-        "/images/portfolio/dining/9.png",
-        "/images/portfolio/dining/10.png",
-        "/images/portfolio/dining/26.png",
-        "/images/portfolio/dining/N2.png",
-        "/images/portfolio/dining/1.png"
+        "/portfolio/dining/1751690271860.png",
+        "/portfolio/dining/1751690277494.png",
+        "/portfolio/dining/1751690283175.png",
+        "/portfolio/dining/1751690289882.png",
+        "/portfolio/dining/1751690292719.png",
+        "/portfolio/dining/1751690296188.png"
       ],
       "description": "Sophisticated dining space with modern aesthetics",
       "year": "2024",
@@ -160,12 +153,12 @@
       "title": "Minimalist Dining Area",
       "category": "Dining",
       "images": [
-        "/images/portfolio/dining/9.png",
-        "/images/portfolio/dining/10.png",
-        "/images/portfolio/dining/26.png",
-        "/images/portfolio/dining/N2.png",
-        "/images/portfolio/dining/1.png",
-        "/images/portfolio/dining/2.png"
+        "/portfolio/dining/1751690299161.png",
+        "/portfolio/dining/1751690304853.png",
+        "/portfolio/dining/1751690309111.png",
+        "/portfolio/dining/1751690311919.png",
+        "/portfolio/dining/1751690317178.png",
+        "/portfolio/dining/1751690321389.png"
       ],
       "description": "Clean and minimalist dining space design",
       "year": "2024",
@@ -177,12 +170,12 @@
       "title": "Contemporary Dining Room",
       "category": "Dining",
       "images": [
-        "/images/portfolio/dining/10.png",
-        "/images/portfolio/dining/26.png",
-        "/images/portfolio/dining/N2.png",
-        "/images/portfolio/dining/1.png",
-        "/images/portfolio/dining/2.png",
-        "/images/portfolio/dining/9.png"
+        "/portfolio/dining/1751690323994.png",
+        "/portfolio/dining/1751690328435.png",
+        "/portfolio/dining/1751690331056.png",
+        "/portfolio/dining/1751690334404.png",
+        "/portfolio/dining/1751690337791.png",
+        "/portfolio/dining/1751690341268.png"
       ],
       "description": "Modern dining space with stylish elements",
       "year": "2024",
@@ -192,31 +185,26 @@
     {
       "id": 17,
       "title": "Luxury Dining Setup",
-      "category": "Dining",
-      "images": [
-        "/images/portfolio/dining/26.png",
-        "/images/portfolio/dining/N2.png",
-        "/images/portfolio/dining/1.png",
-        "/images/portfolio/dining/2.png",
-        "/images/portfolio/dining/9.png",
-        "/images/portfolio/dining/10.png"
-      ],
       "description": "Upscale dining room with premium finishes",
-      "year": "2024",
-      "location": "Jubilee Hills, Hyderabad",
-      "area": "360"
+      "images": [
+        "/portfolio/dining/1751690341351.webp"
+      ],
+      "category": "Dining",
+      "year": "2025",
+      "location": "",
+      "area": ""
     },
     {
       "id": 5,
       "title": "Master Bedroom Suite",
       "category": "Bedroom",
       "images": [
-        "/images/portfolio/bedroom/3.png",
-        "/images/portfolio/bedroom/99.png",
-        "/images/portfolio/bedroom/104.png",
-        "/images/portfolio/bedroom/J7.png",
-        "/images/portfolio/bedroom/J8.png",
-        "/images/portfolio/bedroom/N3.png"
+        "/portfolio/bedroom/1751690343672.png",
+        "/portfolio/bedroom/1751690347032.png",
+        "/portfolio/bedroom/1751690348649.png",
+        "/portfolio/bedroom/1751690362550.png",
+        "/portfolio/bedroom/1751690367693.png",
+        "/portfolio/bedroom/1751690371155.png"
       ],
       "description": "Luxurious master bedroom with walk-in wardrobe",
       "year": "2024",
@@ -228,12 +216,12 @@
       "title": "Modern Guest Bedroom",
       "category": "Bedroom",
       "images": [
-        "/images/portfolio/bedroom/N3.png",
-        "/images/portfolio/bedroom/J8.png",
-        "/images/portfolio/bedroom/J7.png",
-        "/images/portfolio/bedroom/104.png",
-        "/images/portfolio/bedroom/99.png",
-        "/images/portfolio/bedroom/3.png"
+        "/portfolio/bedroom/1751690373756.png",
+        "/portfolio/bedroom/1751690377197.png",
+        "/portfolio/bedroom/1751690380167.png",
+        "/portfolio/bedroom/1751690390347.png",
+        "/portfolio/bedroom/1751690394041.png",
+        "/portfolio/bedroom/1751690397253.png"
       ],
       "description": "Contemporary guest bedroom with minimalist design",
       "year": "2024",
@@ -245,29 +233,29 @@
       "title": "Minimalist Bedroom",
       "category": "Bedroom",
       "images": [
-        "/images/portfolio/bedroom/J8.png",
-        "/images/portfolio/bedroom/J7.png",
-        "/images/portfolio/bedroom/104.png",
-        "/images/portfolio/bedroom/99.png",
-        "/images/portfolio/bedroom/3.png",
-        "/images/portfolio/bedroom/N3.png"
+        "/portfolio/bedroom/1751690399661.png",
+        "/portfolio/bedroom/1751690402875.png",
+        "/portfolio/bedroom/1751690404837.png",
+        "/portfolio/bedroom/1751690408319.png",
+        "/portfolio/bedroom/1751690413554.png",
+        "/portfolio/bedroom/1751690418286.png"
       ],
       "description": "Clean and simple bedroom design with essential elements",
       "year": "2024",
       "location": "Madhapur, Hyderabad",
-      "area": "320"
+      "area": "280"
     },
     {
       "id": 20,
       "title": "Luxury Bedroom Suite",
       "category": "Bedroom",
       "images": [
-        "/images/portfolio/bedroom/J7.png",
-        "/images/portfolio/bedroom/104.png",
-        "/images/portfolio/bedroom/99.png",
-        "/images/portfolio/bedroom/3.png",
-        "/images/portfolio/bedroom/N3.png",
-        "/images/portfolio/bedroom/J8.png"
+        "/portfolio/bedroom/1751690420662.png",
+        "/portfolio/bedroom/1751690424248.png",
+        "/portfolio/bedroom/1751690428406.png",
+        "/portfolio/bedroom/1751690431709.png",
+        "/portfolio/bedroom/1751690436079.png",
+        "/portfolio/bedroom/1751690440200.png"
       ],
       "description": "Upscale bedroom with premium finishes and amenities",
       "year": "2024",
@@ -279,12 +267,12 @@
       "title": "Contemporary Bedroom",
       "category": "Bedroom",
       "images": [
-        "/images/portfolio/bedroom/104.png",
-        "/images/portfolio/bedroom/99.png",
-        "/images/portfolio/bedroom/3.png",
-        "/images/portfolio/bedroom/N3.png",
-        "/images/portfolio/bedroom/J8.png",
-        "/images/portfolio/bedroom/J7.png"
+        "/portfolio/bedroom/1751690441293.png",
+        "/portfolio/bedroom/1751690454535.png",
+        "/portfolio/bedroom/1751690457991.png",
+        "/portfolio/bedroom/1751690461622.png",
+        "/portfolio/bedroom/1751690465156.png",
+        "/portfolio/bedroom/1751690471447.png"
       ],
       "description": "Modern bedroom with stylish elements and decor",
       "year": "2024",
@@ -296,221 +284,17 @@
       "title": "Cozy Bedroom Design",
       "category": "Bedroom",
       "images": [
-        "/images/portfolio/bedroom/99.png",
-        "/images/portfolio/bedroom/3.png",
-        "/images/portfolio/bedroom/N3.png",
-        "/images/portfolio/bedroom/J8.png",
-        "/images/portfolio/bedroom/J7.png",
-        "/images/portfolio/bedroom/104.png"
+        "/portfolio/bedroom/1751690473811.png",
+        "/portfolio/bedroom/1751690476851.png",
+        "/portfolio/bedroom/1751690482605.png",
+        "/portfolio/bedroom/1751690487482.png",
+        "/portfolio/bedroom/1751690491014.png",
+        "/portfolio/bedroom/1751690492615.png"
       ],
       "description": "Warm and inviting bedroom space with comfortable elements",
       "year": "2024",
       "location": "Gachibowli, Hyderabad",
       "area": "360"
-    },
-    {
-      "id": 7,
-      "title": "Modern Modular Kitchen",
-      "category": "Kitchen",
-      "images": [
-        "/images/portfolio/kitchen/J1.png",
-        "/images/portfolio/kitchen/J2.png",
-        "/images/portfolio/kitchen/J3.png",
-        "/images/portfolio/kitchen/J4.png",
-        "/images/portfolio/kitchen/J8.png",
-        "/images/portfolio/kitchen/J9.png"
-      ],
-      "description": "Fully equipped modular kitchen with premium appliances",
-      "year": "2024",
-      "location": "HITEC City, Hyderabad",
-      "area": "250"
-    },
-    {
-      "id": 8,
-      "title": "Contemporary Kitchen Design",
-      "category": "Kitchen",
-      "images": [
-        "/images/portfolio/kitchen/J9.png",
-        "/images/portfolio/kitchen/J8.png",
-        "/images/portfolio/kitchen/J4.png",
-        "/images/portfolio/kitchen/J3.png",
-        "/images/portfolio/kitchen/J2.png",
-        "/images/portfolio/kitchen/J1.png"
-      ],
-      "description": "Modern kitchen with island and breakfast counter",
-      "year": "2024",
-      "location": "Manikonda, Hyderabad",
-      "area": "280"
-    },
-    {
-      "id": 23,
-      "title": "Minimalist Kitchen",
-      "category": "Kitchen",
-      "images": [
-        "/images/portfolio/kitchen/J2.png",
-        "/images/portfolio/kitchen/J3.png",
-        "/images/portfolio/kitchen/J4.png",
-        "/images/portfolio/kitchen/J8.png",
-        "/images/portfolio/kitchen/J9.png",
-        "/images/portfolio/kitchen/J1.png"
-      ],
-      "description": "Clean and simple kitchen design with essential elements",
-      "year": "2024",
-      "location": "Kondapur, Hyderabad",
-      "area": "260"
-    },
-    {
-      "id": 24,
-      "title": "Luxury Kitchen Setup",
-      "category": "Kitchen",
-      "images": [
-        "/images/portfolio/kitchen/J3.png",
-        "/images/portfolio/kitchen/J4.png",
-        "/images/portfolio/kitchen/J8.png",
-        "/images/portfolio/kitchen/J9.png",
-        "/images/portfolio/kitchen/J1.png",
-        "/images/portfolio/kitchen/J2.png"
-      ],
-      "description": "Upscale kitchen with premium finishes and appliances",
-      "year": "2024",
-      "location": "Jubilee Hills, Hyderabad",
-      "area": "290"
-    },
-    {
-      "id": 25,
-      "title": "Spacious Family Kitchen",
-      "category": "Kitchen",
-      "images": [
-        "/images/portfolio/kitchen/J4.png",
-        "/images/portfolio/kitchen/J8.png",
-        "/images/portfolio/kitchen/J9.png",
-        "/images/portfolio/kitchen/J1.png",
-        "/images/portfolio/kitchen/J2.png",
-        "/images/portfolio/kitchen/J3.png"
-      ],
-      "description": "Large kitchen designed for family cooking and gathering",
-      "year": "2024",
-      "location": "Gachibowli, Hyderabad",
-      "area": "300"
-    },
-    {
-      "id": 26,
-      "title": "Modern Compact Kitchen",
-      "category": "Kitchen",
-      "images": [
-        "/images/portfolio/kitchen/J8.png",
-        "/images/portfolio/kitchen/J9.png",
-        "/images/portfolio/kitchen/J1.png",
-        "/images/portfolio/kitchen/J2.png",
-        "/images/portfolio/kitchen/J3.png",
-        "/images/portfolio/kitchen/J4.png"
-      ],
-      "description": "Efficient small kitchen with smart storage solutions",
-      "year": "2024",
-      "location": "Madhapur, Hyderabad",
-      "area": "220"
-    },
-    {
-      "id": 9,
-      "title": "Elegant Living Room Ceiling",
-      "category": "False Ceiling",
-      "images": [
-        "/images/portfolio/false-ceiling/2.png",
-        "/images/portfolio/false-ceiling/40.png",
-        "/images/portfolio/false-ceiling/73.png",
-        "/images/portfolio/false-ceiling/96.png",
-        "/images/portfolio/false-ceiling/141.png",
-        "/images/portfolio/false-ceiling/142.png"
-      ],
-      "description": "Sophisticated false ceiling with LED lighting",
-      "year": "2024",
-      "location": "Nallagandla, Hyderabad",
-      "area": "400"
-    },
-    {
-      "id": 10,
-      "title": "Modern Bedroom Ceiling",
-      "category": "False Ceiling",
-      "images": [
-        "/images/portfolio/false-ceiling/142.png",
-        "/images/portfolio/false-ceiling/141.png",
-        "/images/portfolio/false-ceiling/96.png",
-        "/images/portfolio/false-ceiling/73.png",
-        "/images/portfolio/false-ceiling/40.png",
-        "/images/portfolio/false-ceiling/2.png"
-      ],
-      "description": "Contemporary ceiling design with ambient lighting",
-      "year": "2024",
-      "location": "Miyapur, Hyderabad",
-      "area": "320"
-    },
-    {
-      "id": 27,
-      "title": "Minimalist Ceiling Design",
-      "category": "False Ceiling",
-      "images": [
-        "/images/portfolio/false-ceiling/40.png",
-        "/images/portfolio/false-ceiling/73.png",
-        "/images/portfolio/false-ceiling/96.png",
-        "/images/portfolio/false-ceiling/141.png",
-        "/images/portfolio/false-ceiling/142.png",
-        "/images/portfolio/false-ceiling/2.png"
-      ],
-      "description": "Clean and simple ceiling design with subtle lighting",
-      "year": "2024",
-      "location": "Kondapur, Hyderabad",
-      "area": "340"
-    },
-    {
-      "id": 28,
-      "title": "Luxury Ceiling Installation",
-      "category": "False Ceiling",
-      "images": [
-        "/images/portfolio/false-ceiling/73.png",
-        "/images/portfolio/false-ceiling/96.png",
-        "/images/portfolio/false-ceiling/141.png",
-        "/images/portfolio/false-ceiling/142.png",
-        "/images/portfolio/false-ceiling/2.png",
-        "/images/portfolio/false-ceiling/40.png"
-      ],
-      "description": "Premium ceiling design with intricate patterns",
-      "year": "2024",
-      "location": "Jubilee Hills, Hyderabad",
-      "area": "380"
-    },
-    {
-      "id": 29,
-      "title": "Contemporary Ceiling",
-      "category": "False Ceiling",
-      "images": [
-        "/images/portfolio/false-ceiling/96.png",
-        "/images/portfolio/false-ceiling/141.png",
-        "/images/portfolio/false-ceiling/142.png",
-        "/images/portfolio/false-ceiling/2.png",
-        "/images/portfolio/false-ceiling/40.png",
-        "/images/portfolio/false-ceiling/73.png"
-      ],
-      "description": "Modern ceiling with geometric design elements",
-      "year": "2024",
-      "location": "HITEC City, Hyderabad",
-      "area": "360"
-    },
-    {
-      "id": 30,
-      "title": "Artistic Ceiling Design",
-      "category": "False Ceiling",
-      "images": [
-        "/images/portfolio/false-ceiling/141.png",
-        "/images/portfolio/false-ceiling/142.png",
-        "/images/portfolio/false-ceiling/2.png",
-        "/images/portfolio/false-ceiling/40.png",
-        "/images/portfolio/false-ceiling/73.png",
-        "/images/portfolio/false-ceiling/96.png"
-      ],
-      "description": "Creative ceiling with artistic patterns and lighting",
-      "year": "2024",
-      "location": "Banjara Hills, Hyderabad",
-      "area": "370"
     }
   ]
 }

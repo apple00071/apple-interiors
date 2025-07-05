@@ -12,16 +12,17 @@ module.exports = {
         background: '#ffffff',
         foreground: '#0f172a', 
         primary: {
-          50: '#f8f9fa',
-          100: '#f1f3f5',
-          200: '#e9ecef',
-          300: '#dee2e6',
-          400: '#ced4da',
-          500: '#F7B614', // Main brand color
-          600: '#e69b00', // Darker shade
-          700: '#cc8a00', // Even darker
-          800: '#b37a00',
-          900: '#996900',
+          50: "#fefce8",
+          100: "#fef9c3",
+          200: "#fef08a",
+          300: "#fde047",
+          400: "#facc15",
+          500: "#eab308",
+          600: "#ca8a04",
+          700: "#a16207",
+          800: "#854d0e",
+          900: "#713f12",
+          950: "#422006",
         },
         secondary: {
           DEFAULT: '#1E293B', // Dark blue/black

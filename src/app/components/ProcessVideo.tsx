@@ -5,22 +5,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function ProcessVideo() {
-  const [videoId, setVideoId] = useState("Av5O1EjRGuA"); // Default video ID
+  // Video configuration
+  const videoId = "Av5O1EjRGuA";
+  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  const videoEmbedUrl = `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&playsinline=1`;
+  
   const [isMobile, setIsMobile] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Fetch video ID from config
-  useEffect(() => {
-    fetch('/api/admin/process-video')
-      .then(res => res.json())
-      .then(data => {
-        if (data.success && data.data.processVideoId) {
-          setVideoId(data.data.processVideoId);
-        }
-      })
-      .catch(error => console.error('Error loading video config:', error));
-  }, []);
 
   // Check if device is mobile on client side
   useEffect(() => {
@@ -48,9 +40,6 @@ export default function ProcessVideo() {
       });
     }
   };
-
-  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-  const videoEmbedUrl = `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&playsinline=1`;
 
   return (
     <section className="py-24 md:py-32 bg-white overflow-hidden">
