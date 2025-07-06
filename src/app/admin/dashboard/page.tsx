@@ -210,9 +210,10 @@ export default function AdminDashboard() {
             </select>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {filteredItems.map((item) => (
-              item.image_paths.map((imagePath, imageIndex) => (
+              // Take only first 6 images
+              item.image_paths.slice(0, 6).map((imagePath, imageIndex) => (
                 <div key={`${item.id}-${imageIndex}`} className="relative group">
                   <div className="relative h-48 rounded-lg overflow-hidden">
                     <Image
@@ -244,12 +245,6 @@ export default function AdminDashboard() {
                           'Update Image'
                         )}
                       </label>
-                      <button
-                        onClick={() => handleDeleteImage(item.id, imagePath)}
-                        className="w-full px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700"
-                      >
-                        Remove
-                      </button>
                     </div>
                   </div>
                 </div>

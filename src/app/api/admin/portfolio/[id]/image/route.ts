@@ -4,6 +4,8 @@ import { existsSync } from 'fs';
 import path from 'path';
 import { sql } from '../../../../../lib/db';
 
+const MAX_IMAGES = 6;
+
 // Function to delete image file
 async function deleteImageFile(imageUrl: string) {
   try {
@@ -38,6 +40,10 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       return NextResponse.json({ error: 'No image provided' }, { status: 400 });
     }
 
+    if (imageIndex >= MAX_IMAGES) {
+      return NextResponse.json({ error: 'Maximum number of images reached' }, { status: 400 });
+    }
+
     // Create unique filename
     const timestamp = Date.now();
     const filename = `${timestamp}-${image.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
@@ -66,6 +72,11 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     const newImagePaths = [...currentImagePaths];
     newImagePaths[imageIndex] = relativePath;
 
+    // Ensure we don't exceed the maximum number of images
+    if (newImagePaths.length > MAX_IMAGES) {
+      newImagePaths.splice(MAX_IMAGES);
+    }
+
     // Update the database with the new image paths array
     await sql`
       UPDATE portfolio_items 
@@ -83,7 +94,10 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       await deleteImageFile(oldImagePath);
     }
 
-    return NextResponse.json({ success: true, imagePath: relativePath });
+    // Return response with cache control headers
+    const response = NextResponse.json({ success: true, imagePath: relativePath });
+    response.headers.set('Cache-Control', 'no-store, must-revalidate');
+    return response;
   } catch (error) {
     console.error('Error handling image upload:', error);
     return NextResponse.json(
@@ -130,7 +144,10 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       );
     }
 
-    return NextResponse.json({ success: true });
+    // Return response with cache control headers
+    const response = NextResponse.json({ success: true });
+    response.headers.set('Cache-Control', 'no-store, must-revalidate');
+    return response;
   } catch (error) {
     console.error('Error handling image deletion:', error);
     return NextResponse.json(

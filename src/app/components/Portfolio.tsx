@@ -20,6 +20,8 @@ interface PortfolioProps {
   categories: Category[];
 }
 
+const MAX_IMAGES = 6;
+
 export default function Portfolio({ items, categories }: PortfolioProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('Bedroom');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -40,7 +42,7 @@ export default function Portfolio({ items, categories }: PortfolioProps) {
       src: path,
       category: item.category
     }))
-  );
+  ).slice(0, MAX_IMAGES); // Limit to 6 images
 
   return (
     <>

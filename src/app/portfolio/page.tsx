@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   },
 };
 
+// Disable static page generation, use dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function PortfolioContent() {
   try {
     console.log('Fetching portfolio items and categories...');

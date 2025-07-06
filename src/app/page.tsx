@@ -8,7 +8,8 @@ import ProcessVideo from "./components/ProcessVideo";
 import { getPortfolioItems, getCategories } from './lib/db';
 import { Suspense } from 'react';
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 async function HomePortfolio() {
   const items = await getPortfolioItems();
