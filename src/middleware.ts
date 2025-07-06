@@ -10,15 +10,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Skip middleware for login page
-  if (request.nextUrl.pathname === '/admin/login') {
+  // Skip middleware for login page and API routes
+  if (request.nextUrl.pathname === '/admin/login' || request.nextUrl.pathname.startsWith('/api/')) {
     return NextResponse.next();
   }
 
-  const token = request.cookies.get('adminToken')?.value;
+  const token = request.cookies.get('auth_token')?.value;
 
   if (!token) {
-    return NextResponse.redirect(new URL('/admin/login', request.url));
+    // Create absolute URL for login page
+    const loginUrl = new URL('/admin/login', request.url);
+    return NextResponse.redirect(loginUrl);
   }
 
   try {
@@ -31,10 +33,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   } catch (error) {
     // If token is invalid, redirect to login
-    return NextResponse.redirect(new URL('/admin/login', request.url));
+    const loginUrl = new URL('/admin/login', request.url);
+    return NextResponse.redirect(loginUrl);
   }
 }
 
 export const config = {
-  matcher: '/admin/:path*',
+  matcher: [
+    '/admin/:path*',
+    '/((?!api/admin/auth|_next/static|_next/image|favicon.ico).*)',
+  ],
 }; 
