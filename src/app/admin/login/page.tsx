@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useAuth } from '@/app/contexts/auth';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -10,6 +11,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,9 +32,16 @@ export default function LoginPage() {
         throw new Error('Invalid credentials');
       }
 
+      const data = await response.json();
+      
+      // Update auth context with the token
+      login(data.token);
+
+      // Wait a bit for the auth context to update
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       // Redirect to dashboard
-      router.push('/admin/dashboard');
-      router.refresh(); // Force a refresh to ensure the new cookie is used
+      router.replace('/admin/dashboard');
     } catch (err) {
       setError('Invalid username or password');
     } finally {

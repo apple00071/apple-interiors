@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 interface AuthContextType {
@@ -16,18 +16,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   const verifyAuth = async () => {
     try {
-      const response = await fetch('/api/admin/auth/verify');
+      const response = await fetch('/api/admin/auth/verify', {
+        credentials: 'include' // Important: This ensures cookies are sent with the request
+      });
+      
       if (response.ok) {
         setIsAuthenticated(true);
+        // If on login page and authenticated, redirect to dashboard
+        if (pathname === '/admin/login') {
+          router.replace('/admin/dashboard');
+        }
       } else {
         setIsAuthenticated(false);
-        const isAdminPage = window.location.pathname.startsWith('/admin');
-        const isLoginPage = window.location.pathname === '/admin/login';
+        // Only redirect to login if on an admin page (but not already on login page)
+        const isAdminPage = pathname?.startsWith('/admin');
+        const isLoginPage = pathname === '/admin/login';
         if (isAdminPage && !isLoginPage) {
-          router.push('/admin/login');
+          router.replace('/admin/login');
         }
       }
     } catch (error) {
@@ -40,22 +49,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     verifyAuth();
-  }, [router]);
+  }, [pathname]);
 
   const login = (token: string) => {
+    // Set the cookie with appropriate options for production
     Cookies.set('auth_token', token, { 
       expires: 7, // 7 days
       path: '/',
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict'
+      sameSite: 'lax' // Changed from 'strict' to 'lax' for better compatibility
     });
     setIsAuthenticated(true);
+    router.replace('/admin/dashboard');
   };
 
   const logout = () => {
     Cookies.remove('auth_token', { path: '/' });
     setIsAuthenticated(false);
-    router.push('/admin/login');
+    router.replace('/admin/login');
   };
 
   // Show nothing while checking authentication
