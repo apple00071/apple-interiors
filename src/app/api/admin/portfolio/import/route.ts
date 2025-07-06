@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { executeQuery } from '../../../../lib/db';
-import { readdir } from 'fs/promises';
+import { sql } from '../../../../lib/db';
+import { readdir, unlink, mkdir } from 'fs/promises';
 import path from 'path';
 import { existsSync } from 'fs';
 
@@ -10,84 +10,133 @@ const VALID_CATEGORIES = [
   'bedroom',
   'kitchen',
   'false-ceiling'
-];
+] as const;
 
-// Helper function to get all image files from a directory recursively
-async function getImagesFromDir(dir: string): Promise<{path: string, category: string}[]> {
-  const images: {path: string, category: string}[] = [];
-  const items = await readdir(dir, { withFileTypes: true });
-  
-  for (const item of items) {
-    const fullPath = path.join(dir, item.name);
-    if (item.isDirectory()) {
-      // Only process if it's a valid category
-      if (VALID_CATEGORIES.includes(item.name)) {
-        // Category folder
-        const categoryImages = await readdir(fullPath);
-        categoryImages.forEach(image => {
-          if (image.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-            images.push({
-              path: `/portfolio/${item.name}/${image}`,
-              category: item.name // This is now guaranteed to be a valid category
-            });
-          }
-        });
-      }
+type Category = typeof VALID_CATEGORIES[number];
+
+// Function to delete image file
+async function deleteImageFile(imagePath: string) {
+  try {
+    const filePath = path.join(process.cwd(), 'public', imagePath);
+    if (existsSync(filePath)) {
+      await unlink(filePath);
+      console.log(`Deleted file: ${filePath}`);
     }
+  } catch (error) {
+    console.error('Error deleting image file:', error);
   }
-  
-  return images;
+}
+
+// Function to ensure directory exists
+async function ensureDir(dirPath: string) {
+  if (!existsSync(dirPath)) {
+    await mkdir(dirPath, { recursive: true });
+  }
 }
 
 export async function GET() {
   try {
-    const portfolioDir = path.join(process.cwd(), 'public', 'portfolio');
-    
-    if (!existsSync(portfolioDir)) {
-      return NextResponse.json(
-        { error: 'Portfolio directory does not exist' },
-        { status: 404 }
-      );
-    }
+    // First get all existing image paths
+    const existingItems = await sql`SELECT image_paths FROM portfolio_items`;
 
-    // Get all images from the portfolio directory
-    const images = await getImagesFromDir(portfolioDir);
-    console.log('Found images:', images); // Debug log
-
-    // Insert each image into the database if it doesn't already exist
-    let importedCount = 0;
-    for (const image of images) {
-      try {
-        const result = await executeQuery({
-          query: `
-            INSERT INTO portfolio_items (category_id, image_url)
-            SELECT $1, $2
-            WHERE NOT EXISTS (
-              SELECT 1 FROM portfolio_items WHERE image_url = $2
-            )
-            RETURNING id
-          `,
-          values: [image.category, image.path]
-        });
-        
-        if (Array.isArray(result) && result.length > 0) {
-          importedCount++;
+    // Delete existing image files
+    for (const item of existingItems) {
+      if (Array.isArray(item.image_paths)) {
+        for (const imagePath of item.image_paths) {
+          await deleteImageFile(imagePath);
         }
-      } catch (error) {
-        console.error('Error importing image:', image, error);
       }
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      message: `Imported ${importedCount} images`,
-      images 
-    });
+    // Then clear database records
+    await sql`DELETE FROM portfolio_items`;
 
+    const portfolioDir = path.join(process.cwd(), 'public', 'images', 'portfolio');
+    console.log('Reading from directory:', portfolioDir);
+
+    // Ensure the portfolio directory exists
+    await ensureDir(portfolioDir);
+
+    let totalImported = 0;
+    let errors = [];
+    
+    for (const category of VALID_CATEGORIES) {
+      try {
+        const categoryDir = path.join(portfolioDir, category);
+        console.log('Checking category directory:', categoryDir);
+        
+        // Ensure category directory exists
+        await ensureDir(categoryDir);
+        
+        if (existsSync(categoryDir)) {
+          const files = await readdir(categoryDir);
+          const imageFiles = files.filter(file => 
+            /\.(jpg|jpeg|png|gif|webp)$/i.test(file)
+          );
+          
+          console.log(`Found ${imageFiles.length} images in ${category}`);
+          
+          // Take only the first 6 images for each category
+          const sortedFiles = imageFiles
+            .sort((a, b) => {
+              // Sort by filename (assuming timestamp-based names)
+              return a.localeCompare(b);
+            })
+            .slice(0, 6);
+
+          // Ensure category exists
+          await sql`
+            INSERT INTO categories (name)
+            VALUES (${category})
+            ON CONFLICT (name) DO NOTHING
+          `;
+
+          // Create image paths array
+          const imagePaths = sortedFiles.map(file => 
+            `/images/portfolio/${category}/${file}`
+          );
+
+          if (imagePaths.length > 0) {
+            try {
+              await sql`
+                INSERT INTO portfolio_items (image_paths, category)
+                VALUES (${imagePaths}, ${category})
+              `;
+              totalImported += imagePaths.length;
+            } catch (error) {
+              console.error(`Error importing images for category ${category}:`, error);
+              errors.push(`Failed to import images for ${category}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            }
+          }
+        }
+      } catch (categoryError) {
+        console.error(`Error processing category ${category}:`, categoryError);
+        errors.push(`Failed to process category ${category}: ${categoryError instanceof Error ? categoryError.message : 'Unknown error'}`);
+      }
+    }
+
+    // Verify the import
+    const verifyResult = await sql`
+      SELECT p.category, array_length(p.image_paths, 1) as image_count
+      FROM portfolio_items p
+      ORDER BY p.category
+    `;
+    console.log('Import verification:', verifyResult);
+
+    return NextResponse.json({
+      success: true,
+      count: totalImported,
+      message: `Successfully imported ${totalImported} images`,
+      verification: verifyResult,
+      errors: errors.length > 0 ? errors : undefined
+    });
   } catch (error) {
     console.error('Error importing portfolio items:', error);
     return NextResponse.json(
-      { error: 'Failed to import portfolio items' },
+      { 
+        error: 'Failed to import portfolio items',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     );
   }

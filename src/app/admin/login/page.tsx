@@ -46,11 +46,11 @@ export default function LoginPage() {
         <div className="text-center">
           <div className="relative w-[150px] h-[150px] mx-auto">
             <Image
-              src="/images/logo.png"
               alt="Apple Interiors Logo"
-              fill
-              className="object-contain"
-              priority
+              width={200}
+              height={80}
+              src="/images/New-logo.png"
+              className="mb-8"
             />
           </div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -16,35 +17,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    // Check if there's a token in localStorage
-    const token = window.localStorage.getItem('adminToken');
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      // If no token and we're on an admin page (but not login), redirect to login
-      const isAdminPage = window.location.pathname.startsWith('/admin');
-      const isLoginPage = window.location.pathname === '/admin/login';
-      if (isAdminPage && !isLoginPage) {
-        router.push('/admin/login');
+  const verifyAuth = async () => {
+    try {
+      const response = await fetch('/api/admin/auth/verify');
+      if (response.ok) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+        const isAdminPage = window.location.pathname.startsWith('/admin');
+        const isLoginPage = window.location.pathname === '/admin/login';
+        if (isAdminPage && !isLoginPage) {
+          router.push('/admin/login');
+        }
       }
-    }
-    setIsLoading(false);
-  }, [router]);
-
-  const login = (token: string) => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('adminToken', token);
-      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Authentication error:', error);
+      setIsAuthenticated(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    verifyAuth();
+  }, [router]);
+
+  const login = (token: string) => {
+    Cookies.set('auth_token', token, { 
+      expires: 7, // 7 days
+      path: '/',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict'
+    });
+    setIsAuthenticated(true);
+  };
+
   const logout = () => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.removeItem('adminToken');
-      setIsAuthenticated(false);
-      router.push('/admin/login');
-    }
+    Cookies.remove('auth_token', { path: '/' });
+    setIsAuthenticated(false);
+    router.push('/admin/login');
   };
 
   // Show nothing while checking authentication
