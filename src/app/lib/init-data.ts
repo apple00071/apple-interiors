@@ -5,11 +5,11 @@ import { neon } from '@neondatabase/serverless';
 const sql = neon(process.env.DATABASE_URL!);
 
 const categories = [
-  'Living Room',
-  'Dining',
-  'Bedroom',
-  'Kitchen',
-  'False Ceiling'
+  'living-room',
+  'dining',
+  'bedroom',
+  'kitchen',
+  'false-ceiling'
 ];
 
 const portfolioItems = [
@@ -21,7 +21,7 @@ const portfolioItems = [
       '/images/portfolio/living-room/12.webp',
       '/images/portfolio/living-room/13.webp'
     ],
-    category: 'Living Room'
+    category: 'living-room'
   },
   {
     image_paths: [
@@ -32,7 +32,7 @@ const portfolioItems = [
       '/images/portfolio/dining/26.webp',
       '/images/portfolio/dining/N2.webp'
     ],
-    category: 'Dining'
+    category: 'dining'
   },
   {
     image_paths: [
@@ -43,7 +43,7 @@ const portfolioItems = [
       '/images/portfolio/bedroom/J8.webp',
       '/images/portfolio/bedroom/N3.webp'
     ],
-    category: 'Bedroom'
+    category: 'bedroom'
   },
   {
     image_paths: [
@@ -54,7 +54,7 @@ const portfolioItems = [
       '/images/portfolio/kitchen/J8.webp',
       '/images/portfolio/kitchen/J9.webp'
     ],
-    category: 'Kitchen'
+    category: 'kitchen'
   },
   {
     image_paths: [
@@ -65,7 +65,7 @@ const portfolioItems = [
       '/images/portfolio/false-ceiling/141.webp',
       '/images/portfolio/false-ceiling/142.webp'
     ],
-    category: 'False Ceiling'
+    category: 'false-ceiling'
   }
 ];
 

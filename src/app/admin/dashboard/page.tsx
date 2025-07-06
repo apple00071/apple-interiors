@@ -16,6 +16,14 @@ interface Category {
   name: string;
 }
 
+// Helper function to format category name for display
+function formatCategoryName(category: string): string {
+  return category
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 export default function AdminDashboard() {
   const { logout } = useAuth();
   const router = useRouter();
@@ -52,23 +60,6 @@ export default function AdminDashboard() {
       console.error(err);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleDeleteItem = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this item?')) return;
-
-    try {
-      const response = await fetch(`/api/admin/portfolio/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) throw new Error('Failed to delete item');
-      
-      setPortfolioItems(items => items.filter(item => item.id !== id));
-    } catch (err) {
-      console.error('Failed to delete item:', err);
-      alert('Failed to delete item');
     }
   };
 
@@ -116,38 +107,6 @@ export default function AdminDashboard() {
       setUploadingImage(null);
       // Clear the file input
       e.target.value = '';
-    }
-  };
-
-  const handleDeleteImage = async (itemId: number, imagePath: string) => {
-    if (!confirm('Are you sure you want to delete this image?')) return;
-
-    setError('');
-    try {
-      const response = await fetch(`/api/admin/portfolio/${itemId}/image`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ imagePath }),
-      });
-
-      if (!response.ok) throw new Error('Failed to delete image');
-
-      // Update the portfolioItems state by removing the deleted image
-      setPortfolioItems(items =>
-        items.map(item =>
-          item.id === itemId
-            ? { ...item, image_paths: item.image_paths.filter(path => path !== imagePath) }
-            : item
-        )
-      );
-
-      setSuccessMessage('Image deleted successfully');
-      setTimeout(() => setSuccessMessage(''), 2000);
-    } catch (err) {
-      setError('Failed to delete image');
-      console.error(err);
     }
   };
 
@@ -204,7 +163,7 @@ export default function AdminDashboard() {
             >
               {categories.map((category) => (
                 <option key={category.id} value={category.name}>
-                  {category.name}
+                  {formatCategoryName(category.name)}
                 </option>
               ))}
             </select>
@@ -250,17 +209,6 @@ export default function AdminDashboard() {
                 </div>
               ))
             ))}
-
-            {/* Add new item button */}
-            <button
-              onClick={() => router.push('/admin/portfolio/new')}
-              className="relative h-48 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-yellow-500 hover:bg-gray-50 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-              <span className="mt-2 block text-sm font-medium text-gray-600">Add New Item</span>
-            </button>
           </div>
 
           {filteredItems.length === 0 && (

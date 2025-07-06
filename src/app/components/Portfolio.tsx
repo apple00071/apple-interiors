@@ -22,8 +22,16 @@ interface PortfolioProps {
 
 const MAX_IMAGES = 6;
 
+// Helper function to format category name for display
+function formatCategoryName(category: string): string {
+  return category
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 export default function Portfolio({ items, categories }: PortfolioProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('Bedroom');
+  const [selectedCategory, setSelectedCategory] = useState<string>('bedroom');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   if (!Array.isArray(items) || !Array.isArray(categories)) {
@@ -67,7 +75,7 @@ export default function Portfolio({ items, categories }: PortfolioProps) {
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                {category.name}
+                {formatCategoryName(category.name)}
               </button>
             ))}
           </div>
