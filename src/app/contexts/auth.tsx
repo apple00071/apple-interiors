@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsAuthenticated(true);
         // If on login page and authenticated, redirect to dashboard
         if (pathname === '/admin/login') {
-          router.replace('/admin/dashboard');
+          router.push('/admin/dashboard');
         }
       } else {
         setIsAuthenticated(false);
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const isAdminPage = pathname?.startsWith('/admin');
         const isLoginPage = pathname === '/admin/login';
         if (isAdminPage && !isLoginPage) {
-          router.replace('/admin/login');
+          router.push('/admin/login');
         }
       }
     } catch (error) {
@@ -54,6 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async () => {
     try {
+      setIsLoading(true);
       // Verify immediately after login attempt
       const response = await fetch('/api/admin/auth/verify', {
         credentials: 'include',
@@ -62,7 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (response.ok) {
         setIsAuthenticated(true);
-        router.replace('/admin/dashboard');
+        return; // Let the login page handle redirection
       } else {
         throw new Error('Verification failed after login');
       }
@@ -70,11 +71,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error('Login verification error:', error);
       setIsAuthenticated(false);
       throw error; // Re-throw to be handled by the login page
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const logout = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch('/api/admin/auth/logout', {
         method: 'POST',
         credentials: 'include',
@@ -88,7 +92,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error('Logout error:', error);
     } finally {
       setIsAuthenticated(false);
-      router.replace('/admin/login');
+      setIsLoading(false);
+      router.push('/admin/login');
     }
   };
 
