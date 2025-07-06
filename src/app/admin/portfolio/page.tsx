@@ -1,7 +1,7 @@
 import { getPortfolioItems, getCategories } from '@/app/lib/db';
 import PortfolioAdmin from '@/app/components/admin/PortfolioAdmin';
 
-// Make this page dynamic
+// Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
 export default async function AdminPortfolioPage() {

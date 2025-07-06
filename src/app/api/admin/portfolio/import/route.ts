@@ -36,14 +36,17 @@ async function ensureDir(dirPath: string) {
 
 export async function GET() {
   try {
-    // First get all existing image paths
-    const existingItems = await sql`SELECT image_paths FROM portfolio_items`;
+    // Skip file deletion during build
+    if (process.env.NODE_ENV !== 'production') {
+      // First get all existing image paths
+      const existingItems = await sql`SELECT image_paths FROM portfolio_items`;
 
-    // Delete existing image files
-    for (const item of existingItems) {
-      if (Array.isArray(item.image_paths)) {
-        for (const imagePath of item.image_paths) {
-          await deleteImageFile(imagePath);
+      // Delete existing image files
+      for (const item of existingItems) {
+        if (Array.isArray(item.image_paths)) {
+          for (const imagePath of item.image_paths) {
+            await deleteImageFile(imagePath);
+          }
         }
       }
     }
@@ -59,6 +62,7 @@ export async function GET() {
 
     let totalImported = 0;
     let errors = [];
+    let importVerification = [];
     
     for (const category of VALID_CATEGORIES) {
       try {
@@ -75,6 +79,7 @@ export async function GET() {
           );
           
           console.log(`Found ${imageFiles.length} images in ${category}`);
+          importVerification.push({ category, image_count: imageFiles.length });
           
           // Take only the first 6 images for each category
           const sortedFiles = imageFiles
@@ -109,34 +114,24 @@ export async function GET() {
             }
           }
         }
-      } catch (categoryError) {
-        console.error(`Error processing category ${category}:`, categoryError);
-        errors.push(`Failed to process category ${category}: ${categoryError instanceof Error ? categoryError.message : 'Unknown error'}`);
+      } catch (error) {
+        console.error(`Error processing category ${category}:`, error);
+        errors.push(`Failed to process ${category}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
     }
 
-    // Verify the import
-    const verifyResult = await sql`
-      SELECT p.category, array_length(p.image_paths, 1) as image_count
-      FROM portfolio_items p
-      ORDER BY p.category
-    `;
-    console.log('Import verification:', verifyResult);
+    console.log('Import verification:', importVerification);
 
     return NextResponse.json({
       success: true,
-      count: totalImported,
-      message: `Successfully imported ${totalImported} images`,
-      verification: verifyResult,
-      errors: errors.length > 0 ? errors : undefined
+      totalImported,
+      errors: errors.length > 0 ? errors : undefined,
+      verification: importVerification
     });
   } catch (error) {
     console.error('Error importing portfolio items:', error);
     return NextResponse.json(
-      { 
-        error: 'Failed to import portfolio items',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
+      { error: 'Failed to import portfolio items', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

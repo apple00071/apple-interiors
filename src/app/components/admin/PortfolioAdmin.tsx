@@ -11,13 +11,10 @@ interface Category {
 
 interface PortfolioItem {
   id: number;
-  title: string;
-  description: string | null;
+  image_paths: string[];
   category: string;
-  year: number | null;
-  location: string | null;
-  area: string | null;
-  images: string[];
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 interface PortfolioAdminProps {
@@ -125,16 +122,6 @@ export default function PortfolioAdmin({ initialItems, categories }: PortfolioAd
         
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block mb-2">Title</label>
-            <input
-              type="text"
-              name="title"
-              required
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div>
             <label className="block mb-2">Category</label>
             <select name="category" required className="w-full p-2 border rounded">
               {categories.map((category) => (
@@ -143,42 +130,6 @@ export default function PortfolioAdmin({ initialItems, categories }: PortfolioAd
                 </option>
               ))}
             </select>
-          </div>
-
-          <div>
-            <label className="block mb-2">Description</label>
-            <textarea
-              name="description"
-              className="w-full p-2 border rounded"
-              rows={3}
-            />
-          </div>
-
-          <div>
-            <label className="block mb-2">Year</label>
-            <input
-              type="number"
-              name="year"
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-2">Location</label>
-            <input
-              type="text"
-              name="location"
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-2">Area</label>
-            <input
-              type="text"
-              name="area"
-              className="w-full p-2 border rounded"
-            />
           </div>
 
           <div className="col-span-2">
@@ -207,31 +158,14 @@ export default function PortfolioAdmin({ initialItems, categories }: PortfolioAd
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => (
           <div key={item.id} className="border rounded p-4">
-            <h3 className="text-lg font-bold mb-2">{item.title}</h3>
             <p className="text-gray-600 mb-2">{item.category}</p>
             
-            {item.description && (
-              <p className="text-gray-700 mb-2">{item.description}</p>
-            )}
-            
-            {item.year && (
-              <p className="text-gray-600 mb-1">Year: {item.year}</p>
-            )}
-            
-            {item.location && (
-              <p className="text-gray-600 mb-1">Location: {item.location}</p>
-            )}
-            
-            {item.area && (
-              <p className="text-gray-600 mb-2">Area: {item.area}</p>
-            )}
-
             <div className="grid grid-cols-2 gap-2 mb-4">
-              {item.images.map((image, index) => (
+              {item.image_paths.map((image, index) => (
                 <div key={index} className="relative aspect-video">
                   <Image
                     src={image}
-                    alt={`${item.title} - Image ${index + 1}`}
+                    alt={`Portfolio Image ${index + 1}`}
                     fill
                     className="object-cover rounded"
                   />
@@ -239,15 +173,13 @@ export default function PortfolioAdmin({ initialItems, categories }: PortfolioAd
               ))}
             </div>
 
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => handleDeleteItem(item.id)}
-                disabled={isLoading}
-                className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 disabled:opacity-50"
-              >
-                Delete
-              </button>
-            </div>
+            <button
+              onClick={() => handleDeleteItem(item.id)}
+              disabled={isLoading}
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 disabled:opacity-50"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
