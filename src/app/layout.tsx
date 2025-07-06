@@ -1,11 +1,7 @@
-import { initializeDatabase } from './lib/db';
 import './globals.css';
 import { Metadata } from 'next';
 import { Providers } from './components/Providers';
 import RootLayoutClient from './components/RootLayoutClient';
-
-// Initialize database
-initializeDatabase().catch(console.error);
 
 export const metadata: Metadata = {
   title: 'Apple Interiors',
