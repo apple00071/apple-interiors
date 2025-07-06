@@ -36,12 +36,13 @@ export default function LoginPage() {
       // After successful login, call the login function from auth context
       await login();
       
-      // Use window.location for a hard redirect
-      window.location.href = '/admin/dashboard';
+      // Add a small delay before redirect to ensure state is updated
+      setTimeout(() => {
+        window.location.href = '/admin/dashboard';
+      }, 100);
     } catch (err) {
       console.error('Login error:', err);
       setError('Invalid username or password');
-    } finally {
       setIsLoading(false);
     }
   };
