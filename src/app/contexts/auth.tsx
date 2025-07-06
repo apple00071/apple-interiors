@@ -2,11 +2,10 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import Cookies from 'js-cookie';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (token: string) => void;
+  login: () => void;
   logout: () => void;
 }
 
@@ -51,20 +50,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     verifyAuth();
   }, [pathname]);
 
-  const login = (token: string) => {
-    // Set the cookie with appropriate options for production
-    Cookies.set('auth_token', token, { 
-      expires: 7, // 7 days
-      path: '/',
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax' // Changed from 'strict' to 'lax' for better compatibility
-    });
+  const login = () => {
     setIsAuthenticated(true);
     router.replace('/admin/dashboard');
   };
 
-  const logout = () => {
-    Cookies.remove('auth_token', { path: '/' });
+  const logout = async () => {
+    try {
+      await fetch('/api/admin/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
     setIsAuthenticated(false);
     router.replace('/admin/login');
   };

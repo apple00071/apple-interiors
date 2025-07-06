@@ -32,16 +32,8 @@ export default function LoginPage() {
         throw new Error('Invalid credentials');
       }
 
-      const data = await response.json();
-      
-      // Update auth context with the token
-      login(data.token);
-
-      // Wait a bit for the auth context to update
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Redirect to dashboard
-      router.replace('/admin/dashboard');
+      // Just call login() without the token since we're using HTTP-only cookies
+      login();
     } catch (err) {
       setError('Invalid username or password');
     } finally {
