@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, isLoading: isAuthLoading } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,21 +25,30 @@ export default function LoginPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-        credentials: 'include', // Important: This ensures cookies are sent with the request
+        credentials: 'include',
+        cache: 'no-store'
       });
 
       if (!response.ok) {
         throw new Error('Invalid credentials');
       }
 
-      // Just call login() without the token since we're using HTTP-only cookies
-      login();
+      await login();
     } catch (err) {
+      console.error('Login error:', err);
       setError('Invalid username or password');
-    } finally {
       setIsLoading(false);
     }
   };
+
+  // Show loading state while auth context is initializing
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

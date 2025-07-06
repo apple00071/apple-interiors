@@ -5,8 +5,9 @@ import { useRouter, usePathname } from 'next/navigation';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
+  isLoading: boolean;
+  login: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,7 +21,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const verifyAuth = async () => {
     try {
       const response = await fetch('/api/admin/auth/verify', {
-        credentials: 'include' // Important: This ensures cookies are sent with the request
+        credentials: 'include', // Important: This ensures cookies are sent with the request
+        cache: 'no-store' // Prevent caching of the verification request
       });
       
       if (response.ok) {
@@ -50,31 +52,48 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     verifyAuth();
   }, [pathname]);
 
-  const login = () => {
-    setIsAuthenticated(true);
-    router.replace('/admin/dashboard');
+  const login = async () => {
+    try {
+      // Verify immediately after login attempt
+      const response = await fetch('/api/admin/auth/verify', {
+        credentials: 'include',
+        cache: 'no-store'
+      });
+
+      if (response.ok) {
+        setIsAuthenticated(true);
+        router.replace('/admin/dashboard');
+      } else {
+        throw new Error('Verification failed after login');
+      }
+    } catch (error) {
+      console.error('Login verification error:', error);
+      setIsAuthenticated(false);
+      throw error; // Re-throw to be handled by the login page
+    }
   };
 
   const logout = async () => {
     try {
-      await fetch('/api/admin/auth/logout', {
+      const response = await fetch('/api/admin/auth/logout', {
         method: 'POST',
-        credentials: 'include'
+        credentials: 'include',
+        cache: 'no-store'
       });
+
+      if (!response.ok) {
+        throw new Error('Logout failed');
+      }
     } catch (error) {
       console.error('Logout error:', error);
+    } finally {
+      setIsAuthenticated(false);
+      router.replace('/admin/login');
     }
-    setIsAuthenticated(false);
-    router.replace('/admin/login');
   };
 
-  // Show nothing while checking authentication
-  if (isLoading) {
-    return null;
-  }
-
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

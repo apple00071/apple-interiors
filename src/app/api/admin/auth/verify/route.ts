@@ -9,19 +9,29 @@ export async function GET() {
     const token = cookies().get('auth_token')?.value;
 
     if (!token) {
+      console.log('No auth token found in cookies');
       return NextResponse.json(
-        { error: 'Not authenticated' },
+        { error: 'Not authenticated', message: 'No auth token found' },
         { status: 401 }
       );
     }
 
-    // Verify the token
-    verify(token, JWT_SECRET);
+    // Verify the token and get the decoded data
+    const decoded = verify(token, JWT_SECRET);
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ 
+      success: true,
+      user: {
+        username: (decoded as any).username
+      }
+    });
   } catch (error) {
+    console.error('Token verification error:', error);
     return NextResponse.json(
-      { error: 'Invalid token' },
+      { 
+        error: 'Invalid token', 
+        message: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 401 }
     );
   }
