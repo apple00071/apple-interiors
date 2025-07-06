@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useAuth } from '@/app/contexts/auth';
 
@@ -10,7 +9,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const { login, isLoading: isAuthLoading } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,8 +36,8 @@ export default function LoginPage() {
       // After successful login, call the login function from auth context
       await login();
       
-      // Redirect to dashboard
-      router.push('/admin/dashboard');
+      // Use window.location for a hard redirect
+      window.location.href = '/admin/dashboard';
     } catch (err) {
       console.error('Login error:', err);
       setError('Invalid username or password');

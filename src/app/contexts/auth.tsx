@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -15,7 +15,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
   const pathname = usePathname();
 
   const verifyAuth = async () => {
@@ -29,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsAuthenticated(true);
         // If on login page and authenticated, redirect to dashboard
         if (pathname === '/admin/login') {
-          router.push('/admin/dashboard');
+          window.location.href = '/admin/dashboard';
         }
       } else {
         setIsAuthenticated(false);
@@ -37,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const isAdminPage = pathname?.startsWith('/admin');
         const isLoginPage = pathname === '/admin/login';
         if (isAdminPage && !isLoginPage) {
-          router.push('/admin/login');
+          window.location.href = '/admin/login';
         }
       }
     } catch (error) {
@@ -93,7 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsAuthenticated(false);
       setIsLoading(false);
-      router.push('/admin/login');
+      window.location.href = '/admin/login';
     }
   };
 
