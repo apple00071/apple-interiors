@@ -1,240 +1,280 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from '@/app/contexts/auth';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 interface PortfolioItem {
   id: number;
-  category_id: string;
-  image_url: string;
+  image_paths: string[];
+  category: string;
 }
 
-const categories = [
-  { id: 'living-room', name: 'Living Room' },
-  { id: 'dining', name: 'Dining' },
-  { id: 'bedroom', name: 'Bedroom' },
-  { id: 'kitchen', name: 'Kitchen' },
-  { id: 'false-ceiling', name: 'False Ceiling' }
-];
+interface Category {
+  id: number;
+  name: string;
+}
 
-export default function Dashboard() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+export default function AdminDashboard() {
+  const { logout } = useAuth();
+  const router = useRouter();
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState('');
+  const [uploadingImage, setUploadingImage] = useState<number | null>(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    fetchPortfolioItems();
+    fetchData();
   }, []);
 
-  const fetchPortfolioItems = async () => {
+  const fetchData = async () => {
     try {
-      console.log('Fetching portfolio items...');
-      const response = await fetch('/api/admin/portfolio');
-      if (!response.ok) {
-        throw new Error('Failed to fetch portfolio items');
+      // Fetch categories
+      const categoriesResponse = await fetch('/api/admin/categories');
+      if (!categoriesResponse.ok) throw new Error('Failed to fetch categories');
+      const categoriesData = await categoriesResponse.json();
+      setCategories(categoriesData);
+      if (categoriesData.length > 0) {
+        setSelectedCategory(categoriesData[0].name);
       }
-      const data = await response.json();
-      console.log('API Response:', data);
-      setPortfolioItems(data.data);
-    } catch (error) {
-      console.error('Error fetching portfolio items:', error);
-      alert('Failed to load portfolio items');
+
+      // Fetch portfolio items
+      const portfolioResponse = await fetch('/api/admin/portfolio');
+      if (!portfolioResponse.ok) throw new Error('Failed to fetch portfolio items');
+      const portfolioData = await portfolioResponse.json();
+      setPortfolioItems(portfolioData);
+    } catch (err) {
+      setError('Failed to load data');
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || !e.target.files[0] || !selectedCategory) return;
-    
-    const file = e.target.files[0];
-    setUploading(true);
+  const handleDeleteItem = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this item?')) return;
 
+    try {
+      const response = await fetch(`/api/admin/portfolio/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Failed to delete item');
+      
+      setPortfolioItems(items => items.filter(item => item.id !== id));
+    } catch (err) {
+      console.error('Failed to delete item:', err);
+      alert('Failed to delete item');
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, itemId: number, imageIndex: number) => {
+    if (!e.target.files || !e.target.files[0]) return;
+
+    setUploadingImage(itemId);
+    setError('');
+    const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file);
     formData.append('category', selectedCategory);
+    formData.append('imageIndex', imageIndex.toString());
 
     try {
-      const response = await fetch('/api/admin/portfolio', {
+      const response = await fetch(`/api/admin/portfolio/${itemId}/image`, {
         method: 'POST',
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to upload portfolio item');
-      }
+      if (!response.ok) throw new Error('Failed to upload image');
 
-      await fetchPortfolioItems();
-      alert('Portfolio item uploaded successfully!');
-    } catch (error) {
-      console.error('Error uploading portfolio item:', error);
-      alert('Failed to upload portfolio item. Please try again.');
+      const data = await response.json();
+      
+      // Update the portfolioItems state by replacing the image at the specified index
+      setPortfolioItems(items =>
+        items.map(item =>
+          item.id === itemId
+            ? {
+                ...item,
+                image_paths: item.image_paths.map((path, idx) =>
+                  idx === imageIndex ? data.imagePath : path
+                )
+              }
+            : item
+        )
+      );
+
+      setSuccessMessage('Image updated successfully');
+      setTimeout(() => setSuccessMessage(''), 2000);
+    } catch (err) {
+      setError('Failed to update image');
+      console.error(err);
     } finally {
-      setUploading(false);
-      // Reset the file input
+      setUploadingImage(null);
+      // Clear the file input
       e.target.value = '';
     }
   };
 
-  const handleUpdate = async (e: React.ChangeEvent<HTMLInputElement>, itemId: number) => {
-    if (!e.target.files || !e.target.files[0] || !selectedCategory) return;
-    
-    const file = e.target.files[0];
-    setUploading(true);
+  const handleDeleteImage = async (itemId: number, imagePath: string) => {
+    if (!confirm('Are you sure you want to delete this image?')) return;
 
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('category', selectedCategory);
-    formData.append('id', itemId.toString());
-
+    setError('');
     try {
-      const response = await fetch('/api/admin/portfolio', {
-        method: 'PUT',
-        body: formData,
+      const response = await fetch(`/api/admin/portfolio/${itemId}/image`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imagePath }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to update portfolio item');
-      }
+      if (!response.ok) throw new Error('Failed to delete image');
 
-      await fetchPortfolioItems();
-      alert('Portfolio item updated successfully!');
-    } catch (error) {
-      console.error('Error updating portfolio item:', error);
-      alert('Failed to update portfolio item. Please try again.');
-    } finally {
-      setUploading(false);
-      // Reset the file input
-      e.target.value = '';
+      // Update the portfolioItems state by removing the deleted image
+      setPortfolioItems(items =>
+        items.map(item =>
+          item.id === itemId
+            ? { ...item, image_paths: item.image_paths.filter(path => path !== imagePath) }
+            : item
+        )
+      );
+
+      setSuccessMessage('Image deleted successfully');
+      setTimeout(() => setSuccessMessage(''), 2000);
+    } catch (err) {
+      setError('Failed to delete image');
+      console.error(err);
     }
   };
 
-  // Filter items based on selected category
-  const filteredItems = selectedCategory 
-    ? portfolioItems.filter(item => {
-        console.log('Filtering item:', {
-          itemCategory: item.category_id,
-          selectedCategory,
-          matches: item.category_id === selectedCategory
-        });
-        return item.category_id === selectedCategory;
-      })
-    : [];
-
-  console.log('Current State:', {
-    selectedCategory,
-    totalItems: portfolioItems.length,
-    filteredItems: filteredItems.length
-  });
+  const filteredItems = portfolioItems.filter(item => item.category === selectedCategory);
 
   if (loading) {
     return (
-      <div className="p-6">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-48 bg-gray-200 rounded"></div>
-            ))}
-          </div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Portfolio Management</h1>
-
-      {/* Category Selection */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => setSelectedCategory(category.id)}
-            className={`p-4 rounded-lg text-center transition-colors ${
-              selectedCategory === category.id
-                ? 'bg-yellow-500 text-white'
-                : 'bg-gray-100 hover:bg-gray-200'
-            }`}
-          >
-            <div className="font-semibold">{category.name}</div>
-          </button>
-        ))}
-      </div>
-
-      {/* Selected Category Content */}
-      {selectedCategory && (
-        <div className="mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Upload New Image Card */}
-            <div className="relative group border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-gray-50 h-48 flex items-center justify-center">
-              <label className="cursor-pointer text-center">
-                <div className="text-gray-500 mb-2">+ Add New Image</div>
-                <input
-                  type="file"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handleUpload}
-                  disabled={uploading}
-                />
-              </label>
+    <div className="min-h-screen bg-gray-50">
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <h1 className="text-xl font-semibold">Admin Dashboard</h1>
             </div>
-
-            {/* Existing Images */}
-            {filteredItems.map((item) => (
-              <div key={item.id} className="relative group border rounded-lg overflow-hidden">
-                <div className="relative h-48">
-                  <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
-                    <Image
-                      src={item.image_url}
-                      alt={`Portfolio item - ${item.category_id}`}
-                      fill
-                      className="object-cover"
-                      onError={(e) => {
-                        console.error('Error loading image:', {
-                          url: item.image_url,
-                          category: item.category_id,
-                          error: e
-                        });
-                        const target = e.currentTarget as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                      unoptimized={true}
-                      priority={true}
-                    />
-                  </div>
-                  {/* Update Overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <label className="cursor-pointer bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600">
-                      Update Image
-                      <input
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        onChange={(e) => handleUpdate(e, item.id)}
-                        disabled={uploading}
-                      />
-                    </label>
-                  </div>
-                </div>
-                <div className="p-2 text-sm text-gray-500">
-                  Image URL: {item.image_url}
-                  <br />
-                  Category: {item.category_id}
-                </div>
-              </div>
-            ))}
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={logout}
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
-      )}
+      </nav>
 
-      {!selectedCategory && (
-        <div className="text-center text-gray-500 mt-8">
-          Please select a category to manage images
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {error && (
+          <div className="mb-4 p-4 text-red-700 bg-red-100 rounded-md">
+            {error}
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="mb-4 p-4 text-green-700 bg-green-100 rounded-md">
+            {successMessage}
+          </div>
+        )}
+
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold">Portfolio Items</h2>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="block w-64 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+            >
+              {categories.map((category) => (
+                <option key={category.id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredItems.map((item) => (
+              item.image_paths.map((imagePath, imageIndex) => (
+                <div key={`${item.id}-${imageIndex}`} className="relative group">
+                  <div className="relative h-48 rounded-lg overflow-hidden">
+                    <Image
+                      src={imagePath}
+                      alt={`Portfolio item ${item.id} image ${imageIndex + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-opacity flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div className="space-y-2">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleImageUpload(e, item.id, imageIndex)}
+                        className="hidden"
+                        id={`file-upload-${item.id}-${imageIndex}`}
+                      />
+                      <label
+                        htmlFor={`file-upload-${item.id}-${imageIndex}`}
+                        className="block px-3 py-1 text-sm text-white bg-yellow-600 rounded hover:bg-yellow-700 cursor-pointer text-center"
+                      >
+                        {uploadingImage === item.id ? (
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
+                            Uploading...
+                          </div>
+                        ) : (
+                          'Update Image'
+                        )}
+                      </label>
+                      <button
+                        onClick={() => handleDeleteImage(item.id, imagePath)}
+                        className="w-full px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ))}
+
+            {/* Add new item button */}
+            <button
+              onClick={() => router.push('/admin/portfolio/new')}
+              className="relative h-48 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-yellow-500 hover:bg-gray-50 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              <span className="mt-2 block text-sm font-medium text-gray-600">Add New Item</span>
+            </button>
+          </div>
+
+          {filteredItems.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No items found in this category.</p>
+            </div>
+          )}
         </div>
-      )}
+      </main>
     </div>
   );
 }

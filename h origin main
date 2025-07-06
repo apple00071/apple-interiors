@@ -1,5 +1,0 @@
-[33mcommit 3eebec2b75b9603627e569a0536592de890752cd[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
-Author: apple00071 <pavankumarv1497@gmail.com>
-Date:   Tue Mar 18 08:17:12 2025 +0530
-
-    Fix ESLint error: escape apostrophe in not-found.tsx

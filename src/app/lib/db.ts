@@ -1,131 +1,223 @@
-import { Pool } from 'pg';
-import { hash } from 'bcryptjs';
+import { neon } from '@neondatabase/serverless';
+import fs from 'fs';
+import path from 'path';
 
-interface DatabaseError extends Error {
-  code?: string;
-  detail?: string;
-  schema?: string;
-  table?: string;
-}
+export const sql = neon(process.env.DATABASE_URL!);
 
-// Parse the connection string
-const connectionString = 'postgresql://neondb_owner:npg_M0jZJHs9OSKY@ep-muddy-flower-a86z1fws-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require';
-
-// Create connection pool
-const pool = new Pool({ connectionString });
-
-// Test database connection
-export async function testDatabaseConnection() {
+export async function testConnection() {
   try {
-    const client = await pool.connect();
-    console.log('Successfully connected to the database');
-    
-    // Test a simple query
-    const result = await client.query('SELECT 1');
-    console.log('Database query successful');
-    
-    client.release();
-    return { success: true, message: 'Database connection successful' };
+    const result = await sql`SELECT 1`;
+    console.log('Database connection successful');
+    return true;
   } catch (error) {
-    const dbError = error as DatabaseError;
-    console.error('Database connection error:', {
-      message: dbError.message,
-      code: dbError.code,
-      detail: dbError.detail
-    });
-    return { 
-      success: false, 
-      message: 'Database connection failed', 
-      error: dbError.message,
-      code: dbError.code 
-    };
+    console.error('Database connection failed:', error);
+    return false;
   }
 }
 
-export async function executeQuery<T>({ query, values }: { query: string; values?: any[] }): Promise<T> {
+export async function initializeDatabase() {
   try {
-    const result = await pool.query(query, values);
-    return result.rows as T;
+    const schemaPath = path.join(process.cwd(), 'src', 'app', 'lib', 'schema.sql');
+    const schema = fs.readFileSync(schemaPath, 'utf8');
+    
+    // Execute the entire schema as one transaction
+    await sql.unsafe(schema);
+    
+    console.log('Database initialized successfully');
+    return true;
   } catch (error) {
-    const dbError = error as DatabaseError;
-    console.error('Database query error:', {
-      message: dbError.message,
-      code: dbError.code,
-      query: query,
-      values: values
-    });
+    console.error('Failed to initialize database:', error);
     throw error;
   }
 }
 
-// Initialize database tables if they don't exist
-export async function initializeDatabase() {
+interface PortfolioItem {
+  id: number;
+  image_paths: string[];
+  category: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+export async function getPortfolioItems(): Promise<PortfolioItem[]> {
   try {
-    // First test the connection
-    const connectionTest = await testDatabaseConnection();
-    if (!connectionTest.success) {
-      throw new Error(`Database initialization failed: ${connectionTest.message}`);
-    }
+    const result = await sql`
+      SELECT id, image_paths, category, created_at, updated_at 
+      FROM portfolio_items 
+      ORDER BY created_at DESC
+    `;
 
-    // Create admin_users table
-    await executeQuery({
-      query: `
-        CREATE TABLE IF NOT EXISTS admin_users (
-          id VARCHAR(36) PRIMARY KEY,
-          username VARCHAR(50) UNIQUE NOT NULL,
-          password VARCHAR(255) NOT NULL,
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-        )
-      `
-    });
+    // Ensure the result is properly typed
+    const items = result.map(row => ({
+      id: Number(row.id),
+      image_paths: Array.isArray(row.image_paths) ? row.image_paths : [],
+      category: String(row.category),
+      created_at: row.created_at ? new Date(row.created_at) : undefined,
+      updated_at: row.updated_at ? new Date(row.updated_at) : undefined
+    }));
 
-    // Create portfolio_items table if it doesn't exist
-    await executeQuery({
-      query: `
-        CREATE TABLE IF NOT EXISTS portfolio_items (
-          id SERIAL PRIMARY KEY,
-          category_id VARCHAR(50) NOT NULL,
-          image_url TEXT NOT NULL,
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-        )
-      `
-    });
+    console.log('Retrieved portfolio items:', items);
+    return items;
+  } catch (error) {
+    console.error('Failed to get portfolio items:', error);
+    throw error;
+  }
+}
 
-    // Check if portfolio_items table has any data
-    const portfolioItems = await executeQuery<any[]>({
-      query: 'SELECT COUNT(*) as count FROM portfolio_items'
-    });
-    console.log('Current portfolio items count:', portfolioItems[0].count);
+export async function addPortfolioItem(item: Omit<PortfolioItem, 'id' | 'created_at' | 'updated_at'>) {
+  try {
+    const result = await sql`
+      INSERT INTO portfolio_items (image_paths, category)
+      VALUES (${item.image_paths}, ${item.category})
+      RETURNING *
+    `;
 
-    // Insert default admin user if it doesn't exist
-    const defaultAdmin = {
-      id: 'admin-1',
-      username: 'u14178067_apple',
-      password: '3]C*5X+EeUc'
+    const newItem = {
+      id: Number(result[0].id),
+      image_paths: Array.isArray(result[0].image_paths) ? result[0].image_paths : [],
+      category: String(result[0].category),
+      created_at: result[0].created_at ? new Date(result[0].created_at) : undefined,
+      updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
     };
 
-    // Check if admin user exists
-    const adminExists = await executeQuery<any[]>({
-      query: 'SELECT id FROM admin_users WHERE username = $1',
-      values: [defaultAdmin.username]
-    });
+    console.log('Added portfolio item:', newItem);
+    return newItem;
+  } catch (error) {
+    console.error('Failed to add portfolio item:', error);
+    throw error;
+  }
+}
 
-    if (!adminExists.length) {
-      // Hash the password before storing
-      const hashedPassword = await hash(defaultAdmin.password, 12);
-      
-      await executeQuery({
-        query: `
-          INSERT INTO admin_users (id, username, password)
-          VALUES ($1, $2, $3)
-        `,
-        values: [defaultAdmin.id, defaultAdmin.username, hashedPassword]
-      });
+export async function deletePortfolioItem(id: number) {
+  try {
+    await sql`DELETE FROM portfolio_items WHERE id = ${id}`;
+    return true;
+  } catch (error) {
+    console.error('Failed to delete portfolio item:', error);
+    throw error;
+  }
+}
+
+export async function updatePortfolioItem(id: number, item: Partial<Omit<PortfolioItem, 'id' | 'created_at' | 'updated_at'>>) {
+  try {
+    const result = await sql`
+      UPDATE portfolio_items SET
+        image_paths = COALESCE(${item.image_paths}, image_paths),
+        category = COALESCE(${item.category}, category)
+      WHERE id = ${id}
+      RETURNING *
+    `;
+
+    const updatedItem = {
+      id: Number(result[0].id),
+      image_paths: Array.isArray(result[0].image_paths) ? result[0].image_paths : [],
+      category: String(result[0].category),
+      created_at: result[0].created_at ? new Date(result[0].created_at) : undefined,
+      updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
+    };
+
+    console.log('Updated portfolio item:', updatedItem);
+    return updatedItem;
+  } catch (error) {
+    console.error('Failed to update portfolio item:', error);
+    throw error;
+  }
+}
+
+interface Category {
+  id: number;
+  name: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+export async function getCategories(): Promise<Category[]> {
+  try {
+    const result = await sql`
+      SELECT id, name, created_at, updated_at 
+      FROM categories 
+      ORDER BY name
+    `;
+
+    // Ensure the result is properly typed
+    const categories = result.map(row => ({
+      id: Number(row.id),
+      name: String(row.name),
+      created_at: row.created_at ? new Date(row.created_at) : undefined,
+      updated_at: row.updated_at ? new Date(row.updated_at) : undefined
+    }));
+
+    console.log('Retrieved categories:', categories);
+    return categories;
+  } catch (error) {
+    console.error('Failed to get categories:', error);
+    throw error;
+  }
+}
+
+export async function addCategory(category: Omit<Category, 'id' | 'created_at' | 'updated_at'>) {
+  try {
+    // Check if category already exists
+    const existing = await sql`SELECT id, name FROM categories WHERE name = ${category.name}`;
+    if (existing.length > 0) {
+      console.log(`Category ${category.name} already exists`);
+      return {
+        id: Number(existing[0].id),
+        name: String(existing[0].name)
+      };
     }
 
-    console.log('Database initialized successfully');
+    const result = await sql`
+      INSERT INTO categories (name)
+      VALUES (${category.name})
+      RETURNING *
+    `;
+
+    const newCategory = {
+      id: Number(result[0].id),
+      name: String(result[0].name),
+      created_at: result[0].created_at ? new Date(result[0].created_at) : undefined,
+      updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
+    };
+
+    console.log('Added category:', newCategory);
+    return newCategory;
   } catch (error) {
-    console.error('Database initialization error:', error);
+    console.error('Failed to add category:', error);
+    throw error;
+  }
+}
+
+export async function deleteCategory(id: number) {
+  try {
+    await sql`DELETE FROM categories WHERE id = ${id}`;
+    return true;
+  } catch (error) {
+    console.error('Failed to delete category:', error);
+    throw error;
+  }
+}
+
+export async function updateCategory(id: number, category: Partial<Omit<Category, 'id' | 'created_at' | 'updated_at'>>) {
+  try {
+    const result = await sql`
+      UPDATE categories
+      SET name = COALESCE(${category.name}, name)
+      WHERE id = ${id}
+      RETURNING *
+    `;
+
+    const updatedCategory = {
+      id: Number(result[0].id),
+      name: String(result[0].name),
+      created_at: result[0].created_at ? new Date(result[0].created_at) : undefined,
+      updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
+    };
+
+    console.log('Updated category:', updatedCategory);
+    return updatedCategory;
+  } catch (error) {
+    console.error('Failed to update category:', error);
     throw error;
   }
 } 

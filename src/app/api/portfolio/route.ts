@@ -1,61 +1,60 @@
 import { NextResponse } from 'next/server';
-import { executeQuery } from '../../lib/db';
-
-interface PortfolioItem {
-  id: number;
-  category: string;
-  images: string;
-}
-
-interface TransformedItem {
-  id: number;
-  title: string;
-  description: string;
-  images: string[];
-  category: string;
-  year: string;
-  location: string;
-  area: string;
-}
+import { getPortfolioItems, addPortfolioItem, updatePortfolioItem, deletePortfolioItem } from '@/app/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   try {
-    const result = await executeQuery<PortfolioItem[]>({
-      query: `
-        SELECT 
-          id,
-          category_id as category,
-          image_url as images
-        FROM portfolio_items
-        ORDER BY created_at DESC
-      `
-    });
-
-    // Transform the data to match the expected format
-    const transformedItems: TransformedItem[] = result.map(item => ({
-      id: item.id,
-      title: `${item.category} Design`,
-      description: `Beautiful ${item.category} interior design`,
-      images: [item.images], // Wrap single image in array to match expected format
-      category: item.category.split('-').map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1)
-      ).join(' '),
-      year: new Date().getFullYear().toString(),
-      location: 'Hyderabad',
-      area: '0'
-    }));
-
-    // Get unique categories
-    const categories = Array.from(new Set(transformedItems.map(item => item.category)));
-
-    return NextResponse.json({
-      categories,
-      items: transformedItems
-    });
+    const items = await getPortfolioItems();
+    return NextResponse.json(items);
   } catch (error) {
-    console.error('Error fetching portfolio items:', error);
+    console.error('Failed to fetch portfolio items:', error);
     return NextResponse.json(
       { error: 'Failed to fetch portfolio items' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const item = await request.json();
+    const result = await addPortfolioItem(item);
+    revalidatePath('/portfolio');
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error('Failed to add portfolio item:', error);
+    return NextResponse.json(
+      { error: 'Failed to add portfolio item' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const { id, ...item } = await request.json();
+    const result = await updatePortfolioItem(id, item);
+    revalidatePath('/portfolio');
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error('Failed to update portfolio item:', error);
+    return NextResponse.json(
+      { error: 'Failed to update portfolio item' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { id } = await request.json();
+    await deletePortfolioItem(id);
+    revalidatePath('/portfolio');
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Failed to delete portfolio item:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete portfolio item' },
       { status: 500 }
     );
   }
