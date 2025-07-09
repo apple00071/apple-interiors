@@ -1,5 +1,7 @@
+"use client";
+
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 interface SEOProps {
   title?: string;
@@ -14,8 +16,8 @@ export default function SEO({
   image = '/images/og-image.jpg',
   article = false,
 }: SEOProps) {
-  const router = useRouter();
-  const canonicalUrl = `https://appleinteriors.in${router.asPath}`;
+  const pathname = usePathname();
+  const canonicalUrl = `https://appleinteriors.in${pathname}`;
 
   return (
     <Head>
