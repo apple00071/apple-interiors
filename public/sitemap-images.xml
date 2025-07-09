@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://appleinteriors.in/portfolio</loc>
+    <image:image>
+      <image:loc>https://appleinteriors.in/images/portfolio/living-room/modern-tv-unit.webp</image:loc>
+      <image:title>Modern TV Unit Design by Apple Interiors Hyderabad</image:title>
+      <image:caption>Contemporary living room with custom TV unit and false ceiling design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://appleinteriors.in/images/portfolio/bedroom/master-bedroom.webp</image:loc>
+      <image:title>Luxury Master Bedroom Design by Apple Interiors</image:title>
+      <image:caption>Premium master bedroom with custom wardrobe and false ceiling</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://appleinteriors.in/images/portfolio/kitchen/modular-kitchen.webp</image:loc>
+      <image:title>Modern Modular Kitchen Design by Apple Interiors</image:title>
+      <image:caption>Contemporary modular kitchen with premium accessories and storage solutions</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://appleinteriors.in/images/portfolio/dining/dining-room.webp</image:loc>
+      <image:title>Elegant Dining Room Design by Apple Interiors</image:title>
+      <image:caption>Modern dining area with custom crockery unit and false ceiling</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://appleinteriors.in/images/portfolio/false-ceiling/designer-ceiling.webp</image:loc>
+      <image:title>Designer False Ceiling by Apple Interiors</image:title>
+      <image:caption>Premium false ceiling with LED lighting and modern design</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://appleinteriors.in/services</loc>
+    <image:image>
+      <image:loc>https://appleinteriors.in/images/services/residential.jpg</image:loc>
+      <image:title>Residential Interior Design Services</image:title>
+      <image:caption>Complete home interior design and renovation services</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://appleinteriors.in/images/services/commercial.jpg</image:loc>
+      <image:title>Commercial Interior Design</image:title>
+      <image:caption>Professional office and retail space design solutions</image:caption>
+    </image:image>
+  </url>
+</urlset> 
