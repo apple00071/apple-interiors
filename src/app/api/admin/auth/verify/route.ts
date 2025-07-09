@@ -4,6 +4,9 @@ import { verify } from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
+// Mark this route as dynamic
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const token = cookies().get('auth_token')?.value;

@@ -2,7 +2,7 @@
 const nextConfig = {
   images: {
     domains: ['localhost'],
-    unoptimized: false, // Enable Next.js image optimization
+    unoptimized: false,
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
@@ -14,7 +14,6 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
     formats: ['image/webp'],
   },
-  // Enable serving static files from the public directory
   webpack: (config) => {
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|svg|webp)$/i,
@@ -84,9 +83,25 @@ const nextConfig = {
   poweredByHeader: false,
   swcMinify: true,
   experimental: {
-    optimizeCss: true, // Enable CSS optimization
-    optimizePackageImports: ['@mui/icons-material', '@mui/material'],
+    optimizeCss: true,
     scrollRestoration: true,
+  },
+  // Add output configuration for better static optimization
+  output: 'standalone',
+  // Configure custom error pages
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: '/404',
+          destination: '/_error',
+        },
+        {
+          source: '/500',
+          destination: '/_error',
+        },
+      ],
+    };
   },
 };
 

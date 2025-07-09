@@ -6,6 +6,9 @@ import { headers } from 'next/headers';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
+// Mark this route as dynamic
+export const dynamic = 'force-dynamic';
+
 // Initialize PostgreSQL connection pool
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -65,10 +68,9 @@ export async function POST(request: Request) {
       name: 'auth_token',
       value: token,
       httpOnly: true,
-      secure: true, // Always use secure in modern browsers
+      secure: true,
       sameSite: 'lax',
       path: '/',
-      // In production, don't set domain to let the browser handle it automatically
       domain: host.includes('localhost') ? 'localhost' : undefined,
       maxAge: 60 * 60 * 24 // 1 day
     });
