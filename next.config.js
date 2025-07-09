@@ -2,7 +2,7 @@
 const nextConfig = {
   images: {
     domains: ['localhost'],
-    unoptimized: true,
+    unoptimized: false, // Enable Next.js image optimization
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
@@ -10,6 +10,9 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    formats: ['image/webp'],
   },
   // Enable serving static files from the public directory
   webpack: (config) => {
@@ -49,27 +52,42 @@ const nextConfig = {
             value: 'origin-when-cross-origin'
           },
           {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          },
+          {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+          }
+        ]
+      },
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
           }
         ]
       }
     ];
   },
-  trailingSlash: false,  // Changed to false to prevent redirect loops
+  trailingSlash: false,
   typescript: {
-    ignoreBuildErrors: true, // Temporarily ignore TypeScript errors during build
+    ignoreBuildErrors: true,
   },
-  // Add React strict mode for better development experience
   reactStrictMode: true,
-  // Ensure proper hydration
   compiler: {
-    // Enables the styled-components SWC transform
     styledComponents: true
   },
   compress: true,
   poweredByHeader: false,
   swcMinify: true,
+  experimental: {
+    optimizeCss: true, // Enable CSS optimization
+    optimizePackageImports: ['@mui/icons-material', '@mui/material'],
+    scrollRestoration: true,
+  },
 };
 
 module.exports = nextConfig; 

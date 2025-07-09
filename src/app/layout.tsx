@@ -2,6 +2,7 @@ import './globals.css';
 import { Metadata } from 'next';
 import { Providers } from './components/Providers';
 import RootLayoutClient from './components/RootLayoutClient';
+import ServiceWorkerRegistration from './components/ServiceWorkerRegistration';
 
 export const metadata: Metadata = {
   title: 'Apple Interiors - Best Interior Designers in Hyderabad',
@@ -235,6 +236,7 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
+          <ServiceWorkerRegistration />
           <RootLayoutClient>{children}</RootLayoutClient>
         </Providers>
       </body>
