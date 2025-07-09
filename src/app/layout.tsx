@@ -4,8 +4,8 @@ import { Providers } from './components/Providers';
 import RootLayoutClient from './components/RootLayoutClient';
 
 export const metadata: Metadata = {
-  title: 'Apple Interiors - Best Interior Designers in Hyderabad | Top Interior Design Company Kukatpally',
-  description: 'Leading Interior Designers in Hyderabad. ✓20+ Years Experience ✓1000+ Projects ✓Best Interior Design Company in Kukatpally, Hyderabad. Residential & Commercial Interiors, Modular Kitchen, False Ceiling, Wardrobes. Get Free Quote!',
+  title: 'Apple Interiors - Best Interior Designers in Hyderabad',
+  description: 'Top Interior Design Company in Hyderabad with 20+ years experience. Residential & Commercial Interiors, Modular Kitchen, False Ceiling. Get Free Quote!',
   keywords: 'interior designers in hyderabad, best interior designers in hyderabad, interior design company hyderabad, interior designers in kukatpally, home interior designers hyderabad, office interior designers hyderabad, interior decorators hyderabad, modular kitchen hyderabad, false ceiling contractors hyderabad, wardrobe designers hyderabad, commercial interior designers hyderabad, budget interior designers hyderabad, luxury interior designers hyderabad, top 10 interior designers hyderabad, interior design cost hyderabad, interior design packages hyderabad, 2bhk interior design hyderabad, 3bhk interior design hyderabad, villa interior designers hyderabad, apartment interior designers hyderabad, interior design near me, interior designers kukatpally, interior design companies HITEC city, interior designers in telangana, best interior design company kukatpally, affordable interior designers hyderabad, modern interior design hyderabad',
   authors: [{ name: 'Apple Interiors' }],
   creator: 'Apple Interiors',
