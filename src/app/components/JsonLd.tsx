@@ -35,8 +35,8 @@ export default function JsonLd() {
       "closes": "18:00"
     },
     "sameAs": [
-      "https://www.facebook.com/appleinteriors.net/",
-      "https://www.instagram.com/appleinteriors.hyderabad/",
+      "https://www.facebook.com/appleinteriors.net",
+      "https://www.instagram.com/appleinteriors.hyderabad",
       "https://www.youtube.com/@appleinteriors-hyderabad"
     ],
     "makesOffer": [

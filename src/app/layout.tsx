@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://appleinteriors.in'),
   alternates: {
-    canonical: '/',
+    canonical: '',
   },
   openGraph: {
     title: 'Apple Interiors - Best Interior Designers in Hyderabad | Top Interior Design Company Kukatpally',

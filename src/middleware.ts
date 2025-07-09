@@ -4,43 +4,34 @@ import { jwtVerify } from 'jose';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
-export async function middleware(request: NextRequest) {
-  // Only run middleware for admin routes
-  if (!request.nextUrl.pathname.startsWith('/admin')) {
-    return NextResponse.next();
-  }
+export function middleware(request: NextRequest) {
+  // Get the hostname from the request
+  const hostname = request.headers.get('host') || '';
 
-  // Skip middleware for login page and API routes
-  if (request.nextUrl.pathname === '/admin/login' || request.nextUrl.pathname.startsWith('/api/')) {
-    return NextResponse.next();
-  }
-
-  const token = request.cookies.get('auth_token')?.value;
-
-  if (!token) {
-    // Create absolute URL for login page
-    const loginUrl = new URL('/admin/login', request.url);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  try {
-    // Verify the token
-    await jwtVerify(
-      token,
-      new TextEncoder().encode(JWT_SECRET)
-    );
+  // Check if it's using www
+  if (hostname.startsWith('www.')) {
+    // Create the new URL without www
+    const newUrl = new URL(request.url);
+    newUrl.hostname = hostname.replace('www.', '');
     
-    return NextResponse.next();
-  } catch (error) {
-    // If token is invalid, redirect to login
-    const loginUrl = new URL('/admin/login', request.url);
-    return NextResponse.redirect(loginUrl);
+    // Return a 301 permanent redirect
+    return NextResponse.redirect(newUrl, 301);
   }
+
+  // For non-www requests, continue as normal
+  return NextResponse.next();
 }
 
+// Configure which paths the middleware runs on
 export const config = {
   matcher: [
-    '/admin/:path*',
-    '/((?!api/admin/auth|_next/static|_next/image|favicon.ico).*)',
+    /*
+     * Match all request paths except:
+     * 1. /api/ (API routes)
+     * 2. /_next/ (Next.js internals)
+     * 3. /static/ (public static files)
+     * 4. /favicon.ico, /robots.txt (static files)
+     */
+    '/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)',
   ],
 }; 
