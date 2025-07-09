@@ -2,34 +2,36 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Get the hostname from the request
-  const hostname = request.headers.get('host') || '';
-  const url = request.nextUrl.clone();
-
-  // Only handle www redirects for the main domain, not for other subdomains
-  if (hostname === 'www.appleinteriors.in') {
-    // Create the new URL without www
-    const newUrl = new URL(request.url);
-    newUrl.hostname = 'appleinteriors.in';
-    
-    // Return a 301 permanent redirect
-    return NextResponse.redirect(newUrl.toString(), 301);
+  // Skip middleware for static files and API routes
+  if (
+    request.nextUrl.pathname.startsWith('/_next') ||
+    request.nextUrl.pathname.startsWith('/api') ||
+    request.nextUrl.pathname.match(/\.(ico|png|jpg|jpeg|gif|svg|css|js)$/)
+  ) {
+    return NextResponse.next();
   }
 
-  // For non-www requests, continue as normal
+  const hostname = request.headers.get('host');
+
+  // Only redirect if hostname is www.appleinteriors.in
+  if (hostname === 'www.appleinteriors.in') {
+    const protocol = request.headers.get('x-forwarded-proto') || 'https';
+    const pathname = request.nextUrl.pathname;
+    const search = request.nextUrl.search;
+    
+    return NextResponse.redirect(
+      `${protocol}://appleinteriors.in${pathname}${search}`,
+      301
+    );
+  }
+
   return NextResponse.next();
 }
 
-// Configure which paths the middleware runs on
+// Specify paths to run middleware on
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * 1. /api/ (API routes)
-     * 2. /_next/ (Next.js internals)
-     * 3. /static/ (public static files)
-     * 4. /favicon.ico, /robots.txt (static files)
-     */
-    '/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)',
+    // Skip all internal paths
+    '/((?!_next/|api/|favicon.ico).*)',
   ],
 }; 
