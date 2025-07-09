@@ -68,7 +68,7 @@ export default function JsonLd() {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.8",
-      "reviewCount": "150"
+      "reviewCount": "180"
     }
   };
 

@@ -158,11 +158,6 @@ const jsonLd = {
       closes: '18:00'
     }
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    reviewCount: '180'
-  },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Interior Design Services',
