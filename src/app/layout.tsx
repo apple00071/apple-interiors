@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: 'Apple Interiors - Best Interior Designers in Hyderabad',
     images: [
       {
-        url: '/images/New-logo.png',
+        url: 'https://appleinteriors.in/images/New-logo.png',
         width: 800,
         height: 600,
         alt: 'Apple Interiors - Best Interior Designers in Hyderabad',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Apple Interiors - Best Interior Designers in Hyderabad | Interior Design Company',
     description: 'Leading Interior Design Company in Hyderabad. Get expert interior design services for your home, office & commercial spaces. Contact us for free consultation!',
-    images: ['/images/New-logo.png'],
+    images: ['https://appleinteriors.in/images/New-logo.png'],
     creator: '@appleinteriors.hyderabad',
     site: '@appleinteriors.hyderabad',
   },

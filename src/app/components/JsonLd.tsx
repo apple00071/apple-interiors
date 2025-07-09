@@ -6,20 +6,20 @@ export default function JsonLd() {
     "name": "Apple Interiors",
     "image": "https://appleinteriors.in/images/New-logo.png",
     "url": "https://appleinteriors.in",
-    "telephone": "+91-XXX-XXX-XXXX",
+    "telephone": ["+91 96039 60337", "+91 91606 77899"],
     "priceRange": "₹₹₹",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Your Street Address",
+      "streetAddress": "Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3, Sreenivasa Nagar, Kukatpally",
       "addressLocality": "Hyderabad",
       "addressRegion": "Telangana",
-      "postalCode": "500XXX",
+      "postalCode": "500072",
       "addressCountry": "IN"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "XX.XXXXX",
-      "longitude": "XX.XXXXX"
+      "latitude": 17.385044,
+      "longitude": 78.486671
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -35,9 +35,9 @@ export default function JsonLd() {
       "closes": "18:00"
     },
     "sameAs": [
-      "https://www.facebook.com/appleinteriors",
-      "https://www.instagram.com/appleinteriors",
-      "https://www.linkedin.com/company/appleinteriors"
+      "https://www.facebook.com/appleinteriors.net/",
+      "https://www.instagram.com/appleinteriors.hyderabad/",
+      "https://www.youtube.com/@appleinteriors-hyderabad"
     ],
     "makesOffer": [
       {
