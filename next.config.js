@@ -86,22 +86,10 @@ const nextConfig = {
     optimizeCss: true,
     scrollRestoration: true,
   },
-  // Add output configuration for better static optimization
   output: 'standalone',
-  // Configure custom error pages
+  // Handle 404 and 500 errors without redirects
   async rewrites() {
-    return {
-      fallback: [
-        {
-          source: '/404',
-          destination: '/_error',
-        },
-        {
-          source: '/500',
-          destination: '/_error',
-        },
-      ],
-    };
+    return [];
   },
 };
 
