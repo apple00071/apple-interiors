@@ -3,7 +3,7 @@ import { generateMetadata } from '../utils/metadata';
 
 export const metadata = generateMetadata({
   title: "About Us",
-  description: "Learn about Apple Interiors - Hyderabad's premier interior design firm with over 10 years of experience in creating stunning spaces for homes and businesses.",
+  description: "Learn about Apple Interiors - Hyderabad's premier interior design firm with 7 years of experience in creating stunning spaces for homes and businesses.",
   path: "/about",
   ogImage: "/images/about-banner.jpg"
 });

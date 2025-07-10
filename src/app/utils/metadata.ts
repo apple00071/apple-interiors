@@ -15,7 +15,12 @@ export function generateMetadata({
   ogImage = '/images/og-image.jpg',
   noIndex = false,
 }: GenerateMetadataProps): Metadata {
-  const url = `https://appleinteriors.in${path}`;
+  // Ensure path starts with a slash and remove any trailing slashes
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const cleanPath = normalizedPath.replace(/\/+$/, '');
+  
+  // Construct the canonical URL
+  const url = `https://appleinteriors.in${cleanPath}`;
 
   return {
     title: {
@@ -56,7 +61,7 @@ export function generateMetadata({
       siteName: 'Apple Interiors',
       images: [
         {
-          url: ogImage,
+          url: ogImage.startsWith('http') ? ogImage : `https://appleinteriors.in${ogImage}`,
           width: 1200,
           height: 630,
           alt: title,
@@ -69,7 +74,7 @@ export function generateMetadata({
       card: 'summary_large_image',
       title: `${title} | Apple Interiors`,
       description,
-      images: [ogImage],
+      images: [ogImage.startsWith('http') ? ogImage : `https://appleinteriors.in${ogImage}`],
       creator: '@appleinteriors',
     },
   };
