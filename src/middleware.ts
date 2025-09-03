@@ -6,7 +6,9 @@ export function middleware(request: NextRequest) {
   if (
     request.nextUrl.pathname.startsWith('/_next') ||
     request.nextUrl.pathname.startsWith('/api') ||
-    request.nextUrl.pathname.match(/\.(ico|png|jpg|jpeg|gif|svg|css|js)$/)
+    request.nextUrl.pathname.match(/\.(ico|png|jpg|jpeg|gif|svg|css|js)$/) ||
+    request.nextUrl.pathname === '/not-found' ||
+    request.nextUrl.pathname === '/404'
   ) {
     return NextResponse.next();
   }
@@ -51,8 +53,6 @@ export function middleware(request: NextRequest) {
     '/admin/dashboard',
     '/admin/login',
     '/admin/portfolio',
-    '/_not-found',
-    '/404'
   ];
 
   if (knownRoutes.includes(pathname)) {
@@ -68,12 +68,23 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Handle all other paths
+  // Handle unknown paths
   try {
-    return NextResponse.next();
+    // Check if the path exists
+    const url = new URL(request.url);
+    const response = NextResponse.next();
+    
+    // Add security headers
+    response.headers.set('X-Frame-Options', 'DENY');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+    
+    return response;
   } catch (error) {
     console.error('Middleware error:', error);
-    return NextResponse.redirect(new URL('/_not-found', request.url));
+    // Redirect to not-found page
+    return NextResponse.redirect(new URL('/not-found', request.url));
   }
 }
 

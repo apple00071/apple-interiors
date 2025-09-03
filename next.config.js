@@ -163,18 +163,19 @@ const nextConfig = {
           destination: 'https://appleinteriors.in/:path*',
         },
       ],
-      afterFiles: [
-        // Handle dynamic routes
-        {
-          source: '/:path*',
-          destination: '/:path*',
-        },
-      ],
+      afterFiles: [],
       fallback: [
         // Handle 404s
         {
           source: '/:path*',
-          destination: '/404',
+          missing: [
+            {
+              type: 'page',
+              value: '/:path*',
+            },
+          ],
+          permanent: false,
+          destination: '/not-found',
         },
       ],
     };
