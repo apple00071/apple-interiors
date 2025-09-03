@@ -12,26 +12,43 @@ export function middleware(request: NextRequest) {
   }
 
   const hostname = request.headers.get('host');
+  const protocol = request.headers.get('x-forwarded-proto') || 'https';
+  const pathname = request.nextUrl.pathname;
+  const search = request.nextUrl.search || '';
 
-  // Only redirect if hostname is www.appleinteriors.in
-  if (hostname === 'www.appleinteriors.in') {
-    const protocol = request.headers.get('x-forwarded-proto') || 'https';
-    const pathname = request.nextUrl.pathname;
-    const search = request.nextUrl.search;
-    
+  // Handle www to non-www redirect
+  if (hostname?.startsWith('www.')) {
+    const newHostname = hostname.replace('www.', '');
     return NextResponse.redirect(
-      `${protocol}://appleinteriors.in${pathname}${search}`,
+      `${protocol}://${newHostname}${pathname}${search}`,
       301
     );
   }
 
-  return NextResponse.next();
+  // Handle root path redirect
+  if (pathname === '/') {
+    return NextResponse.next();
+  }
+
+  // Handle all other paths
+  try {
+    return NextResponse.next();
+  } catch (error) {
+    console.error('Middleware error:', error);
+    return NextResponse.next();
+  }
 }
 
 // Specify paths to run middleware on
 export const config = {
   matcher: [
-    // Skip all internal paths
-    '/((?!_next/|api/|favicon.ico).*)',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder files
+     */
+    '/((?!_next/static|_next/image|favicon.ico|images/|fonts/).*)',
   ],
 }; 

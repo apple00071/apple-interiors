@@ -5,7 +5,7 @@ const nextConfig = {
     DATABASE_URL: process.env.DATABASE_URL,
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'appleinteriors.in'],
     unoptimized: false,
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -147,9 +147,18 @@ const nextConfig = {
     ]
   },
   output: 'standalone',
-  // Handle 404 and 500 errors without redirects
+  // Handle 404 errors
   async rewrites() {
-    return [];
+    return {
+      fallback: [
+        // These rewrites are checked after both pages/public files
+        // and dynamic routes are checked
+        {
+          source: '/:path*',
+          destination: '/_not-found',
+        },
+      ],
+    };
   },
 };
 
