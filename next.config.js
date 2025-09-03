@@ -168,13 +168,6 @@ const nextConfig = {
         // Handle 404s
         {
           source: '/:path*',
-          missing: [
-            {
-              type: 'page',
-              value: '/:path*',
-            },
-          ],
-          permanent: false,
           destination: '/not-found',
         },
       ],

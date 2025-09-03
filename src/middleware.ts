@@ -7,8 +7,7 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/_next') ||
     request.nextUrl.pathname.startsWith('/api') ||
     request.nextUrl.pathname.match(/\.(ico|png|jpg|jpeg|gif|svg|css|js)$/) ||
-    request.nextUrl.pathname === '/not-found' ||
-    request.nextUrl.pathname === '/404'
+    request.nextUrl.pathname === '/not-found'
   ) {
     return NextResponse.next();
   }
@@ -56,7 +55,13 @@ export function middleware(request: NextRequest) {
   ];
 
   if (knownRoutes.includes(pathname)) {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    // Add security headers
+    response.headers.set('X-Frame-Options', 'DENY');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+    return response;
   }
 
   // Handle dynamic routes and API routes
@@ -70,21 +75,17 @@ export function middleware(request: NextRequest) {
 
   // Handle unknown paths
   try {
-    // Check if the path exists
-    const url = new URL(request.url);
     const response = NextResponse.next();
-    
     // Add security headers
     response.headers.set('X-Frame-Options', 'DENY');
     response.headers.set('X-Content-Type-Options', 'nosniff');
     response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
     response.headers.set('X-XSS-Protection', '1; mode=block');
-    
     return response;
   } catch (error) {
     console.error('Middleware error:', error);
     // Redirect to not-found page
-    return NextResponse.redirect(new URL('/not-found', request.url));
+    return NextResponse.rewrite(new URL('/not-found', request.url));
   }
 }
 
