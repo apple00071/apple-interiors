@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import SectionHeading from './ui/SectionHeading';
 import PortfolioSEO from '../../components/PortfolioSEO';
@@ -82,9 +82,14 @@ function generateAltText(category: string, index: number): string {
 }
 
 export default function Portfolio({ items, categories }: PortfolioProps) {
+  const [isClient, setIsClient] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('bedroom');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedImageDetails, setSelectedImageDetails] = useState<{src: string, alt: string} | null>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (!Array.isArray(items) || !Array.isArray(categories)) {
     console.error('Invalid props:', { items, categories });
@@ -103,6 +108,12 @@ export default function Portfolio({ items, categories }: PortfolioProps) {
       category: item.category
     }))
   ).slice(0, MAX_IMAGES);
+
+  if (!isClient) {
+    return <div className="min-h-[400px] flex items-center justify-center">
+      <div className="animate-pulse">Loading...</div>
+    </div>;
+  }
 
   return (
     <>
@@ -137,7 +148,7 @@ export default function Portfolio({ items, categories }: PortfolioProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {allImages.map((image, index) => (
               <div 
-                key={index} 
+                key={`${image.src}-${index}`}
                 className="group cursor-pointer"
                 onClick={() => {
                   setSelectedImage(image.src);
@@ -157,8 +168,6 @@ export default function Portfolio({ items, categories }: PortfolioProps) {
                     priority={index < 3}
                     loading={index < 3 ? 'eager' : 'lazy'}
                     quality={75}
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkMjU1LS0yMi4qQEBALkE6Oz5DRVlLT01RW2NhYmNqY2JibmJibmL/2wBDARUXFx4aHh4lISEmYkFCQWJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                   />
                 </div>
               </div>
@@ -188,7 +197,8 @@ export default function Portfolio({ items, categories }: PortfolioProps) {
             />
             <button 
               className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setSelectedImage(null);
                 setSelectedImageDetails(null);
               }}

@@ -1,14 +1,22 @@
 "use client";
 
 import { useState, useEffect, lazy, Suspense } from "react";
-import { motion, LazyMotion, domAnimation } from "framer-motion";
+import { motion, LazyMotion, domAnimation, m } from "framer-motion";
 import { submitContactForm } from "../actions/contact";
 import ErrorBoundary from "./ErrorBoundary";
+import dynamic from 'next/dynamic';
 
 const propertyTypes = ["2BHK", "3BHK", "4BHK", "Villa", "Custom"];
 
-// Lazy load the map component with error boundary
-const Map = lazy(() => import('./Map').catch(() => ({ default: () => null })));
+// Lazy load the map component with dynamic import
+const Map = dynamic(() => import('./Map'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full bg-gray-100 animate-pulse rounded-lg flex items-center justify-center">
+      <span className="text-gray-500">Loading map...</span>
+    </div>
+  ),
+});
 
 // Animation variants
 const animations = {
@@ -27,6 +35,7 @@ const animations = {
 };
 
 export default function Contact() {
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,10 +51,8 @@ export default function Contact() {
     message: string;
   }>({ type: null, message: '' });
   
-  const [isMounted, setIsMounted] = useState(false);
-  
   useEffect(() => {
-    setIsMounted(true);
+    setMounted(true);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -88,12 +95,32 @@ export default function Contact() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  if (!mounted) {
+    return (
+      <section className="py-16 sm:py-24 md:py-32 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-primary font-medium mb-3 tracking-wide uppercase text-sm">
+              Contact Us
+            </p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              Get in Touch
+            </h2>
+            <p className="text-base text-gray-600 dark:text-gray-400">
+              Loading...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <LazyMotion features={domAnimation}>
+    <LazyMotion features={domAnimation} strict>
       <section id="contact" className="py-16 sm:py-24 md:py-32 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 md:mb-24">
-            {isMounted ? (
+            {mounted ? (
               <>
                 <motion.p
                   initial="hidden"
@@ -141,7 +168,7 @@ export default function Contact() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
             {/* Contact Form */}
-            {isMounted ? (
+            {mounted ? (
               <motion.div
                 initial="hidden"
                 animate="visible"
@@ -201,8 +228,8 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      pattern="^[+]?[0-9\s()-]{8,20}$"
-                      title="Please enter a valid phone number with or without country code"
+                      pattern="[0-9+\s()-]{8,20}"
+                      title="Please enter a valid phone number (8-20 digits, may include +, spaces, (), and -)"
                       className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900 dark:text-white"
                       required
                     />
@@ -291,7 +318,7 @@ export default function Contact() {
             )}
 
             {/* Contact Information */}
-            {isMounted ? (
+            {mounted ? (
               <motion.div
                 initial="hidden"
                 animate="visible"
@@ -360,7 +387,7 @@ export default function Contact() {
                           <span className="text-gray-500">Loading map...</span>
                         </div>
                       }>
-                        {isMounted && <Map />}
+                        {mounted && <Map />}
                       </Suspense>
                     </ErrorBoundary>
                   </div>

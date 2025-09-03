@@ -1,59 +1,46 @@
-import { getPortfolioItems, getCategories } from '@/app/lib/db';
-import Portfolio from '@/app/components/Portfolio';
-import { Metadata } from 'next';
-import { Suspense } from 'react';
+"use client";
 
-export const metadata: Metadata = {
-  title: 'Portfolio | Apple Interiors',
-  description: 'Explore our portfolio of interior design projects, showcasing our expertise in living rooms, dining spaces, bedrooms, kitchens, and false ceilings.',
-  openGraph: {
-    title: 'Portfolio | Apple Interiors',
-    description: 'Explore our portfolio of interior design projects, showcasing our expertise in living rooms, dining spaces, bedrooms, kitchens, and false ceilings.',
-    images: ['/images/og-image.jpg'],
-  },
-};
+import { useState, useEffect } from "react";
+import { motion, LazyMotion, domAnimation } from "framer-motion";
+import Portfolio from "../components/Portfolio";
+import { getPortfolioItems, getCategories } from '../lib/db';
 
-// Disable static page generation, use dynamic rendering
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export default function PortfolioPage() {
+  const [mounted, setMounted] = useState(false);
+  const [data, setData] = useState<{ items: any[]; categories: any[] }>({ items: [], categories: [] });
+  const [loading, setLoading] = useState(true);
 
-async function PortfolioContent() {
-  try {
-    console.log('Fetching portfolio items and categories...');
-    const [items, categories] = await Promise.all([
-      getPortfolioItems(),
-      getCategories()
-    ]);
-    
-    console.log('Items:', items);
-    console.log('Categories:', categories);
+  useEffect(() => {
+    setMounted(true);
+    const fetchData = async () => {
+      try {
+        const [items, categories] = await Promise.all([
+          getPortfolioItems(),
+          getCategories()
+        ]);
+        setData({ items, categories });
+      } catch (error) {
+        console.error('Error fetching portfolio data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-    if (!items || !categories) {
-      throw new Error('Failed to fetch portfolio data');
-    }
-
-    return <Portfolio items={items} categories={categories} />;
-  } catch (error) {
-    console.error('Error in PortfolioContent:', error);
+  if (!mounted || loading) {
     return (
-      <div className="text-center py-12">
-        <p className="text-red-600">Something went wrong loading the portfolio. Please try again later.</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-gray-600">Loading portfolio...</div>
       </div>
     );
   }
-}
 
-export default function PortfolioPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Our Portfolio</h1>
-      <Suspense fallback={
-        <div className="text-center py-12">
-          <p className="text-gray-600">Loading portfolio items...</p>
-        </div>
-      }>
-        <PortfolioContent />
-      </Suspense>
-    </div>
+    <LazyMotion features={domAnimation} strict>
+      <main className="pt-20">
+        <Portfolio items={data.items} categories={data.categories} />
+      </main>
+    </LazyMotion>
   );
 } 

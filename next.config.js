@@ -20,40 +20,31 @@ const nextConfig = {
     minimumCacheTTL: 60,
     disableStaticImages: false,
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(png|jpe?g|gif|svg|webp)$/i,
-      type: 'asset/resource',
-      generator: {
-        filename: 'static/media/[hash][ext][query]'
-      },
-      use: [
-        {
-          loader: 'image-webpack-loader',
-          options: {
-            mozjpeg: {
-              progressive: true,
-              quality: 65
-            },
-            optipng: {
-              enabled: false,
-            },
-            pngquant: {
-              quality: [0.65, 0.90],
-              speed: 4
-            },
-            gifsicle: {
-              interlaced: false,
-            },
-            webp: {
-              quality: 75
-            }
-          }
-        }
-      ]
-    });
-    return config;
+  trailingSlash: false,
+  typescript: {
+    ignoreBuildErrors: true,
   },
+  reactStrictMode: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  compress: true,
+  poweredByHeader: false,
+  swcMinify: true,
+  experimental: {
+    optimizeCss: true,
+    scrollRestoration: true,
+    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
+    workerThreads: true,
+    cpus: 4,
+    optimizePackageImports: [
+      'framer-motion',
+      '@heroicons/react',
+      'react-icons',
+      'nodemailer'
+    ]
+  },
+  output: 'standalone',
   async headers() {
     return [
       {
@@ -84,105 +75,13 @@ const nextConfig = {
             value: 'origin-when-cross-origin'
           },
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          },
-          {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
           }
         ]
-      },
-      {
-        source: '/images/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      },
-      {
-        source: '/_next/image/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      },
-      {
-        source: '/fonts/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
       }
     ];
-  },
-  trailingSlash: false,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  reactStrictMode: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-  compress: true,
-  poweredByHeader: false,
-  swcMinify: true,
-  experimental: {
-    optimizeCss: true,
-    scrollRestoration: true,
-    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
-    workerThreads: true,
-    cpus: 4,
-    optimizePackageImports: [
-      'framer-motion',
-      '@heroicons/react',
-      'react-icons',
-      'nodemailer'
-    ]
-  },
-  output: 'standalone',
-  // Handle 404s and redirects
-  async rewrites() {
-    return {
-      beforeFiles: [
-        // Handle www to non-www redirect
-        {
-          source: '/:path*',
-          has: [
-            {
-              type: 'host',
-              value: 'www.appleinteriors.in',
-            },
-          ],
-          destination: 'https://appleinteriors.in/:path*',
-        },
-      ],
-      afterFiles: [],
-      fallback: [
-        // Handle 404s
-        {
-          source: '/:path*',
-          destination: '/not-found',
-        },
-      ],
-    };
-  },
-  // Add custom 404 page
-  async redirects() {
-    return [
-      {
-        source: '/404',
-        destination: '/_not-found',
-        permanent: true,
-      },
-    ];
-  },
+  }
 };
 
 module.exports = nextConfig; 
