@@ -1,92 +1,37 @@
-import { MetadataRoute } from 'next';
+import { getPortfolioItems } from './lib/db';
 
-export const dynamic = 'force-static';
+const baseUrl = 'https://appleinteriors.in';
 
-interface ImageSitemap {
-  url: string;
-  images: Array<{
-    loc: string;
-    title?: string;
-    caption?: string;
-  }>;
-}
+export default async function generateImageSitemap() {
+  const portfolioItems = await getPortfolioItems();
+  
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>${baseUrl}</loc>
+    <image:image>
+      <image:loc>${baseUrl}/images/New-logo.png</image:loc>
+      <image:title>Apple Interiors - Best Interior Designers in Hyderabad</image:title>
+      <image:caption>Apple Interiors Logo</image:caption>
+    </image:image>
+  </url>
+  ${portfolioItems.map(item => `
+  <url>
+    <loc>${baseUrl}/portfolio/${item.category}/${item.id}</loc>
+    ${item.image_paths.map(imagePath => `
+    <image:image>
+      <image:loc>${baseUrl}${imagePath}</image:loc>
+      <image:title>Interior Design by Apple Interiors - ${item.category}</image:title>
+      <image:caption>${item.category} Interior Design in Hyderabad</image:caption>
+    </image:image>`).join('')}
+  </url>`).join('')}
+</urlset>`;
 
-export default function imageSitemap(): ImageSitemap[] {
-  const portfolioImages = [
-    {
-      category: 'bedroom',
-      images: ['master-bedroom.jpg', 'kids-bedroom.jpg', 'guest-bedroom.jpg']
+  return new Response(xml, {
+    headers: {
+      'Content-Type': 'application/xml',
+      'Cache-Control': 'public, max-age=3600',
     },
-    {
-      category: 'living-room',
-      images: ['modern-living.jpg', 'contemporary-living.jpg', 'traditional-living.jpg']
-    },
-    {
-      category: 'kitchen',
-      images: ['modular-kitchen.jpg', 'open-kitchen.jpg', 'luxury-kitchen.jpg']
-    },
-    {
-      category: 'dining',
-      images: ['family-dining.jpg', 'formal-dining.jpg', 'breakfast-nook.jpg']
-    },
-    {
-      category: 'false-ceiling',
-      images: ['pop-ceiling.jpg', 'wooden-ceiling.jpg', 'gypsum-ceiling.jpg']
-    }
-  ];
-
-  const sitemapEntries: ImageSitemap[] = [];
-
-  // Add portfolio page entries
-  portfolioImages.forEach(({ category, images }) => {
-    const entry: ImageSitemap = {
-      url: `https://appleinteriors.in/portfolio/${category}`,
-      images: images.map(image => ({
-        loc: `https://appleinteriors.in/images/portfolio/${category}/${image}`,
-        title: image.split('.')[0].split('-').map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' '),
-        caption: `Apple Interiors - ${category.split('-').map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ')} Design`
-      }))
-    };
-    sitemapEntries.push(entry);
   });
-
-  // Add main pages with featured images
-  const mainPages = [
-    {
-      url: 'https://appleinteriors.in',
-      image: 'home-banner.jpg',
-      title: 'Apple Interiors - Modern Interior Design'
-    },
-    {
-      url: 'https://appleinteriors.in/about',
-      image: 'about-banner.jpg',
-      title: 'About Apple Interiors'
-    },
-    {
-      url: 'https://appleinteriors.in/services',
-      image: 'services-banner.jpg',
-      title: 'Our Interior Design Services'
-    },
-    {
-      url: 'https://appleinteriors.in/contact',
-      image: 'contact-banner.jpg',
-      title: 'Contact Apple Interiors'
-    }
-  ];
-
-  mainPages.forEach(page => {
-    sitemapEntries.push({
-      url: page.url,
-      images: [{
-        loc: `https://appleinteriors.in/images/${page.image}`,
-        title: page.title
-      }]
-    });
-  });
-
-  return sitemapEntries;
 } 

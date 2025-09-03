@@ -1,10 +1,71 @@
-import { neon } from '@neondatabase/serverless';
+import { neon, NeonQueryFunction } from '@neondatabase/serverless';
 import fs from 'fs';
 import path from 'path';
 
-export const sql = neon(process.env.DATABASE_URL!);
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+// Mock data for static generation
+const mockPortfolioItems = [
+  {
+    id: 1,
+    image_paths: [
+      '/images/portfolio/living-room/1.webp',
+      '/images/portfolio/living-room/2.webp',
+      '/images/portfolio/living-room/3.webp'
+    ],
+    category: 'living-room',
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  // Add more mock items as needed
+];
+
+const mockCategories = [
+  {
+    id: 1,
+    name: 'living-room',
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  {
+    id: 2,
+    name: 'bedroom',
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  // Add more mock categories as needed
+];
+
+interface DatabaseRow {
+  id: string | number;
+  image_paths?: string[];
+  category?: string;
+  name?: string;
+  created_at?: string | Date;
+  updated_at?: string | Date;
+  [key: string]: any;
+}
+
+interface PortfolioItem {
+  id: number;
+  image_paths: string[];
+  category: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+export const sql = isDevelopment ? neon(process.env.DATABASE_URL!) : null;
 
 export async function testConnection() {
+  if (!isDevelopment || !sql) return true;
+  
   try {
     const result = await sql`SELECT 1`;
     console.log('Database connection successful');
@@ -16,11 +77,12 @@ export async function testConnection() {
 }
 
 export async function initializeDatabase() {
+  if (!isDevelopment || !sql) return true;
+
   try {
     const schemaPath = path.join(process.cwd(), 'src', 'app', 'lib', 'schema.sql');
     const schema = fs.readFileSync(schemaPath, 'utf8');
     
-    // Execute the entire schema as one transaction
     await sql.unsafe(schema);
     
     console.log('Database initialized successfully');
@@ -31,23 +93,18 @@ export async function initializeDatabase() {
   }
 }
 
-interface PortfolioItem {
-  id: number;
-  image_paths: string[];
-  category: string;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
 export async function getPortfolioItems(): Promise<PortfolioItem[]> {
+  if (!isDevelopment || !sql) {
+    return mockPortfolioItems;
+  }
+
   try {
     const result = await sql`
       SELECT id, image_paths, category, created_at, updated_at 
       FROM portfolio_items 
       ORDER BY created_at DESC
-    `;
+    ` as DatabaseRow[];
 
-    // Ensure the result is properly typed
     const items = result.map(row => ({
       id: Number(row.id),
       image_paths: Array.isArray(row.image_paths) ? row.image_paths : [],
@@ -56,21 +113,50 @@ export async function getPortfolioItems(): Promise<PortfolioItem[]> {
       updated_at: row.updated_at ? new Date(row.updated_at) : undefined
     }));
 
-    console.log('Retrieved portfolio items:', items);
     return items;
   } catch (error) {
     console.error('Failed to get portfolio items:', error);
-    throw error;
+    return mockPortfolioItems;
+  }
+}
+
+export async function getCategories(): Promise<Category[]> {
+  if (!isDevelopment || !sql) {
+    return mockCategories;
+  }
+
+  try {
+    const result = await sql`
+      SELECT id, name, created_at, updated_at 
+      FROM categories 
+      ORDER BY name
+    ` as DatabaseRow[];
+
+    const categories = result.map(row => ({
+      id: Number(row.id),
+      name: String(row.name),
+      created_at: row.created_at ? new Date(row.created_at) : undefined,
+      updated_at: row.updated_at ? new Date(row.updated_at) : undefined
+    }));
+
+    return categories;
+  } catch (error) {
+    console.error('Failed to get categories:', error);
+    return mockCategories;
   }
 }
 
 export async function addPortfolioItem(item: Omit<PortfolioItem, 'id' | 'created_at' | 'updated_at'>) {
+  if (!isDevelopment || !sql) throw new Error('Cannot add items in production build');
+
   try {
     const result = await sql`
       INSERT INTO portfolio_items (image_paths, category)
       VALUES (${item.image_paths}, ${item.category})
       RETURNING *
-    `;
+    ` as DatabaseRow[];
+
+    if (!result.length) throw new Error('Failed to insert portfolio item');
 
     const newItem = {
       id: Number(result[0].id),
@@ -80,7 +166,6 @@ export async function addPortfolioItem(item: Omit<PortfolioItem, 'id' | 'created
       updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
     };
 
-    console.log('Added portfolio item:', newItem);
     return newItem;
   } catch (error) {
     console.error('Failed to add portfolio item:', error);
@@ -89,6 +174,8 @@ export async function addPortfolioItem(item: Omit<PortfolioItem, 'id' | 'created
 }
 
 export async function deletePortfolioItem(id: number) {
+  if (!isDevelopment || !sql) throw new Error('Cannot delete items in production build');
+
   try {
     await sql`DELETE FROM portfolio_items WHERE id = ${id}`;
     return true;
@@ -99,6 +186,8 @@ export async function deletePortfolioItem(id: number) {
 }
 
 export async function updatePortfolioItem(id: number, item: Partial<Omit<PortfolioItem, 'id' | 'created_at' | 'updated_at'>>) {
+  if (!isDevelopment || !sql) throw new Error('Cannot update items in production build');
+
   try {
     const result = await sql`
       UPDATE portfolio_items SET
@@ -106,7 +195,9 @@ export async function updatePortfolioItem(id: number, item: Partial<Omit<Portfol
         category = COALESCE(${item.category}, category)
       WHERE id = ${id}
       RETURNING *
-    `;
+    ` as DatabaseRow[];
+
+    if (!result.length) throw new Error('Failed to update portfolio item');
 
     const updatedItem = {
       id: Number(result[0].id),
@@ -116,7 +207,6 @@ export async function updatePortfolioItem(id: number, item: Partial<Omit<Portfol
       updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
     };
 
-    console.log('Updated portfolio item:', updatedItem);
     return updatedItem;
   } catch (error) {
     console.error('Failed to update portfolio item:', error);
@@ -124,43 +214,13 @@ export async function updatePortfolioItem(id: number, item: Partial<Omit<Portfol
   }
 }
 
-interface Category {
-  id: number;
-  name: string;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-export async function getCategories(): Promise<Category[]> {
-  try {
-    const result = await sql`
-      SELECT id, name, created_at, updated_at 
-      FROM categories 
-      ORDER BY name
-    `;
-
-    // Ensure the result is properly typed
-    const categories = result.map(row => ({
-      id: Number(row.id),
-      name: String(row.name),
-      created_at: row.created_at ? new Date(row.created_at) : undefined,
-      updated_at: row.updated_at ? new Date(row.updated_at) : undefined
-    }));
-
-    console.log('Retrieved categories:', categories);
-    return categories;
-  } catch (error) {
-    console.error('Failed to get categories:', error);
-    throw error;
-  }
-}
-
 export async function addCategory(category: Omit<Category, 'id' | 'created_at' | 'updated_at'>) {
+  if (!isDevelopment || !sql) throw new Error('Cannot add categories in production build');
+
   try {
     // Check if category already exists
-    const existing = await sql`SELECT id, name FROM categories WHERE name = ${category.name}`;
+    const existing = await sql`SELECT id, name FROM categories WHERE name = ${category.name}` as DatabaseRow[];
     if (existing.length > 0) {
-      console.log(`Category ${category.name} already exists`);
       return {
         id: Number(existing[0].id),
         name: String(existing[0].name)
@@ -171,7 +231,9 @@ export async function addCategory(category: Omit<Category, 'id' | 'created_at' |
       INSERT INTO categories (name)
       VALUES (${category.name})
       RETURNING *
-    `;
+    ` as DatabaseRow[];
+
+    if (!result.length) throw new Error('Failed to insert category');
 
     const newCategory = {
       id: Number(result[0].id),
@@ -180,7 +242,6 @@ export async function addCategory(category: Omit<Category, 'id' | 'created_at' |
       updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
     };
 
-    console.log('Added category:', newCategory);
     return newCategory;
   } catch (error) {
     console.error('Failed to add category:', error);
@@ -189,6 +250,8 @@ export async function addCategory(category: Omit<Category, 'id' | 'created_at' |
 }
 
 export async function deleteCategory(id: number) {
+  if (!isDevelopment || !sql) throw new Error('Cannot delete categories in production build');
+
   try {
     await sql`DELETE FROM categories WHERE id = ${id}`;
     return true;
@@ -199,13 +262,17 @@ export async function deleteCategory(id: number) {
 }
 
 export async function updateCategory(id: number, category: Partial<Omit<Category, 'id' | 'created_at' | 'updated_at'>>) {
+  if (!isDevelopment || !sql) throw new Error('Cannot update categories in production build');
+
   try {
     const result = await sql`
       UPDATE categories
       SET name = COALESCE(${category.name}, name)
       WHERE id = ${id}
       RETURNING *
-    `;
+    ` as DatabaseRow[];
+
+    if (!result.length) throw new Error('Failed to update category');
 
     const updatedCategory = {
       id: Number(result[0].id),
@@ -214,7 +281,6 @@ export async function updateCategory(id: number, category: Partial<Omit<Category
       updated_at: result[0].updated_at ? new Date(result[0].updated_at) : undefined
     };
 
-    console.log('Updated category:', updatedCategory);
     return updatedCategory;
   } catch (error) {
     console.error('Failed to update category:', error);

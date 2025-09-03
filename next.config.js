@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
   images: {
     domains: ['localhost'],
     unoptimized: false,
@@ -12,12 +16,41 @@ const nextConfig = {
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    formats: ['image/webp'],
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+    disableStaticImages: false,
   },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|svg|webp)$/i,
       type: 'asset/resource',
+      generator: {
+        filename: 'static/media/[hash][ext][query]'
+      },
+      use: [
+        {
+          loader: 'image-webpack-loader',
+          options: {
+            mozjpeg: {
+              progressive: true,
+              quality: 65
+            },
+            optipng: {
+              enabled: false,
+            },
+            pngquant: {
+              quality: [0.65, 0.90],
+              speed: 4
+            },
+            gifsicle: {
+              interlaced: false,
+            },
+            webp: {
+              quality: 75
+            }
+          }
+        }
+      ]
     });
     return config;
   },
@@ -68,6 +101,24 @@ const nextConfig = {
             value: 'public, max-age=31536000, immutable'
           }
         ]
+      },
+      {
+        source: '/_next/image/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      },
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
       }
     ];
   },
@@ -77,7 +128,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   compiler: {
-    styledComponents: true
+    removeConsole: process.env.NODE_ENV === 'production',
   },
   compress: true,
   poweredByHeader: false,
@@ -85,6 +136,15 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     scrollRestoration: true,
+    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
+    workerThreads: true,
+    cpus: 4,
+    optimizePackageImports: [
+      'framer-motion',
+      '@heroicons/react',
+      'react-icons',
+      'nodemailer'
+    ]
   },
   output: 'standalone',
   // Handle 404 and 500 errors without redirects

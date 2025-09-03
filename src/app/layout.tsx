@@ -3,6 +3,18 @@ import { Metadata } from 'next';
 import { Providers } from './components/Providers';
 import RootLayoutClient from './components/RootLayoutClient';
 import ServiceWorkerRegistration from './components/ServiceWorkerRegistration';
+import { Suspense } from 'react';
+
+// Font optimization
+import { Montserrat } from 'next/font/google';
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-montserrat',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
+});
 
 export const metadata: Metadata = {
   title: 'Apple Interiors - Best Interior Designers in Hyderabad',
@@ -219,7 +231,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={montserrat.variable}>
       <head>
         <script
           type="application/ld+json"
@@ -228,11 +240,30 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <meta name="theme-color" content="#ffffff" />
       </head>
       <body>
         <Providers>
-          <ServiceWorkerRegistration />
-          <RootLayoutClient>{children}</RootLayoutClient>
+          <Suspense fallback={null}>
+            <ServiceWorkerRegistration />
+          </Suspense>
+          <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="animate-pulse">Loading...</div>
+            </div>
+          }>
+            <RootLayoutClient>{children}</RootLayoutClient>
+          </Suspense>
         </Providers>
       </body>
     </html>

@@ -1,10 +1,24 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="text-center">
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary-600 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-        <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="space-y-8 animate-pulse max-w-7xl mx-auto px-4">
+        {/* Hero section skeleton */}
+        <div className="h-[600px] bg-gray-200 rounded-lg w-full" />
+        
+        {/* Services section skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-64 bg-gray-200 rounded-lg" />
+          ))}
+        </div>
+        
+        {/* Portfolio section skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="h-80 bg-gray-200 rounded-lg" />
+          ))}
+        </div>
       </div>
     </div>
-  )
+  );
 } 
