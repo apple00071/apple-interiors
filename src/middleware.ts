@@ -25,8 +25,46 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Handle root path redirect
+  // Handle root path
   if (pathname === '/') {
+    return NextResponse.next();
+  }
+
+  // Handle known routes
+  const knownRoutes = [
+    '/about',
+    '/contact',
+    '/portfolio',
+    '/services',
+    '/launch',
+    '/2bhk-interior-design-hyderabad',
+    '/3bhk-interior-design-hyderabad',
+    '/modular-kitchen-design-hyderabad',
+    '/false-ceiling-contractors-hyderabad',
+    '/wardrobe-designers-hyderabad',
+    '/office-interior-designers-hyderabad',
+    '/villa-interior-design-hyderabad',
+    '/budget-interior-designers-hyderabad',
+    '/interior-designers-hitec-city',
+    '/interior-designers-kukatpally',
+    '/interior-designers-madhapur',
+    '/admin/dashboard',
+    '/admin/login',
+    '/admin/portfolio',
+    '/_not-found',
+    '/404'
+  ];
+
+  if (knownRoutes.includes(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Handle dynamic routes and API routes
+  if (
+    pathname.startsWith('/api/') ||
+    pathname.match(/^\/admin\/portfolio\/.*/) ||
+    pathname.match(/^\/api\/admin\/.*/)
+  ) {
     return NextResponse.next();
   }
 
@@ -35,7 +73,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   } catch (error) {
     console.error('Middleware error:', error);
-    return NextResponse.next();
+    return NextResponse.redirect(new URL('/_not-found', request.url));
   }
 }
 

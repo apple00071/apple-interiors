@@ -147,18 +147,47 @@ const nextConfig = {
     ]
   },
   output: 'standalone',
-  // Handle 404 errors
+  // Handle 404s and redirects
   async rewrites() {
     return {
-      fallback: [
-        // These rewrites are checked after both pages/public files
-        // and dynamic routes are checked
+      beforeFiles: [
+        // Handle www to non-www redirect
         {
           source: '/:path*',
-          destination: '/_not-found',
+          has: [
+            {
+              type: 'host',
+              value: 'www.appleinteriors.in',
+            },
+          ],
+          destination: 'https://appleinteriors.in/:path*',
+        },
+      ],
+      afterFiles: [
+        // Handle dynamic routes
+        {
+          source: '/:path*',
+          destination: '/:path*',
+        },
+      ],
+      fallback: [
+        // Handle 404s
+        {
+          source: '/:path*',
+          destination: '/404',
         },
       ],
     };
+  },
+  // Add custom 404 page
+  async redirects() {
+    return [
+      {
+        source: '/404',
+        destination: '/_not-found',
+        permanent: true,
+      },
+    ];
   },
 };
 
