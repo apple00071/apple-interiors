@@ -1,0 +1,23 @@
+{
+  "name": "apple-interiors-html",
+  "version": "1.0.0",
+  "description": "Apple Interiors - Best Interior Designers in Hyderabad - HTML Version",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 3000",
+    "build": "echo 'Static HTML build complete'",
+    "dev": "http-server -p 3000"
+  },
+  "keywords": [
+    "interior design",
+    "hyderabad",
+    "apple interiors",
+    "home design",
+    "commercial interiors"
+  ],
+  "author": "Apple Interiors",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
