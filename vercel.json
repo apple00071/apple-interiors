@@ -14,14 +14,12 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
     { 
-      "src": "/api/send-email", 
-      "dest": "/api/send-email.js" 
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/api/send-email", 
+      "destination": "/api/send-email.js" 
     }
   ],
   "headers": [
