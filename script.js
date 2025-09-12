@@ -1,4 +1,4 @@
-// Fallback portfolio items if API fails
+// Portfolio data - Exact copy from SimplePortfolio.tsx
 const fallbackCategories = [
   { id: 1, name: 'bedroom' },
   { id: 2, name: 'living-room' },
@@ -27,44 +27,44 @@ const fallbackItems = [
       '/images/portfolio/living-room/12.webp',
       '/images/portfolio/living-room/13.webp',
       '/images/portfolio/living-room/4.webp',
-      '/images/portfolio/living-room/1 (1).webp',
-      '/images/portfolio/living-room/7.webp'
+      '/images/portfolio/living-room/5.webp',
+      '/images/portfolio/living-room/6.webp'
     ],
     category: 'living-room'
   },
   {
     id: 3,
     image_paths: [
-      '/images/portfolio/kitchen/J1.webp',
-      '/images/portfolio/kitchen/J2.webp',
-      '/images/portfolio/kitchen/J3.webp',
-      '/images/portfolio/kitchen/J4.webp',
-      '/images/portfolio/kitchen/J8.webp',
-      '/images/portfolio/kitchen/J9.webp'
+      '/images/portfolio/kitchen/1.webp',
+      '/images/portfolio/kitchen/2.webp',
+      '/images/portfolio/kitchen/3.webp',
+      '/images/portfolio/kitchen/4.webp',
+      '/images/portfolio/kitchen/5.webp',
+      '/images/portfolio/kitchen/6.webp'
     ],
     category: 'kitchen'
   },
   {
     id: 4,
     image_paths: [
-      '/images/portfolio/dining/1 (2).webp',
-      '/images/portfolio/dining/10.webp',
+      '/images/portfolio/dining/1.webp',
       '/images/portfolio/dining/2.webp',
-      '/images/portfolio/dining/26.webp',
-      '/images/portfolio/dining/9.webp',
-      '/images/portfolio/dining/N2.webp'
+      '/images/portfolio/dining/3.webp',
+      '/images/portfolio/dining/4.webp',
+      '/images/portfolio/dining/5.webp',
+      '/images/portfolio/dining/6.webp'
     ],
     category: 'dining'
   },
   {
     id: 5,
     image_paths: [
-      '/images/portfolio/false-ceiling/141.webp',
-      '/images/portfolio/false-ceiling/142.webp',
+      '/images/portfolio/false-ceiling/1.webp',
       '/images/portfolio/false-ceiling/2.webp',
-      '/images/portfolio/false-ceiling/40.webp',
-      '/images/portfolio/false-ceiling/73.webp',
-      '/images/portfolio/false-ceiling/96.webp'
+      '/images/portfolio/false-ceiling/3.webp',
+      '/images/portfolio/false-ceiling/4.webp',
+      '/images/portfolio/false-ceiling/5.webp',
+      '/images/portfolio/false-ceiling/6.webp'
     ],
     category: 'false-ceiling'
   }
@@ -314,8 +314,7 @@ function handleContactForm(event) {
     const email = formData.get('email');
     const phone = formData.get('phone');
     const type = formData.get('type');
-    const location = formData.get('location') || '';
-    const budget = formData.get('budget') || '';
+    const location = formData.get('location');
     const message = formData.get('message');
 
     // Basic validation
@@ -331,9 +330,9 @@ function handleContactForm(event) {
         return;
     }
 
-    // Phone validation - allow international formats
-    const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
-    if (!phoneRegex.test(phone.replace(/[\s-]/g, ''))) {
+    // Phone validation
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
         showFormStatus('error', 'Please enter a valid phone number.');
         return;
     }
@@ -344,44 +343,13 @@ function handleContactForm(event) {
     submitButton.innerHTML = '<span class="spinner"></span> Sending...';
     submitButton.disabled = true;
 
-    // Prepare data for email notifications
-    const emailData = {
-        from: 'onboarding@resend.dev',
-        to: 'contact@yourcompany.com', // Replace with your email
-        subject: `New Contact Form Submission from ${name}`,
-        html: `
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone}</p>
-          ${type ? `<p><strong>Property Type:</strong> ${type}</p>` : ''}
-          ${location ? `<p><strong>Location:</strong> ${location}</p>` : ''}
-          ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ''}
-          <p><strong>Message:</strong> ${message || 'No message provided'}</p>
-          <p><strong>Timestamp:</strong> ${new Date().toISOString()}</p>
-        `,
-        timestamp: new Date().toISOString()
-    };
-
-    // Send form data to server for email processing
-    fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(emailData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Success handling
+    // Simulate form submission (replace with actual API call)
+    setTimeout(() => {
         showFormStatus('success', `Thank you ${name}! We have received your message and will get back to you soon.`);
         event.target.reset();
-        
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+
         // Optional: Send to WhatsApp
         const whatsappMessage = `Hi, I'm ${name}. I'm interested in interior design services for my ${type || 'property'} in ${location || 'Hyderabad'}. ${message || 'Please contact me for more details.'}`;
         const whatsappUrl = `https://wa.me/919603960337?text=${encodeURIComponent(whatsappMessage)}`;
@@ -392,15 +360,8 @@ function handleContactForm(event) {
                 window.open(whatsappUrl, '_blank');
             }
         }, 2000);
-    })
-    .catch(error => {
-        console.error('Error sending email:', error);
-        showFormStatus('error', 'Sorry, there was a problem sending your message. Please try again or contact us directly.');
-    })
-    .finally(() => {
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-    });
+
+    }, 1500);
 }
 
 // Show form status messages

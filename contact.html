@@ -80,16 +80,16 @@
                 <a href="/" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     Home
                 </a>
-                <a href="/about" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
+                <a href="/about.html" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     About
                 </a>
-                <a href="/services" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
+                <a href="/services.html" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     Services
                 </a>
-                <a href="/portfolio" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
+                <a href="/portfolio.html" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     Portfolio
                 </a>
-                <a href="/contact" class="text-primary font-medium text-sm relative group py-2">
+                <a href="/contact.html" class="text-primary font-medium text-sm relative group py-2">
                     Contact
                     <span class="absolute left-0 right-0 bottom-0 h-0.5 bg-primary"></span>
                 </a>
@@ -131,16 +131,16 @@
                     <a href="/" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Home</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/about" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">About</a>
+                    <a href="/about.html" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">About</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/services" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Services</a>
+                    <a href="/services.html" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Services</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/portfolio" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Portfolio</a>
+                    <a href="/portfolio.html" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Portfolio</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/contact" class="text-primary text-xl font-medium block py-4">Contact</a>
+                    <a href="/contact.html" class="text-primary text-xl font-medium block py-4">Contact</a>
                 </div>
             </div>
         </nav>
@@ -182,43 +182,25 @@
                         <form id="contactForm" class="space-y-6">
                             <div id="form-status" class="hidden p-4 rounded-lg"></div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Full Name *
-                                    </label>
-                                    <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
-                                </div>
-                                
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Email Address *
-                                    </label>
-                                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
-                                </div>
-                                
-                                <div>
-                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Phone Number *
-                                    </label>
-                                    <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
-                                </div>
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Full Name *
+                                </label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
+                            </div>
 
-                                <div>
-                                    <label for="type" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Property Type
-                                    </label>
-                                    <select id="type" name="type" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
-                                        <option value="">Select Property Type</option>
-                                        <option value="1BHK">1BHK</option>
-                                        <option value="2BHK">2BHK</option>
-                                        <option value="3BHK">3BHK</option>
-                                        <option value="4BHK">4BHK</option>
-                                        <option value="Villa">Villa</option>
-                                        <option value="Office">Office</option>
-                                        <option value="Commercial">Commercial</option>
-                                        <option value="Other">Other</option>
-                                    </select>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Email Address *
+                                </label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
+                            </div>
+
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Phone Number *
+                                </label>
+                                <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
                             </div>
 
                             <div>
@@ -261,20 +243,14 @@
 
                             <div>
                                 <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Your Message *
+                                    Message
                                 </label>
-                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900"></textarea>
+                                <textarea id="message" name="message" rows="4" placeholder="Tell us about your project requirements..." class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900 resize-vertical"></textarea>
                             </div>
 
-                            <button type="submit" class="w-full md:w-auto px-8 py-3 bg-primary hover:bg-primary-hover text-white font-medium rounded-lg transition-all duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-                                <span>Send Message</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
+                            <button type="submit" class="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                Send Message
                             </button>
-                            <div class="mt-3 text-sm text-gray-500">
-                                <span>* Required fields</span>
-                            </div>
                         </form>
                     </div>
 
@@ -361,7 +337,7 @@
                 </div>
                 <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg fade-in">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.523!2d78.48667!3d17.385044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99c44533324f%3A0x8ec0a9f4f4b9f889!2sApple%20Interiors!5e0!3m2!1sen!2sin!4v1682506545978!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.5234567890123!2d78.48667!3d17.385044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDIzJzA2LjIiTiA3OMKwMjknMTIuMCJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
                         width="100%" 
                         height="100%" 
                         style="border:0;" 

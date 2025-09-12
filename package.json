@@ -4,9 +4,9 @@
   "description": "Apple Interiors - Best Interior Designers in Hyderabad - HTML Version",
   "main": "index.html",
   "scripts": {
-    "start": "node server.js",
+    "start": "http-server -p 3000",
     "build": "echo 'Static HTML build complete'",
-    "dev": "node server.js"
+    "dev": "http-server -p 3000"
   },
   "keywords": [
     "interior design",
