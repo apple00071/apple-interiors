@@ -10,17 +10,19 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/about", "dest": "/about.html" },
-    { "src": "/portfolio", "dest": "/portfolio.html" },
-    { "src": "/services", "dest": "/services.html" },
-    { "src": "/contact", "dest": "/contact.html" },
-    { "src": "/blog", "dest": "/blog.html" },
-    { "src": "/blog/(.*)", "dest": "/blog/$1.html" },
-    { "src": "/(.*)\\.html", "status": 404 },
-    { "src": "/(.*)", "dest": "/$1" }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/portfolio", "destination": "/portfolio.html" },
+    { "source": "/services", "destination": "/services.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/blog/(.*)", "destination": "/blog/$1.html" },
+    { "source": "/(.*)", "destination": "/$1" }
+  ],
+  "redirects": [
+    { "source": "/(.*)\\.html", "statusCode": 404 }
   ],
   "github": {
     "enabled": true,
