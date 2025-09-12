@@ -6,12 +6,12 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
+  "github": {
+    "enabled": true,
+    "silent": false,
+    "autoJobCancelation": true,
+    "ref": "html-website"
+  },
   "headers": [
     {
       "source": "/(.*)",
