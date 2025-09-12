@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "github": {
+    "enabled": true,
+    "silent": true,
+    "branch": "html-website"
+  },
   "env": {
     "RESEND_API_KEY": "@resend_api_key"
   },
