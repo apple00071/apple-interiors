@@ -4,7 +4,23 @@
     {
       "src": "**/*",
       "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/portfolio", "dest": "/portfolio.html" },
+    { "src": "/services", "dest": "/services.html" },
+    { "src": "/contact", "dest": "/contact.html" },
+    { "src": "/blog", "dest": "/blog.html" },
+    { "src": "/blog/(.*)", "dest": "/blog/$1.html" },
+    { "src": "/(.*)\.html", "status": 404 },
+    { "src": "/(.*)", "dest": "/$1" }
   ],
   "github": {
     "enabled": true,

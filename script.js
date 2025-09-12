@@ -1,4 +1,4 @@
-// Portfolio data - Exact copy from SimplePortfolio.tsx
+// Fallback portfolio items if API fails
 const fallbackCategories = [
   { id: 1, name: 'bedroom' },
   { id: 2, name: 'living-room' },
@@ -314,7 +314,8 @@ function handleContactForm(event) {
     const email = formData.get('email');
     const phone = formData.get('phone');
     const type = formData.get('type');
-    const location = formData.get('location');
+    const location = formData.get('location') || '';
+    const budget = formData.get('budget') || '';
     const message = formData.get('message');
 
     // Basic validation
@@ -343,13 +344,37 @@ function handleContactForm(event) {
     submitButton.innerHTML = '<span class="spinner"></span> Sending...';
     submitButton.disabled = true;
 
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
+    // Prepare data for email notifications
+    const emailData = {
+        name,
+        email,
+        phone,
+        type: type || 'Not specified',
+        location,
+        budget,
+        message: message || 'No message provided',
+        timestamp: new Date().toISOString()
+    };
+
+    // Send form data to server for email processing
+    fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Success handling
         showFormStatus('success', `Thank you ${name}! We have received your message and will get back to you soon.`);
         event.target.reset();
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-
+        
         // Optional: Send to WhatsApp
         const whatsappMessage = `Hi, I'm ${name}. I'm interested in interior design services for my ${type || 'property'} in ${location || 'Hyderabad'}. ${message || 'Please contact me for more details.'}`;
         const whatsappUrl = `https://wa.me/919603960337?text=${encodeURIComponent(whatsappMessage)}`;
@@ -360,8 +385,15 @@ function handleContactForm(event) {
                 window.open(whatsappUrl, '_blank');
             }
         }, 2000);
-
-    }, 1500);
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+        showFormStatus('error', 'There was a problem submitting your form. Please try again later.');
+    })
+    .finally(() => {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    });
 }
 
 // Show form status messages
