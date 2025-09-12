@@ -1,25 +1,15 @@
 {
   "version": 2,
-  "github": {
-    "enabled": true,
-    "silent": true,
-    "branch": "html-website"
-  },
-  "env": {
-    "RESEND_API_KEY": "@resend_api_key"
-  },
   "builds": [
     {
       "src": "**/*",
       "use": "@vercel/static"
     }
   ],
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { 
-      "source": "/api/send-email", 
-      "destination": "/api/send-email.js" 
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ],
   "headers": [
