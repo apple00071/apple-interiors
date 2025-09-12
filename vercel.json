@@ -18,11 +18,11 @@
     { "source": "/services", "destination": "/services.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/blog/(.*)", "destination": "/blog/$1.html" },
+    { "source": "/blog/(.*)", "destination": "/blog/$1" },
     { "source": "/(.*)", "destination": "/$1" }
   ],
   "redirects": [
-    { "source": "/(.*)\\.html", "destination": "/404.html", "statusCode": 404 }
+    { "source": "/(.*)\\.html", "destination": "/$1", "statusCode": 301 }
   ],
   "github": {
     "enabled": true,

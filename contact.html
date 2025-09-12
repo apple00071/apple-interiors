@@ -80,16 +80,16 @@
                 <a href="/" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     Home
                 </a>
-                <a href="/about.html" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
+                <a href="/about" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     About
                 </a>
-                <a href="/services.html" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
+                <a href="/services" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     Services
                 </a>
-                <a href="/portfolio.html" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
+                <a href="/portfolio" class="text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2">
                     Portfolio
                 </a>
-                <a href="/contact.html" class="text-primary font-medium text-sm relative group py-2">
+                <a href="/contact" class="text-primary font-medium text-sm relative group py-2">
                     Contact
                     <span class="absolute left-0 right-0 bottom-0 h-0.5 bg-primary"></span>
                 </a>
@@ -175,14 +175,14 @@
         <!-- Contact Section -->
         <section class="py-16 bg-gray-50">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 contact-grid">
                     <!-- Contact Form -->
                     <div class="fade-in">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-                        <form id="contactForm" class="space-y-6">
+                        <form id="contactForm" class="contact-form">
                             <div id="form-status" class="hidden p-4 rounded-lg"></div>
 
-                            <div>
+                            <div class="form-group">
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                                     Full Name *
                                 </label>
@@ -241,7 +241,7 @@
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="form-group full-width">
                                 <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
                                     Message
                                 </label>
@@ -318,9 +318,12 @@
                                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Business Hours</h3>
                                     <div class="space-y-1 text-gray-600">
                                         <p>Monday: 9:00 AM - 6:00 PM</p>
-                                        <p>Tuesday: Holiday</p>
-                                        <p>Wednesday - Saturday: 9:00 AM - 6:00 PM</p>
-                                        <p>Sunday: Closed</p>
+                                        <p>Tuesday: Closed</p>
+                                        <p>Wednesday: 9:00 AM - 6:00 PM</p>
+                                        <p>Thursday: 9:00 AM - 6:00 PM</p>
+                                        <p>Friday: 9:00 AM - 6:00 PM</p>
+                                        <p>Saturday: 9:00 AM - 6:00 PM</p>
+                                        <p>Sunday: 9:00 AM - 6:00 PM</p>
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +342,7 @@
                 </div>
                 <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg fade-in">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.5234567890123!2d78.48667!3d17.385044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDIzJzA2LjIiTiA3OMKwMjknMTIuMCJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.523456789012!2d78.48667!3d17.385044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb915c0b6123d3%3A0x7c5b8c5c5b8c5c5b!2sApple%20Interiors!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
                         width="100%" 
                         height="100%" 
                         style="border:0;" 
@@ -422,7 +425,7 @@
 
             <!-- Copyright -->
             <div class="text-center text-gray-600 mt-6">
-                <p>&copy; 2024 Apple Interiors. All rights reserved.</p>
+                <p>&copy; 2025 Apple Interiors. All rights reserved.</p>
             </div>
         </div>
     </footer>

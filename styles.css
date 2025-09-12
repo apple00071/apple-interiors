@@ -40,24 +40,41 @@ html {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-100% - 2rem));
+    transform: translateX(-50%);
   }
 }
 
 .animate-scroll {
-  animation: scroll 40s linear infinite;
+  animation: scroll 30s linear infinite;
   display: flex;
   width: max-content;
+  gap: 2rem;
 }
 
 .animate-scroll:hover {
   animation-play-state: paused;
 }
 
+.brand-section {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.brand-container {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+}
+
 /* Partner logos responsive styles */
 .partner-logo {
   transition: all 0.3s ease;
   filter: grayscale(100%);
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .partner-logo:hover {
@@ -67,19 +84,22 @@ html {
 
 @media (max-width: 640px) {
   .partner-logo {
-    max-width: 150px;
+    max-width: 120px;
+    height: 60px;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
   .partner-logo {
-    max-width: 200px;
+    max-width: 160px;
+    height: 80px;
   }
 }
 
 @media (min-width: 1025px) {
   .partner-logo {
-    max-width: 250px;
+    max-width: 200px;
+    height: 100px;
   }
 }
 
@@ -122,6 +142,44 @@ body {
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+/* Section headings */
+.section-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+}
+
+/* Contact form layout */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .contact-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .contact-form .full-width {
+    grid-column: span 2;
+  }
 }
 
 @media (min-width: 640px) {
