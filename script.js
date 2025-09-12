@@ -171,8 +171,8 @@ function loadPortfolioItems(category) {
         item.image_paths.map(path => ({
             src: path,
             category: item.category
-        }))
-    ).slice(0, 12); // Limit to 12 images
+        })));
+    // Removed image limit to show all available images
 
     portfolioGrid.innerHTML = '';
     
