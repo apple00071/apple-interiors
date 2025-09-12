@@ -27,44 +27,43 @@ const fallbackItems = [
       '/images/portfolio/living-room/12.webp',
       '/images/portfolio/living-room/13.webp',
       '/images/portfolio/living-room/4.webp',
-      '/images/portfolio/living-room/5.webp',
-      '/images/portfolio/living-room/6.webp'
+      '/images/portfolio/living-room/7.webp'
     ],
     category: 'living-room'
   },
   {
     id: 3,
     image_paths: [
-      '/images/portfolio/kitchen/1.webp',
-      '/images/portfolio/kitchen/2.webp',
-      '/images/portfolio/kitchen/3.webp',
-      '/images/portfolio/kitchen/4.webp',
-      '/images/portfolio/kitchen/5.webp',
-      '/images/portfolio/kitchen/6.webp'
+      '/images/portfolio/kitchen/J1.webp',
+      '/images/portfolio/kitchen/J2.webp',
+      '/images/portfolio/kitchen/J3.webp',
+      '/images/portfolio/kitchen/J4.webp',
+      '/images/portfolio/kitchen/J8.webp',
+      '/images/portfolio/kitchen/J9.webp'
     ],
     category: 'kitchen'
   },
   {
     id: 4,
     image_paths: [
-      '/images/portfolio/dining/1.webp',
+      '/images/portfolio/dining/1 (2).webp',
       '/images/portfolio/dining/2.webp',
-      '/images/portfolio/dining/3.webp',
-      '/images/portfolio/dining/4.webp',
-      '/images/portfolio/dining/5.webp',
-      '/images/portfolio/dining/6.webp'
+      '/images/portfolio/dining/10.webp',
+      '/images/portfolio/dining/26.webp',
+      '/images/portfolio/dining/9.webp',
+      '/images/portfolio/dining/N2.webp'
     ],
     category: 'dining'
   },
   {
     id: 5,
     image_paths: [
-      '/images/portfolio/false-ceiling/1.webp',
+      '/images/portfolio/false-ceiling/141.webp',
+      '/images/portfolio/false-ceiling/142.webp',
       '/images/portfolio/false-ceiling/2.webp',
-      '/images/portfolio/false-ceiling/3.webp',
-      '/images/portfolio/false-ceiling/4.webp',
-      '/images/portfolio/false-ceiling/5.webp',
-      '/images/portfolio/false-ceiling/6.webp'
+      '/images/portfolio/false-ceiling/40.webp',
+      '/images/portfolio/false-ceiling/73.webp',
+      '/images/portfolio/false-ceiling/96.webp'
     ],
     category: 'false-ceiling'
   }

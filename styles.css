@@ -40,16 +40,47 @@ html {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-250px * 4));
+    transform: translateX(calc(-100% - 2rem));
   }
 }
 
 .animate-scroll {
-  animation: scroll 30s linear infinite;
+  animation: scroll 40s linear infinite;
+  display: flex;
+  width: max-content;
 }
 
 .animate-scroll:hover {
   animation-play-state: paused;
+}
+
+/* Partner logos responsive styles */
+.partner-logo {
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
+}
+
+.partner-logo:hover {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+@media (max-width: 640px) {
+  .partner-logo {
+    max-width: 150px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .partner-logo {
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .partner-logo {
+    max-width: 250px;
+  }
 }
 
 /* Hide scrollbar but allow scrolling */

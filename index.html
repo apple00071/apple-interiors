@@ -103,12 +103,20 @@
         "latitude": 17.385044,
         "longitude": 78.486671
       },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "09:00",
-        "closes": "18:00"
-      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
       "sameAs": [
         "https://www.facebook.com/appleinteriors.net/",
         "https://www.instagram.com/appleinteriors.hyderabad/",
@@ -124,12 +132,20 @@
         "areaServed": "IN",
         "availableLanguage": ["English", "Hindi", "Telugu"],
         "contactOption": ["TollFree", "HearingImpairedSupported"],
-        "hoursAvailable": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "09:00",
-          "closes": "18:00"
-        }
+        "hoursAvailable": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ]
       }
     }
     </script>
@@ -577,58 +593,61 @@
                 </div>
 
                 <div class="relative overflow-hidden mx-auto max-w-[95vw]">
-                    <div class="flex flex-nowrap gap-8 py-4 animate-scroll overflow-x-auto scrollbar-hide">
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/logo.png" alt="Brand Logo" class="w-full h-full object-contain filter">
+                    <div class="animate-scroll">
+                        <div class="flex gap-8 py-4">
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/logo.png" alt="Brand Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/logo2-300x102.png" alt="Brand Logo 2" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/Sleek_logo-300x212.jpg" alt="Sleek Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/greenply-logo-469D8F2DFE-seeklogo.com_.png" alt="Greenply Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/download-300x112.png" alt="Brand Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/hafele-300x300.jpg" alt="Hafele Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/download.jpg" alt="Brand Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/hettich-300x225.png" alt="Hettich Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/logo2-300x102.png" alt="Brand Logo 2" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/Sleek_logo-300x212.jpg" alt="Sleek Logo" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/greenply-logo-469D8F2DFE-seeklogo.com_.png" alt="Greenply Logo" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/download-300x112.png" alt="Brand Logo" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/hafele-300x300.jpg" alt="Hafele Logo" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/download.jpg" alt="Brand Logo" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/hettich-300x225.png" alt="Hettich Logo" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <!-- Duplicate brand logos for seamless scrolling -->
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/logo.png" alt="Brand Logo" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center p-4 fade-in">
-                        <div class="relative h-24 sm:h-32 md:h-40 w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                            <img src="/images/brands/logo2-300x102.png" alt="Brand Logo 2" class="w-full h-full object-contain filter">
-                        </div>
-                    </div>
+                        <!-- Duplicate for infinite scroll -->
+                        <div class="flex gap-8 py-4">
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/logo.png" alt="Brand Logo" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center p-4 fade-in">
+                                <div class="partner-logo">
+                                    <img src="/images/brands/logo2-300x102.png" alt="Brand Logo 2" class="w-full h-full object-contain">
+                                </div>
+                            </div>
                 </div>
             </div>
         </section>
