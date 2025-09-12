@@ -2,7 +2,8 @@
 const RESEND_CONFIG = {
     apiUrl: 'https://api.resend.com/emails',
     fromEmail: 'noreply@appleinteriors.in', // You'll need to verify this domain with Resend
-    adminEmail: 'aravind.bandaru@appleinteriors.in'
+    adminEmail: 'aravind.bandaru@appleinteriors.in',
+    apiKey: 're_cDsyiGt6_2zccvYp1cdMi3wDL3wMCLvxe' // API key provided by user
 };
 
 // Initialize contact form when the page loads
