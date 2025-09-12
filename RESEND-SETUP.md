@@ -4,7 +4,7 @@ This guide explains how the Resend API integration works for the Apple Interiors
 
 ## 🚀 Current Setup
 
-The contact form is already configured with Resend API integration using the provided API key: `re_ebajyGt8_2rzcyYpj1cBK19w8CLixWsGd`
+The contact form is configured with Resend API integration using environment variables for secure API key management.
 
 ### How It Works
 
@@ -28,6 +28,15 @@ The contact form is already configured with Resend API integration using the pro
 - **Features**: Call and WhatsApp buttons, company information, social links
 
 ## 🔧 Technical Implementation
+
+### Environment Variables Setup
+
+1. Create a `.env` file in the root directory (use `.env.example` as a template)
+2. Add your Resend API key:
+```
+RESEND_API_KEY=your_actual_api_key_here
+```
+3. Deploy with environment variables configured in your hosting platform (Vercel, etc.)
 
 ### Serverless Function (`/api/send-email.js`)
 ```javascript
@@ -140,6 +149,7 @@ The system includes multiple fallback mechanisms:
 
 Before going live:
 
+- [ ] Environment variables are properly set up
 - [ ] Resend API key is working
 - [ ] Domain is verified with Resend
 - [ ] DNS records are configured

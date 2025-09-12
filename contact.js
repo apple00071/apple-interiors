@@ -1,6 +1,5 @@
 // Resend API Configuration
 const RESEND_CONFIG = {
-    apiKey: 're_ebajyGt8_2rzcyYpj1cBK19w8CLixWsGd',
     apiUrl: 'https://api.resend.com/emails',
     fromEmail: 'noreply@appleinteriors.in', // You'll need to verify this domain with Resend
     adminEmail: 'aravind.bandaru@appleinteriors.in'
@@ -67,10 +66,15 @@ async function handleContactFormSubmission(event) {
         }
 
     } catch (error) {
-        console.error('Resend API Error:', error);
+        console.error('Email submission error:', error);
 
-        // Fallback: Show success message and redirect to WhatsApp
-        showFormStatus('warning', `Thank you ${formObject.name}! We'll contact you soon. For immediate assistance, please use WhatsApp.`);
+        // Check if it's a server configuration error
+        if (error.message && error.message.includes('configuration error')) {
+            showFormStatus('error', 'Our email system is currently experiencing technical difficulties. Please try the WhatsApp option below or call us directly.');
+        } else {
+            // Fallback: Show message and redirect to WhatsApp
+            showFormStatus('warning', `Thank you ${formObject.name}! We've received your information but couldn't send a confirmation email. For immediate assistance, please use WhatsApp.`);
+        }
 
         setTimeout(() => {
             const whatsappMessage = createWhatsAppMessage(formObject);
@@ -210,7 +214,8 @@ function handleContactFormFallback(event) {
 
 // Utility function to check if Resend API is properly configured
 function isResendConfigured() {
-    return RESEND_CONFIG.apiKey && RESEND_CONFIG.apiKey !== 'your_api_key_here';
+    // We don't check for API key here as it's now handled server-side
+    return true;
 }
 
 // Export functions for use in other scripts

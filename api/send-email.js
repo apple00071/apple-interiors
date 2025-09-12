@@ -28,7 +28,13 @@ export default async function handler(req, res) {
         }
 
         // Resend API configuration
-        const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_ebajyGt8_2rzcyYpj1cBK19w8CLixWsGd';
+        const RESEND_API_KEY = process.env.RESEND_API_KEY;
+        
+        // Check if API key is available
+        if (!RESEND_API_KEY) {
+            console.error('Resend API key is missing. Please set the RESEND_API_KEY environment variable.');
+            return res.status(500).json({ error: 'Email service configuration error' });
+        }
         const FROM_EMAIL = 'noreply@appleinteriors.in'; // You'll need to verify this domain
         const ADMIN_EMAIL = 'aravind.bandaru@appleinteriors.in';
 
@@ -73,8 +79,21 @@ export default async function handler(req, res) {
                 message: 'Emails sent successfully' 
             });
         } else {
-            const adminError = await adminEmailResponse.json();
-            const customerError = await customerEmailResponse.json();
+            // Try to get detailed error information
+            let adminError = 'Unknown error';
+            let customerError = 'Unknown error';
+            
+            try {
+                adminError = await adminEmailResponse.json();
+            } catch (e) {
+                console.error('Error parsing admin email response:', e);
+            }
+            
+            try {
+                customerError = await customerEmailResponse.json();
+            } catch (e) {
+                console.error('Error parsing customer email response:', e);
+            }
             
             res.status(500).json({ 
                 error: 'Failed to send emails',
