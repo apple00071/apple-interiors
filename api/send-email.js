@@ -35,8 +35,8 @@ export default async function handler(req, res) {
             console.error('Resend API key is missing. Please set the RESEND_API_KEY environment variable.');
             return res.status(500).json({ error: 'Email service configuration error' });
         }
-        const FROM_EMAIL = 'noreply@appleinteriors.in'; // You'll need to verify this domain
-        const ADMIN_EMAIL = 'aravind.bandaru@appleinteriors.in';
+        const FROM_EMAIL = process.env.FROM_EMAIL || 'notifications@appleinteriors.in';
+        const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'aravind.bandaru@appleinteriors.in';
 
         // Send admin notification email
         const adminEmailResponse = await fetch('https://api.resend.com/emails', {

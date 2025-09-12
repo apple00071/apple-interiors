@@ -45,6 +45,7 @@ async function handleContactFormSubmission(event) {
             headers: {
                 'Content-Type': 'application/json'
             },
+            cache: 'no-store',
             body: JSON.stringify({ formData: formObject })
         });
 

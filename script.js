@@ -236,17 +236,43 @@ function initializeAnimations() {
 // Header scroll effect
 function initializeHeaderScroll() {
     const header = document.getElementById('header');
-    
+    let lastScrollY = window.scrollY;
+    let isHidden = false;
+
+    const showHeader = () => {
+        if (!header) return;
+        header.style.transform = 'translateY(0)';
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.style.backdropFilter = 'blur(12px)';
+        header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        isHidden = false;
+    };
+
+    const hideHeader = () => {
+        if (!header) return;
+        header.style.transform = 'translateY(-100%)';
+        header.style.boxShadow = 'none';
+        isHidden = true;
+    };
+
+    // Ensure smooth transition
+    if (header) {
+        header.style.transition = 'transform 0.3s ease, background 0.2s ease, box-shadow 0.2s ease';
+    }
+
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.backdropFilter = 'blur(12px)';
-            header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.backdropFilter = 'blur(12px)';
-            header.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1)';
+        const currentY = window.scrollY;
+        const scrollingDown = currentY > lastScrollY;
+
+        if (currentY < 10) {
+            showHeader();
+        } else if (scrollingDown && !isHidden) {
+            hideHeader();
+        } else if (!scrollingDown && isHidden) {
+            showHeader();
         }
+
+        lastScrollY = currentY;
     });
 }
 
