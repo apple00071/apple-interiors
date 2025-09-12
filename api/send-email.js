@@ -28,7 +28,10 @@ export default async function handler(req, res) {
         }
 
         // Resend API configuration
-        const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_ebajyGt8_2rzcyYpj1cBK19w8CLixWsGd';
+        const RESEND_API_KEY = process.env.RESEND_API_KEY;
+        if (!RESEND_API_KEY) {
+            return res.status(500).json({ error: 'Resend API key not configured' });
+        }
         const FROM_EMAIL = 'noreply@appleinteriors.in'; // You'll need to verify this domain
         const ADMIN_EMAIL = 'aravind.bandaru@appleinteriors.in';
 

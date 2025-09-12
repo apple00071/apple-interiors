@@ -1,6 +1,5 @@
 // Resend API Configuration
 const RESEND_CONFIG = {
-    apiKey: 're_ebajyGt8_2rzcyYpj1cBK19w8CLixWsGd',
     apiUrl: 'https://api.resend.com/emails',
     fromEmail: 'noreply@appleinteriors.in', // You'll need to verify this domain with Resend
     adminEmail: 'aravind.bandaru@appleinteriors.in'
