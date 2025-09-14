@@ -1,8 +1,13 @@
 // Import Resend SDK
 import { Resend } from 'resend';
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY || 're_cDsyiGt6_2zccvYp1cdMi3wDL3wMCLvxe');
+// Initialize Resend with API key from environment variables
+if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is not set in environment variables');
+    throw new Error('Email service is not properly configured');
+}
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -50,11 +55,27 @@ export default async function handler(req, res) {
         return res.status(200).json({ success: true });
         
     } catch (error) {
-        console.error('Email sending error:', error);
+        console.error('Email sending error:', {
+            message: error.message,
+            name: error.name,
+            stack: error.stack,
+            code: error.code
+        });
+        
+        // More specific error messages
+        let errorMessage = 'Failed to send email';
+        if (error.name === 'MissingRequiredFieldError') {
+            errorMessage = 'Missing required email fields';
+        } else if (error.name === 'RateLimitExceededError') {
+            errorMessage = 'Too many requests. Please try again later.';
+        } else if (error.name === 'AuthenticationError') {
+            errorMessage = 'Email service authentication failed. Please check your API key.';
+        }
+        
         return res.status(500).json({ 
             success: false, 
-            error: 'Failed to send email',
-            details: error.message
+            error: errorMessage,
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 }
