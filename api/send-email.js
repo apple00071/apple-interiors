@@ -4,12 +4,28 @@ import { Resend } from 'resend';
 // Initialize Resend with API key from environment variables
 if (!process.env.RESEND_API_KEY) {
     console.error('RESEND_API_KEY is not set in environment variables');
-    throw new Error('Email service is not properly configured');
 }
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Set CORS headers
+const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 export default async function handler(req, res) {
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        return new Response('ok', { headers: corsHeaders });
+    }
+
+    // Set CORS headers for all responses
+    Object.entries(corsHeaders).forEach(([key, value]) => {
+        res.setHeader(key, value);
+    });
+
     if (req.method !== 'POST') {
         return res.status(405).json({ success: false, error: 'Method not allowed' });
     }
@@ -52,7 +68,10 @@ export default async function handler(req, res) {
             `,
         });
 
-        return res.status(200).json({ success: true });
+        return res.status(200).json({ 
+            success: true,
+            message: 'Emails sent successfully'
+        });
         
     } catch (error) {
         console.error('Email sending error:', {
@@ -62,17 +81,21 @@ export default async function handler(req, res) {
             code: error.code
         });
         
-        // More specific error messages
         let errorMessage = 'Failed to send email';
+        let statusCode = 500;
+        
         if (error.name === 'MissingRequiredFieldError') {
             errorMessage = 'Missing required email fields';
+            statusCode = 400;
         } else if (error.name === 'RateLimitExceededError') {
             errorMessage = 'Too many requests. Please try again later.';
+            statusCode = 429;
         } else if (error.name === 'AuthenticationError') {
             errorMessage = 'Email service authentication failed. Please check your API key.';
+            statusCode = 401;
         }
         
-        return res.status(500).json({ 
+        return res.status(statusCode).json({ 
             success: false, 
             error: errorMessage,
             details: process.env.NODE_ENV === 'development' ? error.message : undefined
