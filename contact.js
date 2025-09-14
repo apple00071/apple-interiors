@@ -3,8 +3,13 @@ const RESEND_CONFIG = {
     apiUrl: "https://api.resend.com/emails",
     fromEmail: "noreply@appleinteriors.in", // Verified domain
     adminEmail: "aravind.bandaru@appleinteriors.in",
-    apiKey: "re_cDsyiGt6_2zccvYp1cdMi3wDL3wMCLvxe" // API key provided by user
+    apiKey: process.env.RESEND_API_KEY || '' // Moved to environment variable
 };
+
+// Check if API key is configured
+if (!RESEND_CONFIG.apiKey) {
+    console.warn('RESEND_API_KEY is not set in environment variables');
+}
 
 // Initialize contact form when the page loads
 document.addEventListener("DOMContentLoaded", function() {

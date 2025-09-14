@@ -21,6 +21,7 @@
     "http-server": "^14.1.1"
   },
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "nodemailer": "^7.0.6",
     "resend": "^6.0.3"
   }
