@@ -1,15 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
-
-// Import the contact API handler
 const { Resend } = require('resend');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Initialize Resend
+// Initialize Resend with API key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email configuration
@@ -21,27 +12,13 @@ const EMAIL_CONFIG = {
     companyWebsite: 'https://appleinteriors.in'
 };
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// URL rewriting middleware for clean URLs
-app.use((req, res, next) => {
-    // List of pages that should have clean URLs
-    const pages = ['about', 'services', 'portfolio', 'contact'];
-
-    // Check if the request is for a clean URL (without .html)
-    if (pages.includes(req.path.substring(1))) {
-        // Rewrite the URL to include .html extension
-        req.url = req.path + '.html';
-    }
-
-    next();
-});
-
-// Serve static files
-app.use(express.static('.'));
+// CORS headers
+const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
+};
 
 // Validation functions
 function validateEmail(email) {
@@ -160,6 +137,10 @@ function generateAdminEmailHTML(formData) {
                        style="display: inline-block; background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
                         📞 Call Customer
                     </a>
+                    <a href="https://wa.me/${formData.phoneNumber.replace(/[^\d]/g, '')}?text=Hi%20${encodeURIComponent(formData.fullName)}%2C%20thank%20you%20for%20your%20interest%20in%20Apple%20Interiors.%20I%20received%20your%20inquiry%20and%20would%20like%20to%20discuss%20your%20project." 
+                       style="display: inline-block; background: #25d366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
+                        💬 WhatsApp
+                    </a>
                 </div>
                 
                 <div style="border-top: 1px solid #dee2e6; padding-top: 20px; margin-top: 30px; text-align: center; color: #6c757d; font-size: 14px;">
@@ -229,7 +210,14 @@ function generateCustomerEmailHTML(formData) {
                         ` : ''}
                     </table>
                 </div>
-                
+
+                ${formData.projectMessage ? `
+                <div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                    <h3 style="color: #f57c00; margin: 0 0 15px 0; font-size: 18px;">💬 Your Message</h3>
+                    <p style="color: #ef6c00; margin: 0; white-space: pre-wrap; line-height: 1.6; font-style: italic;">"${formData.projectMessage}"</p>
+                </div>
+                ` : ''}
+
                 <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin: 25px 0;">
                     <h3 style="color: #2e7d32; margin: 0 0 15px 0; font-size: 18px;">⏰ What Happens Next?</h3>
                     <ul style="color: #388e3c; margin: 0; padding-left: 20px;">
@@ -266,12 +254,25 @@ function generateCustomerEmailHTML(formData) {
     `;
 }
 
-// API Routes
-app.post('/api/contact', async (req, res) => {
-    console.log('📨 Contact form submission received:', {
-        timestamp: new Date().toISOString(),
-        data: req.body
+// Main handler function
+module.exports = async function handler(req, res) {
+    // Set CORS headers
+    Object.entries(corsHeaders).forEach(([key, value]) => {
+        res.setHeader(key, value);
     });
+
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+    // Only allow POST requests
+    if (req.method !== 'POST') {
+        return res.status(405).json({
+            success: false,
+            error: 'Method not allowed. Only POST requests are accepted.'
+        });
+    }
 
     // Check API key
     if (!process.env.RESEND_API_KEY) {
@@ -312,7 +313,7 @@ app.post('/api/contact', async (req, res) => {
         });
 
         // Log success
-        console.log('✅ Emails sent successfully:', {
+        console.log('Emails sent successfully:', {
             admin: adminEmailResult.data?.id,
             customer: customerEmailResult.data?.id,
             timestamp: new Date().toISOString(),
@@ -330,7 +331,7 @@ app.post('/api/contact', async (req, res) => {
         });
 
     } catch (error) {
-        console.error('❌ Contact form submission error:', {
+        console.error('Contact form submission error:', {
             message: error.message,
             name: error.name,
             stack: error.stack,
@@ -361,33 +362,4 @@ app.post('/api/contact', async (req, res) => {
             }
         });
     }
-});
-
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'OK',
-        timestamp: new Date().toISOString(),
-        environment: {
-            hasResendKey: !!process.env.RESEND_API_KEY,
-            fromEmail: EMAIL_CONFIG.from,
-            adminEmail: EMAIL_CONFIG.adminEmail
-        }
-    });
-});
-
-// Start server
-app.listen(PORT, () => {
-    console.log('🚀 Apple Interiors Server Started!');
-    console.log(`📍 Server running on: http://localhost:${PORT}`);
-    console.log(`📧 Email service: ${process.env.RESEND_API_KEY ? '✅ Configured' : '❌ Not configured'}`);
-    console.log(`📬 Admin email: ${EMAIL_CONFIG.adminEmail}`);
-    console.log(`📤 From email: ${EMAIL_CONFIG.from}`);
-    console.log('');
-    console.log('🌐 Available endpoints:');
-    console.log(`   - Contact form: http://localhost:${PORT}/contact.html`);
-    console.log(`   - API health: http://localhost:${PORT}/api/health`);
-    console.log(`   - Contact API: http://localhost:${PORT}/api/contact`);
-    console.log('');
-    console.log('Press Ctrl+C to stop the server');
-});
+};

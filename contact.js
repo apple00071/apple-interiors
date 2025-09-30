@@ -1,254 +1,355 @@
-// Resend API Configuration
-const RESEND_CONFIG = {
-    apiUrl: "https://api.resend.com/emails",
-    fromEmail: "noreply@appleinteriors.in", // Verified domain
-    adminEmail: "aravind.bandaru@appleinteriors.in",
-    apiKey: "re_cDsyiGt6_2zccvYp1cdMi3wDL3wMCLvxe" // API key provided by user
-};
+// New Contact Form Implementation
+class ContactFormManager {
+    constructor() {
+        this.form = null;
+        this.submitBtn = null;
+        this.statusContainer = null;
+        this.isSubmitting = false;
 
-// Initialize contact form when the page loads
-document.addEventListener("DOMContentLoaded", function() {
-    initializeContactForm();
-});
-
-// Initialize contact form
-function initializeContactForm() {
-    const contactForm = document.getElementById("contactForm");
-    if (contactForm) {
-        contactForm.addEventListener("submit", handleContactFormSubmission);
-    }
-}
-
-// Handle contact form submission with Resend API
-async function handleContactFormSubmission(event) {
-    event.preventDefault();
-
-    // Get form data
-    const formData = new FormData(event.target);
-    const formObject = Object.fromEntries(formData);
-
-    // Basic validation
-    if (!validateForm(formObject)) {
-        return;
+        this.init();
     }
 
-    // Show loading state
-    const submitButton = event.target.querySelector("button[type=\"submit\"]");
-    const originalText = submitButton.textContent;
-    submitButton.innerHTML = "<span class=\"spinner\"></span> Sending...";
-    submitButton.disabled = true;
+    init() {
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.setupForm());
+        } else {
+            this.setupForm();
+        }
+    }
 
-    try {
-        // Send emails via serverless API
-        const response = await fetch("/api/send-email", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            cache: "no-store",
-            body: JSON.stringify({ formData: formObject })
+    setupForm() {
+        this.form = document.getElementById('newContactForm');
+        this.submitBtn = document.getElementById('submitBtn');
+        this.statusContainer = document.getElementById('contact-status');
+
+        if (!this.form) {
+            console.warn('Contact form not found');
+            return;
+        }
+
+        // Add event listeners
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+        // Add real-time validation
+        this.setupValidation();
+
+        console.log('New contact form initialized successfully');
+    }
+
+    setupValidation() {
+        const inputs = this.form.querySelectorAll('input, textarea, select');
+
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearFieldError(input));
+        });
+    }
+
+    validateField(field) {
+        const value = field.value.trim();
+        const fieldName = field.name;
+        let isValid = true;
+        let errorMessage = '';
+
+        // Clear previous error
+        this.clearFieldError(field);
+
+        switch (fieldName) {
+            case 'fullName':
+                if (!value || value.length < 2) {
+                    isValid = false;
+                    errorMessage = 'Full name must be at least 2 characters';
+                }
+                break;
+
+            case 'emailAddress':
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!value || !emailRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid email address';
+                }
+                break;
+
+            case 'phoneNumber':
+                const phoneRegex = /^[\+]?[1-9][\d]{9,14}$/;
+                const cleanPhone = value.replace(/[\s\-\(\)]/g, '');
+                if (!value || !phoneRegex.test(cleanPhone)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid phone number';
+                }
+                break;
+        }
+
+        if (!isValid) {
+            this.showFieldError(field, errorMessage);
+        }
+
+        return isValid;
+    }
+
+    showFieldError(field, message) {
+        field.classList.add('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+        field.classList.remove('border-gray-300', 'focus:ring-blue-500', 'focus:border-blue-500');
+
+        const errorDiv = field.parentNode.querySelector('.error-message');
+        if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+    }
+
+    clearFieldError(field) {
+        field.classList.remove('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+        field.classList.add('border-gray-300', 'focus:ring-blue-500', 'focus:border-blue-500');
+
+        const errorDiv = field.parentNode.querySelector('.error-message');
+        if (errorDiv) {
+            errorDiv.classList.add('hidden');
+        }
+    }
+
+    validateForm() {
+        const requiredFields = ['fullName', 'emailAddress', 'phoneNumber'];
+        let isValid = true;
+
+        requiredFields.forEach(fieldName => {
+            const field = this.form.querySelector(`[name="${fieldName}"]`);
+            if (field && !this.validateField(field)) {
+                isValid = false;
+            }
         });
 
-        const result = await response.json();
+        return isValid;
+    }
 
-        if (response.ok && result.success) {
-            showFormStatus("success", `Thank you ${formObject.name}! We have received your message and will get back to you within 24 hours.`);
-            event.target.reset();
+    async handleSubmit(event) {
+        event.preventDefault();
 
-            // Optional: Send to WhatsApp as backup
-            setTimeout(() => {
-                if (confirm("Would you like to continue this conversation on WhatsApp for faster response?")) {
-                    const whatsappMessage = createWhatsAppMessage(formObject);
-                    const whatsappUrl = `https://wa.me/919603960337?text=${encodeURIComponent(whatsappMessage)}`;
-                    window.open(whatsappUrl, "_blank");
+        if (this.isSubmitting) {
+            return;
+        }
+
+        // Validate form
+        if (!this.validateForm()) {
+            this.showStatus('error', 'Please fix the errors above and try again.');
+            return;
+        }
+
+        this.isSubmitting = true;
+        this.setLoadingState(true);
+
+        try {
+            // Collect form data
+            const formData = new FormData(this.form);
+            const data = Object.fromEntries(formData.entries());
+
+            // Send to API
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            // Check if response is ok first
+            if (!response.ok) {
+                // Handle non-200 responses
+                let errorMessage = `Server error: ${response.status} ${response.statusText}`;
+
+                // Try to get error details if response is JSON
+                try {
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = await response.json();
+                        errorMessage = errorData.error || errorMessage;
+                    } else {
+                        // Response is not JSON (likely HTML error page)
+                        const textResponse = await response.text();
+                        console.error('Non-JSON response received:', textResponse.substring(0, 200));
+                        errorMessage = 'API endpoint not available. Please try again later or contact us directly.';
+                    }
+                } catch (parseError) {
+                    console.error('Error parsing error response:', parseError);
                 }
-            }, 2000);
+
+                throw new Error(errorMessage);
+            }
+
+            // Parse JSON response only if response is ok
+            let result;
+            try {
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    result = await response.json();
+                } else {
+                    throw new Error('Invalid response format: Expected JSON');
+                }
+            } catch (jsonError) {
+                console.error('JSON parsing error:', jsonError);
+                throw new Error('Invalid response from server. Please try again.');
+            }
+
+            if (result.success) {
+                this.showStatus('success', result.message || 'Your message has been sent successfully!');
+                this.form.reset();
+            } else {
+                throw new Error(result.error || 'Failed to send message');
+            }
+
+        } catch (error) {
+            console.error('Form submission error:', error);
+
+            // Determine error type and provide appropriate message
+            let errorMessage = 'Sorry, there was an issue sending your message. ';
+            let showFallback = false;
+
+            if (error.message.includes('API endpoint not available') ||
+                error.message.includes('Server error: 404') ||
+                error.message.includes('Failed to fetch')) {
+                errorMessage += 'Our contact system is temporarily unavailable. ';
+                showFallback = true;
+            } else if (error.message.includes('Invalid response')) {
+                errorMessage += 'There was a technical issue with the submission. ';
+                showFallback = true;
+            } else {
+                errorMessage += 'Please try again in a moment. ';
+            }
+
+            // Add contact alternatives
+            errorMessage += 'You can also reach us directly:';
+
+            // Show error message with fallback options
+            this.showStatus('error', errorMessage);
+
+            // Add fallback contact options if there's a system issue
+            if (showFallback) {
+                this.addFallbackOptions();
+            }
+
+        } finally {
+            this.isSubmitting = false;
+            this.setLoadingState(false);
+        }
+    }
+
+    setLoadingState(loading) {
+        if (!this.submitBtn) return;
+
+        const btnText = this.submitBtn.querySelector('.btn-text');
+        const btnLoading = this.submitBtn.querySelector('.btn-loading');
+
+        if (loading) {
+            btnText?.classList.add('hidden');
+            btnLoading?.classList.remove('hidden');
+            this.submitBtn.disabled = true;
         } else {
-            throw new Error(result.error || "Failed to send emails");
+            btnText?.classList.remove('hidden');
+            btnLoading?.classList.add('hidden');
+            this.submitBtn.disabled = false;
+        }
+    }
+
+    showStatus(type, message) {
+        if (!this.statusContainer) return;
+
+        let bgColor, textColor, borderColor, icon;
+
+        switch (type) {
+            case 'success':
+                bgColor = 'bg-green-50';
+                textColor = 'text-green-800';
+                borderColor = 'border-green-200';
+                icon = '✅';
+                break;
+            case 'error':
+                bgColor = 'bg-red-50';
+                textColor = 'text-red-800';
+                borderColor = 'border-red-200';
+                icon = '❌';
+                break;
+            case 'warning':
+                bgColor = 'bg-yellow-50';
+                textColor = 'text-yellow-800';
+                borderColor = 'border-yellow-200';
+                icon = '⚠️';
+                break;
+            default:
+                bgColor = 'bg-blue-50';
+                textColor = 'text-blue-800';
+                borderColor = 'border-blue-200';
+                icon = 'ℹ️';
         }
 
-    } catch (error) {
-        console.error("Email submission error:", error);
+        this.statusContainer.className = `p-4 rounded-lg border ${bgColor} ${textColor} ${borderColor} mb-6 transition-all duration-300`;
+        this.statusContainer.innerHTML = `
+            <div class="flex items-start">
+                <div class="flex-shrink-0 text-lg mr-3">${icon}</div>
+                <div class="flex-1">
+                    <p class="font-medium">${message}</p>
+                </div>
+            </div>
+        `;
 
-        // Check if it is a server configuration error
-        if (error.message && error.message.includes("configuration error")) {
-            showFormStatus("error", "Our email system is currently experiencing technical difficulties. Please try the WhatsApp option below or call us directly.");
-        } else {
-            // Fallback: Show message and redirect to WhatsApp
-            showFormStatus("warning", `Thank you ${formObject.name}! We have received your information but could not send a confirmation email. For immediate assistance, please use WhatsApp.`);
+        this.statusContainer.classList.remove('hidden');
+
+        // Scroll to status message
+        setTimeout(() => {
+            this.statusContainer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }, 100);
+
+        // Auto-hide success messages after 10 seconds
+        if (type === 'success') {
+            setTimeout(() => {
+                this.statusContainer.classList.add('hidden');
+            }, 10000);
         }
+    }
 
-        setTimeout(() => {
-            const whatsappMessage = createWhatsAppMessage(formObject);
-            const whatsappUrl = `https://wa.me/919603960337?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappUrl, "_blank");
-        }, 3000);
-
-        event.target.reset();
-    } finally {
-        // Reset button state
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-    }
-}
-
-// Validate form data
-function validateForm(formData) {
-    const { name, email, phone } = formData;
-    
-    // Check required fields
-    if (!name || !email || !phone) {
-        showFormStatus("error", "Please fill in all required fields (Name, Email, Phone).");
-        return false;
-    }
-    
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showFormStatus("error", "Please enter a valid email address.");
-        return false;
-    }
-    
-    // Validate phone number (basic validation for Indian numbers)
-    const phoneRegex = /^[\+]?[1-9][\d]{9,14}$/;
-    const cleanPhone = phone.replace(/\s|-/g, "");
-    if (!phoneRegex.test(cleanPhone)) {
-        showFormStatus("error", "Please enter a valid phone number.");
-        return false;
-    }
-    
-    return true;
-}
-
-// Create WhatsApp message from form data
-function createWhatsAppMessage(formData) {
-    const { name, email, phone, type, location, budget, message } = formData;
-    
-    let whatsappMessage = `Hi, I am ${name}. I am interested in interior design services.\n\n`;
-    whatsappMessage += ` Email: ${email}\n`;
-    whatsappMessage += ` Phone: ${phone}\n`;
-    
-    if (type) {
-        whatsappMessage += ` Property Type: ${type}\n`;
-    }
-    
-    if (location) {
-        whatsappMessage += ` Location: ${location}\n`;
-    }
-    
-    if (budget) {
-        whatsappMessage += ` Budget: ${budget}\n`;
-    }
-    
-    if (message) {
-        whatsappMessage += `\n Message: ${message}\n`;
-    }
-    
-    whatsappMessage += `\nPlease contact me for more details. Thank you!`;
-    
-    return whatsappMessage;
-}
-
-// Show form status messages
-function showFormStatus(type, message) {
-    const statusDiv = document.getElementById("form-status");
-    if (!statusDiv) return;
-    
-    // Set appropriate styling based on type
-    let bgColor, textColor, borderColor;
-    switch (type) {
-        case "success":
-            bgColor = "bg-green-50";
-            textColor = "text-green-800";
-            borderColor = "border-green-200";
-            break;
-        case "error":
-            bgColor = "bg-red-50";
-            textColor = "text-red-800";
-            borderColor = "border-red-200";
-            break;
-        case "warning":
-            bgColor = "bg-yellow-50";
-            textColor = "text-yellow-800";
-            borderColor = "border-yellow-200";
-            break;
-        default:
-            bgColor = "bg-blue-50";
-            textColor = "text-blue-800";
-            borderColor = "border-blue-200";
-    }
-    
-    // Update status element
-    statusDiv.className = `p-4 rounded-lg border ${bgColor} ${textColor} ${borderColor} mb-4 transition-all duration-300`;
-    statusDiv.innerHTML = `
-        <div class="flex items-start">
-            <div class="flex-shrink-0">
-                ${type === 'success' ? '✓' : type === 'error' ? '✕' : '!'}
+    addFallbackOptions() {
+        // Add fallback contact options to the status message
+        const fallbackHtml = `
+            <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h4 class="font-semibold text-blue-800 mb-3">Alternative Contact Methods:</h4>
+                <div class="space-y-2">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-blue-600">📞</span>
+                        <a href="tel:+919603960337" class="text-blue-700 hover:text-blue-900 font-medium">
+                            +91 9603 9603 37
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-green-600">💬</span>
+                        <a href="https://wa.me/919603960337?text=Hi%2C%20I%20would%20like%20to%20discuss%20interior%20design%20services."
+                           target="_blank"
+                           class="text-green-700 hover:text-green-900 font-medium">
+                            WhatsApp Us
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-gray-600">📧</span>
+                        <a href="mailto:aravind.bandaru@appleinteriors.in"
+                           class="text-gray-700 hover:text-gray-900 font-medium">
+                            aravind.bandaru@appleinteriors.in
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="ml-3">
-                <p class="text-sm font-medium">${message}</p>
-            </div>
-        </div>
-    `;
-    statusDiv.classList.remove("hidden");
-    
-    // Auto-hide after 8 seconds
-    const hideTimeout = setTimeout(() => {
-        statusDiv.classList.add("opacity-0");
-        setTimeout(() => {
-            statusDiv.classList.add("hidden");
-            statusDiv.classList.remove("opacity-0");
-        }, 300);
-    }, 8000);
-    
-    // Clear previous timeout if it exists
-    if (window.statusTimeout) {
-        clearTimeout(window.statusTimeout);
+        `;
+
+        // Append to status container
+        this.statusContainer.insertAdjacentHTML('beforeend', fallbackHtml);
     }
-    window.statusTimeout = hideTimeout;
-    
-    // Scroll to status message smoothly
-    setTimeout(() => {
-        statusDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }, 100);
 }
 
-// Alternative contact form handler (fallback without Resend API)
-function handleContactFormFallback(event) {
-    event.preventDefault();
+// Initialize the contact form when the script loads
+const contactForm = new ContactFormManager();
 
-    const formData = new FormData(event.target);
-    const formObject = Object.fromEntries(formData);
+// Export for global access
+window.contactForm = contactForm;
 
-    if (!validateForm(formObject)) {
-        return;
-    }
 
-    // Show success message
-    showFormStatus("success", `Thank you ${formObject.name}! We will contact you soon via WhatsApp or phone.`);
-
-    // Create WhatsApp message and open
-    setTimeout(() => {
-        const whatsappMessage = createWhatsAppMessage(formObject);
-        const whatsappUrl = `https://wa.me/919603960337?text=${encodeURIComponent(whatsappMessage)}`;
-        window.open(whatsappUrl, "_blank");
-    }, 2000);
-
-    // Reset form
-    event.target.reset();
-}
-
-// Utility function to check if Resend API is properly configured
-function isResendConfigured() {
-    // We do not check for API key here as it is now handled server-side
-    return true;
-}
-
-// Export functions for use in other scripts
-window.ContactForm = {
-    handleSubmission: handleContactFormSubmission,
-    handleFallback: handleContactFormFallback,
-    validateForm: validateForm,
-    showStatus: showFormStatus,
-    isConfigured: isResendConfigured
-};

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .result {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+        .success { background: #d4edda; }
+        .error { background: #f8d7da; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Apple Interiors API Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Test Simple API</h2>
+        <button onclick="testSimpleAPI()">Test /api/test</button>
+        <div id="simple-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Contact API</h2>
+        <button onclick="testContactAPI()">Test /api/contact</button>
+        <div id="contact-result" class="result"></div>
+    </div>
+
+    <script>
+        async function testSimpleAPI() {
+            const resultDiv = document.getElementById('simple-result');
+            resultDiv.textContent = 'Testing...';
+            resultDiv.className = 'result';
+            
+            try {
+                const response = await fetch('/api/test', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const result = await response.text();
+                resultDiv.textContent = `Status: ${response.status}\nResponse: ${result}`;
+                resultDiv.className = response.ok ? 'result success' : 'result error';
+                
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+        
+        async function testContactAPI() {
+            const resultDiv = document.getElementById('contact-result');
+            resultDiv.textContent = 'Testing...';
+            resultDiv.className = 'result';
+            
+            const testData = {
+                fullName: "Browser Test User",
+                emailAddress: "test@example.com",
+                phoneNumber: "+91 9876543210",
+                propertyType: "Apartment",
+                projectLocation: "Hyderabad",
+                budget: "₹5-10 Lakhs",
+                projectMessage: "This is a browser test message to verify that the API endpoint is working and the project message appears in both admin and customer emails."
+            };
+            
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const result = await response.text();
+                resultDiv.textContent = `Status: ${response.status}\nResponse: ${result}`;
+                resultDiv.className = response.ok ? 'result success' : 'result error';
+                
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html>
