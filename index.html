@@ -215,16 +215,16 @@
                     <a href="/" class="text-primary text-xl font-medium block py-4">Home</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/about.html" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">About</a>
+                    <a href="/about" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">About</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/services.html" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Services</a>
+                    <a href="/services" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Services</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/portfolio.html" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Portfolio</a>
+                    <a href="/portfolio" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Portfolio</a>
                 </div>
                 <div class="border-b border-gray-100 pb-3">
-                    <a href="/contact.html" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Contact</a>
+                    <a href="/contact" class="hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground">Contact</a>
                 </div>
             </div>
         </nav>
@@ -732,63 +732,149 @@
             <div class="mx-auto max-w-4xl">
                 <!-- Contact Form -->
                 <div class="fade-in">
-                    <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                        <div id="form-status" class="hidden p-4 rounded-lg"></div>
+                    <!-- Status Messages -->
+                    <div id="home-contact-status" class="hidden mb-6"></div>
 
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                                Full Name *
-                            </label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
+                    <!-- Contact Form -->
+                    <form id="homeContactForm" class="space-y-6" novalidate>
+                        <!-- Name and Email Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label for="homeFullName" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Full Name <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="homeFullName"
+                                    name="fullName"
+                                    required
+                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
+                                    placeholder="Enter your full name"
+                                >
+                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="homeEmailAddress" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Email Address <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="email"
+                                    id="homeEmailAddress"
+                                    name="emailAddress"
+                                    required
+                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
+                                    placeholder="Enter your email address"
+                                >
+                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+                            </div>
                         </div>
 
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                Email Address *
-                            </label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
+                        <!-- Phone and Property Type Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label for="homePhoneNumber" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Phone Number <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="tel"
+                                    id="homePhoneNumber"
+                                    name="phoneNumber"
+                                    required
+                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
+                                    placeholder="+91 9876543210"
+                                >
+                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="homePropertyType" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Property Type
+                                </label>
+                                <select
+                                    id="homePropertyType"
+                                    name="propertyType"
+                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
+                                >
+                                    <option value="">Select Property Type</option>
+                                    <option value="1BHK">1BHK Apartment</option>
+                                    <option value="2BHK">2BHK Apartment</option>
+                                    <option value="3BHK">3BHK Apartment</option>
+                                    <option value="4BHK">4BHK Apartment</option>
+                                    <option value="Villa">Villa/Independent House</option>
+                                    <option value="Office">Office Space</option>
+                                    <option value="Commercial">Commercial Space</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-                                Phone Number *
-                            </label>
-                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
+                        <!-- Location and Budget Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label for="homeProjectLocation" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Project Location
+                                </label>
+                                <input
+                                    type="text"
+                                    id="homeProjectLocation"
+                                    name="projectLocation"
+                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
+                                    placeholder="e.g., Kukatpally, Hyderabad"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="homeBudget" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Budget Range
+                                </label>
+                                <select
+                                    id="homeBudget"
+                                    name="budget"
+                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
+                                >
+                                    <option value="">Select Budget Range</option>
+                                    <option value="Under 5 Lakhs">Under ₹5 Lakhs</option>
+                                    <option value="5-10 Lakhs">₹5 - ₹10 Lakhs</option>
+                                    <option value="10-20 Lakhs">₹10 - ₹20 Lakhs</option>
+                                    <option value="20-50 Lakhs">₹20 - ₹50 Lakhs</option>
+                                    <option value="Above 50 Lakhs">Above ₹50 Lakhs</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div>
-                            <label for="type" class="block text-sm font-medium text-gray-700 mb-2">
-                                Property Type
+                        <!-- Message -->
+                        <div class="form-group">
+                            <label for="homeProjectMessage" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Project Details & Requirements
                             </label>
-                            <select id="type" name="type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
-                                <option value="">Select Property Type</option>
-                                <option value="2BHK">2BHK</option>
-                                <option value="3BHK">3BHK</option>
-                                <option value="4BHK">4BHK</option>
-                                <option value="Villa">Villa</option>
-                                <option value="Custom">Custom</option>
-                            </select>
+                            <textarea
+                                id="homeProjectMessage"
+                                name="projectMessage"
+                                rows="5"
+                                class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 resize-vertical"
+                                placeholder="Tell us about your project requirements, preferred style, timeline, or any specific needs..."
+                            ></textarea>
                         </div>
 
-                        <div>
-                            <label for="location" class="block text-sm font-medium text-gray-700 mb-2">
-                                Location
-                            </label>
-                            <input type="text" id="location" name="location" placeholder="e.g., Kukatpally, Hyderabad" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900">
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button
+                                type="submit"
+                                id="homeSubmitBtn"
+                                class="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span class="btn-text">Submit</span>
+                                <span class="btn-loading hidden">
+                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Sending...
+                                </span>
+                            </button>
                         </div>
-
-                        <div class="md:col-span-2">
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
-                                Message
-                            </label>
-                            <textarea id="message" name="message" rows="4" placeholder="Tell us about your project requirements..." class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-900 resize-vertical"></textarea>
-                        </div>
-
-                        <button type="submit" class="md:col-span-2 bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-                            Send Message
-                        </button>
                     </form>
-
                 </div>
             </div>
         </div>
