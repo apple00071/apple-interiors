@@ -227,14 +227,71 @@ body {
   -webkit-backdrop-filter: blur(12px);
 }
 
+/* Notification bar hover effects */
+.notification-bar {
+  transition: all 0.3s ease;
+  background-color: var(--primary);
+}
+
+.notification-bar:hover {
+  background-color: var(--primary-hover) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+/* Ensure notification bar is always visible and properly styled */
+#shared-navigation .notification-bar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 999 !important;
+}
+
+/* Ensure header is properly positioned */
+#shared-navigation #header {
+  position: fixed !important;
+  top: 2rem !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+}
+
+@media (min-width: 640px) {
+  #shared-navigation #header {
+    top: 3rem !important;
+  }
+}
+
+/* Ensure mobile menu is properly positioned */
+#shared-navigation #mobile-menu {
+  position: fixed !important;
+  top: 6rem !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 95 !important;
+}
+
+@media (min-width: 640px) {
+  #shared-navigation #mobile-menu {
+    top: 8.5rem !important;
+  }
+}
+
 /* Mobile menu animations */
 #mobile-menu {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #mobile-menu.open {
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 6rem);
   opacity: 1;
+}
+
+@media (min-width: 640px) {
+  #mobile-menu.open {
+    height: calc(100vh - 8.5rem);
+  }
 }
 
 #mobile-menu-btn.open span:nth-child(1) {
