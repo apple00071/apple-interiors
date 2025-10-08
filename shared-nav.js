@@ -142,14 +142,14 @@ class SharedNavigation {
     }
 
     getNavLinkClass(page) {
-        const baseClass = "text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2";
-        const activeClass = "text-primary font-medium text-sm relative group py-2";
+        const baseClass = "text-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group py-2 nav-link";
+        const activeClass = "text-primary font-medium text-sm relative group py-2 nav-link nav-link-active";
         return this.currentPage === page ? activeClass : baseClass;
     }
 
     getMobileNavLinkClass(page) {
-        const baseClass = "hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground";
-        const activeClass = "text-primary text-xl font-medium block py-4";
+        const baseClass = "hover:text-primary transition-colors duration-300 text-xl font-medium block py-4 text-foreground mobile-nav-link";
+        const activeClass = "text-primary text-xl font-medium block py-4 mobile-nav-link mobile-nav-link-active";
         return this.currentPage === page ? activeClass : baseClass;
     }
 
@@ -170,8 +170,10 @@ class SharedNavigation {
             // Insert at the beginning of body
             document.body.insertBefore(navContainer, document.body.firstChild);
             
-            // Initialize scrolling text immediately
-            this.initScrollingText();
+            // Initialize scrolling text with minimal delay to ensure DOM is rendered
+            setTimeout(() => {
+                this.initScrollingText();
+            }, 10);
 
             // Initialize mobile menu functionality with a small delay to ensure DOM is ready
             setTimeout(() => {
@@ -255,19 +257,29 @@ class SharedNavigation {
         if (scrollingText) {
             console.log('Scrolling text initialized'); // Debug log
 
-            // Adjust animation speed based on text length and screen width
+            // Force immediate animation start with optimized speed
+            // Use a much faster speed - minimum 8s for smooth but quick scrolling
             const textWidth = scrollingText.scrollWidth;
             const screenWidth = window.innerWidth;
-            const duration = Math.max(20, (textWidth + screenWidth) / 50); // Minimum 20s, adjust based on content
+            const duration = Math.max(8, (textWidth + screenWidth) / 150); // Minimum 8s, faster calculation
 
+            // Apply animation immediately
             scrollingText.style.animationDuration = `${duration}s`;
+            scrollingText.style.animationPlayState = 'running';
+            scrollingText.style.animationDelay = '0s';
 
-            // Handle window resize
+            console.log(`Animation duration set to: ${duration}s`); // Debug log
+
+            // Handle window resize with debouncing for performance
+            let resizeTimeout;
             window.addEventListener('resize', () => {
-                const newTextWidth = scrollingText.scrollWidth;
-                const newScreenWidth = window.innerWidth;
-                const newDuration = Math.max(20, (newTextWidth + newScreenWidth) / 50);
-                scrollingText.style.animationDuration = `${newDuration}s`;
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const newTextWidth = scrollingText.scrollWidth;
+                    const newScreenWidth = window.innerWidth;
+                    const newDuration = Math.max(8, (newTextWidth + newScreenWidth) / 150);
+                    scrollingText.style.animationDuration = `${newDuration}s`;
+                }, 100);
             });
         } else {
             console.error('Scrolling text element not found');

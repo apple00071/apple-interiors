@@ -221,6 +221,70 @@ body {
   background-color: var(--primary);
 }
 
+/* Navigation link specific hover effects */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link:not(.nav-link-active):hover {
+  color: var(--primary) !important;
+}
+
+.nav-link-active {
+  color: var(--primary) !important;
+}
+
+/* Prevent hover effects on active links */
+.nav-link-active:hover {
+  color: var(--primary) !important;
+}
+
+/* Fix for navigation hover state persistence */
+.nav-link:focus {
+  outline: none;
+}
+
+.nav-link:visited {
+  color: inherit;
+}
+
+/* Mobile navigation link specific styles */
+.mobile-nav-link {
+  transition: color 0.3s ease;
+}
+
+.mobile-nav-link:not(.mobile-nav-link-active):hover {
+  color: var(--primary) !important;
+}
+
+.mobile-nav-link-active {
+  color: var(--primary) !important;
+}
+
+.mobile-nav-link-active:hover {
+  color: var(--primary) !important;
+}
+
+.mobile-nav-link:focus {
+  outline: none;
+}
+
+.mobile-nav-link:visited {
+  color: inherit;
+}
+
+/* Reset hover states on page load */
+.nav-link, .mobile-nav-link {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure no hover effects persist after navigation */
+body:not(:hover) .nav-link:hover,
+body:not(:hover) .mobile-nav-link:hover {
+  color: inherit;
+}
+
 /* Header specific styles */
 #header {
   backdrop-filter: blur(12px);
@@ -272,21 +336,27 @@ body {
 .scrolling-text-container {
   width: 100%;
   position: relative;
+  overflow: hidden;
+  will-change: auto;
+  contain: layout style paint;
 }
 
 .scrolling-text {
   display: inline-block;
-  animation: scroll-left 30s linear infinite;
+  animation: scroll-left 8s linear infinite;
   animation-delay: 0s;
+  animation-play-state: running;
   line-height: 1.2;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 @keyframes scroll-left {
   0% {
-    transform: translateX(100%);
+    transform: translate3d(100%, 0, 0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
