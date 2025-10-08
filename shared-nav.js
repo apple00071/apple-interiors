@@ -18,23 +18,39 @@ class SharedNavigation {
     }
 
     createNotificationBar() {
-        return ``;
+        return `
+            <!-- Notification Bar -->
+            <div id="notification-bar" class="fixed top-0 left-0 right-0 z-[101] w-full bg-primary text-white overflow-hidden" style="height: var(--notification-height);">
+                <div class="scrolling-text-container flex items-center h-full">
+                    <div class="scrolling-text text-xs sm:text-sm lg:text-base font-medium whitespace-nowrap">
+                        🚀 We are launching the Apple Interiors NRI Connect Soon
+                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                        🚀 We are launching the Apple Interiors NRI Connect Soon
+                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                        🚀 We are launching the Apple Interiors NRI Connect Soon
+                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                        🚀 We are launching the Apple Interiors NRI Connect Soon
+                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     createHeader() {
         return `
             <!-- Header -->
-            <header id="header" class="fixed top-0 left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm w-full bg-white/95 backdrop-blur-[12px]">
-                <!-- Notification Message -->
-                <div class="bg-primary text-white text-center py-1 px-2 text-xs sm:text-sm font-medium cursor-pointer">
-                    <div class="container mx-auto">
-                        <span class="hidden sm:inline">🚀 We are launching the Apple Interiors NRI Connect</span>
-                        <span class="sm:hidden">🚀 NRI Connect Launch</span>
-                    </div>
-                </div>
-                
+            <header id="header" class="fixed left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm w-full bg-white/95 backdrop-blur-[12px]" style="top: var(--notification-height, 2.5rem); height: var(--header-height, 4rem);">
                 <!-- Main Navigation -->
-                <div class="container mx-auto flex items-center justify-between h-16 sm:h-20">
+                <div class="container mx-auto flex items-center justify-between h-full">
                     <!-- Logo -->
                     <div class="flex items-center z-[101]">
                         <a href="/" class="flex items-center">
@@ -88,10 +104,10 @@ class SharedNavigation {
                     </nav>
 
                     <!-- Mobile Menu Button -->
-                    <button id="mobile-menu-btn" class="md:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1 z-[101]">
-                        <span class="w-6 h-0.5 block bg-gray-800 transition-all duration-300"></span>
-                        <span class="w-6 h-0.5 block bg-gray-800 transition-all duration-300"></span>
-                        <span class="w-6 h-0.5 block bg-gray-800 transition-all duration-300"></span>
+                    <button id="mobile-menu-btn" class="md:hidden flex flex-col items-center justify-center w-12 h-12 p-3 space-y-1 z-[101] cursor-pointer touch-manipulation bg-transparent border-none" type="button" aria-label="Toggle mobile menu" style="min-width: 44px; min-height: 44px;">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                 </div>
             </header>
@@ -101,7 +117,7 @@ class SharedNavigation {
     createMobileMenu() {
         return `
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="fixed top-[5rem] sm:top-[6rem] left-0 right-0 bg-white backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-[95] h-0 opacity-0 transition-all duration-400">
+            <div id="mobile-menu" class="fixed left-0 right-0 bg-white backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-[95] h-0 opacity-0 transition-all duration-400" style="top: var(--total-header-height, 6.5rem);">
                 <nav class="container mx-auto py-6 px-4 overflow-y-auto h-full">
                     <div class="flex flex-col space-y-3">
                         <div class="border-b border-gray-100 pb-3">
@@ -154,8 +170,13 @@ class SharedNavigation {
             // Insert at the beginning of body
             document.body.insertBefore(navContainer, document.body.firstChild);
             
-            // Initialize mobile menu functionality
-            this.initMobileMenu();
+            // Initialize scrolling text immediately
+            this.initScrollingText();
+
+            // Initialize mobile menu functionality with a small delay to ensure DOM is ready
+            setTimeout(() => {
+                this.initMobileMenu();
+            }, 100);
             
         } catch (error) {
             console.error('Error initializing shared navigation:', error);
@@ -166,17 +187,43 @@ class SharedNavigation {
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
+        console.log('Attempting to initialize mobile menu...', { mobileMenuBtn, mobileMenu });
+
         if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
+            console.log('Mobile menu elements found, initializing...'); // Debug log
+
+            // Function to toggle menu
+            const toggleMenu = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 const isOpen = mobileMenu.classList.contains('open');
-                
+                console.log('Mobile menu button triggered, isOpen:', isOpen); // Debug log
+
                 if (isOpen) {
                     mobileMenu.classList.remove('open');
                     mobileMenuBtn.classList.remove('open');
+                    console.log('Closing mobile menu'); // Debug log
                 } else {
                     mobileMenu.classList.add('open');
                     mobileMenuBtn.classList.add('open');
+                    console.log('Opening mobile menu'); // Debug log
                 }
+            };
+
+            // Add multiple event types for better mobile compatibility
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+            mobileMenuBtn.addEventListener('touchstart', toggleMenu);
+
+            // Add visual feedback for touch
+            mobileMenuBtn.addEventListener('touchstart', () => {
+                mobileMenuBtn.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+            });
+
+            mobileMenuBtn.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    mobileMenuBtn.style.backgroundColor = '';
+                }, 150);
             });
 
             // Close mobile menu when clicking on a link
@@ -191,10 +238,39 @@ class SharedNavigation {
             // Close mobile menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    mobileMenu.classList.remove('open');
-                    mobileMenuBtn.classList.remove('open');
+                    if (mobileMenu.classList.contains('open')) {
+                        mobileMenu.classList.remove('open');
+                        mobileMenuBtn.classList.remove('open');
+                        console.log('Closing mobile menu (clicked outside)'); // Debug log
+                    }
                 }
             });
+        } else {
+            console.error('Mobile menu elements not found:', { mobileMenuBtn, mobileMenu }); // Debug log
+        }
+    }
+
+    initScrollingText() {
+        const scrollingText = document.querySelector('.scrolling-text');
+        if (scrollingText) {
+            console.log('Scrolling text initialized'); // Debug log
+
+            // Adjust animation speed based on text length and screen width
+            const textWidth = scrollingText.scrollWidth;
+            const screenWidth = window.innerWidth;
+            const duration = Math.max(20, (textWidth + screenWidth) / 50); // Minimum 20s, adjust based on content
+
+            scrollingText.style.animationDuration = `${duration}s`;
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const newTextWidth = scrollingText.scrollWidth;
+                const newScreenWidth = window.innerWidth;
+                const newDuration = Math.max(20, (newTextWidth + newScreenWidth) / 50);
+                scrollingText.style.animationDuration = `${newDuration}s`;
+            });
+        } else {
+            console.error('Scrolling text element not found');
         }
     }
 }

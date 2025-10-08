@@ -227,33 +227,157 @@ body {
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Integrated notification message styling */
-#shared-navigation #header .bg-primary {
-  background-color: var(--primary) !important;
-  color: white !important;
-  text-align: center !important;
-  padding: 0.25rem 0.5rem !important;
-  font-size: 0.75rem !important;
-  font-weight: 500 !important;
-  transition: all 0.3s ease !important;
-  cursor: pointer !important;
+/* Notification Bar Styling with responsive heights */
+:root {
+  --notification-height: 2rem;
+  --header-height: 4rem;
+  --total-header-height: calc(var(--notification-height) + var(--header-height));
 }
 
-#shared-navigation #header .bg-primary:hover {
-  background-color: var(--primary-hover) !important;
-}
-
+/* Tablet breakpoint */
 @media (min-width: 640px) {
-  #shared-navigation #header .bg-primary {
-    padding: 0.5rem 1rem !important;
-    font-size: 0.875rem !important;
+  :root {
+    --notification-height: 2.25rem;
+    --header-height: 5rem;
+    --total-header-height: calc(var(--notification-height) + var(--header-height));
   }
 }
 
-/* Ensure header is properly positioned at the top */
+/* Desktop breakpoint */
+@media (min-width: 768px) {
+  :root {
+    --notification-height: 2.25rem;
+    --header-height: 5rem;
+    --total-header-height: calc(var(--notification-height) + var(--header-height));
+  }
+}
+
+#notification-bar {
+  height: var(--notification-height);
+  background-color: var(--primary);
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+#notification-bar .group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--notification-height);
+}
+
+/* Scrolling notification text styling */
+.scrolling-text-container {
+  width: 100%;
+  position: relative;
+}
+
+.scrolling-text {
+  display: inline-block;
+  animation: scroll-left 30s linear infinite;
+  animation-delay: 0s;
+  line-height: 1.2;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause animation on hover for better UX */
+#notification-bar:hover .scrolling-text {
+  animation-play-state: paused;
+}
+
+/* Ensure smooth performance on mobile */
+@media (prefers-reduced-motion: reduce) {
+  .scrolling-text {
+    animation: none;
+    transform: none;
+  }
+
+  #notification-bar {
+    text-align: center;
+  }
+
+  .scrolling-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
+
+/* Focus states for accessibility */
+#notification-bar .group:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+#notification-bar .group:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 1px var(--primary-dark);
+}
+
+/* Responsive adjustments for notification bar */
+@media (max-width: 640px) {
+  #notification-bar .group {
+    padding: 0.375rem 1rem;
+    min-height: 44px; /* Ensure touch target size */
+  }
+}
+
+/* Tablet-specific adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  #notification-bar .group {
+    padding: 0.5rem 1.5rem;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1025px) {
+  #notification-bar .group {
+    padding: 0.625rem 2rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  #notification-bar {
+    border-bottom: 2px solid white;
+  }
+
+  #notification-bar .group:hover {
+    background-color: var(--primary-dark);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  #notification-bar .group,
+  #notification-bar .group::before,
+  #notification-bar .group::after,
+  #notification-bar * {
+    transition: none;
+    animation: none;
+  }
+
+  #notification-bar .group:hover {
+    transform: none;
+  }
+}
+
+/* Header positioning below notification bar */
 #shared-navigation #header {
   position: fixed !important;
-  top: 0 !important;
+  top: var(--notification-height) !important;
   left: 0 !important;
   right: 0 !important;
   z-index: 100 !important;
@@ -264,19 +388,13 @@ body {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
 }
 
-/* Ensure mobile menu is properly positioned below the integrated header */
+/* Mobile menu positioning below both notification and header */
 #shared-navigation #mobile-menu {
   position: fixed !important;
-  top: 5rem !important;
+  top: var(--total-header-height) !important;
   left: 0 !important;
   right: 0 !important;
   z-index: 95 !important;
-}
-
-@media (min-width: 640px) {
-  #shared-navigation #mobile-menu {
-    top: 6rem !important;
-  }
 }
 
 /* Mobile menu animations */
@@ -285,36 +403,31 @@ body {
 }
 
 #mobile-menu.open {
-  height: calc(100vh - 5rem);
+  height: calc(100vh - var(--total-header-height));
   opacity: 1;
 }
 
-@media (min-width: 640px) {
-  #mobile-menu.open {
-    height: calc(100vh - 6rem);
-  }
-}
-
-/* Adjust main content padding for integrated header */
+/* Adjust main content padding for notification bar + header */
 main {
-  padding-top: 5rem !important;
+  padding-top: var(--total-header-height) !important;
   margin-top: 0 !important;
-}
-
-@media (min-width: 640px) {
-  main {
-    padding-top: 6rem !important;
-  }
 }
 
 /* Override any existing padding on main elements */
 body main {
-  padding-top: 5rem !important;
+  padding-top: var(--total-header-height) !important;
 }
 
-@media (min-width: 640px) {
-  body main {
-    padding-top: 6rem !important;
+/* Ensure proper spacing on very small screens */
+@media (max-width: 480px) {
+  :root {
+    --notification-height: 2.25rem;
+    --header-height: 3.5rem;
+    --total-header-height: calc(var(--notification-height) + var(--header-height));
+  }
+
+  main, body main {
+    padding-top: var(--total-header-height) !important;
   }
 }
 
@@ -327,6 +440,55 @@ body main {
   .hero-content {
     padding-top: 5rem !important;
   }
+}
+
+/* Mobile menu button styles */
+#mobile-menu-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Hide mobile menu button on desktop screens (768px and above) */
+@media (min-width: 768px) {
+  #mobile-menu-btn {
+    display: none !important;
+  }
+}
+
+#mobile-menu-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
+}
+
+#mobile-menu-btn:active {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
+}
+
+#mobile-menu-btn:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Ensure hamburger lines are properly styled */
+#mobile-menu-btn span {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background-color: #1f2937;
+  transition: all 0.3s ease;
+  border-radius: 1px;
 }
 
 #mobile-menu-btn.open span:nth-child(1) {
@@ -344,6 +506,35 @@ body main {
 /* Hero section specific styles */
 .hero-bg-text {
   font-size: 15vw;
+}
+
+/* Responsive hero section heights */
+#home {
+  /* Mobile: 50-60vh */
+  min-height: 55vh !important;
+  height: 55vh;
+}
+
+/* Tablet: 60-70vh */
+@media (min-width: 640px) {
+  #home {
+    min-height: 65vh !important;
+    height: 65vh;
+  }
+}
+
+/* Desktop: 80-90vh */
+@media (min-width: 1024px) {
+  #home {
+    min-height: 85vh !important;
+    height: 85vh;
+  }
+}
+
+/* Ensure image covers properly without distortion */
+#home img {
+  object-fit: cover !important;
+  object-position: center;
 }
 
 @media (min-width: 640px) {

@@ -288,25 +288,38 @@ function initializeAnimations() {
     });
 }
 
-// Header scroll effect
+// Header and notification bar scroll effect
 function initializeHeaderScroll() {
     const header = document.getElementById("header");
+    const notificationBar = document.getElementById("notification-bar");
     let lastScrollY = window.scrollY;
     let isHidden = false;
 
-    const showHeader = () => {
-        if (!header) return;
-        header.style.transform = "translateY(0)";
-        header.style.background = "rgba(255, 255, 255, 0.95)";
-        header.style.backdropFilter = "blur(12px)";
-        header.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
+    const showBars = () => {
+        if (header) {
+            header.style.transform = "translateY(0)";
+            header.style.background = "rgba(255, 255, 255, 0.95)";
+            header.style.backdropFilter = "blur(12px)";
+            header.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
+        }
+        if (notificationBar) {
+            notificationBar.style.transform = "translateY(0)";
+        }
         isHidden = false;
     };
 
-    const hideHeader = () => {
-        if (!header) return;
-        header.style.transform = "translateY(-100%)";
-        header.style.boxShadow = "none";
+    const hideBars = () => {
+        if (notificationBar) {
+            notificationBar.style.transform = "translateY(-100%)";
+        }
+        if (header) {
+            // Move header up by both notification bar height + its own height
+            const notificationHeight = notificationBar ? notificationBar.offsetHeight : 0;
+            const headerHeight = header.offsetHeight;
+            const totalTranslate = -(notificationHeight + headerHeight);
+            header.style.transform = `translateY(${totalTranslate}px)`;
+            header.style.boxShadow = "none";
+        }
         isHidden = true;
     };
 
@@ -314,17 +327,20 @@ function initializeHeaderScroll() {
     if (header) {
         header.style.transition = "transform 0.3s ease, background 0.2s ease, box-shadow 0.2s ease";
     }
+    if (notificationBar) {
+        notificationBar.style.transition = "transform 0.3s ease";
+    }
 
     window.addEventListener("scroll", function() {
         const currentY = window.scrollY;
         const scrollingDown = currentY > lastScrollY;
 
         if (currentY < 10) {
-            showHeader();
+            showBars();
         } else if (scrollingDown && !isHidden) {
-            hideHeader();
+            hideBars();
         } else if (!scrollingDown && isHidden) {
-            showHeader();
+            showBars();
         }
 
         lastScrollY = currentY;
