@@ -18,22 +18,23 @@ class SharedNavigation {
     }
 
     createNotificationBar() {
-        return `
-            <!-- Notification Bar -->
-            <div class="notification-bar fixed top-0 left-0 right-0 z-[999] bg-primary text-white text-center py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-sm font-medium shadow-md cursor-pointer">
-                <div class="container mx-auto">
-                    <span class="hidden sm:inline">🚀 We are launching the Apple Interiors NRI Connect</span>
-                    <span class="sm:hidden">🚀 Apple Interiors NRI Connect</span>
-                </div>
-            </div>
-        `;
+        return ``;
     }
 
     createHeader() {
         return `
             <!-- Header -->
-            <header id="header" class="fixed top-8 sm:top-12 left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm w-full bg-white/95 backdrop-blur-[12px] h-16 sm:h-20">
-                <div class="container mx-auto flex items-center justify-between h-full">
+            <header id="header" class="fixed top-0 left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm w-full bg-white/95 backdrop-blur-[12px]">
+                <!-- Notification Message -->
+                <div class="bg-primary text-white text-center py-1 px-2 text-xs sm:text-sm font-medium cursor-pointer">
+                    <div class="container mx-auto">
+                        <span class="hidden sm:inline">🚀 We are launching the Apple Interiors NRI Connect</span>
+                        <span class="sm:hidden">🚀 NRI Connect Launch</span>
+                    </div>
+                </div>
+                
+                <!-- Main Navigation -->
+                <div class="container mx-auto flex items-center justify-between h-16 sm:h-20">
                     <!-- Logo -->
                     <div class="flex items-center z-[101]">
                         <a href="/" class="flex items-center">
@@ -100,7 +101,7 @@ class SharedNavigation {
     createMobileMenu() {
         return `
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="fixed top-[6rem] sm:top-[8.5rem] left-0 right-0 bg-white backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-[95] h-0 opacity-0 transition-all duration-400">
+            <div id="mobile-menu" class="fixed top-[5rem] sm:top-[6rem] left-0 right-0 bg-white backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-[95] h-0 opacity-0 transition-all duration-400">
                 <nav class="container mx-auto py-6 px-4 overflow-y-auto h-full">
                     <div class="flex flex-col space-y-3">
                         <div class="border-b border-gray-100 pb-3">
