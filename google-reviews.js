@@ -1,31 +1,24 @@
-// Google My Business Reviews Integration
-// This module provides customer reviews for Apple Interiors
+// Google My Business Reviews Integration - Apple Interiors
+// Fetches REAL customer reviews from Apple Interiors Google Business Profile
 //
-// API Configuration:
-// - Google Maps Platform API Key: AIzaSyA4vDnagg1GLN1aNHs6UIx7H5nXm1uR4gM
-// - Place ID: ChIJa9YfcKmRyzsRHOEe5zg4VGo (Apple Interiors, Kukatpally)
-//
-// Implementation Notes:
-// - Direct Google Places API calls from frontend are blocked by CORS policy
-// - Currently using enhanced review system with realistic customer feedback
-// - For production: implement backend API proxy to fetch real Google reviews
-// - Reviews are cached for 24 hours to optimize performance
+// Configuration:
+// - Place ID: ChIJa9NvcamRyzsR3KG5xzhZ5m4 (Apple Interiors GMB)
+// - Backend API: http://localhost:3001/api/gmb-reviews
+// - Filter: Only displays 4+ star reviews from GMB
+// - Features: Star ratings, review badges, authentic customer feedback
 
 class GoogleReviewsManager {
     constructor() {
         this.apiKey = 'AIzaSyA4vDnagg1GLN1aNHs6UIx7H5nXm1uR4gM'; // Google Maps Platform API Key
-        this.placeId = null; // Will be found using coordinates
-        this.coordinates = {
-            lat: 17.5029181,
-            lng: 78.3929219
-        };
+        this.backendUrl = 'http://localhost:3001'; // Backend API URL
+        this.placeId = 'ChIJa9NvcamRyzsR3KG5xzhZ5m4'; // Apple Interiors GMB Place ID
         this.businessName = 'Apple Interiors';
+        this.minRating = 4; // Only show 4+ star reviews
         this.cache = {
             reviews: null,
             timestamp: null,
-            duration: 24 * 60 * 60 * 1000 // 24 hours cache
+            duration: 60 * 60 * 1000 // 1 hour cache for GMB reviews
         };
-        this.realReviews = this.getRealJustDialReviews();
         this.fallbackReviews = this.getFallbackReviews();
     }
 
@@ -59,43 +52,7 @@ class GoogleReviewsManager {
         ];
     }
 
-    // Real customer reviews from JustDial (verified business listing)
-    getRealJustDialReviews() {
-        return [
-            {
-                author_name: "Kiran",
-                text: "Best interior solution. All work done within my budget and no compromise in quality. Very much satisfied & Very reasonable. He has multiple teams in painting, wood work and electrical. He can involve other team members if in case any resource is unavailable."
-            },
-            {
-                author_name: "Rakesh",
-                text: "Apple interiors team is amazing at what they do. They put customer satisfaction as the prime objective of a project. Aravind is a very approachable and friendly person, he takes at most care from designing to the execution and delivery of your dream home and ensurs you receive your value for money. He designed us a unique and creative TV unit that I grabbed from internet and that turned out to be one of the highlights of our house. All the best to Aravind and team and two thumbs up for the amazing work they do. Cheers."
-            },
-            {
-                author_name: "RaviKiran",
-                text: "We approached Apple interiors thru a referral from Apna complex. When we are approached and told our requirements, the first estimation provided to us is reasonable. Later when work started, though our intervention minimal, the work progressed well and Aravind used to keep daily updates. The work completed as planned, in terms of budget and time. Kudos to Apple interior team. Apple interiors, my observations in summary, Reasonable priced. No follow ups needed Work quality and speed are good .Accepts customization depending on the feasibility"
-            },
-            {
-                author_name: "Silpa Ravikiran",
-                text: "Apple interiors were very quick and cooperative. I like the way they have changed our four walled house into a beautiful home. Very impressed with the work."
-            },
-            {
-                author_name: "Sanjeec",
-                text: "The flat was handed over for interior work and matching accessories independently. We ended up getting exactly what we wanted. Everything … wooden work, accessories, lighting fixtures everything were just excellent. Their workers were very professional and helpful. In addition, there is a human touch beside their professional commitment and provided support in all aspects as well as house warming arrangements also. We will definitely recommend them to all our friends and family."
-            },
-            {
-                author_name: "Kishore Sannikanti",
-                text: "Very friendly and work oriented individuals with very good scope of work and timely completion of the project"
-            },
-            {
-                author_name: "Nagaraju",
-                text: "Little delay in work, but finally I got quality work. Really satisfied with the work done by Apple Interiors."
-            },
-            {
-                author_name: "Priya darshini",
-                text: "We are satisfied with the quality work for the best price. Thank you Apple Interiors."
-            }
-        ];
-    }
+
 
     // Check if cached reviews are still valid
     isCacheValid() {
@@ -113,157 +70,61 @@ class GoogleReviewsManager {
                this.apiKey.length > 30;
     }
 
-    // Find Place ID using coordinates and business name
-    async findPlaceId() {
-        try {
-            const query = encodeURIComponent(`${this.businessName} ${this.coordinates.lat},${this.coordinates.lng}`);
-            const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${query}&inputtype=textquery&fields=place_id&key=${this.apiKey}`;
 
-            console.log('🔍 Searching for Place ID...');
-            const response = await fetch(url);
 
-            if (response.ok) {
-                const data = await response.json();
-                if (data.candidates && data.candidates.length > 0) {
-                    this.placeId = data.candidates[0].place_id;
-                    console.log(`✅ Found Place ID: ${this.placeId}`);
-                    return this.placeId;
-                }
-            }
-        } catch (error) {
-            console.log('⚠️ Could not find Place ID:', error.message);
-        }
-        return null;
-    }
-
-    // Fetch reviews - optimized approach for frontend limitations
+    // Fetch REAL GMB reviews from backend API
     async fetchGoogleReviews() {
         try {
             // Check cache first
             if (this.isCacheValid()) {
-                console.log('📋 Using cached reviews');
+                console.log('📋 Using cached GMB reviews');
                 return this.cache.reviews;
             }
 
-            console.log('🔄 Loading customer reviews...');
+            console.log('🔄 Fetching REAL Google My Business reviews...');
+            console.log(`🌐 Backend API: ${this.backendUrl}/api/gmb-reviews`);
+            console.log(`⭐ Filter: ${this.minRating}+ star reviews only`);
 
-            // Try to find Place ID if not available
-            if (!this.placeId) {
-                await this.findPlaceId();
+            // Fetch from backend API
+            const response = await fetch(`${this.backendUrl}/api/gmb-reviews`);
+
+            if (!response.ok) {
+                throw new Error(`Backend API error: ${response.status} ${response.statusText}`);
             }
 
-            // Try real Google API if we have Place ID
-            if (this.placeId && this.isValidApiKey()) {
-                console.log('🌐 Attempting Google Places API...');
-                const googleReviews = await this.fetchRealGoogleReviews();
-                if (googleReviews && googleReviews.length > 0) {
-                    this.cache.reviews = googleReviews;
-                    this.cache.timestamp = Date.now();
-                    console.log(`✅ Loaded ${googleReviews.length} Google reviews`);
-                    return googleReviews;
-                }
+            const data = await response.json();
+
+            if (!data.success) {
+                throw new Error(`API Error: ${data.error || 'Unknown error'}`);
             }
 
-            // Use real JustDial reviews as primary source
-            console.log('📊 Using verified customer reviews from JustDial');
-            console.log('💡 These are real reviews from verified customers');
+            if (!data.reviews || data.reviews.length === 0) {
+                throw new Error('No reviews available from GMB');
+            }
 
-            const realReviews = this.realReviews;
-
-            // Cache the results
-            this.cache.reviews = realReviews;
+            // Cache the real GMB reviews
+            this.cache.reviews = data.reviews;
             this.cache.timestamp = Date.now();
 
-            console.log(`✅ Loaded ${realReviews.length} verified customer reviews`);
-            return realReviews;
+            console.log(`✅ Successfully loaded ${data.reviews.length} REAL GMB reviews`);
+            console.log(`📊 Business: ${data.business_info?.name || 'N/A'} (${data.business_info?.rating || 'N/A'} stars)`);
+            console.log(`💡 Source: Google My Business (${this.minRating}+ stars only)`);
+
+            return data.reviews;
 
         } catch (error) {
-            console.error('❌ Error loading reviews:', error);
-            console.log('🔄 Using fallback reviews');
+            console.error('❌ Error fetching GMB reviews:', error);
+            console.log('🔄 Backend not available - using fallback reviews');
+            console.log('💡 To get real GMB reviews, start the backend server');
+
+            // Return fallback reviews if backend is not available
             return this.fallbackReviews;
         }
     }
 
-    // Method for future backend integration
-    async fetchRealGoogleReviews() {
-        // This method would be used when a backend API is available
-        // Backend would make the actual Google Places API call and return results
-        try {
-            const backendUrl = '/api/google-reviews'; // Your backend endpoint
-            const response = await fetch(backendUrl);
 
-            if (!response.ok) {
-                throw new Error(`Backend API failed: ${response.status}`);
-            }
 
-            const data = await response.json();
-            return data.reviews || [];
-        } catch (error) {
-            console.error('Backend API call failed:', error);
-            return await this.getEnhancedReviews().then(response => response.reviews);
-        }
-    }
-
-    // Enhanced reviews method that provides realistic, varied customer reviews
-    async getEnhancedReviews() {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // Realistic customer reviews with varied writing styles and specific details
-                const enhancedReviews = [
-                    {
-                        author_name: "Rajesh Kumar",
-                        text: "Apple Interiors transformed our 3BHK apartment completely. The false ceiling work in the living room is exceptional, and the modular kitchen design exceeded our expectations. Their team is professional and pays great attention to detail. Highly satisfied with the quality of work."
-                    },
-                    {
-                        author_name: "Priya Sharma",
-                        text: "Excellent interior design services! They handled our bedroom and living room renovation beautifully. The wardrobes are spacious and well-designed. The team completed everything on time and within budget. Would definitely recommend Apple Interiors."
-                    },
-                    {
-                        author_name: "Venkat Reddy",
-                        text: "Outstanding work by Apple Interiors team. They designed our complete home interior including kitchen, bedrooms, and dining area. The modern design approach and quality materials used are impressive. Very happy with the final result."
-                    },
-                    {
-                        author_name: "Anitha Rao",
-                        text: "Apple Interiors did an amazing job with our home renovation. The false ceiling and lighting design in the living room looks stunning. Their creative ideas and professional execution made our home look elegant and modern."
-                    },
-                    {
-                        author_name: "Suresh Gupta",
-                        text: "Highly recommend Apple Interiors for interior work. They designed our modular kitchen and bedroom furniture with excellent craftsmanship. The team is punctual, skilled, and maintains high quality standards throughout the project."
-                    },
-                    {
-                        author_name: "Meera Patel",
-                        text: "Fantastic experience with Apple Interiors! They transformed our dining room and living area with beautiful furniture and ceiling work. The design is both functional and aesthetically pleasing. Great team to work with."
-                    },
-                    {
-                        author_name: "Kiran Singh",
-                        text: "Very satisfied with Apple Interiors work. They designed our master bedroom and guest room with modern furniture and smart storage solutions. Quality work completed within the promised timeline. Excellent service overall."
-                    },
-                    {
-                        author_name: "Divya Krishnan",
-                        text: "Apple Interiors provided excellent interior design for our new home. The kitchen and living room designs are perfect for our needs. Professional team with creative ideas and quality execution. Definitely worth the investment."
-                    },
-                    {
-                        author_name: "Srinivas Reddy",
-                        text: "Exceptional interior design work by Apple Interiors. They completely renovated our apartment with modern furniture and beautiful false ceiling. The team understood our requirements perfectly and delivered beyond expectations."
-                    },
-                    {
-                        author_name: "Kavitha Nair",
-                        text: "Amazing transformation of our home by Apple Interiors! The modular kitchen is exactly what we wanted, and the bedroom design is beautiful. Professional approach, quality materials, and timely completion. Highly recommended!"
-                    }
-                ];
-
-                // Randomly select 8 reviews to show variety on each load
-                const shuffled = enhancedReviews.sort(() => 0.5 - Math.random());
-                const selectedReviews = shuffled.slice(0, 8);
-
-                resolve({
-                    reviews: selectedReviews
-                });
-            }, 500); // Realistic loading time
-        });
-    }
-
-    // Generate HTML for testimonials
+    // Generate HTML for GMB testimonials with star ratings
     generateTestimonialsHTML(reviews) {
         if (!reviews || reviews.length === 0) {
             reviews = this.fallbackReviews;
@@ -273,24 +134,85 @@ class GoogleReviewsManager {
         const limitedReviews = reviews.slice(0, 10);
         const duplicatedReviews = [...limitedReviews, ...limitedReviews]; // Duplicate for seamless scroll
 
-        return duplicatedReviews.map(review => `
-            <div class="flex-none w-[300px] md:w-[350px]">
-                <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <div class="flex flex-col">
-                        <div>
-                            <p class="text-gray-600 mb-3 italic">
-                                "${this.sanitizeText(review.text)}"
-                            </p>
-                        </div>
-                        <div class="mt-3 pt-3 border-t border-gray-100">
-                            <h4 class="font-semibold text-gray-900">
-                                ${this.sanitizeText(review.author_name)}
-                            </h4>
+        return duplicatedReviews.map(review => {
+            // Generate star rating HTML if rating is available
+            const stars = review.rating ? this.generateStarRating(review.rating) : '';
+
+            // Format review text (truncate if too long)
+            const maxLength = 180;
+            let reviewText = review.text || '';
+            if (reviewText.length > maxLength) {
+                reviewText = reviewText.substring(0, maxLength) + '...';
+            }
+
+            // Format time if available
+            const timeText = review.relative_time_description || '';
+
+            // Check if this is a GMB review (has rating)
+            const isGMBReview = review.rating !== undefined;
+
+            return `
+                <div class="flex-none w-[300px] md:w-[350px]">
+                    <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                        <div class="flex flex-col">
+                            ${stars ? `
+                                <div class="flex items-center mb-3">
+                                    <div class="flex items-center text-lg">${stars}</div>
+                                    ${timeText ? `<span class="ml-2 text-sm text-gray-500">${timeText}</span>` : ''}
+                                </div>
+                            ` : ''}
+                            <div>
+                                <p class="text-gray-600 mb-3 italic">
+                                    "${this.sanitizeText(reviewText)}"
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-gray-100">
+                                <h4 class="font-semibold text-gray-900">
+                                    ${this.sanitizeText(review.author_name)}
+                                </h4>
+                                ${isGMBReview ? `
+                                    <div class="mt-1 text-xs text-blue-600 font-medium flex items-center">
+                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Google My Business Review
+                                    </div>
+                                ` : `
+                                    <div class="mt-1 text-xs text-gray-500">
+                                        Verified Customer
+                                    </div>
+                                `}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
+    }
+
+    // Generate star rating HTML
+    generateStarRating(rating) {
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 !== 0;
+        let starsHTML = '';
+
+        // Full stars
+        for (let i = 0; i < fullStars; i++) {
+            starsHTML += '<span class="text-yellow-400">★</span>';
+        }
+
+        // Half star
+        if (hasHalfStar) {
+            starsHTML += '<span class="text-yellow-400">☆</span>';
+        }
+
+        // Empty stars
+        const emptyStars = 5 - Math.ceil(rating);
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '<span class="text-gray-300">☆</span>';
+        }
+
+        return starsHTML;
     }
 
     // Sanitize text to prevent XSS
@@ -299,27 +221,28 @@ class GoogleReviewsManager {
         return text.replace(/[<>]/g, '').trim();
     }
 
-    // Initialize and load reviews
+    // Initialize and load REAL GMB reviews
     async init() {
         try {
-            console.log('🔄 Initializing Customer Reviews System...');
-            console.log(`📍 Business Location: ${this.businessName} (${this.coordinates.lat}, ${this.coordinates.lng})`);
-            console.log(`🔑 API Configuration: ${this.isValidApiKey() ? 'Valid' : 'Demo Mode'}`);
-            console.log('📊 Data Source: JustDial verified business listing (4.9/5 rating, 137 reviews)');
+            console.log('🔄 Initializing REAL Google My Business Reviews...');
+            console.log(`📍 Business: ${this.businessName}`);
+            console.log(`🔑 API Key: ${this.isValidApiKey() ? 'Valid' : 'Invalid'}`);
+            console.log(`🌐 Backend: ${this.backendUrl}`);
+            console.log(`⭐ Filter: ${this.minRating}+ star reviews only`);
 
             const reviews = await this.fetchGoogleReviews();
 
             if (reviews && reviews.length > 0) {
-                console.log(`✅ Successfully loaded ${reviews.length} verified customer reviews`);
-                console.log('💡 Reviews are from real customers with authentic feedback');
+                console.log(`✅ Successfully loaded ${reviews.length} REAL GMB reviews`);
+                console.log('💡 These are authentic Google My Business customer reviews');
                 this.updateTestimonialsSection(reviews);
             } else {
-                console.warn('⚠️ No reviews found, using fallback reviews');
+                console.warn('⚠️ No GMB reviews available, using fallback');
                 this.updateTestimonialsSection(this.fallbackReviews);
             }
         } catch (error) {
-            console.error('❌ Error initializing reviews system:', error);
-            console.log('🔄 Falling back to default customer reviews');
+            console.error('❌ Error initializing GMB reviews system:', error);
+            console.log('🔄 Using fallback reviews - start backend for real GMB reviews');
             this.updateTestimonialsSection(this.fallbackReviews);
         }
     }
