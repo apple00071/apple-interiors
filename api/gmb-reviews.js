@@ -1,23 +1,32 @@
 // Vercel Serverless Function - GMB Reviews
 // This runs on Vercel's free tier without requiring a separate backend server
 
-export default async function handler(req, res) {
-    // Enable CORS for frontend access
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
-    }
-
-    if (req.method !== 'GET') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
-
+module.exports = async function handler(req, res) {
     try {
-        console.log('🔄 Fetching GMB reviews via serverless function...');
+        // Enable CORS for frontend access
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+        // Handle preflight requests
+        if (req.method === 'OPTIONS') {
+            res.status(200).end();
+            return;
+        }
+
+        // Only allow GET requests
+        if (req.method !== 'GET') {
+            return res.status(405).json({
+                success: false,
+                error: 'Method not allowed',
+                method: req.method
+            });
+        }
+
+        console.log('🔄 Serverless function started - Fetching GMB reviews...');
+        console.log('📍 Environment:', process.env.NODE_ENV || 'development');
+        console.log('🌐 Request URL:', req.url);
+        console.log('📱 User Agent:', req.headers['user-agent'] || 'Unknown');
         
         // Configuration
         const CONFIG = {
@@ -127,12 +136,25 @@ export default async function handler(req, res) {
         });
 
     } catch (error) {
-        console.error('❌ Error in serverless function:', error);
-        
-        res.status(500).json({
-            success: false,
-            error: 'Failed to fetch reviews',
-            message: error.message
+        console.error('❌ Critical error in serverless function:', error);
+        console.error('📊 Error details:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
         });
+
+        // Return error response
+        try {
+            res.status(500).json({
+                success: false,
+                error: 'Serverless function error',
+                message: error.message,
+                timestamp: new Date().toISOString(),
+                environment: process.env.NODE_ENV || 'unknown'
+            });
+        } catch (responseError) {
+            console.error('❌ Failed to send error response:', responseError);
+            res.status(500).end('Internal Server Error');
+        }
     }
-}
+};

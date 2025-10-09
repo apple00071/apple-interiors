@@ -99,6 +99,7 @@ temp/
 .local
 dev-server.js
 test-*.html
+debug-*.html
 
 # Backup files
 *.bak
