@@ -4,8 +4,8 @@
 // Configuration:
 // - Place ID: ChIJa9NvcamRyzsR3KG5xzhZ5m4 (Apple Interiors GMB)
 // - Backend API: http://localhost:3001/api/gmb-reviews
-// - Filter: Only displays 4+ star reviews from GMB
-// - Features: Star ratings, review badges, authentic customer feedback
+// - Filter: Displays customer reviews from GMB
+// - Features: Clean testimonials with customer names and review text
 
 class GoogleReviewsManager {
     constructor() {
@@ -13,9 +13,9 @@ class GoogleReviewsManager {
         this.businessName = 'Apple Interiors';
         this.minRating = 4; // Only show 4+ star reviews
 
-        // Detect environment - production vs development
+        // Always use serverless function approach (works in both dev and production)
         this.isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-        this.apiUrl = this.isProduction ? '/api/gmb-reviews' : 'http://localhost:3001/api/gmb-reviews';
+        this.apiUrl = '/api/gmb-reviews'; // Always use serverless function
 
         console.log(`🌐 Environment: ${this.isProduction ? 'Production' : 'Development'}`);
         console.log(`🔗 API URL: ${this.apiUrl}`);
@@ -89,7 +89,7 @@ class GoogleReviewsManager {
 
             console.log('🔄 Fetching REAL Google My Business reviews...');
             console.log(`🌐 API URL: ${this.apiUrl}`);
-            console.log(`⭐ Filter: ${this.minRating}+ star reviews only`);
+            console.log(`📝 Loading customer testimonials`);
 
             // Fetch from API (serverless function in production, backend in development)
             const response = await fetch(this.apiUrl);
@@ -113,8 +113,8 @@ class GoogleReviewsManager {
             this.cache.timestamp = Date.now();
 
             console.log(`✅ Successfully loaded ${data.reviews.length} REAL GMB reviews`);
-            console.log(`📊 Business: ${data.business_info?.name || 'N/A'} (${data.business_info?.rating || 'N/A'} stars)`);
-            console.log(`💡 Source: Google My Business (${this.minRating}+ stars only)`);
+            console.log(`📊 Business: ${data.business_info?.name || 'N/A'}`);
+            console.log(`💡 Source: Google My Business customer reviews`);
 
             return data.reviews;
 
@@ -130,7 +130,7 @@ class GoogleReviewsManager {
 
 
 
-    // Generate HTML for GMB testimonials with star ratings
+    // Generate HTML for clean testimonials (name and text only)
     generateTestimonialsHTML(reviews) {
         if (!reviews || reviews.length === 0) {
             reviews = this.fallbackReviews;
@@ -141,9 +141,6 @@ class GoogleReviewsManager {
         const duplicatedReviews = [...limitedReviews, ...limitedReviews]; // Duplicate for seamless scroll
 
         return duplicatedReviews.map(review => {
-            // Generate star rating HTML if rating is available
-            const stars = review.rating ? this.generateStarRating(review.rating) : '';
-
             // Format review text (truncate if too long)
             const maxLength = 180;
             let reviewText = review.text || '';
@@ -151,43 +148,19 @@ class GoogleReviewsManager {
                 reviewText = reviewText.substring(0, maxLength) + '...';
             }
 
-            // Format time if available
-            const timeText = review.relative_time_description || '';
-
-            // Check if this is a GMB review (has rating)
-            const isGMBReview = review.rating !== undefined;
-
             return `
                 <div class="flex-none w-[300px] md:w-[350px]">
                     <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                         <div class="flex flex-col">
-                            ${stars ? `
-                                <div class="flex items-center mb-3">
-                                    <div class="flex items-center text-lg">${stars}</div>
-                                    ${timeText ? `<span class="ml-2 text-sm text-gray-500">${timeText}</span>` : ''}
-                                </div>
-                            ` : ''}
                             <div>
-                                <p class="text-gray-600 mb-3 italic">
+                                <p class="text-gray-600 mb-4 italic">
                                     "${this.sanitizeText(reviewText)}"
                                 </p>
                             </div>
-                            <div class="mt-3 pt-3 border-t border-gray-100">
+                            <div class="mt-auto">
                                 <h4 class="font-semibold text-gray-900">
                                     ${this.sanitizeText(review.author_name)}
                                 </h4>
-                                ${isGMBReview ? `
-                                    <div class="mt-1 text-xs text-blue-600 font-medium flex items-center">
-                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Google My Business Review
-                                    </div>
-                                ` : `
-                                    <div class="mt-1 text-xs text-gray-500">
-                                        Verified Customer
-                                    </div>
-                                `}
                             </div>
                         </div>
                     </div>
@@ -196,30 +169,7 @@ class GoogleReviewsManager {
         }).join('');
     }
 
-    // Generate star rating HTML
-    generateStarRating(rating) {
-        const fullStars = Math.floor(rating);
-        const hasHalfStar = rating % 1 !== 0;
-        let starsHTML = '';
 
-        // Full stars
-        for (let i = 0; i < fullStars; i++) {
-            starsHTML += '<span class="text-yellow-400">★</span>';
-        }
-
-        // Half star
-        if (hasHalfStar) {
-            starsHTML += '<span class="text-yellow-400">☆</span>';
-        }
-
-        // Empty stars
-        const emptyStars = 5 - Math.ceil(rating);
-        for (let i = 0; i < emptyStars; i++) {
-            starsHTML += '<span class="text-gray-300">☆</span>';
-        }
-
-        return starsHTML;
-    }
 
     // Sanitize text to prevent XSS
     sanitizeText(text) {
@@ -233,7 +183,7 @@ class GoogleReviewsManager {
             console.log('🔄 Initializing REAL Google My Business Reviews...');
             console.log(`📍 Business: ${this.businessName}`);
             console.log(`🌐 API: ${this.apiUrl}`);
-            console.log(`⭐ Filter: ${this.minRating}+ star reviews only`);
+            console.log(`📝 Loading customer testimonials`);
 
             const reviews = await this.fetchGoogleReviews();
 

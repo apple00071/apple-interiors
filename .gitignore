@@ -97,6 +97,8 @@ temp/
 
 # Local development
 .local
+dev-server.js
+test-*.html
 
 # Backup files
 *.bak
