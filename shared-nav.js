@@ -17,28 +17,29 @@ class SharedNavigation {
         return 'home';
     }
 
+    generateInfiniteScrollText() {
+        const baseText = '🚀 We are launching the Apple Interiors NRI Connect Soon';
+        const homeIcon = '<svg class="inline-block w-4 h-4 mx-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>';
+
+        // Create enough repetitions for seamless marquee effect
+        // Using more repetitions to ensure no gaps during animation
+        const repetitions = [];
+        for (let i = 0; i < 20; i++) {
+            repetitions.push(`${baseText} ${homeIcon}`);
+        }
+
+        return repetitions.join(' ');
+    }
+
     createNotificationBar() {
+        const scrollText = this.generateInfiniteScrollText();
         return `
             <!-- Notification Bar -->
             <div id="notification-bar" class="fixed top-0 left-0 right-0 z-[101] w-full bg-primary text-white overflow-hidden" style="height: var(--notification-height);">
-                <div class="scrolling-text-container flex items-center h-full">
-                    <div class="scrolling-text text-xs sm:text-sm lg:text-base font-medium whitespace-nowrap">
-                        🚀 We are launching the Apple Interiors NRI Connect Soon
-                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-                        </svg>
-                        🚀 We are launching the Apple Interiors NRI Connect Soon
-                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-                        </svg>
-                        🚀 We are launching the Apple Interiors NRI Connect Soon
-                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-                        </svg>
-                        🚀 We are launching the Apple Interiors NRI Connect Soon
-                        <svg class="inline-block w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-                        </svg>
+                <div class="marquee-container">
+                    <div class="marquee-content text-xs sm:text-sm lg:text-base font-medium whitespace-nowrap">
+                        <span class="marquee-text">${scrollText}</span>
+                        <span class="marquee-text">${scrollText}</span>
                     </div>
                 </div>
             </div>
@@ -170,10 +171,8 @@ class SharedNavigation {
             // Insert at the beginning of body
             document.body.insertBefore(navContainer, document.body.firstChild);
             
-            // Initialize scrolling text with minimal delay to ensure DOM is rendered
-            setTimeout(() => {
-                this.initScrollingText();
-            }, 10);
+            // Initialize scrolling text immediately - no delay
+            this.initInfiniteScrolling();
 
             // Initialize mobile menu functionality with a small delay to ensure DOM is ready
             setTimeout(() => {
@@ -252,37 +251,27 @@ class SharedNavigation {
         }
     }
 
-    initScrollingText() {
-        const scrollingText = document.querySelector('.scrolling-text');
-        if (scrollingText) {
-            console.log('Scrolling text initialized'); // Debug log
+    initInfiniteScrolling() {
+        const marqueeContent = document.querySelector('.marquee-content');
+        if (marqueeContent) {
+            console.log('Marquee scrolling initialized immediately'); // Debug log
 
-            // Force immediate animation start with optimized speed
-            // Use a much faster speed - minimum 8s for smooth but quick scrolling
-            const textWidth = scrollingText.scrollWidth;
-            const screenWidth = window.innerWidth;
-            const duration = Math.max(8, (textWidth + screenWidth) / 150); // Minimum 8s, faster calculation
+            // Force immediate visibility and animation start
+            marqueeContent.style.visibility = 'visible';
+            marqueeContent.style.opacity = '1';
+            marqueeContent.style.animationPlayState = 'running';
+            marqueeContent.style.animationDelay = '0s';
 
-            // Apply animation immediately
-            scrollingText.style.animationDuration = `${duration}s`;
-            scrollingText.style.animationPlayState = 'running';
-            scrollingText.style.animationDelay = '0s';
+            // Calculate optimal duration for seamless infinite scrolling
+            // Reduced speed to 30% of original (60s -> 200s) for better readability
+            const duration = 200; // Slower speed for better user experience and readability
+            marqueeContent.style.animationDuration = `${duration}s`;
 
-            console.log(`Animation duration set to: ${duration}s`); // Debug log
+            console.log(`Marquee animation started with ${duration}s duration`); // Debug log
 
-            // Handle window resize with debouncing for performance
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    const newTextWidth = scrollingText.scrollWidth;
-                    const newScreenWidth = window.innerWidth;
-                    const newDuration = Math.max(8, (newTextWidth + newScreenWidth) / 150);
-                    scrollingText.style.animationDuration = `${newDuration}s`;
-                }, 100);
-            });
+            // No resize handling needed - fixed duration ensures consistency
         } else {
-            console.error('Scrolling text element not found');
+            console.error('Marquee content element not found');
         }
     }
 }

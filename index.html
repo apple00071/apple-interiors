@@ -140,6 +140,9 @@
       }
     }
     </script>
+
+    <!-- Google Reviews Integration -->
+    <script src="/google-reviews.js" defer></script>
 </head>
     <!-- Navigation will be loaded by shared-nav.js -->
 
@@ -338,149 +341,14 @@
                 </div>
 
                 <div class="relative overflow-hidden mx-auto max-w-[95vw]">
-                    <div class="flex flex-nowrap gap-6 py-4 animate-scroll">
-                        <!-- Testimonial 1 -->
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "Apple Interiors transformed our home beautifully! Their attention to detail and modern design approach exceeded our expectations. The team was professional and completed the project on time."
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Priya Sharma
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Loading state -->
+                    <div id="testimonials-loading" class="text-center py-8">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+                        <p class="mt-2 text-gray-600">Loading customer reviews...</p>
+                    </div>
 
-                        <!-- Testimonial 2 -->
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "Outstanding work by Apple Interiors! They designed our kitchen and living room with such creativity. The false ceiling work is particularly impressive. Highly recommend their services."
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Rajesh Kumar
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Testimonial 3 -->
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "We are extremely happy with our bedroom interior design. Apple Interiors understood our requirements perfectly and delivered exactly what we wanted. Great quality and reasonable pricing."
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Anita Reddy
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Testimonial 4 -->
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "Professional team with excellent design skills. They completed our entire home interior including modular kitchen, wardrobes, and false ceiling. The result is stunning!"
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Vikram Singh
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Testimonial 5 -->
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "Apple Interiors did an amazing job with our dining room and living area. Their modern approach and use of quality materials made our home look elegant and sophisticated."
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Meera Patel
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Testimonial 6 -->
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "Fantastic experience working with Apple Interiors. They handled our complete home interior project efficiently. The team is skilled, punctual, and delivers quality work."
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Suresh Gupta
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Duplicate testimonials for seamless scrolling -->
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "Apple Interiors transformed our home beautifully! Their attention to detail and modern design approach exceeded our expectations. The team was professional and completed the project on time."
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Priya Sharma
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex-none w-[300px] md:w-[350px]">
-                            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <div class="flex flex-col">
-                                    <div>
-                                        <p class="text-gray-600 mb-3 italic">
-                                            "Outstanding work by Apple Interiors! They designed our kitchen and living room with such creativity. The false ceiling work is particularly impressive. Highly recommend their services."
-                                        </p>
-                                    </div>
-                                    <div class="mt-3 pt-3 border-t border-gray-100">
-                                        <h4 class="font-semibold text-gray-900">
-                                            Rajesh Kumar
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="flex flex-nowrap gap-6 py-4 animate-scroll" style="display: none;">
+                        <!-- Reviews will be loaded dynamically by Google Reviews API -->
                     </div>
                 </div>
             </div>
