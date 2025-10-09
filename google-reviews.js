@@ -9,11 +9,17 @@
 
 class GoogleReviewsManager {
     constructor() {
-        this.apiKey = 'AIzaSyA4vDnagg1GLN1aNHs6UIx7H5nXm1uR4gM'; // Google Maps Platform API Key
-        this.backendUrl = 'http://localhost:3001'; // Backend API URL
         this.placeId = 'ChIJa9NvcamRyzsR3KG5xzhZ5m4'; // Apple Interiors GMB Place ID
         this.businessName = 'Apple Interiors';
         this.minRating = 4; // Only show 4+ star reviews
+
+        // Detect environment - production vs development
+        this.isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        this.apiUrl = this.isProduction ? '/api/gmb-reviews' : 'http://localhost:3001/api/gmb-reviews';
+
+        console.log(`🌐 Environment: ${this.isProduction ? 'Production' : 'Development'}`);
+        console.log(`🔗 API URL: ${this.apiUrl}`);
+
         this.cache = {
             reviews: null,
             timestamp: null,
@@ -82,11 +88,11 @@ class GoogleReviewsManager {
             }
 
             console.log('🔄 Fetching REAL Google My Business reviews...');
-            console.log(`🌐 Backend API: ${this.backendUrl}/api/gmb-reviews`);
+            console.log(`🌐 API URL: ${this.apiUrl}`);
             console.log(`⭐ Filter: ${this.minRating}+ star reviews only`);
 
-            // Fetch from backend API
-            const response = await fetch(`${this.backendUrl}/api/gmb-reviews`);
+            // Fetch from API (serverless function in production, backend in development)
+            const response = await fetch(this.apiUrl);
 
             if (!response.ok) {
                 throw new Error(`Backend API error: ${response.status} ${response.statusText}`);
@@ -226,8 +232,7 @@ class GoogleReviewsManager {
         try {
             console.log('🔄 Initializing REAL Google My Business Reviews...');
             console.log(`📍 Business: ${this.businessName}`);
-            console.log(`🔑 API Key: ${this.isValidApiKey() ? 'Valid' : 'Invalid'}`);
-            console.log(`🌐 Backend: ${this.backendUrl}`);
+            console.log(`🌐 API: ${this.apiUrl}`);
             console.log(`⭐ Filter: ${this.minRating}+ star reviews only`);
 
             const reviews = await this.fetchGoogleReviews();
