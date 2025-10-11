@@ -1,44 +1,10 @@
 {
-  "version": 2,
-  "routes": [
+  "buildCommand": "echo 'Build complete'",
+  "outputDirectory": ".",
+  "rewrites": [
     {
-      "src": "/api/gmb-reviews",
-      "dest": "/api/gmb-reviews.js"
-    },
-    {
-      "src": "/",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/about",
-      "dest": "/about.html"
-    },
-    {
-      "src": "/portfolio",
-      "dest": "/portfolio.html"
-    },
-    {
-      "src": "/services",
-      "dest": "/services.html"
-    },
-    {
-      "src": "/contact",
-      "dest": "/contact.html"
-    },
-    {
-      "src": "/blog",
-      "dest": "/blog.html"
-    },
-    {
-      "src": "/blog/(.*)",
-      "dest": "/blog/$1"
-    },
-    {
-      "src": "/(.*)\\.html",
-      "status": 301,
-      "headers": {
-        "Location": "/$1"
-      }
+      "source": "/api/gmb-reviews",
+      "destination": "/api/gmb-reviews.js"
     }
   ]
 }
