@@ -5,6 +5,10 @@
     {
       "source": "/api/gmb-reviews",
       "destination": "/api/gmb-reviews.js"
+    },
+    {
+      "source": "/api/csrf-token",
+      "destination": "/api/csrf-token.js"
     }
   ]
 }

@@ -6,6 +6,16 @@ class ContactFormManager {
         this.statusContainer = null;
         this.isSubmitting = false;
 
+        // Bot detection properties
+        this.formStartTime = Date.now();
+        this.interactionCount = 0;
+        this.keystrokes = 0;
+        this.mouseMovements = 0;
+        this.focusEvents = 0;
+
+        // CSRF token
+        this.csrfToken = null;
+
         this.init();
     }
 
@@ -34,6 +44,12 @@ class ContactFormManager {
         // Add real-time validation
         this.setupValidation();
 
+        // Setup bot detection
+        this.setupBotDetection();
+
+        // Fetch CSRF token
+        this.fetchCSRFToken();
+
         console.log('New contact form initialized successfully');
     }
 
@@ -44,6 +60,92 @@ class ContactFormManager {
             input.addEventListener('blur', () => this.validateField(input));
             input.addEventListener('input', () => this.clearFieldError(input));
         });
+    }
+
+    setupBotDetection() {
+        if (!this.form) return;
+
+        // Track user interactions
+        this.form.addEventListener('keydown', () => {
+            this.keystrokes++;
+            this.interactionCount++;
+        });
+
+        this.form.addEventListener('mousemove', () => {
+            this.mouseMovements++;
+        });
+
+        this.form.addEventListener('focusin', () => {
+            this.focusEvents++;
+            this.interactionCount++;
+        });
+
+        // Track form field interactions
+        const inputs = this.form.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                this.interactionCount++;
+            });
+        });
+    }
+
+    // CSRF token management
+    async fetchCSRFToken() {
+        try {
+            const response = await fetch('/api/csrf-token');
+            if (response.ok) {
+                const data = await response.json();
+                this.csrfToken = data.token;
+            } else {
+                console.warn('Failed to fetch CSRF token');
+            }
+        } catch (error) {
+            console.warn('Error fetching CSRF token:', error);
+        }
+    }
+
+    // Bot detection analysis
+    analyzeUserBehavior() {
+        const timeSpent = Date.now() - this.formStartTime;
+        const minTimeThreshold = 5000; // Minimum 5 seconds to fill form
+        const maxTimeThreshold = 30 * 60 * 1000; // Maximum 30 minutes
+
+        const suspiciousIndicators = [];
+
+        // Check if form was filled too quickly (likely bot)
+        if (timeSpent < minTimeThreshold) {
+            suspiciousIndicators.push('Form filled too quickly');
+        }
+
+        // Check if form took too long (might be abandoned/automated)
+        if (timeSpent > maxTimeThreshold) {
+            suspiciousIndicators.push('Form took too long to complete');
+        }
+
+        // Check for lack of human-like interactions
+        if (this.keystrokes < 5 && this.interactionCount < 3) {
+            suspiciousIndicators.push('Insufficient user interactions');
+        }
+
+        // Check for no mouse movements (possible bot)
+        if (this.mouseMovements === 0 && timeSpent > 10000) {
+            suspiciousIndicators.push('No mouse movements detected');
+        }
+
+        // Check for no focus events
+        if (this.focusEvents === 0) {
+            suspiciousIndicators.push('No focus events detected');
+        }
+
+        return {
+            timeSpent,
+            keystrokes: this.keystrokes,
+            mouseMovements: this.mouseMovements,
+            focusEvents: this.focusEvents,
+            interactionCount: this.interactionCount,
+            suspiciousIndicators,
+            isSuspicious: suspiciousIndicators.length > 0
+        };
     }
 
     validateField(field) {
@@ -136,6 +238,14 @@ class ContactFormManager {
             return;
         }
 
+        // Analyze user behavior for bot detection
+        const behaviorAnalysis = this.analyzeUserBehavior();
+
+        // Log suspicious behavior (for debugging)
+        if (behaviorAnalysis.isSuspicious) {
+            console.warn('Suspicious form submission detected:', behaviorAnalysis);
+        }
+
         this.isSubmitting = true;
         this.setLoadingState(true);
 
@@ -144,11 +254,20 @@ class ContactFormManager {
             const formData = new FormData(this.form);
             const data = Object.fromEntries(formData.entries());
 
+            // Add behavior analysis data for server-side verification
+            data._behaviorAnalysis = JSON.stringify(behaviorAnalysis);
+
+            // Add CSRF token if available
+            if (this.csrfToken) {
+                data._csrfToken = this.csrfToken;
+            }
+
             // Send to API
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-Token': this.csrfToken || ''
                 },
                 body: JSON.stringify(data)
             });

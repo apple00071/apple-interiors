@@ -100,6 +100,14 @@
 
                         <!-- Contact Form -->
                         <form id="newContactForm" class="space-y-6" novalidate>
+                            <!-- Honeypot fields (hidden from users, visible to bots) -->
+                            <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                                <input type="text" name="website" tabindex="-1" autocomplete="off" placeholder="Leave this field empty">
+                                <input type="url" name="url" tabindex="-1" autocomplete="off" placeholder="Do not fill this">
+                                <input type="text" name="company_name" tabindex="-1" autocomplete="off" placeholder="Bot trap">
+                                <input type="tel" name="fax" tabindex="-1" autocomplete="off" placeholder="Fax number">
+                            </div>
+
                             <!-- Name and Email Row -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="form-group">

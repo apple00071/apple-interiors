@@ -16,11 +16,135 @@ const EMAIL_CONFIG = {
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-CSRF-Token',
     'Access-Control-Max-Age': '86400',
 };
 
-// Validation functions
+// Rate limiting storage (in production, use Redis or database)
+const rateLimitStore = new Map();
+const RATE_LIMIT = {
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    maxRequests: 3, // Max 3 submissions per 15 minutes per IP
+    blockDuration: 60 * 60 * 1000 // Block for 1 hour after exceeding limit
+};
+
+// Suspicious patterns for content filtering
+const SUSPICIOUS_PATTERNS = [
+    /\b(viagra|cialis|casino|poker|loan|debt|crypto|bitcoin)\b/i,
+    /\b(click here|visit now|act now|limited time)\b/i,
+    /https?:\/\/[^\s]+/g, // URLs in messages
+    /(.)\1{4,}/g, // Repeated characters (aaaaa)
+    /[^\w\s@.-]/g, // Special characters (excluding common ones)
+];
+
+// Common spam keywords
+const SPAM_KEYWORDS = [
+    'seo', 'marketing', 'promotion', 'offer', 'deal', 'discount',
+    'free', 'money', 'earn', 'business opportunity', 'investment'
+];
+
+// Simple CSRF token generation (in production, use crypto.randomBytes)
+function generateCSRFToken() {
+    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+}
+
+// CSRF token validation
+function validateCSRFToken(token) {
+    if (!token || typeof token !== 'string') return false;
+
+    // Token should be at least 20 characters
+    if (token.length < 20) return false;
+
+    // Extract timestamp from token (simple validation)
+    const tokenTimestamp = parseInt(token.slice(-8), 36);
+    const now = Date.now();
+    const maxAge = 60 * 60 * 1000; // 1 hour
+
+    // Check if token is not too old
+    return (now - tokenTimestamp) < maxAge;
+}
+
+// Rate limiting functions
+function getClientIP(req) {
+    return req.headers['x-forwarded-for']?.split(',')[0] ||
+           req.headers['x-real-ip'] ||
+           req.connection?.remoteAddress ||
+           req.socket?.remoteAddress ||
+           'unknown';
+}
+
+function checkRateLimit(ip) {
+    const now = Date.now();
+    const clientData = rateLimitStore.get(ip) || { requests: [], blockedUntil: 0 };
+
+    // Check if client is currently blocked
+    if (clientData.blockedUntil > now) {
+        return {
+            allowed: false,
+            resetTime: clientData.blockedUntil,
+            reason: 'IP temporarily blocked due to too many requests'
+        };
+    }
+
+    // Clean old requests outside the window
+    clientData.requests = clientData.requests.filter(time => now - time < RATE_LIMIT.windowMs);
+
+    // Check if limit exceeded
+    if (clientData.requests.length >= RATE_LIMIT.maxRequests) {
+        clientData.blockedUntil = now + RATE_LIMIT.blockDuration;
+        rateLimitStore.set(ip, clientData);
+        return {
+            allowed: false,
+            resetTime: clientData.blockedUntil,
+            reason: 'Rate limit exceeded. Too many submissions.'
+        };
+    }
+
+    // Add current request
+    clientData.requests.push(now);
+    rateLimitStore.set(ip, clientData);
+
+    return {
+        allowed: true,
+        remaining: RATE_LIMIT.maxRequests - clientData.requests.length
+    };
+}
+
+// Content filtering functions
+function containsSuspiciousContent(text) {
+    if (!text || typeof text !== 'string') return false;
+
+    // Check for suspicious patterns
+    for (const pattern of SUSPICIOUS_PATTERNS) {
+        if (pattern.test(text)) {
+            return true;
+        }
+    }
+
+    // Check for spam keywords
+    const lowerText = text.toLowerCase();
+    const spamKeywordCount = SPAM_KEYWORDS.filter(keyword =>
+        lowerText.includes(keyword.toLowerCase())
+    ).length;
+
+    // Flag if multiple spam keywords found
+    return spamKeywordCount >= 2;
+}
+
+function validateHoneypot(data) {
+    // Check for honeypot fields that should be empty
+    const honeypotFields = ['website', 'url', 'company_name', 'fax'];
+
+    for (const field of honeypotFields) {
+        if (data[field] && data[field].trim() !== '') {
+            return false; // Bot detected
+        }
+    }
+
+    return true;
+}
+
+// Enhanced validation functions
 function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -34,19 +158,44 @@ function validatePhone(phone) {
 
 function validateFormData(data) {
     const errors = [];
-    
+
+    // Basic validation
     if (!data.fullName || data.fullName.trim().length < 2) {
         errors.push('Full name is required and must be at least 2 characters');
     }
-    
+
     if (!data.emailAddress || !validateEmail(data.emailAddress)) {
         errors.push('Valid email address is required');
     }
-    
+
     if (!data.phoneNumber || !validatePhone(data.phoneNumber)) {
         errors.push('Valid phone number is required');
     }
-    
+
+    // Anti-spam validation
+    if (!validateHoneypot(data)) {
+        errors.push('Spam detected');
+    }
+
+    // Content filtering
+    const fieldsToCheck = [data.fullName, data.emailAddress, data.message, data.projectDetails];
+    for (const field of fieldsToCheck) {
+        if (containsSuspiciousContent(field)) {
+            errors.push('Message contains inappropriate content');
+            break;
+        }
+    }
+
+    // Check for overly long content (potential spam)
+    if (data.message && data.message.length > 2000) {
+        errors.push('Message is too long');
+    }
+
+    // Check for minimum message length (too short might be spam)
+    if (data.message && data.message.trim().length < 10) {
+        errors.push('Please provide a more detailed message');
+    }
+
     return errors;
 }
 
@@ -256,6 +405,9 @@ function generateCustomerEmailHTML(formData) {
 
 // Main handler function
 module.exports = async function handler(req, res) {
+    const startTime = Date.now();
+    const clientIP = getClientIP(req);
+
     // Set CORS headers
     Object.entries(corsHeaders).forEach(([key, value]) => {
         res.setHeader(key, value);
@@ -274,6 +426,21 @@ module.exports = async function handler(req, res) {
         });
     }
 
+    // Check rate limiting
+    const rateLimitResult = checkRateLimit(clientIP);
+    if (!rateLimitResult.allowed) {
+        console.log(`Rate limit exceeded for IP: ${clientIP}`, {
+            reason: rateLimitResult.reason,
+            resetTime: new Date(rateLimitResult.resetTime).toISOString()
+        });
+
+        return res.status(429).json({
+            success: false,
+            error: rateLimitResult.reason,
+            retryAfter: Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000)
+        });
+    }
+
     // Check API key
     if (!process.env.RESEND_API_KEY) {
         console.error('RESEND_API_KEY environment variable is not set');
@@ -285,10 +452,82 @@ module.exports = async function handler(req, res) {
 
     try {
         const formData = req.body;
-        
-        // Validate form data
+
+        // Comprehensive submission logging for security analysis
+        const submissionLog = {
+            ip: clientIP,
+            timestamp: new Date().toISOString(),
+            userAgent: req.headers['user-agent'],
+            referer: req.headers.referer,
+            origin: req.headers.origin,
+            contentLength: req.headers['content-length'],
+            hasHoneypotData: !!(formData.website || formData.url || formData.company_name || formData.fax),
+            honeypotFields: {
+                website: formData.website || null,
+                url: formData.url || null,
+                company_name: formData.company_name || null,
+                fax: formData.fax || null
+            },
+            hasCSRFToken: !!csrfToken,
+            formFields: Object.keys(formData).filter(key => !key.startsWith('_')),
+            rateLimitRemaining: rateLimitResult.remaining
+        };
+
+        console.log('Form submission attempt:', submissionLog);
+
+        // Validate CSRF token
+        const csrfToken = formData._csrfToken || req.headers['x-csrf-token'];
+        if (csrfToken) {
+            if (!validateCSRFToken(csrfToken)) {
+                console.log('Invalid CSRF token:', {
+                    ip: clientIP,
+                    token: csrfToken?.substring(0, 10) + '...'
+                });
+
+                return res.status(403).json({
+                    success: false,
+                    error: 'Invalid or expired security token. Please refresh the page and try again.'
+                });
+            }
+            delete formData._csrfToken; // Remove from form data
+        }
+
+        // Parse and analyze client-side behavior data
+        let behaviorAnalysis = null;
+        if (formData._behaviorAnalysis) {
+            try {
+                behaviorAnalysis = JSON.parse(formData._behaviorAnalysis);
+                delete formData._behaviorAnalysis; // Remove from form data
+            } catch (e) {
+                console.warn('Failed to parse behavior analysis:', e);
+            }
+        }
+
+        // Enhanced bot detection based on behavior analysis
+        if (behaviorAnalysis && behaviorAnalysis.isSuspicious) {
+            console.log('Suspicious behavior detected:', {
+                ip: clientIP,
+                behaviorAnalysis,
+                suspiciousIndicators: behaviorAnalysis.suspiciousIndicators
+            });
+
+            // For now, log but don't block (you can change this to block if needed)
+            // return res.status(400).json({
+            //     success: false,
+            //     error: 'Suspicious activity detected'
+            // });
+        }
+
+        // Validate form data (includes anti-spam checks)
         const validationErrors = validateFormData(formData);
         if (validationErrors.length > 0) {
+            console.log('Validation failed:', {
+                ip: clientIP,
+                errors: validationErrors,
+                behaviorAnalysis,
+                formData: { ...formData, emailAddress: '[REDACTED]', phoneNumber: '[REDACTED]' }
+            });
+
             return res.status(400).json({
                 success: false,
                 error: 'Validation failed',
@@ -312,13 +551,19 @@ module.exports = async function handler(req, res) {
             html: generateCustomerEmailHTML(formData)
         });
 
+        // Calculate processing time
+        const processingTime = Date.now() - startTime;
+
         // Log success
         console.log('Emails sent successfully:', {
             admin: adminEmailResult.data?.id,
             customer: customerEmailResult.data?.id,
             timestamp: new Date().toISOString(),
             customerName: formData.fullName,
-            customerEmail: formData.emailAddress
+            customerEmail: formData.emailAddress,
+            ip: clientIP,
+            processingTime: `${processingTime}ms`,
+            rateLimitRemaining: rateLimitResult.remaining
         });
 
         return res.status(200).json({
@@ -335,7 +580,10 @@ module.exports = async function handler(req, res) {
             message: error.message,
             name: error.name,
             stack: error.stack,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            ip: clientIP,
+            userAgent: req.headers['user-agent'],
+            formData: { ...req.body, emailAddress: '[REDACTED]', phoneNumber: '[REDACTED]' }
         });
 
         // Handle specific Resend API errors
