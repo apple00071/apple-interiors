@@ -3,6 +3,10 @@
   "outputDirectory": ".",
   "rewrites": [
     {
+      "source": "/(about|services|portfolio|contact)",
+      "destination": "/$1.html"
+    },
+    {
       "source": "/api/gmb-reviews",
       "destination": "/api/gmb-reviews.js"
     },
