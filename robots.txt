@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
 
+# Disallow admin and private directories
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Allow important pages
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Sitemap location
 Sitemap: https://appleinteriors.in/sitemap.xml
+
+# Crawl delay for better server performance
+Crawl-delay: 1
