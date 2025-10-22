@@ -7,6 +7,10 @@
       "destination": "/$1.html"
     },
     {
+      "source": "/api/contact",
+      "destination": "/api/contact.js"
+    },
+    {
       "source": "/api/gmb-reviews",
       "destination": "/api/gmb-reviews.js"
     },
