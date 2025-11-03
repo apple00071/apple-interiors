@@ -1,13 +1,25 @@
 # 🚀 Quick Start Deployment Guide
 
-## ⚡ Deploy in 5 Minutes
+## ⚡ Deploy in 10 Minutes
 
 ### **Step 1: Deploy to Vercel**
 ```bash
 vercel --prod
 ```
 
-### **Step 2: Verify Redirects**
+### **Step 2: Configure Vercel Domains (CRITICAL)**
+
+**This step is REQUIRED for www redirect:**
+
+1. Go to Vercel Dashboard: https://vercel.com/dashboard
+2. Select your project → Settings → Domains
+3. Add `www.appleinteriors.in` (set as primary)
+4. Add `appleinteriors.in` (set to redirect to www)
+5. Configure DNS records in your domain registrar:
+   - CNAME: `www` → `cname.vercel-dns.com`
+   - A Record: `@` → `76.76.21.21`
+
+### **Step 3: Verify Redirects**
 Open browser and test these URLs (all should redirect to www version):
 - http://appleinteriors.in
 - https://appleinteriors.in
@@ -15,7 +27,7 @@ Open browser and test these URLs (all should redirect to www version):
 
 All should end up at: `https://www.appleinteriors.in`
 
-### **Step 3: Submit Sitemap to Google**
+### **Step 4: Submit Sitemap to Google**
 1. Go to: https://search.google.com/search-console
 2. Add property: `https://www.appleinteriors.in`
 3. Go to Sitemaps → Add new sitemap

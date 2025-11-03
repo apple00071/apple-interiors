@@ -41,33 +41,21 @@
 - HTTP version was accessible (security risk)
 
 **Solution Applied:**
-Added comprehensive redirect rules in `vercel.json`:
+Vercel automatically handles HTTPS redirects. For the www redirect, you need to configure this in Vercel's domain settings:
 
-```json
-"redirects": [
-  {
-    "source": "http://appleinteriors.in/:path*",
-    "destination": "https://www.appleinteriors.in/:path*",
-    "permanent": true
-  },
-  {
-    "source": "http://www.appleinteriors.in/:path*",
-    "destination": "https://www.appleinteriors.in/:path*",
-    "permanent": true
-  },
-  {
-    "source": "https://appleinteriors.in/:path*",
-    "destination": "https://www.appleinteriors.in/:path*",
-    "permanent": true
-  }
-]
-```
+**Steps to Configure in Vercel Dashboard:**
+1. Go to your project settings in Vercel
+2. Navigate to "Domains" section
+3. Add both domains:
+   - `appleinteriors.in` (set to redirect to www)
+   - `www.appleinteriors.in` (set as primary)
+4. Vercel will automatically create 301 redirects
 
 **What This Does:**
-1. ✅ Redirects HTTP to HTTPS (security)
-2. ✅ Redirects non-www to www (canonicalization)
+1. ✅ Redirects HTTP to HTTPS (automatic in Vercel)
+2. ✅ Redirects non-www to www (configured in domain settings)
 3. ✅ Uses 301 permanent redirects (preserves SEO value)
-4. ✅ Applies to ALL pages (`:path*` wildcard)
+4. ✅ Applies to ALL pages automatically
 
 ---
 
@@ -106,6 +94,64 @@ Added security headers in `vercel.json`:
 - ✅ X-XSS-Protection: 1; mode=block
 - ✅ Referrer-Policy: strict-origin-when-cross-origin
 - ✅ Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+---
+
+## 🎯 Next Steps: Vercel Domain Configuration
+
+### **STEP 0: Configure Domains in Vercel (CRITICAL - DO THIS FIRST)**
+
+**This step is REQUIRED for the www redirect to work:**
+
+1. **Login to Vercel Dashboard:**
+   - Go to: https://vercel.com/dashboard
+   - Select your `apple-interiors` project
+
+2. **Navigate to Domains:**
+   - Click on "Settings" tab
+   - Click on "Domains" in the left sidebar
+
+3. **Add Both Domains:**
+
+   **First, add the www domain (primary):**
+   - Click "Add Domain"
+   - Enter: `www.appleinteriors.in`
+   - Click "Add"
+   - Vercel will show you DNS records to configure
+
+   **Then, add the non-www domain (redirect):**
+   - Click "Add Domain" again
+   - Enter: `appleinteriors.in`
+   - Click "Add"
+   - When prompted, select "Redirect to www.appleinteriors.in"
+   - This creates the 301 redirect automatically
+
+4. **Configure DNS Records:**
+
+   You'll need to add these records in your domain registrar (GoDaddy, Namecheap, etc.):
+
+   **For www.appleinteriors.in:**
+   ```
+   Type: CNAME
+   Name: www
+   Value: cname.vercel-dns.com
+   ```
+
+   **For appleinteriors.in (root domain):**
+   ```
+   Type: A
+   Name: @
+   Value: 76.76.21.21
+   ```
+
+5. **Verify Configuration:**
+   - Wait 5-10 minutes for DNS propagation
+   - Vercel will automatically verify the domains
+   - You should see both domains listed with:
+     - `www.appleinteriors.in` - Primary (green checkmark)
+     - `appleinteriors.in` - Redirects to www (arrow icon)
+
+**Important:** Without this configuration, the non-www to www redirect will NOT work!
 
 ---
 

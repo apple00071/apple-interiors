@@ -1,23 +1,7 @@
 {
   "buildCommand": "echo 'Build complete'",
   "outputDirectory": ".",
-  "redirects": [
-    {
-      "source": "http://appleinteriors.in/:path*",
-      "destination": "https://www.appleinteriors.in/:path*",
-      "permanent": true
-    },
-    {
-      "source": "http://www.appleinteriors.in/:path*",
-      "destination": "https://www.appleinteriors.in/:path*",
-      "permanent": true
-    },
-    {
-      "source": "https://appleinteriors.in/:path*",
-      "destination": "https://www.appleinteriors.in/:path*",
-      "permanent": true
-    }
-  ],
+
   "rewrites": [
     {
       "source": "/(about|services|portfolio|contact)",
