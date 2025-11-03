@@ -12,7 +12,7 @@ Allow: /css/
 Allow: /js/
 
 # Sitemap location
-Sitemap: https://appleinteriors.in/sitemap.xml
+Sitemap: https://www.appleinteriors.in/sitemap.xml
 
 # Crawl delay for better server performance
 Crawl-delay: 1

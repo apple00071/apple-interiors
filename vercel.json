@@ -1,6 +1,23 @@
 {
   "buildCommand": "echo 'Build complete'",
   "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "http://appleinteriors.in/:path*",
+      "destination": "https://www.appleinteriors.in/:path*",
+      "permanent": true
+    },
+    {
+      "source": "http://www.appleinteriors.in/:path*",
+      "destination": "https://www.appleinteriors.in/:path*",
+      "permanent": true
+    },
+    {
+      "source": "https://appleinteriors.in/:path*",
+      "destination": "https://www.appleinteriors.in/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(about|services|portfolio|contact)",
@@ -17,6 +34,33 @@
     {
       "source": "/api/csrf-token",
       "destination": "/api/csrf-token.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
     }
   ]
 }
