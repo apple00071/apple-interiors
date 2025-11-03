@@ -500,6 +500,11 @@ body main {
   padding-top: var(--total-header-height) !important;
 }
 
+/* Remove padding for pages with full-screen hero sections */
+main:has(> section.min-h-screen:first-child) {
+  padding-top: 0 !important;
+}
+
 /* Ensure proper spacing on very small screens */
 @media (max-width: 480px) {
   :root {

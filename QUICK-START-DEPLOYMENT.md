@@ -34,13 +34,13 @@ All should end up at: `https://www.appleinteriors.in`
 4. Enter: `sitemap.xml`
 5. Click Submit
 
-### **Step 4: Request Re-indexing**
+### **Step 5: Request Re-indexing**
 In Google Search Console:
 1. Use URL Inspection tool
 2. Enter: `https://www.appleinteriors.in`
 3. Click "Request Indexing"
 
-### **Step 5: Update Google My Business**
+### **Step 6: Update Google My Business**
 1. Login to Google My Business
 2. Update website URL to: `https://www.appleinteriors.in`
 

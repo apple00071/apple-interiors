@@ -10,11 +10,11 @@
 
 ### **1. vercel.json** ⭐ CRITICAL
 **Changes:**
-- ✅ Added 301 permanent redirects (HTTP → HTTPS, non-www → www)
 - ✅ Added security headers
 - ✅ Maintained existing rewrites for API routes
+- ⚠️ **NOTE:** Domain redirects must be configured in Vercel Dashboard (see deployment guide)
 
-**Impact:** HIGH - Consolidates domain authority, fixes duplicate content
+**Impact:** HIGH - Security headers improve site security
 
 ---
 
@@ -186,10 +186,12 @@
 Before deploying, ensure:
 
 - [x] All HTML files updated with www URLs
-- [x] vercel.json has redirect rules
+- [x] vercel.json has security headers
 - [x] sitemap.xml updated
 - [x] robots.txt updated
 - [ ] Deploy to production: `vercel --prod`
+- [ ] **Configure Vercel domains (CRITICAL):** Add both domains in Vercel Dashboard
+- [ ] Configure DNS records in domain registrar
 - [ ] Verify redirects working
 - [ ] Submit new sitemap to Google Search Console
 - [ ] Request re-indexing of key pages
