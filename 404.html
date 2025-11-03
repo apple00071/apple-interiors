@@ -1,88 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found - Apple Interiors</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <style>
-    .error-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 70vh;
-      text-align: center;
-      padding: 2rem;
-    }
-    .error-code {
-      font-size: 8rem;
-      font-weight: bold;
-      color: #d4af37;
-      margin: 0;
-      line-height: 1;
-    }
-    .error-message {
-      font-size: 2rem;
-      margin: 1rem 0 2rem;
-    }
-    .home-button {
-      background-color: #d4af37;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.25rem;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .home-button:hover {
-      background-color: #b8960c;
-    }
-  </style>
-</head>
-<body>
-  <!-- Header (copied from other pages) -->
-  <header class="bg-white shadow-md">
-    <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-      <a href="/" class="flex items-center">
-        <img src="/images/New-logo.png" alt="Apple Interiors Logo" class="h-16">
-      </a>
-      <nav class="hidden md:flex space-x-6">
-        <a href="/" class="text-gray-800 hover:text-gold">Home</a>
-        <a href="/about" class="text-gray-800 hover:text-gold">About</a>
-        <a href="/services" class="text-gray-800 hover:text-gold">Services</a>
-        <a href="/portfolio" class="text-gray-800 hover:text-gold">Portfolio</a>
-        <a href="/contact" class="text-gray-800 hover:text-gold">Contact</a>
-      </nav>
-      <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
-      <div class="container mx-auto px-4 py-2">
-        <a href="/" class="block py-2 text-gray-800 hover:text-gold">Home</a>
-        <a href="/about" class="block py-2 text-gray-800 hover:text-gold">About</a>
-        <a href="/services" class="block py-2 text-gray-800 hover:text-gold">Services</a>
-        <a href="/portfolio" class="block py-2 text-gray-800 hover:text-gold">Portfolio</a>
-        <a href="/contact" class="block py-2 text-gray-800 hover:text-gold">Contact</a>
-      </div>
-    </div>
-  </header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Page Not Found - Apple Interiors | Best Interior Designers in Hyderabad</title>
+    <meta name="description" content="The page you're looking for can't be found. Return to Apple Interiors' homepage for the best interior design services in Hyderabad.">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, noimageindex, notranslate, nocache">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Page Not Found - Apple Interiors">
+    <meta property="og:description" content="The page you're looking for can't be found. Return to Apple Interiors' homepage for the best interior design services in Hyderabad.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Apple Interiors - Best Interior Designers in Hyderabad">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noodp, noimageindex, notranslate, nocache">
+    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noodp, noimageindex, notranslate, nocache">
+    <meta name="slurp" content="noindex, nofollow, noarchive, nosnippet, noodp, noimageindex, notranslate, nocache">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/images/icon.png" sizes="any">
+    <link rel="shortcut icon" type="image/png" href="/images/icon.png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Google Fonts - Montserrat and Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#eab308',
+                        'primary-hover': '#ca8a04',
+                        'primary-light': '#fef9c3',
+                        'primary-dark': '#854d0e',
+                        secondary: '#1e293b',
+                        accent: '#f8fafc',
+                        muted: '#f1f5f9',
+                        foreground: '#0f172a',
+                        background: '#ffffff'
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'system-ui', 'sans-serif'],
+                        'serif': ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
 
-  <!-- 404 Error Content -->
-  <main>
-    <div class="error-container">
-      <h1 class="error-code">404</h1>
-      <p class="error-message">Page Not Found</p>
-      <p class="mb-8">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-      <a href="/" class="home-button">Return to Homepage</a>
-    </div>
-  </main>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Shared Navigation -->
+    <script src="shared-nav.js"></script>
+    
+    <!-- WriteSonic SEO Fixer -->
+    <script src="https://seo-fixer.writesonic.com/site-audit/fixer-script/index.js" id="wsAiSeoMb" type="application/javascript"></script>
+    <script id="wsAiSeoInitScript">
+      wsSEOfixer.configure({
+        hostURL: 'https://seo-fixer.writesonic.com',
+        siteID: '68f987f609fab6f2d9ae1ea8'
+      });
+    </script>
+</head>
+<body class="font-sans antialiased bg-background text-foreground">
+    <!-- Navigation will be loaded by shared-nav.js -->
+
+    <!-- 404 Error Content -->
+    <main class="min-h-screen flex items-center justify-center py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="mb-8">
+                    <span class="text-9xl font-bold text-yellow-500 font-serif">404</span>
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mt-6 mb-4">Page Not Found</h1>
+                    <p class="text-xl text-gray-600 mb-8">The page you're looking for doesn't exist or has been moved.</p>
+                </div>
+                
+                <div class="space-y-6 max-w-md mx-auto">
+                    <p class="text-gray-600">Let's get you back on track. Here are some helpful links:</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                        <a href="/" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 transition-colors duration-300">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            Return Home
+                        </a>
+                        <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-300">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-5-5H8a2 2 0 00-2 2v14a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2z"></path>
+                            </svg>
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
   <!-- Footer (copied from other pages) -->
   <footer class="py-12">
