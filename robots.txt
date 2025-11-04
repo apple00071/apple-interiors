@@ -29,7 +29,7 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://www.appleinteriors.in/sitemap.xml
+Sitemap: https://appleinteriors.in/sitemap.xml
 
 # Crawl delay for better server performance
 Crawl-delay: 1
