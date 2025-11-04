@@ -5,11 +5,28 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /.htaccess
+Disallow: /console-cleaner.js
+Disallow: /shared-nav.js
 
-# Allow important pages
+# Allow important pages and resources
 Allow: /images/
 Allow: /css/
 Allow: /js/
+Allow: /styles.css
+Allow: /manifest.json
+Allow: /sitemap.xml
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
 
 # Sitemap location
 Sitemap: https://www.appleinteriors.in/sitemap.xml
