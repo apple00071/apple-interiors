@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Template - Apple Interiors</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        .og-image {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        
+        .content {
+            flex: 1;
+            z-index: 2;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+        
+        .highlight {
+            color: #eab308;
+        }
+        
+        .features {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .feature {
+            background: #eab308;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .image-section {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            margin-left: 40px;
+        }
+        
+        .interior-image {
+            width: 100%;
+            height: 400px;
+            background: url('images/portfolio/living-room/1.jpg') center/cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #eab308, #f59e0b);
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .decorative-elements::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        .contact-info {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+            font-size: 18px;
+            color: #64748b;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main OG Image Template -->
+    <div class="og-image" id="main-og">
+        <div class="decorative-elements"></div>
+        
+        <div class="content">
+            <img src="images/New-logo.png" alt="Apple Interiors Logo" class="logo">
+            
+            <h1 class="title">
+                <span class="highlight">Apple Interiors</span><br>
+                Premium Interior Design
+            </h1>
+            
+            <p class="subtitle">
+                Transform your space with Hyderabad's<br>
+                leading interior designers
+            </p>
+            
+            <div class="features">
+                <span class="feature">7+ Years Experience</span>
+                <span class="feature">250+ Projects</span>
+                <span class="feature">Free Consultation</span>
+            </div>
+        </div>
+        
+        <div class="image-section">
+            <div class="interior-image"></div>
+        </div>
+        
+        <div class="contact-info">
+            📞 +91 9603960337 | 🌐 www.appleinteriors.in
+        </div>
+    </div>
+
+    <script>
+        // Instructions for generating the actual image files:
+        console.log(`
+        TO CREATE THE OG IMAGES:
+        
+        1. Open this HTML file in a browser
+        2. Use browser developer tools to screenshot the .og-image div
+        3. Or use online tools like:
+           - HTML/CSS to Image API (htmlcsstoimage.com)
+           - Bannerbear
+           - Canva (recreate this design)
+        
+        4. Save as:
+           - images/seo/og-image.jpg (1200x630px, quality 85%)
+           - images/seo/twitter-image.jpg (same image, 1200x630px)
+        
+        5. Optimize file size to 100-300KB for fast loading
+        
+        ALTERNATIVE: Use Canva with these specifications:
+        - Size: 1200 x 630 pixels
+        - Background: White to light gray gradient
+        - Logo: Apple Interiors logo (top left)
+        - Main text: "Apple Interiors - Premium Interior Design"
+        - Subtitle: "Transform your space with Hyderabad's leading interior designers"
+        - Features: "7+ Years Experience | 250+ Projects | Free Consultation"
+        - Contact: "+91 9603960337 | www.appleinteriors.in"
+        - Include a high-quality interior design image on the right side
+        - Use brand colors: Primary #eab308 (yellow), Text #0f172a (dark)
+        `);
+    </script>
+</body>
+</html>
