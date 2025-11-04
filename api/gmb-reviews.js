@@ -23,10 +23,7 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        console.log('🔄 Serverless function started - Fetching GMB reviews...');
-        console.log('📍 Environment:', process.env.NODE_ENV || 'development');
-        console.log('🌐 Request URL:', req.url);
-        console.log('📱 User Agent:', req.headers['user-agent'] || 'Unknown');
+        // Serverless function started
         
         // Configuration
         const CONFIG = {
@@ -118,7 +115,7 @@ module.exports = async function handler(req, res) {
             .filter(review => review.rating >= CONFIG.MIN_RATING)
             .slice(0, CONFIG.MAX_REVIEWS);
 
-        console.log(`✅ Returning ${filteredReviews.length} verified GMB reviews`);
+        // Returning verified GMB reviews
 
         // Return the response
         res.status(200).json({
@@ -136,12 +133,7 @@ module.exports = async function handler(req, res) {
         });
 
     } catch (error) {
-        console.error('❌ Critical error in serverless function:', error);
-        console.error('📊 Error details:', {
-            message: error.message,
-            stack: error.stack,
-            name: error.name
-        });
+        // Critical error in serverless function
 
         // Return error response
         try {
@@ -153,7 +145,7 @@ module.exports = async function handler(req, res) {
                 environment: process.env.NODE_ENV || 'unknown'
             });
         } catch (responseError) {
-            console.error('❌ Failed to send error response:', responseError);
+            // Failed to send error response
             res.status(500).end('Internal Server Error');
         }
     }
