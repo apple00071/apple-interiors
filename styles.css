@@ -518,9 +518,16 @@ main:has(> section.min-h-screen:first-child) {
   }
 }
 
-/* Special case for hero section */
+/* Hero section spacing fix for all screen sizes */
+#home {
+  min-height: calc(100vh - var(--total-header-height)) !important;
+  margin-top: var(--total-header-height) !important;
+}
+
+/* Adjust hero content positioning */
 .hero-content {
-  padding-top: 4rem !important;
+  top: 0 !important;
+  height: calc(100vh - var(--total-header-height)) !important;
 }
 
 @media (min-width: 640px) {
