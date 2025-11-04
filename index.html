@@ -45,7 +45,14 @@
     <link rel="apple-touch-icon" href="/images/icon.png">
     <link rel="manifest" href="/manifest.json">
     
-    <!-- SEO optimization handled via meta tags -->
+    <!-- WriteSonic SEO Fixer -->
+    <script src="https://seo-fixer.writesonic.com/site-audit/fixer-script/index.js" id="wsAiSeoMb" type="application/javascript"></script>
+    <script id="wsAiSeoInitScript">
+      wsSEOfixer.configure({
+        hostURL: 'https://seo-fixer.writesonic.com',
+        siteID: '68f987f609fab6f2d9ae1ea8'
+      });
+    </script>
     
     <!-- Google Fonts - Montserrat and Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -185,7 +192,11 @@
     }
     </script>
 
-    <!-- Reviews handled via static testimonials -->
+    <!-- Console Cleaner for Production -->
+    <script src="/console-cleaner.js"></script>
+
+    <!-- Google Reviews Integration -->
+    <script src="/google-reviews.js" defer></script>
 </head>
 <body class="font-sans antialiased bg-background text-foreground">
     <!-- Navigation will be loaded by shared-nav.js -->
