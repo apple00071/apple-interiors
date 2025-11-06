@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags - Interior Designers in Jubilee Hills -->
+    <title>Interior Designers in Jubilee Hills | Apple Interiors</title>
+    <meta name="description" content="Interior designers in Jubilee Hills offering luxury home and office interior design services. Residential & commercial interiors, modular kitchens, false ceilings. Free consultation.">
+    <meta name="keywords" content="interior designers in jubilee hills, interior designers jubilee hills, best interior designers in jubilee hills, interior design in jubilee hills, home interior designers in jubilee hills, luxury interior designers in jubilee hills, modular kitchen in jubilee hills, false ceiling contractors in jubilee hills, interior design company in jubilee hills, residential interior designers in jubilee hills, commercial interior designers in jubilee hills, interior decorators in jubilee hills, office interior design in jubilee hills">
+    <meta name="author" content="Apple Interiors">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Interior Designers in Jubilee Hills | Apple Interiors">
+    <meta property="og:description" content="Expert interior designers in Jubilee Hills offering luxury home and office design services.">
+    <meta property="og:url" content="https://appleinteriors.in/interior-designers-in-jubilee-hills">
+    <meta property="og:image" content="https://www.appleinteriors.in/images/seo/og-image.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://appleinteriors.in/interior-designers-in-jubilee-hills">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/images/icon.png" sizes="any">
+    <link rel="shortcut icon" type="image/png" href="/images/icon.png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#eab308',
+                        'primary-hover': '#ca8a04',
+                        'primary-light': '#fef9c3',
+                        'primary-dark': '#854d0e',
+                        secondary: '#1e293b',
+                        accent: '#f8fafc',
+                        muted: '#f1f5f9',
+                        foreground: '#0f172a',
+                        background: '#ffffff'
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'system-ui', 'sans-serif'],
+                        'serif': ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans antialiased bg-background text-foreground">
+    <!-- Load homepage content -->
+    <script>
+        fetch('/')
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const bodyContent = doc.querySelector('body').innerHTML;
+                document.body.innerHTML = bodyContent;
+            })
+            .catch(() => {
+                window.location.href = '/';
+            });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
