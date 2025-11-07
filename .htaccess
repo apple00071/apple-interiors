@@ -9,6 +9,14 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [L,R=301]
 
+# 301 Redirects for renamed location pages (SEO preservation)
+Redirect 301 /kukatpally-interior-designers https://appleinteriors.in/interior-designers-in-kukatpally
+Redirect 301 /gachibowli-interior-designers https://appleinteriors.in/interior-designers-in-gachibowli
+Redirect 301 /hitec-city-interior-designers https://appleinteriors.in/interior-designers-in-hitec-city
+Redirect 301 /madhapur-interior-designers https://appleinteriors.in/interior-designers-in-madhapur
+Redirect 301 /kphb-interior-designers https://appleinteriors.in/interior-designers-in-kphb
+Redirect 301 /kondapur-interior-designers https://appleinteriors.in/interior-designers-in-kondapur
+
 # Ensure trailing slash for homepage
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^$ https://appleinteriors.in/ [L,R=301]
