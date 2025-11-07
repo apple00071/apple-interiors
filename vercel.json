@@ -8,6 +8,38 @@
       "destination": "/$1.html"
     },
     {
+      "source": "/interior-designers-in-kukatpally",
+      "destination": "/interior-designers-in-kukatpally.html"
+    },
+    {
+      "source": "/interior-designers-in-gachibowli",
+      "destination": "/interior-designers-in-gachibowli.html"
+    },
+    {
+      "source": "/interior-designers-in-hitec-city",
+      "destination": "/interior-designers-in-hitec-city.html"
+    },
+    {
+      "source": "/interior-designers-in-madhapur",
+      "destination": "/interior-designers-in-madhapur.html"
+    },
+    {
+      "source": "/interior-designers-in-kphb",
+      "destination": "/interior-designers-in-kphb.html"
+    },
+    {
+      "source": "/interior-designers-in-kondapur",
+      "destination": "/interior-designers-in-kondapur.html"
+    },
+    {
+      "source": "/interior-designers-in-banjara-hills",
+      "destination": "/interior-designers-in-banjara-hills.html"
+    },
+    {
+      "source": "/interior-designers-in-jubilee-hills",
+      "destination": "/interior-designers-in-jubilee-hills.html"
+    },
+    {
       "source": "/api/contact",
       "destination": "/api/contact.js"
     },
