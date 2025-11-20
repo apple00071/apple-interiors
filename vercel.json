@@ -2,6 +2,14 @@
   "buildCommand": "echo 'Build complete'",
   "outputDirectory": ".",
 
+  "redirects": [
+    {
+      "source": "/about/",
+      "destination": "/about",
+      "permanent": true
+    }
+  ],
+
   "rewrites": [
     {
       "source": "/(about|services|portfolio|contact)",
