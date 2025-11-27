@@ -123,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Initialize home contact form
     initializeHomeContactForm();
+
+    initializeFAQAccordions();
 });
 
 // Initialize map functionality
@@ -285,6 +287,50 @@ function initializeAnimations() {
     const animateElements = document.querySelectorAll(".fade-in, .slide-in-left, .slide-in-right");
     animateElements.forEach(el => {
         observer.observe(el);
+    });
+}
+
+function initializeFAQAccordions() {
+    const faqItems = document.querySelectorAll('#faq .faq-item');
+    if (!faqItems.length) return;
+
+    faqItems.forEach(item => {
+        const button = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const icon = item.querySelector('.faq-icon');
+
+        if (!button || !answer) return;
+
+        button.setAttribute('aria-expanded', 'false');
+        answer.setAttribute('aria-hidden', 'true');
+
+        button.addEventListener('click', function() {
+            const isOpen = !answer.classList.contains('hidden');
+
+            faqItems.forEach(otherItem => {
+                const otherAnswer = otherItem.querySelector('.faq-answer');
+                const otherButton = otherItem.querySelector('.faq-question');
+                const otherIcon = otherItem.querySelector('.faq-icon');
+
+                if (otherAnswer && otherButton) {
+                    otherAnswer.classList.add('hidden');
+                    otherAnswer.setAttribute('aria-hidden', 'true');
+                    otherButton.setAttribute('aria-expanded', 'false');
+                    if (otherIcon) {
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                }
+            });
+
+            if (!isOpen) {
+                answer.classList.remove('hidden');
+                answer.setAttribute('aria-hidden', 'false');
+                button.setAttribute('aria-expanded', 'true');
+                if (icon) {
+                    icon.classList.add('rotate-180');
+                }
+            }
+        });
     });
 }
 
