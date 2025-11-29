@@ -58,6 +58,10 @@
     {
       "source": "/api/csrf-token",
       "destination": "/api/csrf-token.js"
+    },
+    {
+      "source": "/case-studies/bandlaguda-dream-home-transformation",
+      "destination": "/case-studies/bandlaguda-dream-home-transformation.html"
     }
   ],
   "headers": [
