@@ -34,6 +34,19 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Remove focus outline on links for better visual appearance */
+a:focus,
+a:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Remove focus outline on all clickable elements */
+button:focus,
+[role="button"]:focus {
+  outline: none;
+}
+
 /* Testimonials scrolling animation */
 @keyframes scroll {
   0% {
