@@ -14,6 +14,7 @@ class SharedNavigation {
         if (path.includes('services')) return 'services';
         if (path.includes('portfolio')) return 'portfolio';
         if (path.includes('contact')) return 'contact';
+        if (path.includes('blog')) return 'blog';
         return 'home';
     }
 
@@ -49,7 +50,7 @@ class SharedNavigation {
     createHeader() {
         return `
             <!-- Header -->
-            <header id="header" class="fixed left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm w-full bg-white/95 backdrop-blur-[12px]" style="top: var(--notification-height, 2.5rem); height: var(--header-height, 4rem);">
+            <header id="header" class="fixed left-0 right-0 z-[100] px-4 transition-all duration-300 shadow-sm w-full bg-white/95 backdrop-blur-[12px]" style="top: var(--notification-height, 2rem); height: var(--header-height, 4rem);">
                 <!-- Main Navigation -->
                 <div class="container mx-auto flex items-center justify-between h-full">
                     <!-- Logo -->
@@ -82,6 +83,10 @@ class SharedNavigation {
                         <a href="/contact" class="${this.getNavLinkClass('contact')}">
                             Contact
                             ${this.getActiveIndicator('contact')}
+                        </a>
+                        <a href="/blog" class="${this.getNavLinkClass('blog')}">
+                            Blog
+                            ${this.getActiveIndicator('blog')}
                         </a>
                         
                         <!-- Social Media Icons -->
@@ -118,7 +123,7 @@ class SharedNavigation {
     createMobileMenu() {
         return `
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="fixed left-0 right-0 bg-white backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-[95] h-0 opacity-0 transition-all duration-400" style="top: var(--total-header-height, 6.5rem);">
+            <div id="mobile-menu" class="fixed left-0 right-0 bg-white backdrop-blur-lg md:hidden overflow-hidden shadow-lg z-[95] h-0 opacity-0 transition-all duration-400" style="top: var(--total-header-height, 6rem);">
                 <nav class="container mx-auto py-6 px-4 overflow-y-auto h-full">
                     <div class="flex flex-col space-y-3">
                         <div class="border-b border-gray-100 pb-3">
@@ -135,6 +140,9 @@ class SharedNavigation {
                         </div>
                         <div class="border-b border-gray-100 pb-3">
                             <a href="/contact" class="${this.getMobileNavLinkClass('contact')}">Contact</a>
+                        </div>
+                        <div class="border-b border-gray-100 pb-3">
+                            <a href="/blog" class="${this.getMobileNavLinkClass('blog')}">Blog</a>
                         </div>
                     </div>
                 </nav>
@@ -167,10 +175,10 @@ class SharedNavigation {
             const navContainer = document.createElement('div');
             navContainer.id = 'shared-navigation';
             navContainer.innerHTML = this.createNotificationBar() + this.createHeader() + this.createMobileMenu();
-            
+
             // Insert at the beginning of body
             document.body.insertBefore(navContainer, document.body.firstChild);
-            
+
             // Initialize scrolling text immediately - no delay
             this.initInfiniteScrolling();
 
@@ -178,7 +186,7 @@ class SharedNavigation {
             setTimeout(() => {
                 this.initMobileMenu();
             }, 100);
-            
+
         } catch (error) {
             console.error('Error initializing shared navigation:', error);
         }

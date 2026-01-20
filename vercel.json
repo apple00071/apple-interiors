@@ -1,51 +1,107 @@
 {
   "buildCommand": "echo 'Build complete'",
   "outputDirectory": ".",
-
   "redirects": [
     {
       "source": "/about/",
       "destination": "/about",
       "permanent": true
-    }
-  ],
-
-  "rewrites": [
-    {
-      "source": "/(about|services|portfolio|contact)",
-      "destination": "/$1.html"
     },
     {
       "source": "/interior-designers-in-kukatpally",
-      "destination": "/interior-designers-in-kukatpally.html"
+      "destination": "/interior-designers-kukatpally",
+      "permanent": true
     },
     {
       "source": "/interior-designers-in-gachibowli",
-      "destination": "/interior-designers-in-gachibowli.html"
+      "destination": "/interior-designers-gachibowli",
+      "permanent": true
     },
     {
       "source": "/interior-designers-in-hitec-city",
-      "destination": "/interior-designers-in-hitec-city.html"
+      "destination": "/interior-designers-hitec-city",
+      "permanent": true
     },
     {
       "source": "/interior-designers-in-madhapur",
-      "destination": "/interior-designers-in-madhapur.html"
-    },
-    {
-      "source": "/interior-designers-in-kphb",
-      "destination": "/interior-designers-in-kphb.html"
-    },
-    {
-      "source": "/interior-designers-in-kondapur",
-      "destination": "/interior-designers-in-kondapur.html"
+      "destination": "/interior-designers-madhapur",
+      "permanent": true
     },
     {
       "source": "/interior-designers-in-banjara-hills",
-      "destination": "/interior-designers-in-banjara-hills.html"
+      "destination": "/interior-designers-banjara-hills",
+      "permanent": true
     },
     {
       "source": "/interior-designers-in-jubilee-hills",
-      "destination": "/interior-designers-in-jubilee-hills.html"
+      "destination": "/interior-designers-jubilee-hills",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(about|services|portfolio|contact|blog)",
+      "destination": "/$1.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog/:slug.html"
+    },
+    {
+      "source": "/interior-designers-kukatpally",
+      "destination": "/interior-designers-kukatpally.html"
+    },
+    {
+      "source": "/interior-designers-gachibowli",
+      "destination": "/interior-designers-gachibowli.html"
+    },
+    {
+      "source": "/interior-designers-hitec-city",
+      "destination": "/interior-designers-hitec-city.html"
+    },
+    {
+      "source": "/interior-designers-madhapur",
+      "destination": "/interior-designers-madhapur.html"
+    },
+    {
+      "source": "/interior-designers-banjara-hills",
+      "destination": "/interior-designers-banjara-hills.html"
+    },
+    {
+      "source": "/interior-designers-jubilee-hills",
+      "destination": "/interior-designers-jubilee-hills.html"
+    },
+    {
+      "source": "/modular-kitchen-hyderabad",
+      "destination": "/modular-kitchen-hyderabad.html"
+    },
+    {
+      "source": "/false-ceiling-design-hyderabad",
+      "destination": "/false-ceiling-design-hyderabad.html"
+    },
+    {
+      "source": "/complete-home-interiors-hyderabad",
+      "destination": "/complete-home-interiors-hyderabad.html"
+    },
+    {
+      "source": "/wardrobe-design-hyderabad",
+      "destination": "/wardrobe-design-hyderabad.html"
+    },
+    {
+      "source": "/living-room-interior-design-hyderabad",
+      "destination": "/living-room-interior-design-hyderabad.html"
+    },
+    {
+      "source": "/bedroom-interior-design-hyderabad",
+      "destination": "/bedroom-interior-design-hyderabad.html"
+    },
+    {
+      "source": "/commercial-interior-design-hyderabad",
+      "destination": "/commercial-interior-design-hyderabad.html"
+    },
+    {
+      "source": "/luxury-interior-designers-hyderabad",
+      "destination": "/luxury-interior-designers-hyderabad.html"
     },
     {
       "source": "/api/contact",

@@ -3,18 +3,18 @@ function openGoogleMaps() {
     // Apple Interiors coordinates
     const latitude = 17.503003418559427;
     const longitude = 78.39299037116976;
-    
+
     // Check if geolocation is available
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-            function(position) {
+            function (position) {
                 // User location found, create directions URL
                 const userLat = position.coords.latitude;
                 const userLng = position.coords.longitude;
                 const directionsUrl = `https://www.google.com/maps/dir/${userLat},${userLng}/${latitude},${longitude}/@${latitude},${longitude},16z`;
                 window.open(directionsUrl, "_blank");
             },
-            function(error) {
+            function (error) {
                 // Geolocation failed, open map with Apple Interiors location
                 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
                 window.open(mapUrl, "_blank");
@@ -80,7 +80,10 @@ const fallbackItems = [
             "/images/portfolio/dining/10.webp",
             "/images/portfolio/dining/26.webp",
             "/images/portfolio/dining/9.webp",
-            "/images/portfolio/dining/N2.webp"
+            "/images/portfolio/dining/N2.webp",
+            "/images/portfolio/dining/1751715683787-1751690341351.webp",
+            "/images/portfolio/dining/1751715717108-1751690341351.webp",
+            "/images/portfolio/dining/1751715735243-1751690341351.webp"
         ],
         category: "dining"
     },
@@ -102,25 +105,25 @@ const fallbackItems = [
 let selectedCategory = "bedroom";
 
 // DOM Content Loaded
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Initialize mobile menu
     initializeMobileMenu();
-    
+
     // Initialize smooth scrolling
     initializeSmoothScrolling();
-    
+
     // Initialize portfolio
     initializePortfolio();
-    
+
     // Initialize animations
     initializeAnimations();
-    
+
     // Initialize header scroll effect
     initializeHeaderScroll();
-    
+
     // Initialize map functionality
     initializeMapFunctionality();
-    
+
     // Initialize home contact form
     initializeHomeContactForm();
 
@@ -136,13 +139,13 @@ function initializeMapFunctionality() {
         container.style.cursor = "pointer";
         container.title = "Click to get directions";
         container.addEventListener("click", openGoogleMaps);
-        
+
         // Add hover effect
-        container.addEventListener("mouseenter", function() {
+        container.addEventListener("mouseenter", function () {
             this.style.opacity = "0.9";
         });
-        
-        container.addEventListener("mouseleave", function() {
+
+        container.addEventListener("mouseleave", function () {
             this.style.opacity = "1";
         });
     });
@@ -152,17 +155,17 @@ function initializeMapFunctionality() {
 function initializeMobileMenu() {
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
-    
+
     if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener("click", function() {
+        mobileMenuBtn.addEventListener("click", function () {
             mobileMenuBtn.classList.toggle("open");
             mobileMenu.classList.toggle("open");
         });
-        
+
         // Close mobile menu when clicking on a link
         const mobileLinks = mobileMenu.querySelectorAll("a");
         mobileLinks.forEach(link => {
-            link.addEventListener("click", function() {
+            link.addEventListener("click", function () {
                 mobileMenuBtn.classList.remove("open");
                 mobileMenu.classList.remove("open");
             });
@@ -179,7 +182,7 @@ function initializeSmoothScrolling() {
             if (target) {
                 const headerHeight = document.getElementById("header").offsetHeight;
                 const targetPosition = target.offsetTop - headerHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: "smooth"
@@ -192,21 +195,21 @@ function initializeSmoothScrolling() {
 // Portfolio functionality
 function initializePortfolio() {
     loadPortfolioItems(selectedCategory);
-    
+
     // Portfolio filter functionality
     const filterButtons = document.querySelectorAll(".portfolio-filter-btn");
     filterButtons.forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             // Remove active class from all buttons
             filterButtons.forEach(btn => {
                 btn.classList.remove("active");
                 btn.classList.add("text-gray-600", "hover:text-gray-900");
             });
-            
+
             // Add active class to clicked button
             this.classList.add("active");
             this.classList.remove("text-gray-600", "hover:text-gray-900");
-            
+
             // Filter portfolio items
             const category = this.getAttribute("data-category");
             selectedCategory = category;
@@ -219,40 +222,49 @@ function initializePortfolio() {
 function loadPortfolioItems(category) {
     const portfolioGrid = document.getElementById("portfolio-grid");
     const noImagesMessage = document.getElementById("no-images-message");
-    
+
     if (!portfolioGrid) return;
 
+    console.log("Loading portfolio items for category:", category);
+
     // Get all images for the selected category
-    const selectedItems = fallbackItems.filter(item => item.category === category);
-    const allImages = selectedItems.flatMap(item => 
+    const selectedItems = fallbackItems.filter(item =>
+        item.category.trim().toLowerCase() === category.trim().toLowerCase()
+    );
+
+    console.log("Selected items found:", selectedItems.length);
+
+    const allImages = selectedItems.flatMap(item =>
         item.image_paths.map(path => ({
             src: path,
             category: item.category
         })));
 
+    console.log("Total images to display:", allImages.length);
+
     portfolioGrid.innerHTML = "";
-    
+
     if (allImages.length === 0) {
         noImagesMessage.classList.remove("hidden");
         return;
     } else {
         noImagesMessage.classList.add("hidden");
     }
-    
+
     allImages.forEach((image, index) => {
         const portfolioItem = document.createElement("div");
         portfolioItem.className = "portfolio-item group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 fade-in";
         portfolioItem.innerHTML = `
             <div class="aspect-[4/3] relative">
                 <img src="${image.src}" 
-                      alt="${formatCategoryName(image.category)} design by Apple Interiors" 
+                      alt="${formatCategoryName(image.category)} Interior Design Hyderabad by Apple Interiors - Modern ${image.category}" 
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
                       loading="lazy">
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
             </div>
         `;
         portfolioGrid.appendChild(portfolioItem);
-        
+
         // Trigger animation
         setTimeout(() => {
             portfolioItem.classList.add("visible");
@@ -275,7 +287,7 @@ function initializeAnimations() {
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
@@ -304,7 +316,7 @@ function initializeFAQAccordions() {
         button.setAttribute('aria-expanded', 'false');
         answer.setAttribute('aria-hidden', 'true');
 
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const isOpen = !answer.classList.contains('hidden');
 
             faqItems.forEach(otherItem => {
@@ -377,7 +389,7 @@ function initializeHeaderScroll() {
         notificationBar.style.transition = "transform 0.3s ease";
     }
 
-    window.addEventListener("scroll", function() {
+    window.addEventListener("scroll", function () {
         const currentY = window.scrollY;
         const scrollingDown = currentY > lastScrollY;
 
@@ -715,11 +727,10 @@ class HomeContactFormManager {
 
     showStatus(type, message) {
         if (this.statusDiv) {
-            this.statusDiv.className = `p-4 rounded-lg mb-6 ${
-                type === 'success'
-                    ? 'bg-green-50 text-green-800 border border-green-200'
-                    : 'bg-red-50 text-red-800 border border-red-200'
-            }`;
+            this.statusDiv.className = `p-4 rounded-lg mb-6 ${type === 'success'
+                ? 'bg-green-50 text-green-800 border border-green-200'
+                : 'bg-red-50 text-red-800 border border-red-200'
+                }`;
             this.statusDiv.textContent = message;
             this.statusDiv.classList.remove('hidden');
 
@@ -766,17 +777,17 @@ function debounce(func, wait) {
 }
 
 // Performance optimization
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
     // Remove loading states
     document.body.classList.remove("loading");
 });
 
 // Error handling
-window.addEventListener("error", function(e) {
+window.addEventListener("error", function (e) {
     console.error("JavaScript error:", e.error);
 });
 
 // Resize handler
-window.addEventListener("resize", debounce(function() {
+window.addEventListener("resize", debounce(function () {
     // Handle responsive adjustments if needed
 }, 250));
