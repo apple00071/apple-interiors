@@ -84,10 +84,6 @@ class SharedNavigation {
                             Contact
                             ${this.getActiveIndicator('contact')}
                         </a>
-                        <a href="/blog" class="${this.getNavLinkClass('blog')}">
-                            Blog
-                            ${this.getActiveIndicator('blog')}
-                        </a>
                         
                         <!-- Social Media Icons -->
                         <div class="flex items-center space-x-4">

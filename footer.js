@@ -13,7 +13,7 @@ class SharedFooter {
         return `
         <footer class="py-8">
             <div class="container mx-auto px-4 max-w-7xl">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
                     <!-- Logo and Social Links -->
                     <div class="flex flex-col items-center lg:items-start">
                         <img src="/images/New-logo.png" alt="Apple Interiors - Best Interior Designers in Hyderabad"
@@ -109,7 +109,7 @@ class SharedFooter {
                         </div>
                     </div>
 
-                    <!-- Contact Info -->
+                    <!-- Quick Links -->
                     <div class="text-center lg:text-left">
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Quick Links</h3>
                         <div class="space-y-3">
@@ -134,40 +134,51 @@ class SharedFooter {
                                 <a href="/contact"
                                     class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">Contact</a>
                             </div>
+                            <div>
+                                <a href="/blog"
+                                    class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">Blog</a>
+                            </div>
                         </div>
-
-                        <h3 class="text-xl font-bold text-gray-900 mb-6 mt-8">Contact Us</h3>
+                    </div>
+                
+                    <div class="text-center lg:text-left">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Contact Us</h3>
                         <div class="space-y-4">
+                            <!-- Email -->
                             <div class="flex items-center justify-center lg:justify-start space-x-3">
-                                <svg class="w-6 h-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                                 </svg>
                                 <a href="mailto:aravind.bandaru@appleinteriors.in"
-                                    class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">
+                                    class="text-gray-600 hover:text-yellow-500 transition-colors duration-300 break-all md:break-normal">
                                     aravind.bandaru@appleinteriors.in
                                 </a>
                             </div>
+                            
+                            <!-- Mobile -->
                             <div class="flex items-center justify-center lg:justify-start space-x-3">
-                                <svg class="w-6 h-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
                                 <div class="flex flex-col space-y-1">
                                     <a href="tel:+919603960337"
-                                        class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">+91 9603
+                                        class="text-gray-600 hover:text-yellow-500 transition-colors duration-300 whitespace-nowrap">+91 9603
                                         9603 37</a>
                                     <a href="tel:+919160677899"
-                                        class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">+91 9160
+                                        class="text-gray-600 hover:text-yellow-500 transition-colors duration-300 whitespace-nowrap">+91 9160
                                         6778 99</a>
                                 </div>
                             </div>
+
+                            <!-- Landline -->
                             <div class="flex items-center justify-center lg:justify-start space-x-3">
                                 <img src="/images/landline-8.png" alt="Apple Interiors Office Landline Contact Hyderabad"
-                                    class="w-6 h-6"
+                                    class="w-6 h-6 flex-shrink-0"
                                     style="filter: brightness(0) saturate(100%) invert(72%) sepia(95%) saturate(1095%) hue-rotate(357deg) brightness(101%) contrast(96%);">
                                 <a href="tel:+914048544775"
-                                    class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">+91 40
+                                    class="text-gray-600 hover:text-yellow-500 transition-colors duration-300 whitespace-nowrap">+91 40
                                     48544775</a>
                             </div>
                         </div>
