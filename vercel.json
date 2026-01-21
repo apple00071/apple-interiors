@@ -1,6 +1,7 @@
 {
   "buildCommand": "echo 'Build complete'",
   "outputDirectory": ".",
+  "cleanUrls": true,
   "redirects": [
     {
       "source": "/about/",
@@ -8,68 +9,28 @@
       "permanent": true
     },
     {
-      "source": "/interior-designers-in-kukatpally",
-      "destination": "/interior-designers-kukatpally",
+      "source": "/interior-designers-:location",
+      "destination": "/interior-designers-in-:location",
       "permanent": true
     },
     {
-      "source": "/interior-designers-in-gachibowli",
-      "destination": "/interior-designers-gachibowli",
-      "permanent": true
-    },
-    {
-      "source": "/interior-designers-in-hitec-city",
-      "destination": "/interior-designers-hitec-city",
-      "permanent": true
-    },
-    {
-      "source": "/interior-designers-in-madhapur",
-      "destination": "/interior-designers-madhapur",
-      "permanent": true
-    },
-    {
-      "source": "/interior-designers-in-banjara-hills",
-      "destination": "/interior-designers-banjara-hills",
-      "permanent": true
-    },
-    {
-      "source": "/interior-designers-in-jubilee-hills",
-      "destination": "/interior-designers-jubilee-hills",
+      "source": "/:location-interior-designers",
+      "destination": "/interior-designers-in-:location",
       "permanent": true
     }
   ],
   "rewrites": [
     {
-      "source": "/(about|services|portfolio|contact|blog)",
+      "source": "/(about|services|portfolio|contact|index)",
       "destination": "/$1.html"
+    },
+    {
+      "source": "/interior-designers-in-:location",
+      "destination": "/interior-designers-in-:location.html"
     },
     {
       "source": "/blog/:slug",
       "destination": "/blog/:slug.html"
-    },
-    {
-      "source": "/interior-designers-kukatpally",
-      "destination": "/interior-designers-kukatpally.html"
-    },
-    {
-      "source": "/interior-designers-gachibowli",
-      "destination": "/interior-designers-gachibowli.html"
-    },
-    {
-      "source": "/interior-designers-hitec-city",
-      "destination": "/interior-designers-hitec-city.html"
-    },
-    {
-      "source": "/interior-designers-madhapur",
-      "destination": "/interior-designers-madhapur.html"
-    },
-    {
-      "source": "/interior-designers-banjara-hills",
-      "destination": "/interior-designers-banjara-hills.html"
-    },
-    {
-      "source": "/interior-designers-jubilee-hills",
-      "destination": "/interior-designers-jubilee-hills.html"
     },
     {
       "source": "/modular-kitchen-hyderabad",
