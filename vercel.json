@@ -9,6 +9,11 @@
       "permanent": true
     },
     {
+      "source": "/feed",
+      "destination": "/404",
+      "statusCode": 410
+    },
+    {
       "source": "/interior-designers-kukatpally",
       "destination": "/interior-designers-in-kukatpally",
       "permanent": true
