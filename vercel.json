@@ -17,6 +17,16 @@
       "source": "/:location-interior-designers",
       "destination": "/interior-designers-in-:location",
       "permanent": true
+    },
+    {
+      "source": "/blog/color-palette-trends-2024-hyderabad",
+      "destination": "/blog/color-palette-trends-2026-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/blog/latest-modular-kitchen-trends-2024-hyderabad",
+      "destination": "/blog/latest-modular-kitchen-trends-2026-hyderabad",
+      "permanent": true
     }
   ],
   "rewrites": [
