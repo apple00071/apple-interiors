@@ -17,6 +17,14 @@ Redirect 301 /madhapur-interior-designers https://appleinteriors.in/interior-des
 Redirect 301 /kphb-interior-designers https://appleinteriors.in/interior-designers-in-kphb
 Redirect 301 /kondapur-interior-designers https://appleinteriors.in/interior-designers-in-kondapur
 
+# Standardizing to "interior-designers-in-" format
+Redirect 301 /interior-designers-kukatpally https://appleinteriors.in/interior-designers-in-kukatpally
+Redirect 301 /interior-designers-gachibowli https://appleinteriors.in/interior-designers-in-gachibowli
+Redirect 301 /interior-designers-hitec-city https://appleinteriors.in/interior-designers-in-hitec-city
+Redirect 301 /interior-designers-madhapur https://appleinteriors.in/interior-designers-in-madhapur
+Redirect 301 /interior-designers-banjara-hills https://appleinteriors.in/interior-designers-in-banjara-hills
+Redirect 301 /interior-designers-jubilee-hills https://appleinteriors.in/interior-designers-in-jubilee-hills
+
 # Ensure trailing slash for homepage
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^$ https://appleinteriors.in/ [L,R=301]
