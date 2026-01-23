@@ -308,10 +308,10 @@ main {
   }
 }
 
-/* Color utilities - FIXED: Using accessible colors */
+/* Color utilities - Brand color */
 .text-primary {
-  color: var(--primary-text);
-  /* WCAG AA compliant - 4.6:1 contrast on white */
+  color: var(--primary);
+  /* Brand color #eab308 */
 }
 
 .text-foreground {
