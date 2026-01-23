@@ -7,17 +7,60 @@
 
 /* Tailwind-like utility classes */
 
-/* CSS Variables - Exact copy from Next.js globals.css */
+/* CSS Variables - Enhanced Design System */
 :root {
+  /* Background & Foreground */
   --background: #ffffff;
   --foreground: #0f172a;
+
+  /* Primary Brand Colors */
   --primary: #eab308;
+  /* Yellow for backgrounds (buttons, cards) */
   --primary-hover: #ca8a04;
+  /* Darker yellow for hover states */
   --primary-light: #fef9c3;
+  /* Light yellow tint */
   --primary-dark: #854d0e;
+  /* Dark yellow */
+  --primary-text: #9a6d04;
+  /* CRITICAL FIX: WCAG AA compliant yellow for text (4.6:1 contrast on white) */
+
+  /* Secondary Colors */
   --secondary: #1e293b;
   --accent: #f8fafc;
   --muted: #f1f5f9;
+
+  /* Spacing Scale (8px base) - Design System */
+  --space-xs: 0.5rem;
+  /* 8px */
+  --space-sm: 1rem;
+  /* 16px */
+  --space-md: 1.5rem;
+  /* 24px */
+  --space-lg: 2rem;
+  /* 32px */
+  --space-xl: 3rem;
+  /* 48px */
+  --space-2xl: 4rem;
+  /* 64px */
+  --space-3xl: 6rem;
+  /* 96px */
+
+  /* Border Radius - Design System */
+  --radius-sm: 0.375rem;
+  /* Small elements */
+  --radius-md: 0.5rem;
+  /* Default cards, inputs */
+  --radius-lg: 0.75rem;
+  /* Featured cards */
+  --radius-xl: 1rem;
+  /* Hero sections */
+
+  /* Shadows - Design System */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
   /* Mobile-specific sizing */
   --header-height-mobile: 4rem;
@@ -25,8 +68,7 @@
   --mobile-padding: 1rem;
   --mobile-section-spacing: 3rem;
 
-  /* Font size scaling (smaller than default) */
-  --text-scale: 0.9;
+  /* REMOVED: --text-scale (was causing readability issues) */
 }
 
 /* Smooth scrolling */
@@ -130,11 +172,12 @@ button:focus,
   /* Chrome, Safari and Opera */
 }
 
-/* Base typography with reduced sizes */
+/* Base typography - FIXED: Removed text-scale for proper readability */
 body {
   margin: 0;
   font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: calc(1rem * var(--text-scale));
+  font-size: 1rem;
+  /* 16px - proper base size instead of scaled down 14.4px */
   line-height: 1.6;
   color: var(--foreground);
   background-color: var(--background);
@@ -149,6 +192,58 @@ body {
 
 .font-serif {
   font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* TEXT OVERFLOW FIX: Prevent text from breaking out of containers */
+/* Apply to all text elements to prevent overflow */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+div {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Special handling for long links and inline text */
+a {
+  word-break: break-word;
+}
+
+/* Ensure containers don't overflow */
+.container,
+.prose,
+[class*="max-w-"],
+[class*="flex"],
+[class*="grid"] {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Fix for specific issue: Long headings and links in content cards */
+.text-xl,
+.text-2xl,
+.text-3xl,
+.text-4xl,
+.text-5xl {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+main {
+  overflow-x: hidden;
 }
 
 /* Custom utility classes */
@@ -213,9 +308,10 @@ body {
   }
 }
 
-/* Color utilities */
+/* Color utilities - FIXED: Using accessible colors */
 .text-primary {
-  color: var(--primary);
+  color: var(--primary-text);
+  /* WCAG AA compliant - 4.6:1 contrast on white */
 }
 
 .text-foreground {
@@ -759,13 +855,14 @@ main:has(> section.min-h-screen:first-child) {
   color: var(--primary);
 }
 
-/* Portfolio section styles */
+/* Portfolio section styles - FIXED: Using consistent primary color */
 .portfolio-filter-btn {
   transition: all 0.2s ease;
 }
 
 .portfolio-filter-btn.active {
-  background-color: #FFD93D;
+  background-color: var(--primary);
+  /* FIXED: Was #FFD93D, now uses brand color */
   color: #1f2937;
 }
 
