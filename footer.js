@@ -67,7 +67,7 @@ class SharedFooter {
                                 <p class="text-gray-600 leading-relaxed">Maneesh Enclave, 1st floor,</p>
                                 <p class="text-gray-600 leading-relaxed">Bhagya Nagar Phase 3,</p>
                                 <p class="text-gray-600 leading-relaxed">Sreenivasa Nagar, Kukatpally,</p>
-                                <p class="text-gray-600 leading-relaxed">Hyderabad, Telangana 500072</p>
+                                <p class="text-gray-600 leading-relaxed">Hyderabad, Telangana 500085</p>
                             </div>
                         </div>
                     </div>
