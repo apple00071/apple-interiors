@@ -67,6 +67,11 @@
       "source": "/blog/latest-modular-kitchen-trends-2024-hyderabad",
       "destination": "/blog/latest-modular-kitchen-trends-2026-hyderabad",
       "permanent": true
+    },
+    {
+      "source": "/blog/budget-friendly-interior-design-hyderabad",
+      "destination": "/blog",
+      "permanent": true
     }
   ],
   "rewrites": [
