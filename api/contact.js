@@ -60,10 +60,10 @@ function validateCSRFToken(token) {
 // Rate limiting functions
 function getClientIP(req) {
     return req.headers['x-forwarded-for']?.split(',')[0] ||
-           req.headers['x-real-ip'] ||
-           req.connection?.remoteAddress ||
-           req.socket?.remoteAddress ||
-           'unknown';
+        req.headers['x-real-ip'] ||
+        req.connection?.remoteAddress ||
+        req.socket?.remoteAddress ||
+        'unknown';
 }
 
 function checkRateLimit(ip) {
@@ -194,12 +194,12 @@ function validateFormData(data) {
 
 // Email template functions
 function generateAdminEmailHTML(formData) {
-    const timestamp = new Date().toLocaleString('en-IN', { 
+    const timestamp = new Date().toLocaleString('en-IN', {
         timeZone: 'Asia/Kolkata',
         dateStyle: 'full',
         timeStyle: 'short'
     });
-    
+
     return `
         <!DOCTYPE html>
         <html>
@@ -237,7 +237,7 @@ function generateAdminEmailHTML(formData) {
                     </table>
                 </div>
                 
-                ${formData.propertyType || formData.projectLocation || formData.budget ? `
+                ${formData.propertyType || formData.projectLocation ? `
                 <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
                     <h2 style="color: #1976d2; margin: 0 0 15px 0; font-size: 20px;">🏗️ Project Details</h2>
                     <table style="width: 100%; border-collapse: collapse;">
@@ -251,12 +251,6 @@ function generateAdminEmailHTML(formData) {
                         <tr>
                             <td style="padding: 8px 0; font-weight: bold; color: #1565c0;">Location:</td>
                             <td style="padding: 8px 0; color: #1976d2;">${formData.projectLocation}</td>
-                        </tr>
-                        ` : ''}
-                        ${formData.budget ? `
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #1565c0;">Budget:</td>
-                            <td style="padding: 8px 0; color: #1976d2;">${formData.budget}</td>
                         </tr>
                         ` : ''}
                     </table>
@@ -342,12 +336,6 @@ function generateCustomerEmailHTML(formData) {
                         <tr>
                             <td style="padding: 6px 0; font-weight: bold; color: #6c757d;">Location:</td>
                             <td style="padding: 6px 0; color: #495057;">${formData.projectLocation}</td>
-                        </tr>
-                        ` : ''}
-                        ${formData.budget ? `
-                        <tr>
-                            <td style="padding: 6px 0; font-weight: bold; color: #6c757d;">Budget:</td>
-                            <td style="padding: 6px 0; color: #495057;">${formData.budget}</td>
                         </tr>
                         ` : ''}
                     </table>

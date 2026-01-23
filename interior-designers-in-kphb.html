@@ -69,7 +69,7 @@
         "+91 91606 77899"
       ],
       "image": "https://www.appleinteriors.in/images/seo/og-image.jpg",
-      "priceRange": "₹₹₹",
+      "priceRange": "Premium",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3, Sreenivasa Nagar, Kukatpally",
@@ -138,10 +138,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is the cost of 2BHK interior design in\n                                    KPHB?",
+          "name": "How to get a customized interior design plan in KPHB?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For a standard 2BHK in KPHB, basic woodwork including a\n                                    modular kitchen and bedroom wardrobes starts at ₹3.5 Lakhs. Premium designs with\n                                    false ceiling and wall treatments can range from ₹5 Lakhs to ₹8 Lakhs."
+            "text": "We offer personalized interior design consultations in KPHB. Our experts visit your site, understand your vision, and provide a detailed design plan tailored to your lifestyle and requirements. We focus on transparency and quality at every step."
           }
         },
         {
@@ -190,6 +190,37 @@
 }
 
   </script>
+  <style>
+    @keyframes floating {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .float-animation {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .service-card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      border-color: var(--primary);
+    }
+  </style>
 </head>
 
 <body class="font-sans antialiased bg-background text-foreground">
@@ -216,26 +247,34 @@
       </div>
     </section>
     <!-- Hero Section -->
-    <section class="py-20 bg-white">
-      <div class="container mx-auto px-4 text-center">
-        <p class="text-primary font-bold mb-4 tracking-[0.2em] uppercase">
+    <section class="py-24 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-primary/5">
+      <div
+        class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-50">
+      </div>
+      <div
+        class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-secondary/10 rounded-full blur-3xl opacity-50">
+      </div>
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <p class="text-primary font-bold mb-4 tracking-[0.3em] uppercase text-sm fade-in">
           Functional Elegance for Urban Living
         </p>
-        <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 font-display leading-tight">
+        <h1 class="text-4xl md:text-7xl font-extrabold text-gray-900 mb-8 font-display leading-[1.1] fade-in">
           Best
-          Interior Designers in KPHB, Hyderabad
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Interior
+            Designers</span>
+          in KPHB
         </h1>
-        <p class="text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed fade-in">
           Transforming KPHB apartments
           into stylish, space-efficient sanctuaries. Apple Interiors offers premium home and office design
-          with efficient project execution.
+          with meticulous attention to detail.
         </p>
-        <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <a class="bg-primary hover:bg-primary-hover text-white font-bold py-4 px-8 text-sm rounded-full shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+        <div class="flex flex-col sm:flex-row gap-6 justify-center fade-in delay-300">
+          <a class="bg-primary hover:bg-primary-hover text-white font-bold py-5 px-10 text-base rounded-full shadow-[0_20px_50px_rgba(234,179,8,0.3)] transition-all duration-300 transform float-animation"
             href="/contact">
             Get Free Consultation
           </a>
-          <a class="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-4 px-8 text-sm rounded-full transition-all duration-300"
+          <a class="bg-white border-2 border-primary/20 text-gray-900 hover:border-primary hover:bg-primary/5 font-bold py-5 px-10 text-base rounded-full transition-all duration-300 backdrop-blur-sm"
             href="tel:+919603960337">
             Call +91 96039 60337
           </a>
@@ -307,40 +346,40 @@
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div
-              class="text-center p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:bg-white hover:shadow-xl transition-all">
-              <div class="text-4xl mb-4">
+              class="text-center p-8 bg-white rounded-3xl border border-gray-100 hover:border-primary/30 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group">
+              <div class="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 🚀
               </div>
-              <h3 class="text-xl font-bold mb-3">
+              <h3 class="text-xl font-bold mb-3 text-gray-900">
                 Fast Execution
               </h3>
-              <p class="text-gray-600">
+              <p class="text-gray-600 leading-relaxed">
                 Strict project timelines ensured by our systematic project
                 management approach.
               </p>
             </div>
             <div
-              class="text-center p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:bg-white hover:shadow-xl transition-all">
-              <div class="text-4xl mb-4">
+              class="text-center p-8 bg-white rounded-3xl border border-gray-100 hover:border-primary/30 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group">
+              <div class="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 🛡️
               </div>
-              <h3 class="text-xl font-bold mb-3">
+              <h3 class="text-xl font-bold mb-3 text-gray-900">
                 10-Year Warranty
               </h3>
-              <p class="text-gray-600">
+              <p class="text-gray-600 leading-relaxed">
                 Comprehensive warranty on all woodwork, protecting your investment
                 for the long term.
               </p>
             </div>
             <div
-              class="text-center p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:bg-white hover:shadow-xl transition-all">
-              <div class="text-4xl mb-4">
+              class="text-center p-8 bg-white rounded-3xl border border-gray-100 hover:border-primary/30 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group">
+              <div class="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 🏭
               </div>
-              <h3 class="text-xl font-bold mb-3">
+              <h3 class="text-xl font-bold mb-3 text-gray-900">
                 Direct-from-Factory
               </h3>
-              <p class="text-gray-600">
+              <p class="text-gray-600 leading-relaxed">
                 We eliminate middlemen by manufacturing in our own unit, passing
                 the savings to you.
               </p>
@@ -430,17 +469,24 @@
                 </li>
               </ul>
             </div>
-            <div class="md:w-2/5 p-8 bg-gray-50 rounded-[2.5rem] border-2 border-dashed border-gray-200 text-center">
-              <p class="text-sm font-bold text-primary uppercase mb-2">
-                Starting From
+            <div
+              class="md:w-2/5 p-10 bg-gradient-to-br from-primary to-primary-hover rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+              <div
+                class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700">
+              </div>
+              <p class="text-sm font-bold text-white/80 uppercase mb-4 tracking-widest">
+                Our Guarantee
               </p>
-              <p class="text-5xl font-extrabold text-gray-900 mb-4 font-display">
-                ₹1.5L*
+              <h4 class="text-3xl font-extrabold mb-6 font-display">
+                Premium Quality Materials
+              </h4>
+              <p class="text-white/90 mb-8 leading-relaxed">
+                We use high-grade boiling water proof plywood and premium hardware for lasting durability.
               </p>
-              <p class="text-xs text-gray-500">
-                *Price for standard straight layout kitchen in laminate
-                finish
-              </p>
+              <a href="/contact"
+                class="inline-block bg-white text-primary font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-all shadow-lg">
+                Book a Free Visit
+              </a>
             </div>
           </div>
           <!-- Complete Home -->
@@ -495,6 +541,80 @@
         </div>
       </div>
     </section>
+    <!-- Design Process -->
+    <section class="py-24 bg-gray-50 overflow-hidden">
+      <div class="container mx-auto px-4">
+        <h3 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-16 text-center font-display">Our Seamless Design
+          Process</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto relative">
+          <!-- Step 1 -->
+          <div
+            class="relative p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 group overflow-hidden">
+            <div
+              class="absolute top-0 left-0 w-2 h-full bg-primary group-hover:w-full group-hover:opacity-5 transition-all duration-500">
+            </div>
+            <span
+              class="text-6xl font-black text-gray-50 absolute -top-2 -right-2 tracking-tighter group-hover:text-primary/10 transition-colors">01</span>
+            <div
+              class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+              <span class="text-3xl">💬</span>
+            </div>
+            <h4 class="text-xl font-bold mb-4 relative z-10 text-gray-900 leading-tight">Expert Consultation</h4>
+            <p class="text-gray-600 text-sm relative z-10 leading-relaxed">Personalized site visit in KPHB to understand
+              your lifestyle and vision.</p>
+          </div>
+          <!-- Step 2 -->
+          <div
+            class="relative p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 group overflow-hidden md:mt-12">
+            <div
+              class="absolute top-0 left-0 w-2 h-full bg-secondary group-hover:w-full group-hover:opacity-5 transition-all duration-500">
+            </div>
+            <span
+              class="text-6xl font-black text-gray-50 absolute -top-2 -right-2 tracking-tighter group-hover:text-secondary/10 transition-colors">02</span>
+            <div
+              class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+              <span class="text-3xl">📐</span>
+            </div>
+            <h4 class="text-xl font-bold mb-4 relative z-10 text-gray-900 leading-tight">3D Visualization</h4>
+            <p class="text-gray-600 text-sm relative z-10 leading-relaxed">Photorealistic 3D renders that bring your
+              KPHB home design to life.</p>
+          </div>
+          <!-- Step 3 -->
+          <div
+            class="relative p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 group overflow-hidden">
+            <div
+              class="absolute top-0 left-0 w-2 h-full bg-primary group-hover:w-full group-hover:opacity-5 transition-all duration-500">
+            </div>
+            <span
+              class="text-6xl font-black text-gray-50 absolute -top-2 -right-2 tracking-tighter group-hover:text-primary/10 transition-colors">03</span>
+            <div
+              class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+              <span class="text-3xl">🔨</span>
+            </div>
+            <h4 class="text-xl font-bold mb-4 relative z-10 text-gray-900 leading-tight">Meticulous Execution</h4>
+            <p class="text-gray-600 text-sm relative z-10 leading-relaxed">Factory-precision manufacturing and expert
+              onsite implementation.</p>
+          </div>
+          <!-- Step 4 -->
+          <div
+            class="relative p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 group overflow-hidden md:mt-12">
+            <div
+              class="absolute top-0 left-0 w-2 h-full bg-secondary group-hover:w-full group-hover:opacity-5 transition-all duration-500">
+            </div>
+            <span
+              class="text-6xl font-black text-gray-50 absolute -top-2 -right-2 tracking-tighter group-hover:text-secondary/10 transition-colors">04</span>
+            <div
+              class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+              <span class="text-3xl">✨</span>
+            </div>
+            <h4 class="text-xl font-bold mb-4 relative z-10 text-gray-900 leading-tight">Seamless Handover</h4>
+            <p class="text-gray-600 text-sm relative z-10 leading-relaxed">Final walkthrough and 10-year warranty
+              certificate handover.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Local Context Section -->
     <section class="py-16 bg-white overflow-hidden relative">
       <div class="container mx-auto px-4">
@@ -576,8 +696,7 @@
               <button
                 class="faq-question w-full flex items-center justify-between text-left p-8 bg-white rounded-3xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
                 <h3 class="text-xl font-bold text-gray-900">
-                  What is the cost of 2BHK interior design in
-                  KPHB?
+                  How can I get a customized design plan for my KPHB home?
                 </h3>
                 <div
                   class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary transition-colors">
@@ -591,9 +710,9 @@
               <div
                 class="faq-answer px-10 py-8 text-gray-600 hidden bg-white rounded-b-3xl -mt-4 border-x border-b border-gray-100 shadow-sm">
                 <p class="leading-relaxed">
-                  For a standard 2BHK in KPHB, basic woodwork including a
-                  modular kitchen and bedroom wardrobes starts at ₹3.5 Lakhs. Premium designs with
-                  false ceiling and wall treatments can range from ₹5 Lakhs to ₹8 Lakhs.
+                  We believe every project is unique. Our design experts provide a detailed, itemized plan after a
+                  thorough site visit and understanding of your requirements, ensuring complete transparency with no
+                  hidden surprises.
                 </p>
               </div>
             </div>

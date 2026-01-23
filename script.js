@@ -589,7 +589,6 @@ class HomeContactFormManager {
             phoneNumber: 'Phone Number',
             propertyType: 'Property Type',
             projectLocation: 'Project Location',
-            budget: 'Budget',
             projectMessage: 'Project Message'
         };
         return labels[fieldName] || fieldName;
