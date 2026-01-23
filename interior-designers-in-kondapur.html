@@ -42,6 +42,7 @@
     rel="stylesheet" />
   <!-- Tailwind CSS -->
   <link href="tailwind-built.css" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
   <!-- Shared Navigation -->
   <script src="shared-nav.js">
   </script>
@@ -645,7 +646,7 @@
               </p>
               <p>
                 Not in Kondapur? We also provide elite services in
-                <a class="text-primary hover:underline" href="/interior-designers-hitec-city">
+                <a class="text-primary hover:underline" href="/interior-designers-in-hitec-city">
                   Hitec
                   City
                 </a>
@@ -699,7 +700,7 @@
       </div>
     </section>
     <!-- FAQ Section -->
-    <section class="py-16 bg-gray-50">
+    <section id="faq" class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12">
@@ -908,25 +909,6 @@
   <script src="script.js">
   </script>
   <script src="/footer.js">
-  </script>
-  <script>
-    // FAQ Toggle Logic
-    document.querySelectorAll('.faq-question').forEach(button => {
-      button.addEventListener('click', () => {
-        const answer = button.nextElementSibling;
-        const icon = button.querySelector('.faq-icon');
-        const isOpen = !answer.classList.contains('hidden');
-
-        // Close all other answers
-        document.querySelectorAll('.faq-answer').forEach(el => el.classList.add('hidden'));
-        document.querySelectorAll('.faq-icon').forEach(el => el.style.transform = 'rotate(0)');
-
-        if (!isOpen) {
-          answer.classList.remove('hidden');
-          icon.style.transform = 'rotate(180deg)';
-        }
-      });
-    });
   </script>
 </body>
 

@@ -15,6 +15,8 @@ class SharedNavigation {
         if (path.includes('portfolio')) return 'portfolio';
         if (path.includes('contact')) return 'contact';
         if (path.includes('blog')) return 'blog';
+        // Handle neighborhood landing pages
+        if (path.includes('interior-designers-in')) return 'services'; // Map to services as they are location-based services
         return 'home';
     }
 
@@ -83,6 +85,10 @@ class SharedNavigation {
                         <a href="/contact" class="${this.getNavLinkClass('contact')}">
                             Contact
                             ${this.getActiveIndicator('contact')}
+                        </a>
+                        <a href="/blog" class="${this.getNavLinkClass('blog')}">
+                            Blog
+                            ${this.getActiveIndicator('blog')}
                         </a>
                         
                         <!-- Social Media Icons -->
