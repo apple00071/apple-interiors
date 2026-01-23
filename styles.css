@@ -278,6 +278,15 @@ body {
   border-radius: 2rem;
 }
 
+.rounded-\[3rem\] {
+  border-radius: 3rem;
+}
+
+/* Overflow utilities - CRITICAL for rounded corners to clip content properly */
+.overflow-hidden {
+  overflow: hidden;
+}
+
 /* Shadow utilities */
 .shadow-xl {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
