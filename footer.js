@@ -197,6 +197,17 @@ class SharedFooter {
 
                 <!-- Copyright -->
                 <div class="text-center border-t border-gray-200 pt-8">
+                    <div class="flex flex-wrap justify-center gap-4 mb-6 text-sm text-gray-500">
+                        <span class="font-semibold text-gray-900">Service Areas:</span>
+                        <a href="/interior-designers-in-kukatpally" class="hover:text-primary transition-colors">Kukatpally</a>
+                        <a href="/interior-designers-in-kphb" class="hover:text-primary transition-colors">KPHB</a>
+                        <a href="/interior-designers-in-madhapur" class="hover:text-primary transition-colors">Madhapur</a>
+                        <a href="/interior-designers-in-gachibowli" class="hover:text-primary transition-colors">Gachibowli</a>
+                        <a href="/interior-designers-in-kondapur" class="hover:text-primary transition-colors">Kondapur</a>
+                        <a href="/interior-designers-in-hitec-city" class="hover:text-primary transition-colors">HITEC City</a>
+                        <a href="/interior-designers-in-jubilee-hills" class="hover:text-primary transition-colors">Jubilee Hills</a>
+                        <a href="/interior-designers-in-banjara-hills" class="hover:text-primary transition-colors">Banjara Hills</a>
+                    </div>
                     <p class="text-gray-600">&copy; 2026 Apple Interiors. All rights reserved.</p>
                 </div>
             </div>

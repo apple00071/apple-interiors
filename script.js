@@ -257,7 +257,7 @@ function loadPortfolioItems(category) {
         portfolioItem.innerHTML = `
             <div class="aspect-[4/3] relative">
                 <img src="${image.src}" 
-                      alt="${formatCategoryName(image.category)} Interior Design Hyderabad by Apple Interiors - Modern ${image.category}" 
+                      alt="${formatCategoryName(image.category)} Interior Design in Kukatpally Hyderabad by Apple Interiors - Modern ${image.category}" 
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
                       loading="lazy">
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
