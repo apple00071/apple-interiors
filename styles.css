@@ -246,6 +246,85 @@ main {
   overflow-x: hidden;
 }
 
+/* LOCATION PAGE CARD FIXES: Prevent text overflow in flex containers */
+/* Fix flex children to respect container boundaries */
+.flex>* {
+  min-width: 0;
+  /* Critical fix for flex children overflow */
+}
+
+/* Ensure cards with flex don't overflow */
+[class*="flex"][class*="flex-col"],
+[class*="flex"][class*="flex-row"] {
+  overflow: hidden;
+}
+
+/* Fix for service cards with flex layout */
+.bg-white.flex,
+.bg-white[class*="rounded"] {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+/* Fix for yellow CTA banners */
+.bg-primary.flex {
+  overflow: hidden;
+}
+
+/* Fix paragraph and link overflow in cards */
+.bg-white p,
+.bg-white a {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Responsive fixes for location page cards */
+@media (max-width: 1024px) {
+
+  /* Force vertical stacking on tablets */
+  [class*="md:flex-row"] {
+    flex-direction: column !important;
+  }
+
+  /* Full width for all flex children on tablets */
+  [class*="md:w-3/5"],
+  [class*="md:w-2/5"],
+  [class*="lg:w-3/5"],
+  [class*="lg:w-2/5"] {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Reduce padding on cards for mobile */
+  [class*="p-12"] {
+    padding: 1.5rem !important;
+  }
+
+  [class*="p-10"] {
+    padding: 1.25rem !important;
+  }
+
+  [class*="p-8"] {
+    padding: 1rem !important;
+  }
+
+  /* Reduce border radius on mobile - RELAXED for better aesthetics */
+  [class*="rounded-[3.5rem]"] {
+    border-radius: 2rem !important;
+  }
+
+  [class*="rounded-[2.5rem]"] {
+    border-radius: 1.5rem !important;
+  }
+
+  [class*="rounded-[2rem]"] {
+    border-radius: 1.25rem !important;
+  }
+}
+
 /* Custom utility classes */
 .container {
   width: 100%;

@@ -387,16 +387,25 @@
             </div>
           </div>
           <div
-            class="p-6 md:p-8 bg-primary rounded-2xl md:rounded-[2rem] text-white flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 overflow-hidden">
-            <div class="mb-4 md:mb-0 text-center md:text-left flex-1 min-w-0">
-              <h3 class="text-xl md:text-2xl font-bold mb-2">
+            class="p-6 md:p-8 bg-gradient-to-br from-primary to-primary-hover rounded-2xl md:rounded-[2rem] text-white flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 overflow-hidden relative group border border-white/10 shadow-xl">
+            <!-- Decorative background effects -->
+            <div
+              class="absolute -top-12 -right-12 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700">
+            </div>
+
+            <div class="relative z-10 mb-4 md:mb-0 text-center md:text-left flex-1 min-w-0">
+              <div
+                class="inline-flex items-center gap-2 bg-black/10 backdrop-blur-md px-3 py-1 rounded-full mb-3 border border-white/10 shadow-inner">
+                <span class="text-[10px] font-bold uppercase tracking-widest">KPHB Experience Center</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold mb-2 font-display">
                 Quality You Can Touch
               </h3>
-              <p class="text-white/80 text-sm md:text-base">
+              <p class="text-white/80 text-sm md:text-base leading-relaxed">
                 Visit our KPHB area experience center to see our mockups and material library.
               </p>
             </div>
-            <a class="bg-white text-primary font-bold py-3 md:py-4 px-6 md:px-10 rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base flex-shrink-0 whitespace-nowrap"
+            <a class="relative z-10 bg-white text-primary font-bold py-3 md:py-4 px-8 md:px-12 rounded-full hover:bg-gray-50 transition-all shadow-lg hover:shadow-white/20 active:scale-95 text-sm md:text-base flex-shrink-0 whitespace-nowrap"
               href="/contact">
               Schedule a Visit
             </a>
@@ -465,23 +474,64 @@
               </ul>
             </div>
             <div
-              class="w-full lg:w-2/5 flex-shrink-0 p-8 md:p-10 bg-gradient-to-br from-primary to-primary-hover rounded-[1.5rem] md:rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+              class="w-full lg:w-2/5 flex-shrink-0 p-8 md:p-10 bg-gradient-to-br from-primary to-primary-hover rounded-[2rem] md:rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group border border-white/20">
+              <!-- Decorative background effects -->
               <div
-                class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700">
+                class="absolute -top-16 -right-16 w-48 h-48 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700">
               </div>
-              <p class="text-sm font-bold text-white/80 uppercase mb-4 tracking-widest">
-                Our Guarantee
-              </p>
-              <h4 class="text-2xl md:text-3xl font-extrabold mb-4 md:mb-6 font-display">
-                Premium Quality Materials
-              </h4>
-              <p class="text-white/90 mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
-                We use high-grade boiling water proof plywood and premium hardware for lasting durability.
-              </p>
-              <a href="/contact"
-                class="inline-block bg-white text-primary font-bold py-3 md:py-4 px-6 md:px-8 rounded-full hover:bg-gray-100 transition-all shadow-lg text-sm md:text-base">
-                Book a Free Visit
-              </a>
+              <div
+                class="absolute -bottom-16 -left-16 w-48 h-48 bg-black/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700">
+              </div>
+
+              <div class="relative z-10">
+                <!-- Badge Header -->
+                <div
+                  class="inline-flex items-center gap-2 bg-black/10 backdrop-blur-md px-4 py-2 rounded-full mb-6 border border-white/20 shadow-inner">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                    </path>
+                  </svg>
+                  <span class="text-xs font-bold uppercase tracking-widest">Our Guarantee</span>
+                </div>
+
+                <h4 class="text-2xl md:text-3xl font-extrabold mb-4 font-display leading-tight drop-shadow-sm">
+                  Premium Quality <br class="hidden md:block"> Materials
+                </h4>
+
+                <p class="text-white/90 mb-8 leading-relaxed text-sm md:text-base">
+                  We use high-standard <strong>Boiling Water Proof (BWP)</strong> plywood and premium hardware for
+                  lasting durability that we stand by.
+                </p>
+
+                <!-- Quick Points -->
+                <div class="space-y-4 mb-8">
+                  <div class="flex items-center gap-3 text-sm font-medium">
+                    <div
+                      class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 border border-white/10">
+                      <span class="text-[10px]">✓</span>
+                    </div>
+                    <span>ISO Certified Materials</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-sm font-medium">
+                    <div
+                      class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 border border-white/10">
+                      <span class="text-[10px]">✓</span>
+                    </div>
+                    <span>10-Year Peace of Mind</span>
+                  </div>
+                </div>
+
+                <a href="/contact"
+                  class="group/btn relative inline-flex items-center justify-center gap-3 bg-white text-primary font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition-all shadow-2xl active:scale-95 w-full">
+                  <span>Book a Free Visit</span>
+                  <svg class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
+                    </path>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
           <!-- Complete Home -->
