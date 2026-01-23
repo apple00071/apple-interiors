@@ -234,6 +234,33 @@ body {
   background-color: var(--primary);
 }
 
+/* Gradient utilities for Tailwind compatibility */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-primary {
+  --tw-gradient-from: var(--primary);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(234, 179, 8, 0));
+}
+
+.to-primary-hover {
+  --tw-gradient-to: var(--primary-hover);
+}
+
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.text-transparent {
+  color: transparent;
+}
+
 /* Navigation link specific hover effects */
 .nav-link {
   position: relative;
