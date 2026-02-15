@@ -207,6 +207,18 @@ class SharedFooter {
                         <a href="/interior-designers-in-hitec-city" class="hover:text-primary transition-colors">HITEC City</a>
                         <a href="/interior-designers-in-jubilee-hills" class="hover:text-primary transition-colors">Jubilee Hills</a>
                         <a href="/interior-designers-in-banjara-hills" class="hover:text-primary transition-colors">Banjara Hills</a>
+                        <a href="/interior-designers-in-kokapet" class="hover:text-primary transition-colors">Kokapet</a>
+                        <a href="/interior-designers-in-kompally" class="hover:text-primary transition-colors">Kompally</a>
+                        <a href="/interior-designers-in-tellapur" class="hover:text-primary transition-colors">Tellapur</a>
+                        <a href="/interior-designers-in-narsingi" class="hover:text-primary transition-colors">Narsingi</a>
+                        <a href="/interior-designers-in-puppalguda" class="hover:text-primary transition-colors">Puppalguda</a>
+                        <a href="/interior-designers-in-financial-district" class="hover:text-primary transition-colors">Financial District</a>
+                        <a href="/interior-designers-in-manikonda" class="hover:text-primary transition-colors">Manikonda</a>
+                        <a href="/interior-designers-in-miyapur" class="hover:text-primary transition-colors">Miyapur</a>
+                        <a href="/interior-designers-in-bachupally" class="hover:text-primary transition-colors">Bachupally</a>
+                        <a href="/interior-designers-in-mokila" class="hover:text-primary transition-colors">Mokila</a>
+                        <a href="/interior-designers-in-kollur" class="hover:text-primary transition-colors">Kollur</a>
+                        <a href="/interior-designers-in-ameenpur" class="hover:text-primary transition-colors">Ameenpur</a>
                     </div>
                     <p class="text-gray-600">&copy; 2026 Apple Interiors. All rights reserved.</p>
                 </div>
