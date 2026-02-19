@@ -403,7 +403,7 @@
       </div>
     </section>
     <!-- FAQ Section -->
-    <section class="py-16 bg-white">
+    <section id="faq" class="py-16 bg-white">
       <div class="container mx-auto px-4 max-w-3xl">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-10 text-center font-display">
           Madhapur
@@ -536,23 +536,6 @@
   <script src="/footer.js">
   </script>
   <script src="console-cleaner.js">
-  </script>
-  <script>
-    // FAQ Toggle Logic
-    document.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', () => {
-        const content = button.nextElementSibling;
-        const icon = button.querySelector('span:last-child');
-
-        if (content && content.classList.contains('hidden')) {
-          content.classList.remove('hidden');
-          icon.textContent = '−';
-        } else if (content) {
-          content.classList.add('hidden');
-          icon.textContent = '+';
-        }
-      });
-    });
   </script>
   <!-- WhatsApp Widget -->
   <a class="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300 z-50"
