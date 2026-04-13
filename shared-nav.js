@@ -178,6 +178,16 @@ class SharedNavigation {
             navContainer.id = 'shared-navigation';
             navContainer.innerHTML = this.createNotificationBar() + this.createHeader() + this.createMobileMenu();
 
+            // Create Lucide script
+            const lucideScript = document.createElement('script');
+            lucideScript.src = 'https://unpkg.com/lucide@latest';
+            lucideScript.onload = () => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            };
+            document.head.appendChild(lucideScript);
+
             // Insert at the beginning of body
             document.body.insertBefore(navContainer, document.body.firstChild);
 

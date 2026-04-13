@@ -128,6 +128,16 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeHomeContactForm();
 
     initializeFAQAccordions();
+
+    // Initialize Lucide icons if available
+    if (window.lucide) {
+        window.lucide.createIcons();
+    } else {
+        // Fallback if script is still loading
+        document.addEventListener('lucide-loaded', () => {
+            window.lucide.createIcons();
+        });
+    }
 });
 
 // Initialize map functionality
