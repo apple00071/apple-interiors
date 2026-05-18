@@ -8,15 +8,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#eab308",
+        primary: "#eab308", // Apple Interiors Yellow
         "primary-hover": "#ca8a04",
-        "primary-light": "#fef9c3",
-        "primary-dark": "#854d0e",
-        secondary: "#1e293b",
-        accent: "#f8fafc",
-        muted: "#f1f5f9",
-        foreground: "#0f172a",
-        background: "#ffffff"
+        "primary-light": "#fef08a",
+        "primary-dark": "#a16207",
+        secondary: "#1f2937", // Charcoal
+        accent: "#111827", // Deep Black/Gray
+        muted: "#f3f4f6", // Light Gray
+        foreground: "#374151", // Text Color
+        background: "#ffffff" // Clean White Background
       },
       fontFamily: {
         sans: ["Montserrat", "system-ui", "sans-serif"],

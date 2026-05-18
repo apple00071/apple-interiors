@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth light">
 
 <head>
@@ -78,7 +78,7 @@
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="tailwind-built.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.2">
     <!-- Shared Navigation -->
     <script src="shared-nav.js"></script>
     <!-- JSON-LD Structured Data -->
@@ -183,335 +183,285 @@
 <body class="font-sans antialiased bg-background text-foreground">
     <!-- Navigation will be loaded by shared-nav.js -->
     <!-- Main Content -->
-    <main class="min-h-screen">
-        <!-- Hero Section - Exact copy from Next.js -->
-        <section id="home" class="relative min-h-screen w-full overflow-hidden">
-            <!-- Blurred Background Text -->
-            <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
-                    <h2
-                        class="text-[15vw] sm:text-[20vw] font-serif text-[#f1f1f1] text-center font-bold opacity-70 blur-[50px]">
-                        Calm & style preferred
+        <!-- Hero Section - SweepingCorp Style -->
+        <section id="home" style="height: 100vh !important; min-height: 100vh !important; margin-top: 0 !important; padding-top: 120px !important; padding-bottom: 40px !important;" class="relative w-full overflow-hidden flex items-center justify-center">
+            <!-- Full Bleed Background Image -->
+            <div class="absolute inset-0 z-0 bg-secondary">
+                <img src="/images/new%20hero%20image.JPG" alt="Apple Interiors Premium Home Decor Showcase" class="w-full h-full object-cover object-center opacity-70" loading="eager" fetchpriority="high">
+                <!-- Clean flat overlay instead of gradients -->
+                <div class="absolute inset-0 bg-secondary/30"></div>
+            </div>
+
+            <!-- Centered Content -->
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight text-white font-normal uppercase max-w-5xl mx-auto">
+                    WE'RE DESIGNING TOWARDS <br/>
+                    <span class="text-primary font-medium">A BEAUTIFUL FUTURE</span>
+                </h1>
+                <p class="mt-8 text-lg md:text-2xl text-white/90 font-normal max-w-2xl mx-auto">
+                    Hyderabad's Most Trusted Interior Design & Execution Company.
+                </p>
+                
+                <div class="mt-8">
+                    <a href="#contact" class="group inline-flex items-center px-10 py-5 bg-primary text-secondary rounded-full text-base font-normal uppercase tracking-widest hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-xl">
+                        Request a Quote
+                    </a>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- Services Section - What We Offer Grid Style -->
+        <section id="services" class="pt-12 pb-24 bg-[#fafaf9] rounded-t-[40px] shadow-sm relative z-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="max-w-3xl mx-auto text-center mb-10">
+                    <span class="text-primary text-xs uppercase tracking-widest font-normal">Our Services</span>
+                    <h2 class="text-4xl md:text-5xl font-light text-secondary mt-3 mb-6 uppercase tracking-tight">
+                        What We <span class="text-primary font-medium">Offer</span>
                     </h2>
+                    <p class="text-foreground/70 text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
+                        Comprehensive interior design services in Hyderabad tailored to transform your space into something extraordinary. From residential to commercial interiors, modular kitchens to false ceilings. Learn more on our <a href="/services" class="text-primary hover:underline font-medium">interior design services page</a>.
+                    </p>
                 </div>
-            </div>
-            <!-- Full-width Image Background -->
-            <div class="absolute inset-0 w-full h-full">
-                <div class="relative w-full h-full rounded-bl-[10%] sm:rounded-bl-[15%] overflow-hidden">
-                    <div class="absolute inset-0">
-                        <img src="/images/20250322_211720.jpg"
-                            alt="Modern Living Room Interior Design with Premium Finishes in Hyderabad - Apple Interiors"
-                            class="h-full w-full object-cover" loading="eager" fetchpriority="high" width="1920"
-                            height="1080">
-                    </div>
-                </div>
-            </div>
-            <!-- Hero Content -->
-            <div class="hero-content absolute inset-0 flex items-center z-20">
-                <div class="container mx-auto px-4 sm:px-8">
-                    <div class="w-full sm:w-[80%] md:w-[60%] lg:w-[45%]">
-                        <div class="font-serif font-medium text-white">
-                            <h1 class="text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.75rem] leading-[1.2] sm:leading-[1.1] tracking-[-0.02em] text-white font-bold break-words sm:whitespace-nowrap"
-                                style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">
-                                Let Your Home Be Unique
-                            </h1>
-                        </div>
-                        <p class="mt-4 sm:mt-6 text-base sm:text-lg text-white leading-relaxed max-w-md font-semibold"
-                            style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)">
-                            Expert interior design services across all of Hyderabad. 400+ homes transformed with 7+
-                            years of trusted expertise in complete home interiors.
-                        </p>
-                        <div class="mt-6 sm:mt-10">
-                            <a href="#contact"
-                                class="group inline-flex items-center px-5 sm:px-7 py-3 sm:py-3.5 bg-yellow-500 text-white rounded-full text-sm font-medium hover:bg-yellow-600 transition-colors duration-300">
-                                Contact Us
-                                <svg class="ml-2 w-4 sm:w-5 h-4 sm:h-5 transform transition-transform duration-300 group-hover:translate-x-1"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
+                <!-- Services Stacking Deck -->
+                <div class="max-w-5xl mx-auto mt-10 space-y-12">
+                    <!-- Service 1: Complete Interior Design -->
+                    <div class="stacking-card sticky bg-white rounded-[32px] shadow-lg p-6 md:py-8 md:px-10 flex flex-col md:flex-row gap-8 md:gap-10 items-center transition-all duration-300 cursor-pointer group" style="top: 100px; z-index: 10; margin-bottom: 40px;">
+                        <div class="w-full md:w-[55%]">
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-normal block mb-1">01 / SERVICE</span>
+                            <h3 class="text-2xl md:text-3xl font-light text-secondary mb-2 uppercase tracking-wide group-hover:text-primary transition-colors">Complete Interior Design</h3>
+                            <p class="text-foreground/70 text-sm md:text-base font-normal leading-relaxed mb-4">
+                                Complete interior design solutions that blend functionality with aesthetic appeal to create your dream space. From residential homes to corporate offices.
+                            </p>
+                            <ul class="space-y-1.5 text-sm text-foreground/60 mb-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Residential & Villa Interiors
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Commercial & Retail Spaces
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Office & Workspace Layouts
+                                </li>
+                            </ul>
+                            <a href="/services" class="inline-flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                                Learn More 
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
                             </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Services Section - Exact copy from Next.js -->
-        <section id="services" class="py-24 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <!-- Header -->
-                <div class="max-w-3xl mx-auto text-center mb-16">
-                    <p class="text-yellow-500 font-medium mb-4 tracking-wide uppercase fade-in">
-                        OUR SERVICES
-                    </p>
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 fade-in">
-                        What We Offer
-                    </h2>
-                    <p class="text-gray-600 fade-in">
-                        Comprehensive interior design services in Hyderabad tailored to transform your space into
-                        something extraordinary. From residential to commercial interiors, modular kitchens to false
-                        ceilings.
-                        Learn more on our <a href="/services" class="text-primary hover:underline">interior design
-                            services page</a>.
-                    </p>
-                </div>
-                <!-- Services Grid -->
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Service 1: Interior Design -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                            </svg>
+                        <div class="w-full md:w-[45%] overflow-hidden rounded-[20px] aspect-[16/10] relative">
+                            <img src="/images/modern_living_room_hero.png" alt="Complete Interior Design" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Interior Design</h3>
-                        <p class="text-gray-600">Complete interior design solutions that blend functionality with
-                            aesthetic appeal to create your dream space.</p>
                     </div>
+
                     <!-- Service 2: Space Planning -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
-                            </svg>
+                    <div class="stacking-card sticky bg-white rounded-[32px] shadow-lg p-6 md:py-8 md:px-10 flex flex-col md:flex-row gap-8 md:gap-10 items-center transition-all duration-300 cursor-pointer group" style="top: 120px; z-index: 20; margin-bottom: 40px;">
+                        <div class="w-full md:w-[55%]">
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-normal block mb-1">02 / SERVICE</span>
+                            <h3 class="text-2xl md:text-3xl font-light text-secondary mb-2 uppercase tracking-wide group-hover:text-primary transition-colors">Space Planning</h3>
+                            <p class="text-foreground/70 text-sm md:text-base font-normal leading-relaxed mb-4">
+                                Optimize your space with strategic planning that maximizes functionality while maintaining visual harmony and standard furniture flow.
+                            </p>
+                            <ul class="space-y-1.5 text-sm text-foreground/60 mb-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 2D & 3D Layout Optimization
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Ergonomic Circulation Paths
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Smart Storage Integration
+                                </li>
+                            </ul>
+                            <a href="/services" class="inline-flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                                Learn More 
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                            </a>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Space Planning</h3>
-                        <p class="text-gray-600">Optimize your space with strategic planning that maximizes
-                            functionality while maintaining visual harmony.</p>
+                        <div class="w-full md:w-[45%] overflow-hidden rounded-[20px] aspect-[16/10] relative">
+                            <img src="/images/about-image.jpg" alt="Space Planning" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
                     </div>
+
                     <!-- Service 3: Furniture Selection -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V9.75a3 3 0 0 0-3-3h-1.5m-1.5 12V10.5a1.5 1.5 0 0 1 1.5-1.5h1.5m-1.5 12h-4.5m2.25-15.75V6A2.25 2.25 0 0 1 9 3.75h1.5A2.25 2.25 0 0 1 12.75 6v2.25" />
-                            </svg>
+                    <div class="stacking-card sticky bg-white rounded-[32px] shadow-lg p-6 md:py-8 md:px-10 flex flex-col md:flex-row gap-8 md:gap-10 items-center transition-all duration-300 cursor-pointer group" style="top: 140px; z-index: 30; margin-bottom: 40px;">
+                        <div class="w-full md:w-[55%]">
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-normal block mb-1">03 / SERVICE</span>
+                            <h3 class="text-2xl md:text-3xl font-light text-secondary mb-2 uppercase tracking-wide group-hover:text-primary transition-colors">Furniture Selection</h3>
+                            <p class="text-foreground/70 text-sm md:text-base font-normal leading-relaxed mb-4">
+                                Curated furniture pieces that perfectly complement your style, material requirements, and custom dimensional spaces.
+                            </p>
+                            <ul class="space-y-1.5 text-sm text-foreground/60 mb-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Custom Sofa & Seating Design
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Premium Material Swatches
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Modular Storage & Fittings
+                                </li>
+                            </ul>
+                            <a href="/services" class="inline-flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                                Learn More 
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                            </a>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Furniture Selection</h3>
-                        <p class="text-gray-600">Curated furniture pieces that perfectly complement your style and meet
-                            your functional requirements.</p>
+                        <div class="w-full md:w-[45%] overflow-hidden rounded-[20px] aspect-[16/10] relative">
+                            <img src="/images/20250322_211720.jpg" alt="Furniture Selection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
                     </div>
+
                     <!-- Service 4: Color Consultation -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
-                            </svg>
+                    <div class="stacking-card sticky bg-white rounded-[32px] shadow-lg p-6 md:py-8 md:px-10 flex flex-col md:flex-row gap-8 md:gap-10 items-center transition-all duration-300 cursor-pointer group" style="top: 160px; z-index: 40; margin-bottom: 40px;">
+                        <div class="w-full md:w-[55%]">
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-normal block mb-1">04 / SERVICE</span>
+                            <h3 class="text-2xl md:text-3xl font-light text-secondary mb-2 uppercase tracking-wide group-hover:text-primary transition-colors">Color Consultation</h3>
+                            <p class="text-foreground/70 text-sm md:text-base font-normal leading-relaxed mb-4">
+                                Expert color guidance to create the perfect palette that reflects your personality, improves natural light, and fits your layout.
+                            </p>
+                            <ul class="space-y-1.5 text-sm text-foreground/60 mb-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Textured Wall Finishes & Wallpaper
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Color Theory & Light Analysis
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Palette Matching & Contrasting
+                                </li>
+                            </ul>
+                            <a href="/services" class="inline-flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                                Learn More 
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                            </a>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Color Consultation</h3>
-                        <p class="text-gray-600">Expert color guidance to create the perfect palette that reflects your
-                            personality and enhances your space.</p>
+                        <div class="w-full md:w-[45%] overflow-hidden rounded-[20px] aspect-[16/10] relative">
+                            <img src="/images/minimalist_bedroom_bento.png" alt="Color Consultation" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
                     </div>
+
                     <!-- Service 5: Project Management -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
-                            </svg>
+                    <div class="stacking-card sticky bg-white rounded-[32px] shadow-lg p-6 md:py-8 md:px-10 flex flex-col md:flex-row gap-8 md:gap-10 items-center transition-all duration-300 cursor-pointer group" style="top: 180px; z-index: 50; margin-bottom: 40px;">
+                        <div class="w-full md:w-[55%]">
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-normal block mb-1">05 / SERVICE</span>
+                            <h3 class="text-2xl md:text-3xl font-light text-secondary mb-2 uppercase tracking-wide group-hover:text-primary transition-colors">Project Management</h3>
+                            <p class="text-foreground/70 text-sm md:text-base font-normal leading-relaxed mb-4">
+                                End-to-end execution supervision ensuring timely delivery, strict quality control, and seamless handover of your home.
+                            </p>
+                            <ul class="space-y-1.5 text-sm text-foreground/60 mb-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 100% Quality Execution Checks
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Transparent Project Timelines
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Hassle-Free Material Procurements
+                                </li>
+                            </ul>
+                            <a href="/services" class="inline-flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                                Learn More 
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                            </a>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Project Management</h3>
-                        <p class="text-gray-600">End-to-end project management ensuring timely delivery and seamless
-                            execution of your interior design project.</p>
+                        <div class="w-full md:w-[45%] overflow-hidden rounded-[20px] aspect-[16/10] relative">
+                            <img src="/images/new hero image.JPG" alt="Project Management" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
                     </div>
+
                     <!-- Service 6: Lighting Design -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-                            </svg>
+                    <div class="stacking-card sticky bg-white rounded-[32px] shadow-lg p-6 md:py-8 md:px-10 flex flex-col md:flex-row gap-8 md:gap-10 items-center transition-all duration-300 cursor-pointer group" style="top: 200px; z-index: 60;">
+                        <div class="w-full md:w-[55%]">
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-normal block mb-1">06 / SERVICE</span>
+                            <h3 class="text-2xl md:text-3xl font-light text-secondary mb-2 uppercase tracking-wide group-hover:text-primary transition-colors">Lighting Design</h3>
+                            <p class="text-foreground/70 text-sm md:text-base font-normal leading-relaxed mb-4">
+                                Strategic lighting layouts, fixture select, and wiring architectures that enhance space depth and mood settings.
+                            </p>
+                            <ul class="space-y-1.5 text-sm text-foreground/60 mb-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Accent & Task Light Integrations
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Smart Home Dimmers & Controls
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Energy-Efficient LED Systems
+                                </li>
+                            </ul>
+                            <a href="/services" class="inline-flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                                Learn More 
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                            </a>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Lighting Design</h3>
-                        <p class="text-gray-600">Strategic lighting solutions that enhance the ambiance and
-                            functionality of your space.</p>
+                        <div class="w-full md:w-[45%] overflow-hidden rounded-[20px] aspect-[16/10] relative">
+                            <img src="/images/luxury_kitchen_bento.png" alt="Lighting Design" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
                     </div>
                 </div>
-            </div>
         </section>
-        <!-- Process Section -->
-        <section id="process" class="py-24 bg-white">
-            <div class="container mx-auto px-4">
-                <!-- Header -->
-                <div class="max-w-3xl mx-auto text-center mb-16">
-                    <p class="text-yellow-500 font-medium mb-4 tracking-wide uppercase fade-in">
-                        OUR PROCESS
-                    </p>
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 fade-in">
-                        How We Work
-                    </h2>
-                    <p class="text-gray-600 fade-in">
-                        Our streamlined process ensures your interior design project is completed efficiently, on time,
-                        and exceeds your expectations at every step.
-                    </p>
-                </div>
-                <!-- Process Steps -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                    <!-- Step 1 -->
-                    <div class="text-center fade-in">
-                        <div
-                            class="w-20 h-20 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-yellow-500/20 transition-colors duration-300">
-                            <span class="text-3xl font-bold text-yellow-500">1</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Consultation</h3>
-                        <p class="text-gray-600">Free consultation to understand your needs, vision, and lifestyle
-                            requirements</p>
-                    </div>
-                    <!-- Step 2 -->
-                    <div class="text-center fade-in">
-                        <div
-                            class="w-20 h-20 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-yellow-500/20 transition-colors duration-300">
-                            <span class="text-3xl font-bold text-yellow-500">2</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Design & Planning</h3>
-                        <p class="text-gray-600">Create detailed designs, 3D visualizations, and comprehensive project
-                            plans</p>
-                    </div>
-                    <!-- Step 3 -->
-                    <div class="text-center fade-in">
-                        <div
-                            class="w-20 h-20 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-yellow-500/20 transition-colors duration-300">
-                            <span class="text-3xl font-bold text-yellow-500">3</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Execution</h3>
-                        <p class="text-gray-600">Professional execution with quality materials and skilled craftsmen</p>
-                    </div>
-                    <!-- Step 4 -->
-                    <div class="text-center fade-in">
-                        <div
-                            class="w-20 h-20 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-yellow-500/20 transition-colors duration-300">
-                            <span class="text-3xl font-bold text-yellow-500">4</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Handover</h3>
-                        <p class="text-gray-600">Final handover with warranty, support, and maintenance guidance</p>
-                    </div>
-                </div>
-                <!-- Video Section -->
-                <div class="max-w-4xl mx-auto">
-                    <div class="text-center mb-8">
-                        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 fade-in">
-                            See Our Process in Action
-                        </h3>
-                        <p class="text-gray-600 fade-in">
-                            Watch how we transform spaces with our expert interior design process
+
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-24 bg-background border-t border-gray-200">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Title -->
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div class="max-w-2xl">
+                        <h2 class="text-4xl md:text-6xl font-light text-secondary mb-4 uppercase tracking-tight">
+                            Featured <span class="text-primary font-normal">Projects</span>
+                        </h2>
+                        <p class="text-foreground text-lg font-normal mt-2">
+                            Explore our stunning portfolio of interior design projects showcasing our expertise in creating beautiful, functional spaces.
                         </p>
                     </div>
-                    <!-- YouTube Video Embed -->
-                    <div class="relative w-full h-0 pb-[56.25%] rounded-xl overflow-hidden shadow-2xl fade-in">
-                        <iframe class="absolute top-0 left-0 w-full h-full"
-                            src="https://www.youtube.com/embed/Av5O1EjRGuA?rel=0&modestbranding=1&showinfo=0"
-                            title="Apple Interiors - Interior Design Process" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen loading="lazy">
-                        </iframe>
-                    </div>
                 </div>
-            </div>
-        </section>
-        <!-- Portfolio Section - Exact copy from SimplePortfolio -->
-        <section id="portfolio" class="py-16 sm:py-20 bg-white">
-            <div class="container mx-auto px-4">
-                <!-- Section Title -->
-                <div class="text-center mb-12">
-                    <p class="text-yellow-500 font-medium mb-3 tracking-wide uppercase text-sm fade-in">
-                        Our Work
-                    </p>
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 fade-in">
-                        Featured Projects
-                    </h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto fade-in">
-                        Explore our stunning portfolio of interior design projects that showcase our expertise in
-                        creating beautiful, functional spaces.
-                        Visit our <a href="/portfolio" class="text-primary hover:underline">interior design portfolio
-                            for Hyderabad homes</a> to see more completed work.
-                    </p>
-                </div>
+
                 <!-- Category filter -->
-                <div class="flex flex-wrap justify-center gap-6 mb-12">
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 active"
-                        data-category="bedroom">
+                <div class="flex flex-wrap gap-4 mb-12">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300 active" data-category="bedroom">
                         Bedroom
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="living-room">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300" data-category="living-room">
                         Living Room
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="kitchen">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300" data-category="kitchen">
                         Kitchen
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="dining">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300" data-category="dining">
                         Dining
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="false-ceiling">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300" data-category="false-ceiling">
                         False Ceiling
                     </button>
                 </div>
+
                 <!-- Portfolio Grid -->
                 <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Portfolio items will be loaded here by JavaScript -->
                 </div>
                 <div id="no-images-message" class="text-center py-12 hidden">
-                    <p class="text-gray-500">No images available for this category.</p>
+                    <p class="text-foreground text-lg font-normal">No images available for this category.</p>
                 </div>
             </div>
         </section>
-        <!-- Testimonials Section - Exact copy from SimpleTestimonials -->
-        <section id="testimonials" class="py-16 sm:py-20 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center mb-8">
-                    <p class="text-yellow-500 font-medium mb-2 tracking-wide uppercase text-sm fade-in">
-                        Testimonials
-                    </p>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 fade-in">
-                        What Our Clients Say
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-16 bg-secondary text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-primary opacity-5"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="max-w-4xl mb-8">
+                    <h2 class="text-4xl md:text-6xl font-light mb-4 uppercase tracking-tight text-white">
+                        Client <span class="text-primary font-normal">Stories</span>
                     </h2>
                 </div>
-                <div class="relative overflow-hidden mx-auto max-w-[95vw]">
+                <div class="relative overflow-hidden mx-auto">
                     <!-- Loading state -->
                     <div id="testimonials-loading" class="text-center py-8">
-                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
-                        <p class="mt-2 text-gray-600">Loading customer reviews...</p>
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                        <p class="mt-4 text-white/80 font-normal">Loading customer reviews...</p>
                     </div>
                     <div class="flex flex-nowrap gap-6 py-4 animate-scroll" style="display: none;">
                         <!-- Reviews will be loaded dynamically by Google Reviews API -->
@@ -519,406 +469,191 @@
                 </div>
             </div>
         </section>
-        <!-- Brands Section - Simplified version -->
-        <section id="brands" class="brand-section bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <p class="text-yellow-500 font-medium mb-3 tracking-wide uppercase text-sm fade-in">
-                        Our Partners
-                    </p>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 section-heading fade-in">
-                        Trusted Brands We Work With
-                    </h2>
-                </div>
-                <div class="brand-container">
-                    <div class="animate-scroll">
-                        <!-- First set of logos -->
-                        <div class="flex gap-8">
-                            <div class="partner-logo">
-                                <img src="/images/brands/logo.png"
-                                    alt="Trusted Home Interior Material Brand Logo - Apple Interiors Partner"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/logo2-300x102.png"
-                                    alt="Premium Interior Design Material Partner - Apple Interiors"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/Sleek_logo-300x212.jpg"
-                                    alt="Sleek Modular Kitchen Designs Hyderabad - Apple Interiors Partner"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/greenply-logo-469D8F2DFE-seeklogo.com_.png"
-                                    alt="Greenply High Quality Plywood for Home Interiors Hyderabad"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/download-300x112.png"
-                                    alt="Authorized Home Interior Solutions Partner Hyderabad"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/hafele-300x300.jpg"
-                                    alt="Hafele Premium Kitchen and Wardrobe Fittings Hyderabad"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/download.jpg"
-                                    alt="Trusted Building Material Brand Partner - Apple Interiors"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/hettich-300x225.png"
-                                    alt="Hettich Premium Design and Technology for Kitchens Hyderabad"
-                                    class="w-full h-full object-contain">
-                            </div>
-                        </div>
-                        <!-- Duplicate for infinite scroll -->
-                        <div class="flex gap-8">
-                            <div class="partner-logo">
-                                <img src="/images/brands/logo.png" alt="Trusted Home Interior Brand Logo Hyderabad"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/logo2-300x102.png" alt="Premium Interior Material Partner"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/Sleek_logo-300x212.jpg" alt="Sleek Modular Kitchen Design"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/greenply-logo-469D8F2DFE-seeklogo.com_.png"
-                                    alt="Greenply Eco-friendly Plywood" class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/download-300x112.png" alt="Top Rated Interior Solutions Brand"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/hafele-300x300.jpg" alt="Hafele Modern Kitchen Fittings"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/download.jpg" alt="Quality Building Material Brand Logo"
-                                    class="w-full h-full object-contain">
-                            </div>
-                            <div class="partner-logo">
-                                <img src="/images/brands/hettich-300x225.png" alt="Hettich Premium Design Hardware"
-                                    class="w-full h-full object-contain">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About Section - Exact copy from About.tsx -->
-        <section id="about" class="py-24 md:py-32 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto">
-                    <div class="fade-in">
-                        <p class="text-yellow-500 font-medium mb-4 tracking-wide uppercase fade-in">
-                            About Us
-                        </p>
-                        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 fade-in">
-                            Crafting Beautiful Living Spaces
-                        </h2>
-                        <p class="text-gray-600 mb-8 fade-in">
-                            At Apple Interiors, we believe that great design has the power to transform spaces and
-                            enhance lives. Our expert interior designers in Hyderabad combine creativity with
-                            functionality to create interiors that reflect your unique style and needs. With 7+ years of
-                            experience and 400+ completed projects, we are the trusted choice for interior design in
-                            Hyderabad.
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-                            <!-- Feature 1: Creative Design -->
-                            <div class="flex flex-col items-center text-center fade-in">
-                                <div
-                                    class="flex-shrink-0 w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-4 text-2xl">
-                                    🎨
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                                        Creative Design
-                                    </h3>
-                                    <p class="text-gray-600 text-sm">
-                                        Innovative and unique design solutions tailored to your style and needs.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Feature 2: Expert Planning -->
-                            <div class="flex flex-col items-center text-center fade-in">
-                                <div
-                                    class="flex-shrink-0 w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-4 text-2xl">
-                                    📐
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                                        Expert Planning
-                                    </h3>
-                                    <p class="text-gray-600 text-sm">
-                                        Detailed space planning and layout optimization for maximum functionality.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Feature 3: Quality Materials -->
-                            <div class="flex flex-col items-center text-center fade-in">
-                                <div
-                                    class="flex-shrink-0 w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-4 text-2xl">
-                                    ⭐
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                                        Quality Materials
-                                    </h3>
-                                    <p class="text-gray-600 text-sm">
-                                        Premium materials and finishes that ensure lasting beauty and durability.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="faq" class="py-16 md:py-24 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="max-w-5xl mx-auto">
-                    <div class="text-center mb-12">
-                        <p class="text-yellow-500 font-medium mb-3 tracking-wide uppercase text-sm fade-in">
-                            FAQ
-                        </p>
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-in">
-                            Frequently Asked Questions
-                        </h2>
-                        <p class="text-gray-600 fade-in">
-                            Answers to common questions about interior design costs, timelines and working with Apple
-                            Interiors in Hyderabad.
-                        </p>
-                    </div>
-                    <div class="grid gap-4 md:gap-6 md:grid-cols-2">
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        What is the cost of 2BHK interior design in Hyderabad?
-                                    </h3>
-                                </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
-                                <p>
-                                    Every home is unique. We provide a detailed, itemized quotation after a thorough
-                                    site visit and design consultation, ensuring you get the best value for your
-                                    specific requirements without any hidden costs.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        How long does a full home interior project usually take?
-                                    </h3>
-                                </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
-                                <p>
-                                    A typical 2BHK or 3BHK interior design project in Hyderabad takes around 6 to 10
-                                    weeks from design finalisation to handover, depending on the size of the home and
-                                    complexity of the design.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        Do you offer modular kitchen and wardrobe design?
-                                    </h3>
-                                </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
-                                <p>
-                                    Yes, we specialise in modular kitchens, wardrobes and storage solutions. You can
-                                    learn more on our
-                                    <a href="/services" class="text-primary hover:underline">services page</a>
-                                    or contact us for a customised modular kitchen quote.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        Which areas of Hyderabad do you serve?
-                                    </h3>
-                                </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
-                                <p>
-                                    Apple Interiors serves most parts of Hyderabad including Kukatpally, Gachibowli,
-                                    HITEC City, Madhapur, Banjara Hills, Jubilee Hills, Kokapet, Kompally, Tellapur,
-                                    Narsingi, Puppalguda, Financial District, Manikonda, Miyapur, Bachupally, Mokila,
-                                    Kollur, and Ameenpur.
-                                    If your home is in or around these locations, we can help you with complete
-                                    interiors.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 sm:py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center mb-12">
-                <p class="text-primary font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm fade-in">
-                    Contact Us
-                </p>
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 fade-in">
-                    Get in Touch
+
+        <!-- Brands Section -->
+        <section id="brands" class="brand-section py-16 bg-white overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+                <h2 class="text-2xl font-light text-secondary uppercase tracking-tight text-center">
+                    Trusted by Industry Leaders
                 </h2>
-                <p class="text-base sm:text-lg text-gray-600 fade-in">
-                    Let's discuss your project and create something extraordinary together
-                </p>
             </div>
-            <div class="mx-auto max-w-4xl">
-                <!-- Contact Form -->
-                <div class="fade-in">
-                    <!-- Status Messages -->
-                    <div id="home-contact-status" class="hidden mb-6"></div>
-                    <!-- Contact Form -->
-                    <form id="homeContactForm" class="space-y-6" novalidate>
-                        <!-- Honeypot fields (hidden from users, visible to bots) -->
-                        <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;"
-                            aria-hidden="true">
-                            <input type="text" name="website" tabindex="-1" autocomplete="off"
-                                placeholder="Leave this field empty">
-                            <input type="url" name="url" tabindex="-1" autocomplete="off"
-                                placeholder="Do not fill this">
-                            <input type="text" name="company_name" tabindex="-1" autocomplete="off"
-                                placeholder="Bot trap">
-                            <input type="tel" name="fax" tabindex="-1" autocomplete="off" placeholder="Fax number">
-                        </div>
-                        <!-- Name and Email Row -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="form-group">
-                                <label for="homeFullName" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Full Name <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" id="homeFullName" name="fullName" required
-                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
-                                    placeholder="Enter your full name">
-                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="homeEmailAddress" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Email Address <span class="text-red-500">*</span>
-                                </label>
-                                <input type="email" id="homeEmailAddress" name="emailAddress" required
-                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
-                                    placeholder="Enter your email address">
-                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
-                            </div>
-                        </div>
-                        <!-- Phone and Property Type Row -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="form-group">
-                                <label for="homePhoneNumber" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Phone Number <span class="text-red-500">*</span>
-                                </label>
-                                <input type="tel" id="homePhoneNumber" name="phoneNumber" required
-                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
-                                    placeholder="+91 9876543210">
-                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="homePropertyType" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Property Type
-                                </label>
-                                <select id="homePropertyType" name="propertyType"
-                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200">
-                                    <option value="">Select Property Type</option>
-                                    <option value="1BHK">1BHK Apartment</option>
-                                    <option value="2BHK">2BHK Apartment</option>
-                                    <option value="3BHK">3BHK Apartment</option>
-                                    <option value="4BHK">4BHK Apartment</option>
-                                    <option value="Villa">Villa/Independent House</option>
-                                    <option value="Office">Office Space</option>
-                                    <option value="Commercial">Commercial Space</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Location Row -->
-                        <div class="form-group">
-                            <label for="homeProjectLocation" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Project Location
-                            </label>
-                            <input type="text" id="homeProjectLocation" name="projectLocation"
-                                class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200"
-                                placeholder="e.g., Kukatpally, Hyderabad">
-                        </div>
-                        <!-- Message -->
-                        <div class="form-group">
-                            <label for="homeProjectMessage" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Project Details & Requirements
-                            </label>
-                            <textarea id="homeProjectMessage" name="projectMessage" rows="5"
-                                class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 resize-vertical"
-                                placeholder="Tell us about your project requirements, preferred style, timeline, or any specific needs..."></textarea>
-                        </div>
-                        <!-- Submit Button -->
-                        <div class="text-center">
-                            <button type="submit" id="homeSubmitBtn"
-                                class="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                                <span class="btn-text">Submit</span>
-                                <span class="btn-loading hidden">
-                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                            stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                        </path>
-                                    </svg>
-                                    Sending...
-                                </span>
-                            </button>
-                        </div>
-                    </form>
+            <div class="brand-container flex overflow-hidden">
+                <div class="flex gap-16 items-center animate-scroll whitespace-nowrap min-w-max px-8">
+                    <!-- First set of logos -->
+                    <img src="/images/brands/logo.png" alt="Trusted Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/logo2-300x102.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/Sleek_logo-300x212.jpg" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/greenply-logo-469D8F2DFE-seeklogo.com_.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/download-300x112.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/hafele-300x300.jpg" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/download.jpg" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/hettich-300x225.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <!-- Duplicate for infinite scroll -->
+                    <img src="/images/brands/logo.png" alt="Trusted Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/logo2-300x102.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/Sleek_logo-300x212.jpg" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/greenply-logo-469D8F2DFE-seeklogo.com_.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/download-300x112.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/hafele-300x300.jpg" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/download.jpg" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="/images/brands/hettich-300x225.png" alt="Partner" class="h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-6xl font-light text-secondary mb-8 uppercase tracking-tight">
+                        CRAFTING <span class="text-primary font-normal">BEAUTIFUL</span> LIVING SPACES
+                    </h2>
+                    <p class="text-foreground text-lg md:text-xl font-normal leading-relaxed mb-16">
+                        At Apple Interiors, we believe that great design has the power to transform spaces and enhance lives. Our expert interior designers in Hyderabad combine creativity with functionality. With 7+ years of experience and 400+ completed projects, we are the trusted choice.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition-shadow">
+                            <div class="w-14 h-14 bg-primary text-secondary rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-3.078 0L3 18.25V21h3.75l2.25-3.078a3 3 0 0 0 0-3.078L7.5 13.5m10.5-9.75-9.375 9.375a2.25 2.25 0 0 0 0 3.182l1.414 1.414a2.25 2.25 0 0 0 3.182 0L22.5 8.25m-4.5-4.5 4.5 4.5" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-normal text-secondary mb-3 uppercase">Creative Design</h3>
+                            <p class="text-foreground text-sm font-normal">Innovative and unique design solutions tailored to your style and needs.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition-shadow">
+                            <div class="w-14 h-14 bg-primary text-secondary rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v16.5h16.5M12 6.75h5.25m-5.25 3h5.25M12 13.5h5.25M7.5 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-normal text-secondary mb-3 uppercase">Expert Planning</h3>
+                            <p class="text-foreground text-sm font-normal">Detailed space planning and layout optimization for maximum functionality.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition-shadow">
+                            <div class="w-14 h-14 bg-primary text-secondary rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-normal text-secondary mb-3 uppercase">Quality Materials</h3>
+                            <p class="text-foreground text-sm font-normal">Premium materials and finishes that ensure lasting beauty and durability.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-6xl font-light text-secondary mb-6 uppercase tracking-tight">
+                            Got <span class="text-primary font-normal">Questions?</span>
+                        </h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">What is the cost of 2BHK interior design in Hyderabad?</h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                </div>
+                            </button>
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
+                                <p>Every home is unique. We provide a detailed, itemized quotation after a thorough site visit and design consultation, ensuring you get the best value for your specific requirements without any hidden costs.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">How long does a full home interior project take?</h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                </div>
+                            </button>
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
+                                <p>A typical 2BHK or 3BHK interior design project in Hyderabad takes around 6 to 10 weeks from design finalisation to handover, depending on the size of the home and complexity of the design.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">Do you offer modular kitchen design?</h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                </div>
+                            </button>
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
+                                <p>Yes, we specialise in modular kitchens, wardrobes and storage solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-secondary text-white relative overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-6xl font-light text-white mb-6 uppercase tracking-tight">
+                            Start Your <span class="text-primary font-normal">Project</span>
+                        </h2>
+                    </div>
+                    <div class="bg-white text-secondary p-8 md:p-12 rounded-[32px] shadow-2xl">
+                        <!-- Status Messages -->
+                        <div id="home-contact-status" class="hidden mb-6"></div>
+                        <!-- Contact Form -->
+                        <form id="homeContactForm" class="space-y-6" novalidate>
+                            <!-- Honeypot -->
+                            <div style="position: absolute; left: -9999px; opacity: 0;" aria-hidden="true">
+                                <input type="text" name="website" tabindex="-1">
+                                <input type="url" name="url" tabindex="-1">
+                                <input type="text" name="company_name" tabindex="-1">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="homeFullName" class="block text-xs font-normal uppercase tracking-widest text-secondary/70 mb-2">Full Name *</label>
+                                    <input type="text" id="homeFullName" name="fullName" required class="w-full px-5 py-4 bg-background border-none rounded-xl focus:ring-2 focus:ring-primary font-normal" placeholder="John Doe">
+                                </div>
+                                <div>
+                                    <label for="homeEmailAddress" class="block text-xs font-normal uppercase tracking-widest text-secondary/70 mb-2">Email *</label>
+                                    <input type="email" id="homeEmailAddress" name="emailAddress" required class="w-full px-5 py-4 bg-background border-none rounded-xl focus:ring-2 focus:ring-primary font-normal" placeholder="john@example.com">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="homePhoneNumber" class="block text-xs font-normal uppercase tracking-widest text-secondary/70 mb-2">Phone *</label>
+                                    <input type="tel" id="homePhoneNumber" name="phoneNumber" required class="w-full px-5 py-4 bg-background border-none rounded-xl focus:ring-2 focus:ring-primary font-normal" placeholder="+91 9876543210">
+                                </div>
+                                <div>
+                                    <label for="homePropertyType" class="block text-xs font-normal uppercase tracking-widest text-secondary/70 mb-2">Property Type</label>
+                                    <select id="homePropertyType" name="propertyType" class="w-full px-5 py-4 bg-background border-none rounded-xl focus:ring-2 focus:ring-primary font-normal">
+                                        <option value="">Select Property Type</option>
+                                        <option value="1BHK">1BHK Apartment</option>
+                                        <option value="2BHK">2BHK Apartment</option>
+                                        <option value="3BHK">3BHK Apartment</option>
+                                        <option value="Villa">Villa/Independent House</option>
+                                    </select>
+                                </div>
+                            </div>
+ 
+                            <div>
+                                <label for="homeProjectMessage" class="block text-xs font-normal uppercase tracking-widest text-secondary/70 mb-2">Message</label>
+                                <textarea id="homeProjectMessage" name="projectMessage" rows="4" class="w-full px-5 py-4 bg-background border-none rounded-xl focus:ring-2 focus:ring-primary font-normal resize-none" placeholder="Project details..."></textarea>
+                            </div>
+ 
+                            <button type="submit" id="homeSubmitBtn" class="w-full bg-primary hover:bg-primary-hover text-secondary font-normal uppercase tracking-widest py-5 rounded-xl transition-all duration-300 text-sm">
+                                <span class="btn-text">Submit Request</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     <!-- Footer -->
     <div id="shared-footer"></div>
     <!-- WhatsApp Widget -->
@@ -933,6 +668,7 @@
     <!-- JavaScript -->
     <script src="script.js"></script>
     <script src="/footer.js"></script>
+
 </body>
 
 </html>
