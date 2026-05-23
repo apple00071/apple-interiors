@@ -129,14 +129,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     initializeFAQAccordions();
 
-    // Initialize Lucide icons if available
-    if (window.lucide) {
-        window.lucide.createIcons();
-    } else {
-        // Fallback if script is still loading
-        document.addEventListener('lucide-loaded', () => {
+    // Initialize Lucide icons if available, or load dynamically if elements exist
+    if (document.querySelector('[data-lucide]')) {
+        if (window.lucide) {
             window.lucide.createIcons();
-        });
+        } else {
+            let lucideScript = document.querySelector('script[src*="lucide"]');
+            if (!lucideScript) {
+                lucideScript = document.createElement('script');
+                lucideScript.src = 'https://unpkg.com/lucide@latest';
+                lucideScript.async = true;
+                lucideScript.onload = () => {
+                    if (window.lucide) {
+                        window.lucide.createIcons();
+                    }
+                };
+                document.head.appendChild(lucideScript);
+            } else {
+                lucideScript.addEventListener('load', () => {
+                    if (window.lucide) window.lucide.createIcons();
+                });
+            }
+        }
     }
 });
 
@@ -270,7 +284,7 @@ function loadPortfolioItems(category) {
                       alt="${formatCategoryName(image.category)} Interior Design in Kukatpally Hyderabad by Apple Interiors - Modern ${image.category}" 
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
                       loading="lazy">
-                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                <div class="portfolio-overlay"></div>
             </div>
         `;
         portfolioGrid.appendChild(portfolioItem);

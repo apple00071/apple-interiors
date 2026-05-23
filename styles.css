@@ -954,6 +954,21 @@ body main {
   transform: scale(1.05);
 }
 
+.portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+  pointer-events: none; /* Make sure overlay doesn't block image interactions or browser events */
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 /* Testimonials styles */
 .testimonial-card {
   transition: transform 0.3s ease;

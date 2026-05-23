@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth light">
 
 <head>
@@ -39,7 +39,7 @@
     <!-- Console Cleaner for Production -->
     <script src="/console-cleaner.js"></script>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.2">
     <!-- Shared Navigation -->
     <script src="shared-nav.js"></script>
     <script type="application/ld+json">
@@ -49,7 +49,7 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What types of interior design projects are shown in your portfolioâ€”,
+          "name": "What types of interior design projects are shown in your portfolio?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Our portfolio showcases bedroom, living room, kitchen, dining, false ceiling and complete home interior projects executed across Hyderabad. It includes 1BHK, 2BHK, 3BHK apartments and villa interiors."
@@ -57,7 +57,7 @@
         },
         {
           "@type": "Question",
-          "name": "Are all the projects in your portfolio from Hyderabadâ€”,
+          "name": "Are all the projects in your portfolio from Hyderabad?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Most of the projects in our portfolio are from Hyderabad areas such as Kukatpally, Gachibowli, HITEC City and nearby localities. We also undertake select projects in surrounding regions based on scope and timelines."
@@ -65,7 +65,7 @@
         },
         {
           "@type": "Question",
-          "name": "Can you recreate a design from your portfolio for my homeâ€”,
+          "name": "Can you recreate a design from your portfolio for my home?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "We can take inspiration from any design in our portfolio and customize it to suit your floor plan, vision and style preferences. Each project is tailored rather than copied exactly."
@@ -73,7 +73,7 @@
         },
         {
           "@type": "Question",
-          "name": "How can I get a quote for a design similar to one in your portfolioâ€”,
+          "name": "How can I get a quote for a design similar to one in your portfolio?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Share screenshots or links of the designs you like from our portfolio along with your floor plan through our contact page. Our team will estimate the cost and timelines for a similar interior design in your home."
@@ -123,45 +123,36 @@
             </div>
         </section>
         <!-- Portfolio Hero Section -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto text-center">
-                    <p class="text-primary font-medium mb-4 tracking-wide uppercase fade-in">Our Work</p>
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 fade-in">Featured Projects</h1>
-                    <p class="text-xl text-gray-600 mb-8 fade-in">Explore our stunning portfolio of interior design
-                        projects that showcase our expertise in creating beautiful, functional spaces. 400+ completed
-                        projects across Hyderabad.</p>
-                </div>
+        <section class="py-24 bg-white relative overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+                <span class="text-primary text-xs uppercase tracking-widest font-normal block mb-3">Our Work</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-secondary mb-6 uppercase tracking-tight max-w-4xl">
+                    Featured <span class="text-primary font-medium">Projects</span>
+                </h1>
+                <p class="text-foreground/80 text-base md:text-lg font-normal leading-relaxed max-w-3xl mx-auto">
+                    Explore our stunning portfolio of interior design projects that showcase our expertise in creating beautiful, functional spaces. 400+ completed projects across Hyderabad.
+                </p>
             </div>
         </section>
+
         <!-- Portfolio Section -->
-        <section class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
+        <section class="py-20 bg-stone-50 rounded-t-[40px] shadow-sm relative z-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Category filter -->
-                <div class="flex flex-wrap justify-center gap-6 mb-12">
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 active"
-                        data-category="bedroom">
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300 active" data-category="bedroom">
                         Bedroom
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="living-room">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300 text-secondary/70 hover:text-primary" data-category="living-room">
                         Living Room
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="kitchen">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300 text-secondary/70 hover:text-primary" data-category="kitchen">
                         Kitchen
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="dining">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300 text-secondary/70 hover:text-primary" data-category="dining">
                         Dining
                     </button>
-                    <button
-                        class="portfolio-filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-900"
-                        data-category="false-ceiling">
+                    <button class="portfolio-filter-btn px-6 py-3 rounded-full text-xs font-normal uppercase tracking-widest transition-all duration-300 text-secondary/70 hover:text-primary" data-category="false-ceiling">
                         False Ceiling
                     </button>
                 </div>
@@ -170,124 +161,101 @@
                     <!-- Portfolio items will be loaded here by JavaScript -->
                 </div>
                 <div id="no-images-message" class="text-center py-12 hidden">
-                    <p class="text-gray-500">No images available for this category.</p>
+                    <p class="text-foreground/70 text-base font-normal">No images available for this category.</p>
                 </div>
             </div>
         </section>
+
         <!-- CTA Section -->
-        <section class="py-16 bg-primary/5">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 fade-in">Ready to Start Your Project?</h2>
-                <p class="text-gray-600 mb-8 fade-in">Let's create something beautiful together. Get a free consultation
-                    today.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
-                    <a href="/contact"
-                        class="bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
+        <section class="py-20 bg-stone-50 border-t border-stone-200/60 relative overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+                <h2 class="text-3xl md:text-5xl font-light text-secondary mb-4 uppercase tracking-tight max-w-3xl">
+                    Ready to <span class="text-primary font-medium">Start</span> Your Project?
+                </h2>
+                <p class="text-foreground/70 text-base md:text-lg mb-8 max-w-xl">
+                    Let's create something beautiful together. Get a free consultation today.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/contact" class="group inline-flex items-center justify-center px-10 py-5 bg-primary text-secondary rounded-full text-sm font-normal uppercase tracking-widest hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-md">
                         Get Free Consultation
                     </a>
-                    <a href="tel:+919603960337"
-                        class="bg-white hover:bg-gray-50 text-gray-900 font-semibold py-3 px-8 rounded-lg border border-gray-200 transition-colors duration-200">
+                    <a href="tel:+919603960337" class="group inline-flex items-center justify-center px-10 py-5 bg-white text-secondary border border-stone-200 rounded-full text-sm font-normal uppercase tracking-widest hover:bg-stone-50 hover:scale-105 transition-all duration-300 shadow-sm">
                         Call Now
                     </a>
                 </div>
             </div>
         </section>
-        <section id="faq" class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
+
+        <section id="faq" class="py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-5xl mx-auto">
-                    <div class="text-center mb-12">
-                        <p class="text-primary font-medium mb-3 tracking-wide uppercase text-sm fade-in">FAQ</p>
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-in">Portfolio & Projects FAQ
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-6xl font-light text-secondary mb-6 uppercase tracking-tight">
+                            Got <span class="text-primary font-normal">Questions?</span>
                         </h2>
-                        <p class="text-gray-600 fade-in">Answers to common questions about the interior design projects
-                            showcased in our Hyderabad portfolio.</p>
+                        <p class="text-foreground/75 text-sm md:text-base font-normal">Answers to common questions about the interior design projects showcased in our Hyderabad portfolio.</p>
                     </div>
                     <div class="grid gap-4 md:gap-6 md:grid-cols-2">
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        What types of projects are included in your portfolio?
-                                    </h3>
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    What types of projects are included in your portfolio?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    Our portfolio includes bedroom, living room, kitchen, dining, false ceiling and
-                                    complete home interior projects executed for 1BHK, 2BHK, 3BHK apartments and villas
-                                    in Hyderabad.
+                                    Our portfolio includes bedroom, living room, kitchen, dining, false ceiling and complete home interior projects executed for 1BHK, 2BHK, 3BHK apartments and villas in Hyderabad.
                                 </p>
                             </div>
                         </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        Are these real client projects or concept designs?
-                                    </h3>
+
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    Are these real client projects or concept designs?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    The images displayed are from real client projects designed and executed by Apple
-                                    Interiors. We update our portfolio periodically as we complete new work.
+                                    The images displayed are from real client projects designed and executed by Apple Interiors. We update our portfolio periodically as we complete new work.
                                 </p>
                             </div>
                         </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        Can you customize a design I like from your portfolio?
-                                    </h3>
+
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    Can you customize a design I like from your portfolio?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    Yes, we can take inspiration from any portfolio design and customize it to suit your
-                                    floor plan, vision and style preferences. Every project is tailored specifically to
-                                    your space.
+                                    Yes, we can take inspiration from any portfolio design and customize it to suit your floor plan, vision and style preferences. Every project is tailored specifically to your space.
                                 </p>
                             </div>
                         </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        How do I get a quote for a similar project?
-                                    </h3>
+
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    How do I get a quote for a similar project?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    Share screenshots or links of the portfolio images you like along with your floor
-                                    plan through our <a href="/contact" class="text-primary hover:underline">contact
-                                        page</a>. Our team will estimate the cost and timeline for a similar design in
-                                    your home.
+                                    Share screenshots or links of the portfolio images you like along with your floor plan through our <a href="/contact" class="text-primary hover:underline">contact page</a>. Our team will estimate the cost and timeline for a similar design in your home.
                                 </p>
                             </div>
                         </div>
@@ -296,7 +264,6 @@
             </div>
         </section>
     </main>
-    <!-- Footer -->
     <!-- Footer -->
     <div id="shared-footer"></div>
     <!-- WhatsApp Widget -->

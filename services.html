@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth light">
 
 <head>
@@ -37,7 +37,7 @@
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="tailwind-built.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.2">
     <!-- Console Cleaner for Production -->
     <script src="/console-cleaner.js"></script>
     <!-- Shared Navigation -->
@@ -106,7 +106,7 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What types of interior design services do you offer in Hyderabadâ€”,
+          "name": "What types of interior design services do you offer in Hyderabad?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "We offer complete residential and commercial interior design services in Hyderabad including modular kitchens, wardrobes, false ceilings, space planning, project management and turnkey interiors."
@@ -114,7 +114,7 @@
         },
         {
           "@type": "Question",
-          "name": "Do you handle both residential and commercial interior design projectsâ€”,
+          "name": "Do you handle both residential and commercial interior design projects?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, Apple Interiors handles both residential projects like 1BHK, 2BHK, 3BHK apartments and villas, as well as commercial interiors such as offices, retail stores and restaurants in Hyderabad."
@@ -122,7 +122,7 @@
         },
         {
           "@type": "Question",
-          "name": "Do you provide 3D designs before starting workâ€”,
+          "name": "Do you provide 3D designs before starting work?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "We can provide 3D visualizations and detailed drawings so you can see how your interiors will look before execution. This helps in finalising layouts, colours and materials with confidence."
@@ -130,7 +130,7 @@
         },
         {
           "@type": "Question",
-          "name": "How can I get a quote for my interior design projectâ€”,
+          "name": "How can I get a quote for my interior design project?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "You can share your floor plan and requirements through our contact form or call us directly. After understanding your scope and preferences, we provide a detailed quotation and suggest suitable packages."
@@ -163,321 +163,262 @@
             </div>
         </section>
         <!-- Services Hero Section -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto text-center">
-                    <p class="text-primary font-medium mb-4 tracking-wide uppercase fade-in">Our Services</p>
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 fade-in">What We Offer</h1>
-                    <p class="text-xl text-gray-600 mb-8 fade-in">Comprehensive interior design services tailored to
-                        transform your space into something extraordinary for homes and offices across Hyderabad.</p>
-                </div>
+        <section class="py-24 bg-white relative overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+                <span class="text-primary text-xs uppercase tracking-widest font-normal block mb-3">Our Services</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-secondary mb-6 uppercase tracking-tight max-w-4xl">
+                    What We <span class="text-primary font-medium">Offer</span>
+                </h1>
+                <p class="text-foreground/80 text-base md:text-lg font-normal leading-relaxed max-w-3xl mx-auto">
+                    Comprehensive interior design services tailored to transform your space into something extraordinary for homes and offices across Hyderabad.
+                </p>
             </div>
         </section>
+
         <!-- Services Grid -->
-        <section class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
+        <section class="py-20 bg-stone-50 rounded-t-[40px] shadow-sm relative z-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Service 1: Interior Design -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    <!-- Service 1: Complete Interior Design -->
+                    <div class="service-card bg-white rounded-[32px] border border-stone-200/60 p-8 cursor-pointer hover:shadow-xl transition-all duration-300 group fade-in">
+                        <div class="service-icon w-14 h-14 mb-6 rounded-full bg-primary text-secondary flex items-center justify-center group-hover:bg-primary-hover transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-secondary">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                             </svg>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Complete Interior Design</h3>
-                        <p class="text-gray-600 mb-4">Complete interior design solutions that blend functionality with
-                            aesthetic appeal to create your dream space.</p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li>• Residential Interior Design</li>
-                            <li>• Commercial Interior Design</li>
-                            <li>• Office Interior Design</li>
-                            <li>• Retail Space Design</li>
+                        <h3 class="text-xl font-normal text-secondary mb-3 uppercase tracking-wide group-hover:text-primary transition-colors">Complete Interior Design</h3>
+                        <p class="text-foreground/70 text-sm mb-4">Complete interior design solutions that blend functionality with aesthetic appeal to create your dream space.</p>
+                        <ul class="text-xs text-foreground/60 space-y-1">
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Residential Interior Design</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Commercial Interior Design</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Office Interior Design</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Retail Space Design</li>
                         </ul>
                     </div>
+
                     <!-- Service 2: Modular Kitchen -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V9.75a3 3 0 0 0-3-3h-1.5m-1.5 12V10.5a1.5 1.5 0 0 1 1.5-1.5h1.5m-1.5 12h-4.5m2.25-15.75V6A2.25 2.25 0 0 1 9 3.75h1.5A2.25 2.25 0 0 1 12.75 6v2.25" />
+                    <div class="service-card bg-white rounded-[32px] border border-stone-200/60 p-8 cursor-pointer hover:shadow-xl transition-all duration-300 group fade-in">
+                        <div class="service-icon w-14 h-14 mb-6 rounded-full bg-primary text-secondary flex items-center justify-center group-hover:bg-primary-hover transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-secondary">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V9.75a3 3 0 0 0-3-3h-1.5m-1.5 12V10.5a1.5 1.5 0 0 1 1.5-1.5h1.5m-1.5 12h-4.5m2.25-15.75V6A2.25 2.25 0 0 1 9 3.75h1.5A2.25 2.25 0 0 1 12.75 6v2.25" />
                             </svg>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Modular Kitchen</h3>
-                        <p class="text-gray-600 mb-4">Modern modular kitchen designs with premium materials and smart
-                            storage solutions.</p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li>• L-Shaped Kitchen</li>
-                            <li>• U-Shaped Kitchen</li>
-                            <li>• Island Kitchen</li>
-                            <li>• Parallel Kitchen</li>
+                        <h3 class="text-xl font-normal text-secondary mb-3 uppercase tracking-wide group-hover:text-primary transition-colors">Modular Kitchen</h3>
+                        <p class="text-foreground/70 text-sm mb-4">Modern modular kitchen designs with premium materials and smart storage solutions.</p>
+                        <ul class="text-xs text-foreground/60 space-y-1">
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> L-Shaped Kitchen</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> U-Shaped Kitchen</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Island Kitchen</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Parallel Kitchen</li>
                         </ul>
                     </div>
+
                     <!-- Service 3: False Ceiling -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                    <div class="service-card bg-white rounded-[32px] border border-stone-200/60 p-8 cursor-pointer hover:shadow-xl transition-all duration-300 group fade-in">
+                        <div class="service-icon w-14 h-14 mb-6 rounded-full bg-primary text-secondary flex items-center justify-center group-hover:bg-primary-hover transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-secondary">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
                             </svg>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            False Ceiling</h3>
-                        <p class="text-gray-600 mb-4">Elegant false ceiling designs with integrated lighting solutions
-                            for enhanced ambiance.</p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li>• Gypsum False Ceiling</li>
-                            <li>• POP False Ceiling</li>
-                            <li>• Wooden False Ceiling</li>
-                            <li>• LED Integrated Ceiling</li>
+                        <h3 class="text-xl font-normal text-secondary mb-3 uppercase tracking-wide group-hover:text-primary transition-colors">False Ceiling</h3>
+                        <p class="text-foreground/70 text-sm mb-4">Elegant false ceiling designs with integrated lighting solutions for enhanced ambiance.</p>
+                        <ul class="text-xs text-foreground/60 space-y-1">
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Gypsum False Ceiling</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> POP False Ceiling</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Wooden False Ceiling</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> LED Integrated Ceiling</li>
                         </ul>
                     </div>
+
                     <!-- Service 4: Space Planning -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                    <div class="service-card bg-white rounded-[32px] border border-stone-200/60 p-8 cursor-pointer hover:shadow-xl transition-all duration-300 group fade-in">
+                        <div class="service-icon w-14 h-14 mb-6 rounded-full bg-primary text-secondary flex items-center justify-center group-hover:bg-primary-hover transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-secondary">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
                             </svg>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Space Planning</h3>
-                        <p class="text-gray-600 mb-4">Optimize your space with strategic planning that maximizes
-                            functionality while maintaining visual harmony.</p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li>• Layout Optimization</li>
-                            <li>• Traffic Flow Planning</li>
-                            <li>• Storage Solutions</li>
-                            <li>• Multi-functional Spaces</li>
+                        <h3 class="text-xl font-normal text-secondary mb-3 uppercase tracking-wide group-hover:text-primary transition-colors">Space Planning</h3>
+                        <p class="text-foreground/70 text-sm mb-4">Optimize your space with strategic planning that maximizes functionality while maintaining visual harmony.</p>
+                        <ul class="text-xs text-foreground/60 space-y-1">
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Layout Optimization</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Traffic Flow Planning</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Storage Solutions</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Multi-functional Spaces</li>
                         </ul>
                     </div>
+
                     <!-- Service 5: Wardrobes & Storage -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                    <div class="service-card bg-white rounded-[32px] border border-stone-200/60 p-8 cursor-pointer hover:shadow-xl transition-all duration-300 group fade-in">
+                        <div class="service-icon w-14 h-14 mb-6 rounded-full bg-primary text-secondary flex items-center justify-center group-hover:bg-primary-hover transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-secondary">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                             </svg>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Wardrobes & Storage</h3>
-                        <p class="text-gray-600 mb-4">Custom wardrobes and storage solutions designed to maximize space
-                            and organization.</p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li>• Walk-in Wardrobes</li>
-                            <li>• Sliding Door Wardrobes</li>
-                            <li>• Built-in Storage</li>
-                            <li>• Custom Shelving</li>
+                        <h3 class="text-xl font-normal text-secondary mb-3 uppercase tracking-wide group-hover:text-primary transition-colors">Wardrobes & Storage</h3>
+                        <p class="text-foreground/70 text-sm mb-4">Custom wardrobes and storage solutions designed to maximize space and organization.</p>
+                        <ul class="text-xs text-foreground/60 space-y-1">
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Walk-in Wardrobes</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Sliding Door Wardrobes</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Built-in Storage</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Custom Shelving</li>
                         </ul>
                     </div>
+
                     <!-- Service 6: Project Management -->
-                    <div
-                        class="service-card bg-white rounded-lg p-8 cursor-pointer hover:bg-yellow-500/5 group fade-in">
-                        <div class="service-icon w-16 h-16 mb-6 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors duration-300"
-                            style="color: #eab308;">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                    <div class="service-card bg-white rounded-[32px] border border-stone-200/60 p-8 cursor-pointer hover:shadow-xl transition-all duration-300 group fade-in">
+                        <div class="service-icon w-14 h-14 mb-6 rounded-full bg-primary text-secondary flex items-center justify-center group-hover:bg-primary-hover transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-secondary">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
                             </svg>
                         </div>
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-500 transition-colors duration-300">
-                            Project Management</h3>
-                        <p class="text-gray-600 mb-4">End-to-end project management ensuring timely delivery and
-                            seamless execution of your interior design project.</p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li>• Timeline Management</li>
-                            <li>• Quality Control</li>
-                            <li>• Vendor Coordination</li>
-                            <li>• Project Management</li>
+                        <h3 class="text-xl font-normal text-secondary mb-3 uppercase tracking-wide group-hover:text-primary transition-colors">Project Management</h3>
+                        <p class="text-foreground/70 text-sm mb-4">End-to-end project management ensuring timely delivery and seamless execution of your interior design project.</p>
+                        <ul class="text-xs text-foreground/60 space-y-1">
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Timeline Management</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Quality Control</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Vendor Coordination</li>
+                            <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Turnkey Supervision</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
+
         <!-- Process Section -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 fade-in">Our Process</h2>
-                    <p class="text-gray-600 fade-in">Simple, transparent process to bring your vision to life</p>
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center mb-16">
+                    <span class="text-primary text-xs uppercase tracking-widest font-normal">Our Process</span>
+                    <h2 class="text-3xl md:text-4xl font-light text-secondary mt-2 mb-6 uppercase tracking-tight">How We <span class="text-primary font-medium">Work</span></h2>
+                    <p class="text-foreground/70 text-sm md:text-base">Simple, transparent process to bring your vision to life</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <!-- Step 1 -->
                     <div class="text-center fade-in">
-                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-primary">1</span>
+                        <div class="w-16 h-16 bg-primary text-secondary rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-medium shadow-xs">
+                            1
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Consultation</h3>
-                        <p class="text-gray-600 text-sm">Free consultation to understand your needs and vision</p>
+                        <h3 class="text-lg font-normal text-secondary uppercase tracking-wide mb-2">Consultation</h3>
+                        <p class="text-foreground/70 text-sm">Free consultation to understand your needs and vision</p>
                     </div>
                     <!-- Step 2 -->
                     <div class="text-center fade-in">
-                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-primary">2</span>
+                        <div class="w-16 h-16 bg-primary text-secondary rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-medium shadow-xs">
+                            2
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Design</h3>
-                        <p class="text-gray-600 text-sm">Create detailed designs and 3D visualizations</p>
+                        <h3 class="text-lg font-normal text-secondary uppercase tracking-wide mb-2">Design</h3>
+                        <p class="text-foreground/70 text-sm">Create detailed designs and 3D visualizations</p>
                     </div>
                     <!-- Step 3 -->
                     <div class="text-center fade-in">
-                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-primary">3</span>
+                        <div class="w-16 h-16 bg-primary text-secondary rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-medium shadow-xs">
+                            3
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Execution</h3>
-                        <p class="text-gray-600 text-sm">Professional execution with quality materials</p>
+                        <h3 class="text-lg font-normal text-secondary uppercase tracking-wide mb-2">Execution</h3>
+                        <p class="text-foreground/70 text-sm">Professional execution with quality materials</p>
                     </div>
                     <!-- Step 4 -->
                     <div class="text-center fade-in">
-                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-primary">4</span>
+                        <div class="w-16 h-16 bg-primary text-secondary rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-medium shadow-xs">
+                            4
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Handover</h3>
-                        <p class="text-gray-600 text-sm">Final handover with warranty and support</p>
+                        <h3 class="text-lg font-normal text-secondary uppercase tracking-wide mb-2">Handover</h3>
+                        <p class="text-foreground/70 text-sm">Final handover with warranty and support</p>
                     </div>
                 </div>
             </div>
         </section>
+
         <!-- CTA Section -->
-        <section class="py-16 bg-primary/5">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 fade-in">Ready to Transform Your Space?
+        <section class="py-20 bg-stone-50 border-t border-b border-stone-200/60 relative overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+                <h2 class="text-3xl md:text-5xl font-light text-secondary mb-4 uppercase tracking-tight max-w-3xl">
+                    Ready to <span class="text-primary font-medium">Transform</span> Your Space?
                 </h2>
-                <p class="text-gray-600 mb-8 fade-in">Get a free consultation and quote for your interior design project
+                <p class="text-foreground/70 text-base md:text-lg mb-8 max-w-xl">
+                    Get a free consultation and quote for your interior design project
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
-                    <a href="/contact"
-                        class="bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/contact" class="group inline-flex items-center justify-center px-10 py-5 bg-primary text-secondary rounded-full text-sm font-normal uppercase tracking-widest hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-md">
                         Get Free Quote
                     </a>
-                    <a href="tel:+919603960337"
-                        class="bg-white hover:bg-gray-50 text-gray-900 font-semibold py-3 px-8 rounded-lg border border-gray-200 transition-colors duration-200">
+                    <a href="tel:+919603960337" class="group inline-flex items-center justify-center px-10 py-5 bg-white text-secondary border border-stone-200 rounded-full text-sm font-normal uppercase tracking-widest hover:bg-stone-50 hover:scale-105 transition-all duration-300 shadow-sm">
                         Call Now
                     </a>
                 </div>
             </div>
         </section>
-        <section id="faq" class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
+
+        <section id="faq" class="py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-5xl mx-auto">
-                    <div class="text-center mb-12">
-                        <p class="text-primary font-medium mb-3 tracking-wide uppercase text-sm fade-in">FAQ</p>
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-in">Interior Design Services
-                            FAQ</h2>
-                        <p class="text-gray-600 fade-in">Answers to common questions about our interior design services
-                            in Hyderabad, including modular kitchens, wardrobes and turnkey projects.</p>
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-6xl font-light text-secondary mb-6 uppercase tracking-tight">
+                            Got <span class="text-primary font-normal">Questions?</span>
+                        </h2>
+                        <p class="text-foreground/75 text-sm md:text-base font-normal">Answers to common questions about our interior design services in Hyderabad.</p>
                     </div>
                     <div class="grid gap-4 md:gap-6 md:grid-cols-2">
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        What types of spaces do you design?
-                                    </h3>
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    What types of spaces do you design?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    We design complete interiors for homes and offices including living rooms, bedrooms,
-                                    kitchens, wardrobes, false ceilings and work spaces. Our team handles 1BHK, 2BHK,
-                                    3BHK apartments, villas and commercial spaces across Hyderabad.
+                                    We design complete interiors for homes and offices including living rooms, bedrooms, kitchens, wardrobes, false ceilings and work spaces. Our team handles 1BHK, 2BHK, 3BHK apartments, villas and commercial spaces across Hyderabad.
                                 </p>
                             </div>
                         </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        Do you provide modular kitchen and wardrobe solutions?
-                                    </h3>
+                        
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    Do you provide modular kitchen and wardrobe solutions?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    Yes, we specialize in modular kitchens and custom wardrobes with high-quality
-                                    hardware and finishes. You can also explore some of our executed work on our <a
-                                        href="/portfolio" class="text-primary hover:underline">interior design
-                                        portfolio</a>.
+                                    Yes, we specialize in modular kitchens and custom wardrobes with high-quality hardware and finishes. You can also explore some of our executed work on our <a href="/portfolio" class="text-primary hover:underline">interior design portfolio</a>.
                                 </p>
                             </div>
                         </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        Can you manage my project end-to-end?
-                                    </h3>
+                        
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    Can you manage my project end-to-end?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    We offer turnkey interior solutions where we handle design, material selection,
-                                    execution, site supervision and final handover, so you have a single point of
-                                    contact throughout the project.
+                                    We offer turnkey interior solutions where we handle design, material selection, execution, site supervision and final handover, so you have a single point of contact throughout the project.
                                 </p>
                             </div>
                         </div>
-                        <div class="faq-item border border-gray-200 rounded-xl p-4 sm:p-5 bg-white shadow-sm fade-in">
-                            <button type="button"
-                                class="faq-question w-full flex items-center justify-between text-left">
-                                <div class="flex items-start">
-                                    <h3 class="text-base md:text-lg font-semibold text-gray-900">
-                                        How do I get started with your services?
-                                    </h3>
+                        
+                        <div class="faq-item rounded-[20px] p-6 bg-background shadow-xs hover:shadow-md transition-shadow">
+                            <button type="button" class="faq-question w-full flex items-center justify-between text-left group">
+                                <h3 class="text-lg md:text-xl font-normal text-secondary uppercase tracking-wide group-hover:text-primary transition-colors">
+                                    How do I get started with your services?
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary group-hover:text-secondary transition-colors">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                 </div>
-                                <svg class="faq-icon ml-3 w-5 h-5 text-gray-400 transition-transform duration-200"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
                             </button>
-                            <div class="faq-answer mt-3 text-gray-600 text-sm md:text-base leading-relaxed hidden">
+                            <div class="faq-answer mt-4 text-foreground text-base font-normal hidden">
                                 <p>
-                                    You can get started by booking a free consultation from our <a href="/contact"
-                                        class="text-primary hover:underline">contact page</a> or calling us directly.
-                                    Share your floor plan and requirements and we will suggest suitable design and
-                                    high-quality options.
+                                    You can get started by booking a free consultation from our <a href="/contact" class="text-primary hover:underline">contact page</a> or calling us directly. Share your floor plan and requirements and we will suggest suitable design and high-quality options.
                                 </p>
                             </div>
                         </div>
