@@ -226,26 +226,26 @@ class SharedFooter {
         </footer>
 
         <!-- WhatsApp Widget -->
-        <div class="fixed bottom-8 right-8 z-[1001] flex flex-col items-end pointer-events-none">
+        <div class="fixed bottom-8 right-8 z-[1001] flex flex-col items-end pointer-events-none" style="font-family: sans-serif;">
             <!-- WhatsApp Popup Bubble -->
-            <div id="whatsapp-popup" class="mb-4 mr-2 bg-white/95 backdrop-blur-md border border-gray-100 rounded-2xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] max-w-[280px] transition-all duration-500 translate-y-4 opacity-0 pointer-events-auto relative flex flex-col gap-2">
+            <div id="whatsapp-popup" style="margin-bottom: 16px; margin-right: 8px; background: rgba(255, 255, 255, 0.98); border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); max-width: 270px; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; transform: translateY(16px); opacity: 0; pointer-events: auto; position: relative; display: flex; flex-direction: column; gap: 8px; text-align: left;">
                 <!-- Close Button -->
-                <button id="close-whatsapp-popup" class="absolute top-2.5 right-2.5 text-gray-400 hover:text-secondary transition-colors focus:outline-none" aria-label="Close popup">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                <button id="close-whatsapp-popup" style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; color: #9ca3af; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; outline: none;" aria-label="Close popup">
+                    <svg style="width: 14px; height: 14px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
                 <!-- Popup Content -->
-                <div class="flex items-center gap-2 pr-6">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <div style="display: flex; align-items: center; gap: 6px; padding-right: 20px;">
+                    <span style="position: relative; display: flex; width: 8px; height: 8px;">
+                        <span class="animate-ping" style="position: absolute; display: inline-flex; height: 100%; width: 100%; border-radius: 9999px; background-color: #4ade80; opacity: 0.75;"></span>
+                        <span style="position: relative; display: inline-flex; border-radius: 9999px; height: 8px; width: 8px; background-color: #22c55e;"></span>
                     </span>
-                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">We're Online</span>
+                    <span style="font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;">We're Online</span>
                 </div>
-                <h4 class="text-sm font-semibold text-secondary leading-tight">Need help with your home interiors?</h4>
-                <p class="text-xs text-gray-600 leading-normal">Chat with our design experts today for a free consultation.</p>
+                <h4 style="font-size: 14px; font-weight: 600; color: #111827; margin: 0; line-height: 1.3;">Need help with your home interiors?</h4>
+                <p style="font-size: 12px; color: #4b5563; margin: 0; line-height: 1.4;">Chat with our design experts today for a free consultation.</p>
                 <a href="https://wa.me/919603960337?text=Hi%2C%20I%20am%20interested%20in%20interior%20design%20services%20for%20my%20property.%20Could%20you%20help%20me%3F" 
                    target="_blank" rel="noopener noreferrer"
-                   class="mt-1 bg-green-500 hover:bg-green-600 text-white text-xs font-semibold py-2 px-3 rounded-lg text-center transition-colors shadow-xs">
+                   style="margin-top: 4px; background: #22c55e; color: #ffffff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 8px; text-decoration: none; text-align: center; transition: background 0.2s; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
                     Start Chat
                 </a>
             </div>
@@ -287,8 +287,8 @@ class SharedFooter {
             setTimeout(() => {
                 const popup = document.getElementById('whatsapp-popup');
                 if (popup) {
-                    popup.classList.remove('translate-y-4', 'opacity-0');
-                    popup.classList.add('translate-y-0', 'opacity-100');
+                    popup.style.transform = 'translateY(0)';
+                    popup.style.opacity = '1';
                 }
             }, 5000);
 
@@ -300,11 +300,11 @@ class SharedFooter {
                     e.stopPropagation();
                     const popup = document.getElementById('whatsapp-popup');
                     if (popup) {
-                        popup.classList.add('translate-y-4', 'opacity-0');
-                        popup.classList.remove('translate-y-0', 'opacity-100');
+                        popup.style.transform = 'translateY(16px)';
+                        popup.style.opacity = '0';
                         setTimeout(() => {
                             popup.style.display = 'none';
-                        }, 500);
+                        }, 400);
                     }
                 });
             }
