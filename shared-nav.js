@@ -24,7 +24,7 @@ class SharedNavigation {
                     
                     <!-- Logo -->
                     <a href="/" class="flex-shrink-0 flex items-center">
-                        <img src="/images/New-logo.png" alt="Apple Interiors Logo" class="h-8 object-contain">
+                        <img src="/images/New-logo.png" alt="Apple Interiors Logo" class="h-12 md:h-16 object-contain">
                     </a>
 
                     <!-- Desktop Nav (Absolutely Centered to Header/Screen Size) -->
