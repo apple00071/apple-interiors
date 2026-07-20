@@ -8,7 +8,8 @@
     "dev": "node dev-server.js",
     "build": "echo 'Static HTML build complete'",
     "build:css": "tailwindcss -i ./tailwind-input.css -o ./tailwind-built.css --minify",
-    "static": "http-server -p 3000"
+    "static": "http-server -p 3000",
+    "reindex": "node reindex.js"
   },
   "keywords": [
     "interior design",
