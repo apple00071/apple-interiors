@@ -88,7 +88,7 @@ button:focus,
   outline: none;
 }
 
-/* Testimonials scrolling animation */
+/* Continuous scrolling marquee animation */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -100,10 +100,10 @@ button:focus,
 }
 
 .animate-scroll {
-  animation: scroll 30s linear infinite;
+  animation: scroll 35s linear infinite;
   display: flex;
   width: max-content;
-  gap: 2rem;
+  gap: 4rem;
 }
 
 .animate-scroll:hover {
