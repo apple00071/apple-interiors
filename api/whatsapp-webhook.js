@@ -176,17 +176,14 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true }); // always 200 to webhook sender
   }
 
-  // Ignore empty messages or status broadcasts
-  if (!phone || !text || phone === 'status') {
-    return res.status(200).json({ ok: true });
+  // TEST MODE: Only trigger the bot for test number 8247494622
+  const TEST_MODE_NUMBER = process.env.TEST_PHONE_NUMBER || '8247494622';
+  if (TEST_MODE_NUMBER && !phone.endsWith(TEST_MODE_NUMBER)) {
+    console.log(`[WhatsApp Bot] Ignored message from non-test number: ${phone}`);
+    return res.status(200).json({ ok: true, ignored: 'test_mode' });
   }
 
-  // Ignore messages from our own sales number (avoid bot loop)
-  if (phone === SALES_NUMBER) {
-    return res.status(200).json({ ok: true });
-  }
-
-  console.log(`[WhatsApp Bot] From: ${phone} | Text: "${text}"`);
+  console.log(`[WhatsApp Bot] Processing test message from: ${phone} | Text: "${text}"`);
 
   const session = getSession(phone);
 
