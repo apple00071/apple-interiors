@@ -132,6 +132,10 @@
       "destination": "/api/csrf-token.js"
     },
     {
+      "source": "/api/whatsapp-webhook",
+      "destination": "/api/whatsapp-webhook.js"
+    },
+    {
       "source": "/case-studies/bandlaguda-dream-home-transformation",
       "destination": "/case-studies/bandlaguda-dream-home-transformation.html"
     }

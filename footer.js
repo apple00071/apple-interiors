@@ -243,7 +243,7 @@ class SharedFooter {
                 </div>
                 <h4 style="font-size: 14px; font-weight: 600; color: #111827; margin: 0; line-height: 1.3;">Need help with your home interiors?</h4>
                 <p style="font-size: 12px; color: #4b5563; margin: 0; line-height: 1.4;">Chat with our design experts today for a free consultation.</p>
-                <a href="https://wa.me/919603960337?text=Hi%2C%20I%20am%20interested%20in%20interior%20design%20services%20for%20my%20property.%20Could%20you%20help%20me%3F" 
+                <a href="https://wa.me/919160577899?text=Hi%2C%20I%20am%20interested%20in%20interior%20design%20services%20for%20my%20property.%20Could%20you%20help%20me%3F" 
                    target="_blank" rel="noopener noreferrer"
                    style="margin-top: 4px; background: #22c55e; color: #ffffff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 8px; text-decoration: none; text-align: center; transition: background 0.2s; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
                     Start Chat
@@ -251,7 +251,7 @@ class SharedFooter {
             </div>
             
             <!-- WhatsApp Button -->
-            <a href="https://wa.me/919603960337?text=Hi%2C%20I%20am%20interested%20in%20interior%20design%20services%20for%20my%20property.%20Could%20you%20help%20me%3F"
+            <a href="https://wa.me/919160577899?text=Hi%2C%20I%20am%20interested%20in%20interior%20design%20services%20for%20my%20property.%20Could%20you%20help%20me%3F"
                 target="_blank" rel="noopener noreferrer" id="whatsapp-btn"
                 class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center relative pointer-events-auto">
                 <span class="absolute inset-0 rounded-full bg-green-500 opacity-20 animate-ping z-[-1]"></span>
