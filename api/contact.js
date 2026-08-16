@@ -366,7 +366,7 @@ function generateCustomerEmailHTML(formData) {
                        style="display: inline-block; background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
                         📞 Call Us
                     </a>
-                    <a href="https://wa.me/919603960337?text=Hi%2C%20I%20just%20submitted%20a%20contact%20form%20and%20would%20like%20to%20discuss%20my%20interior%20design%20project." 
+                    <a href="https://wa.me/919160577899?text=Hi%2C%20I%20just%20submitted%20a%20contact%20form%20and%20would%20like%20to%20discuss%20my%20interior%20design%20project." 
                        style="display: inline-block; background: #25d366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
                         💬 WhatsApp
                     </a>
@@ -591,7 +591,7 @@ module.exports = async function handler(req, res) {
             success: false,
             error: errorMessage,
             fallback: {
-                whatsapp: `https://wa.me/919603960337?text=Hi%2C%20I%20tried%20to%20submit%20the%20contact%20form%20but%20encountered%20an%20issue.%20My%20name%20is%20${encodeURIComponent(req.body?.fullName || 'Customer')}%20and%20I%20would%20like%20to%20discuss%20interior%20design%20services.`,
+                whatsapp: `https://wa.me/919160577899?text=Hi%2C%20I%20tried%20to%20submit%20the%20contact%20form%20but%20encountered%20an%20issue.%20My%20name%20is%20${encodeURIComponent(req.body?.fullName || 'Customer')}%20and%20I%20would%20like%20to%20discuss%20interior%20design%20services.`,
                 phone: EMAIL_CONFIG.companyPhone
             }
         });

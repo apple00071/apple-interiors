@@ -18,7 +18,7 @@
 const { Resend } = require('resend');
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const WESENDER_API_URL  = process.env.WESENDER_API_URL || 'https://api.wesender.com/message/sendText';
+const WESENDER_API_URL  = process.env.WESENDER_API_URL || 'https://www.wasenderapi.com/api/send-message';
 const WESENDER_API_KEY  = process.env.WESENDER_API_KEY || '3a958f97a6bb9f776aef2aa3489a5a3127042ccbe4a7125efa0a98c362ecbdc0';
 const SALES_NUMBER      = process.env.SALES_WHATSAPP_NUMBER || '918247494622';
 const WEBHOOK_SECRET    = process.env.WEBHOOK_SECRET || '62149449dfcfeedc290413f8174eba36';
@@ -59,23 +59,14 @@ function getSession(phone) {
   return fresh;
 }
 
-function advanceSession(phone, answerKey, answerValue) {
-  const s = getSession(phone);
-  s.data[answerKey] = answerValue;
-  s.step += 1;
-  s.updatedAt = Date.now();
-  sessions.set(phone, s);
-  return s;
-}
-
 function clearSession(phone) {
   sessions.delete(phone);
 }
 
-// ── Send WhatsApp message via WeSender ────────────────────────────────────────
+// ── Send WhatsApp message via WASenderApi ─────────────────────────────────────
 async function sendWhatsApp(to, text) {
-  if (!WESENDER_API_URL || !WESENDER_API_KEY) {
-    console.warn('WeSender env vars not set — skipping send');
+  if (!WESENDER_API_KEY) {
+    console.warn('WASenderApi API key not set — skipping send');
     return;
   }
   try {
@@ -83,16 +74,16 @@ async function sendWhatsApp(to, text) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'apikey': WESENDER_API_KEY
+        'Authorization': `Bearer ${WESENDER_API_KEY}`
       },
-      body: JSON.stringify({ number: to, text })
+      body: JSON.stringify({ to, text })
     });
     if (!res.ok) {
       const body = await res.text();
-      console.error('WeSender error:', res.status, body);
+      console.error('WASenderApi error:', res.status, body);
     }
   } catch (err) {
-    console.error('WeSender fetch failed:', err.message);
+    console.error('WASenderApi fetch failed:', err.message);
   }
 }
 
@@ -153,28 +144,36 @@ module.exports = async function handler(req, res) {
 
   const body = req.body;
 
-  // WeSender / Evolution API payload shape:
-  // { data: { key: { remoteJid: "91XXXXXXXXXX@s.whatsapp.net" }, message: { conversation: "..." } } }
-  // OR top-level: { remoteJid, message }
+  // WASenderApi payload format:
+  // { event: "messages.received", data: { messages: { key: { cleanedSenderPn, remoteJid, fromMe }, messageBody, message: { conversation } } } }
   let phone, text;
 
   try {
     const data = body?.data || body;
-    const jid  = data?.key?.remoteJid || data?.remoteJid || '';
-    phone = jid.replace('@s.whatsapp.net', '').replace('@c.us', '');
+    const msgObj = data?.messages || data?.message || data;
+    const key = msgObj?.key || data?.key || {};
+
+    // Do not process messages sent by ourselves
+    if (key.fromMe) {
+      return res.status(200).json({ ok: true });
+    }
+
+    const jid = key.cleanedSenderPn || key.remoteJid || data?.remoteJid || '';
+    phone = jid.replace('@s.whatsapp.net', '').replace('@c.us', '').replace('@lid', '').trim();
 
     // Extract text from various message types
-    const msg = data?.message || {};
     text = (
-      msg.conversation ||
-      msg.extendedTextMessage?.text ||
-      msg.buttonsResponseMessage?.selectedDisplayText ||
-      msg.listResponseMessage?.title ||
+      msgObj?.messageBody ||
+      msgObj?.conversation ||
+      msgObj?.message?.conversation ||
+      msgObj?.message?.extendedTextMessage?.text ||
+      data?.messageBody ||
+      data?.conversation ||
       ''
     ).trim();
   } catch (err) {
     console.error('Payload parse error:', err.message, JSON.stringify(body));
-    return res.status(200).json({ ok: true }); // always 200 to WeSender
+    return res.status(200).json({ ok: true }); // always 200 to webhook sender
   }
 
   // Ignore empty messages or status broadcasts
