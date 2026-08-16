@@ -108,6 +108,40 @@ async function sendWhatsApp(to, text) {
   }
 }
 
+// ── Send Interactive Buttons / Poll via WASenderApi ───────────────────────────
+async function sendWhatsAppPoll(to, question, options) {
+  const formattedTo = formatPhone(to);
+  if (!WESENDER_API_KEY) return;
+  console.log(`[WhatsApp Bot] Sending interactive options to: ${formattedTo}...`);
+  try {
+    const res = await fetch(WESENDER_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${WESENDER_API_KEY}`
+      },
+      body: JSON.stringify({
+        to: formattedTo,
+        poll: {
+          question: question,
+          options: options,
+          multiSelect: false
+        }
+      })
+    });
+    const resData = await res.json().catch(() => ({}));
+    console.log(`[WhatsApp Bot] Send interactive options response:`, res.status, JSON.stringify(resData));
+    if (!res.ok) {
+      // Fallback to text message if poll not supported by device
+      console.warn('[WhatsApp Bot] Poll fallback to text');
+      const textFallback = `${question}\n\n` + options.map((opt, i) => `${i + 1}️⃣ ${opt}`).join('\n');
+      await sendWhatsApp(to, textFallback);
+    }
+  } catch (err) {
+    console.error('[WhatsApp Bot] WASenderApi poll failed:', err.message);
+  }
+}
+
 // ── Send lead email via Resend ────────────────────────────────────────────────
 async function sendLeadEmail(phone, data) {
   if (!process.env.RESEND_API_KEY) return;
@@ -185,16 +219,29 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ ok: true, reason: 'human_takeover_activated' });
     }
 
-    // Extract text from various message types
-    text = (
-      msgObj?.messageBody ||
-      msgObj?.conversation ||
-      msgObj?.message?.conversation ||
-      msgObj?.message?.extendedTextMessage?.text ||
-      data?.messageBody ||
-      data?.conversation ||
-      ''
-    ).trim();
+    // Handle Poll / Button Results (user clicked an option button)
+    if (body?.event === 'poll.results' && Array.isArray(data?.pollResult)) {
+      for (const opt of data.pollResult) {
+        if (Array.isArray(opt.voters) && opt.voters.some(v => v.includes(phone))) {
+          text = opt.name;
+          break;
+        }
+      }
+    }
+
+    // Extract text from various message types if not already from poll
+    if (!text) {
+      text = (
+        msgObj?.messageBody ||
+        msgObj?.conversation ||
+        msgObj?.message?.conversation ||
+        msgObj?.message?.extendedTextMessage?.text ||
+        msgObj?.message?.pollUpdateMessage?.vote ||
+        data?.messageBody ||
+        data?.conversation ||
+        ''
+      ).trim();
+    }
   } catch (err) {
     console.error('Payload parse error:', err.message, JSON.stringify(body));
     return res.status(200).json({ ok: true }); // always 200 to webhook sender
@@ -226,6 +273,8 @@ module.exports = async function handler(req, res) {
     sessions.set(phone, session);
   }
 
+  console.log(`[WhatsApp Bot] Processing message from: ${phone} | Text: "${text}" | Step: ${session.step}`);
+
   if (session.step === 0) {
     // First contact — ask question 0 (Name)
     session.step = 1;
@@ -250,11 +299,19 @@ module.exports = async function handler(req, res) {
     session.step = 2;
     session.updatedAt = Date.now();
     sessions.set(phone, session);
-    await sendWhatsApp(phone, STEPS[1].question);
+
+    // Send interactive clickable buttons for Space Type!
+    const spaceOptions = [
+      'Full Home Interiors',
+      'Modular Kitchen',
+      'Office / Commercial',
+      'Wardrobe / False Ceiling'
+    ];
+    await sendWhatsAppPoll(phone, 'Thanks! What type of space are you looking to design? (Tap an option below 👇)', spaceOptions);
     return res.status(200).json({ ok: true });
   }
 
-  // ── Step 2: Validating Space Type ───────────────────────────────────────────
+  // ── Step 2: Space Type Selection (Buttons or text) ───────────────────────────
   if (session.step === 2) {
     session.data.space = text;
     session.step = 3;
@@ -270,11 +327,19 @@ module.exports = async function handler(req, res) {
     session.step = 4;
     session.updatedAt = Date.now();
     sessions.set(phone, session);
-    await sendWhatsApp(phone, STEPS[3].question);
+
+    // Send interactive clickable buttons for Budget!
+    const budgetOptions = [
+      'Under ₹5 Lakhs',
+      '₹5–10 Lakhs',
+      '₹10–20 Lakhs',
+      '₹20 Lakhs+'
+    ];
+    await sendWhatsAppPoll(phone, '💰 What is your approximate budget for the interiors? (Tap an option below 👇)', budgetOptions);
     return res.status(200).json({ ok: true });
   }
 
-  // ── Step 4: Validating Budget & Finalizing Lead ──────────────────────────────
+  // ── Step 4: Budget Selection & Finalizing Lead ──────────────────────────────
   if (session.step >= 4) {
     session.data.budget = text;
     const d = session.data;
