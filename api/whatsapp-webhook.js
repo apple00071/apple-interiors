@@ -54,13 +54,25 @@ function getSession(phone) {
   const s = sessions.get(phone);
   if (s && Date.now() - s.updatedAt < SESSION_TTL_MS) return s;
   // expired or new
-  const fresh = { step: 0, data: {}, updatedAt: Date.now() };
+  const fresh = { step: 0, status: 'active', data: {}, updatedAt: Date.now() };
   sessions.set(phone, fresh);
   return fresh;
 }
 
-function clearSession(phone) {
-  sessions.delete(phone);
+function markSessionCompleted(phone) {
+  // Keep in completed state for 24 hours so bot does not re-trigger
+  const s = getSession(phone);
+  s.status = 'completed';
+  s.updatedAt = Date.now();
+  sessions.set(phone, s);
+}
+
+function markHumanTakeover(phone) {
+  // If sales team manually replies, disable bot for this contact
+  const s = getSession(phone);
+  s.status = 'human_takeover';
+  s.updatedAt = Date.now();
+  sessions.set(phone, s);
 }
 
 function formatPhone(num) {
@@ -157,8 +169,6 @@ module.exports = async function handler(req, res) {
 
   const body = req.body;
 
-  // WASenderApi payload format:
-  // { event: "messages.received", data: { messages: { key: { cleanedSenderPn, remoteJid, fromMe }, messageBody, message: { conversation } } } }
   let phone, text;
 
   try {
@@ -166,13 +176,14 @@ module.exports = async function handler(req, res) {
     const msgObj = data?.messages || data?.message || data;
     const key = msgObj?.key || data?.key || {};
 
-    // Do not process messages sent by ourselves
-    if (key.fromMe) {
-      return res.status(200).json({ ok: true });
-    }
-
     const jid = key.cleanedSenderPn || key.remoteJid || data?.remoteJid || '';
     phone = jid.replace('@s.whatsapp.net', '').replace('@c.us', '').replace('@lid', '').trim();
+
+    // If sales team / agent manually replies from the phone, disable bot for this contact (Human Takeover)
+    if (key.fromMe) {
+      if (phone) markHumanTakeover(phone);
+      return res.status(200).json({ ok: true, reason: 'human_takeover_activated' });
+    }
 
     // Extract text from various message types
     text = (
@@ -198,9 +209,15 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true, ignored: 'test_mode' });
   }
 
-  console.log(`[WhatsApp Bot] Processing test message from: ${phone} | Text: "${text}"`);
-
   const session = getSession(phone);
+
+  // If already completed lead qualification or human takeover is active, do not interrupt
+  if (session.status === 'completed' || session.status === 'human_takeover') {
+    console.log(`[WhatsApp Bot] Bot is paused for ${phone} (status: ${session.status}). Human can chat freely.`);
+    return res.status(200).json({ ok: true, bot_paused: session.status });
+  }
+
+  console.log(`[WhatsApp Bot] Processing message from: ${phone} | Text: "${text}" | Step: ${session.step}`);
 
   if (session.step === 0) {
     // First contact — ask question 0 (Name)
@@ -254,7 +271,8 @@ module.exports = async function handler(req, res) {
     // 4. Send email to admin
     await sendLeadEmail(phone, d);
 
-    clearSession(phone);
+    // 5. Mark session as completed so bot auto-disables and steps aside for human conversation
+    markSessionCompleted(phone);
     return res.status(200).json({ ok: true });
   }
 };
