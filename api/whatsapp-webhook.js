@@ -300,20 +300,33 @@ module.exports = async function handler(req, res) {
     session.updatedAt = Date.now();
     sessions.set(phone, session);
 
-    // Send interactive clickable buttons for Space Type!
-    const spaceOptions = [
-      'Full Home Interiors',
-      'Modular Kitchen',
-      'Office / Commercial',
-      'Wardrobe / False Ceiling'
-    ];
-    await sendWhatsAppPoll(phone, 'Thanks! What type of space are you looking to design? (Tap an option below 👇)', spaceOptions);
+    const spaceMsg =
+      `Thanks *${text}*! What type of space are you looking to design?\n\n` +
+      `1️⃣ *Full Home Interiors*\n` +
+      `2️⃣ *Modular Kitchen*\n` +
+      `3️⃣ *Office / Commercial*\n` +
+      `4️⃣ *Wardrobe / False Ceiling*\n\n` +
+      `_Reply with 1, 2, 3, or 4 (or type your space)_`;
+
+    await sendWhatsApp(phone, spaceMsg);
     return res.status(200).json({ ok: true });
   }
 
-  // ── Step 2: Space Type Selection (Buttons or text) ───────────────────────────
+  // ── Step 2: Space Type Selection (Smart parser) ─────────────────────────────
   if (session.step === 2) {
-    session.data.space = text;
+    let spaceChoice = text;
+    const lower = text.toLowerCase();
+    if (lower.includes('1') || lower.includes('home') || lower.includes('flat') || lower.includes('villa') || lower.includes('full')) {
+      spaceChoice = 'Full Home Interiors';
+    } else if (lower.includes('2') || lower.includes('kitchen') || lower.includes('modular')) {
+      spaceChoice = 'Modular Kitchen';
+    } else if (lower.includes('3') || lower.includes('office') || lower.includes('commercial') || lower.includes('shop')) {
+      spaceChoice = 'Office / Commercial';
+    } else if (lower.includes('4') || lower.includes('wardrobe') || lower.includes('ceiling') || lower.includes('false')) {
+      spaceChoice = 'Wardrobe / False Ceiling';
+    }
+
+    session.data.space = spaceChoice;
     session.step = 3;
     session.updatedAt = Date.now();
     sessions.set(phone, session);
@@ -328,20 +341,33 @@ module.exports = async function handler(req, res) {
     session.updatedAt = Date.now();
     sessions.set(phone, session);
 
-    // Send interactive clickable buttons for Budget!
-    const budgetOptions = [
-      'Under ₹5 Lakhs',
-      '₹5–10 Lakhs',
-      '₹10–20 Lakhs',
-      '₹20 Lakhs+'
-    ];
-    await sendWhatsAppPoll(phone, '💰 What is your approximate budget for the interiors? (Tap an option below 👇)', budgetOptions);
+    const budgetMsg =
+      `💰 What is your approximate budget for the interiors?\n\n` +
+      `1️⃣ *Under ₹5 Lakhs*\n` +
+      `2️⃣ *₹5–10 Lakhs*\n` +
+      `3️⃣ *₹10–20 Lakhs*\n` +
+      `4️⃣ *₹20 Lakhs+*\n\n` +
+      `_Reply with 1, 2, 3, or 4 (or type your budget)_`;
+
+    await sendWhatsApp(phone, budgetMsg);
     return res.status(200).json({ ok: true });
   }
 
   // ── Step 4: Budget Selection & Finalizing Lead ──────────────────────────────
   if (session.step >= 4) {
-    session.data.budget = text;
+    let budgetChoice = text;
+    const lower = text.toLowerCase();
+    if (lower === '1' || lower.includes('under 5') || lower.includes('less than 5')) {
+      budgetChoice = 'Under ₹5 Lakhs';
+    } else if (lower === '2' || lower.includes('5-10') || lower.includes('5 to 10')) {
+      budgetChoice = '₹5–10 Lakhs';
+    } else if (lower === '3' || lower.includes('10-20') || lower.includes('10 to 20')) {
+      budgetChoice = '₹10–20 Lakhs';
+    } else if (lower === '4' || lower.includes('20+') || lower.includes('above 20')) {
+      budgetChoice = '₹20 Lakhs+';
+    }
+
+    session.data.budget = budgetChoice;
     const d = session.data;
     const budgetMap = { '1': 'Under ₹5 Lakhs', '2': '₹5–10 Lakhs', '3': '₹10–20 Lakhs', '4': '₹20 Lakhs+' };
     const spaceMap  = { '1': 'Full Home Interiors', '2': 'Modular Kitchen', '3': 'Office / Commercial', '4': 'Wardrobe / False Ceiling' };
