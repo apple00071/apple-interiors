@@ -63,12 +63,20 @@ function clearSession(phone) {
   sessions.delete(phone);
 }
 
+function formatPhone(num) {
+  let cleaned = String(num || '').replace(/\D/g, '');
+  if (cleaned.length === 10) cleaned = '91' + cleaned;
+  return cleaned;
+}
+
 // ── Send WhatsApp message via WASenderApi ─────────────────────────────────────
 async function sendWhatsApp(to, text) {
+  const formattedTo = formatPhone(to);
   if (!WESENDER_API_KEY) {
-    console.warn('WASenderApi API key not set — skipping send');
+    console.warn('[WhatsApp Bot] WASenderApi API key not set — skipping send');
     return;
   }
+  console.log(`[WhatsApp Bot] Sending message to: ${formattedTo}...`);
   try {
     const res = await fetch(WESENDER_API_URL, {
       method: 'POST',
@@ -76,14 +84,15 @@ async function sendWhatsApp(to, text) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${WESENDER_API_KEY}`
       },
-      body: JSON.stringify({ to, text })
+      body: JSON.stringify({ to: formattedTo, text })
     });
+    const resData = await res.json().catch(() => ({}));
+    console.log(`[WhatsApp Bot] Send to ${formattedTo} response:`, res.status, JSON.stringify(resData));
     if (!res.ok) {
-      const body = await res.text();
-      console.error('WASenderApi error:', res.status, body);
+      console.error('[WhatsApp Bot] WASenderApi error:', res.status, resData);
     }
   } catch (err) {
-    console.error('WASenderApi fetch failed:', err.message);
+    console.error('[WhatsApp Bot] WASenderApi fetch failed:', err.message);
   }
 }
 
@@ -97,26 +106,30 @@ async function sendLeadEmail(phone, data) {
   const budget = budgetMap[data.budget] || data.budget;
   const space  = spaceMap[data.space]   || data.space;
 
-  await resend.emails.send({
-    from: 'Apple Interiors Bot <noreply@appleinteriors.in>',
-    to: ADMIN_EMAIL,
-    subject: `🔔 New WhatsApp Lead — ${data.name}`,
-    html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:24px;background:#f9f9f9;border-radius:12px;">
-        <h2 style="color:#b8932a;">🏠 New WhatsApp Lead</h2>
-        <table style="width:100%;border-collapse:collapse;">
-          <tr><td style="padding:8px;font-weight:bold;color:#555;">Name</td><td style="padding:8px;">${data.name}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#555;">WhatsApp</td><td style="padding:8px;"><a href="https://wa.me/${phone}">+${phone}</a></td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#555;">Space Type</td><td style="padding:8px;">${space}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#555;">Area</td><td style="padding:8px;">${data.area}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;color:#555;">Budget</td><td style="padding:8px;">${budget}</td></tr>
-        </table>
-        <a href="https://wa.me/${phone}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#25D366;color:white;border-radius:8px;text-decoration:none;font-weight:bold;">
-          💬 Reply on WhatsApp
-        </a>
-      </div>
-    `
-  });
+  try {
+    await resend.emails.send({
+      from: 'Apple Interiors Bot <noreply@appleinteriors.in>',
+      to: ADMIN_EMAIL,
+      subject: `🔔 New WhatsApp Lead — ${data.name}`,
+      html: `
+        <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:24px;background:#f9f9f9;border-radius:12px;">
+          <h2 style="color:#b8932a;">🏠 New WhatsApp Lead</h2>
+          <table style="width:100%;border-collapse:collapse;">
+            <tr><td style="padding:8px;font-weight:bold;color:#555;">Name</td><td style="padding:8px;">${data.name}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#555;">WhatsApp</td><td style="padding:8px;"><a href="https://wa.me/${phone}">+${phone}</a></td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#555;">Space Type</td><td style="padding:8px;">${space}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#555;">Area</td><td style="padding:8px;">${data.area}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#555;">Budget</td><td style="padding:8px;">${budget}</td></tr>
+          </table>
+          <a href="https://wa.me/${phone}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#25D366;color:white;border-radius:8px;text-decoration:none;font-weight:bold;">
+            💬 Reply on WhatsApp
+          </a>
+        </div>
+      `
+    });
+  } catch (emailErr) {
+    console.error('[WhatsApp Bot] Email send failed:', emailErr.message);
+  }
 }
 
 // ── Main handler ──────────────────────────────────────────────────────────────
@@ -176,9 +189,11 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true }); // always 200 to webhook sender
   }
 
-  // TEST MODE: Only trigger the bot for test number 8247494622
-  const TEST_MODE_NUMBER = process.env.TEST_PHONE_NUMBER || '8247494622';
-  if (TEST_MODE_NUMBER && !phone.endsWith(TEST_MODE_NUMBER)) {
+  // TEST MODE: Only trigger the bot for test numbers: 8247494622 and 9603960337
+  const ALLOWED_TEST_NUMBERS = ['8247494622', '9603960337'];
+  const isAllowed = ALLOWED_TEST_NUMBERS.some(num => phone.endsWith(num));
+
+  if (!isAllowed) {
     console.log(`[WhatsApp Bot] Ignored message from non-test number: ${phone}`);
     return res.status(200).json({ ok: true, ignored: 'test_mode' });
   }
@@ -217,23 +232,26 @@ module.exports = async function handler(req, res) {
     const budgetMap = { '1': 'Under ₹5 Lakhs', '2': '₹5–10 Lakhs', '3': '₹10–20 Lakhs', '4': '₹20 Lakhs+' };
     const spaceMap  = { '1': 'Full Home Interiors', '2': 'Modular Kitchen', '3': 'Office / Commercial', '4': 'Wardrobe / False Ceiling' };
 
-    // Thank you to client
+    // 1. Thank you to client
     await sendWhatsApp(phone,
       `✅ Thank you, *${d.name}*!\n\nWe've received your details and our team will reach out to you shortly.\n\n📞 You can also call us directly: *+91 91605 77899*\n\n_Apple Interiors — Hyderabad's Trusted Interior Designers_ 🏠`
     );
 
-    // Notify sales team
+    // 2. Wait 1.5 seconds so WASenderApi queues both messages cleanly
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    // 3. Notify sales team
     const salesMsg =
       `🔔 *New Lead from WhatsApp Bot*\n\n` +
       `👤 *Name:* ${d.name}\n` +
-      `📱 *WhatsApp:* wa.me/${phone}\n` +
+      `📱 *WhatsApp:* wa.me/${formatPhone(phone)}\n` +
       `🏠 *Space:* ${spaceMap[d.space] || d.space}\n` +
       `📍 *Area:* ${d.area}\n` +
       `💰 *Budget:* ${budgetMap[d.budget] || d.budget}`;
 
     await sendWhatsApp(SALES_NUMBER, salesMsg);
 
-    // Send email to admin
+    // 4. Send email to admin
     await sendLeadEmail(phone, d);
 
     clearSession(phone);
