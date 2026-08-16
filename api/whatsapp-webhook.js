@@ -217,7 +217,14 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true, bot_paused: session.status });
   }
 
-  console.log(`[WhatsApp Bot] Processing message from: ${phone} | Text: "${text}" | Step: ${session.step}`);
+  // Allow user to reset anytime by typing reset/restart
+  if (/^(reset|restart|start\s*again)$/i.test(text)) {
+    session.step = 0;
+    session.status = 'active';
+    session.data = {};
+    session.updatedAt = Date.now();
+    sessions.set(phone, session);
+  }
 
   if (session.step === 0) {
     // First contact — ask question 0 (Name)
@@ -228,23 +235,48 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true });
   }
 
-  // Process answer for current step
-  const currentQuestionIdx = session.step - 1;
-  const currentQuestion = STEPS[currentQuestionIdx];
-  if (currentQuestion) {
-    session.data[currentQuestion.key] = text;
-  }
+  // ── Step 1: Validating Name ─────────────────────────────────────────────────
+  if (session.step === 1) {
+    const isGreeting = /^(hi+|hello+|hey+|hola|namaste|good\s*(morning|afternoon|evening|day)|gm|hy|hii+|yo)$/i.test(text);
+    const isTooShort = text.length < 2;
+    const isOnlyNumbers = /^\d+$/.test(text);
 
-  if (session.step < STEPS.length) {
-    // Next question exists — ask it
-    const nextQuestion = STEPS[session.step];
-    session.step += 1;
+    if (isGreeting || isTooShort || isOnlyNumbers) {
+      await sendWhatsApp(phone, '👋 Welcome! Could you please share your *name* with us so our design team can address you properly? 😊');
+      return res.status(200).json({ ok: true, reprompt: 'name' });
+    }
+
+    session.data.name = text;
+    session.step = 2;
     session.updatedAt = Date.now();
     sessions.set(phone, session);
-    await sendWhatsApp(phone, nextQuestion.question);
+    await sendWhatsApp(phone, STEPS[1].question);
     return res.status(200).json({ ok: true });
-  } else {
-    // All questions answered — send thank you + notify sales
+  }
+
+  // ── Step 2: Validating Space Type ───────────────────────────────────────────
+  if (session.step === 2) {
+    session.data.space = text;
+    session.step = 3;
+    session.updatedAt = Date.now();
+    sessions.set(phone, session);
+    await sendWhatsApp(phone, STEPS[2].question);
+    return res.status(200).json({ ok: true });
+  }
+
+  // ── Step 3: Validating Area ─────────────────────────────────────────────────
+  if (session.step === 3) {
+    session.data.area = text;
+    session.step = 4;
+    session.updatedAt = Date.now();
+    sessions.set(phone, session);
+    await sendWhatsApp(phone, STEPS[3].question);
+    return res.status(200).json({ ok: true });
+  }
+
+  // ── Step 4: Validating Budget & Finalizing Lead ──────────────────────────────
+  if (session.step >= 4) {
+    session.data.budget = text;
     const d = session.data;
     const budgetMap = { '1': 'Under ₹5 Lakhs', '2': '₹5–10 Lakhs', '3': '₹10–20 Lakhs', '4': '₹20 Lakhs+' };
     const spaceMap  = { '1': 'Full Home Interiors', '2': 'Modular Kitchen', '3': 'Office / Commercial', '4': 'Wardrobe / False Ceiling' };
