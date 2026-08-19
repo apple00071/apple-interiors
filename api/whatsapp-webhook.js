@@ -18,6 +18,10 @@
 const { Resend } = require('resend');
 
 // ── Config ────────────────────────────────────────────────────────────────────
+const META_ACCESS_TOKEN   = process.env.META_ACCESS_TOKEN || '';
+const META_PHONE_NUMBER_ID = process.env.META_PHONE_NUMBER_ID || '';
+const META_VERIFY_TOKEN   = process.env.META_VERIFY_TOKEN || process.env.WEBHOOK_SECRET || 'apple_interiors_meta_token_2026';
+
 const WESENDER_API_URL  = process.env.WESENDER_API_URL || 'https://www.wasenderapi.com/api/send-message';
 const WESENDER_API_KEY  = process.env.WESENDER_API_KEY || '3a958f97a6bb9f776aef2aa3489a5a3127042ccbe4a7125efa0a98c362ecbdc0';
 const SALES_NUMBER      = process.env.SALES_WHATSAPP_NUMBER || '918247494622';
@@ -81,14 +85,41 @@ function formatPhone(num) {
   return cleaned;
 }
 
-// ── Send WhatsApp message via WASenderApi ─────────────────────────────────────
+// ── Send WhatsApp message ─────────────────────────────────────────────────────
 async function sendWhatsApp(to, text) {
   const formattedTo = formatPhone(to);
+  console.log(`[WhatsApp Bot] Sending message to: ${formattedTo}...`);
+
+  // 1. Send via Meta WhatsApp Cloud API if configured
+  if (META_ACCESS_TOKEN && META_PHONE_NUMBER_ID) {
+    try {
+      const res = await fetch(`https://graph.facebook.com/v19.0/${META_PHONE_NUMBER_ID}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${META_ACCESS_TOKEN}`
+        },
+        body: JSON.stringify({
+          messaging_product: 'whatsapp',
+          recipient_type: 'individual',
+          to: formattedTo,
+          type: 'text',
+          text: { preview_url: false, body: text }
+        })
+      });
+      const resData = await res.json().catch(() => ({}));
+      console.log(`[WhatsApp Bot] Meta Cloud API response:`, res.status, JSON.stringify(resData));
+      return;
+    } catch (err) {
+      console.error('[WhatsApp Bot] Meta Cloud API error:', err.message);
+    }
+  }
+
+  // 2. Fallback to WASenderApi / WeSender
   if (!WESENDER_API_KEY) {
-    console.warn('[WhatsApp Bot] WASenderApi API key not set — skipping send');
+    console.warn('[WhatsApp Bot] No WhatsApp API credentials configured (Meta or WASenderApi) — skipping send');
     return;
   }
-  console.log(`[WhatsApp Bot] Sending message to: ${formattedTo}...`);
   try {
     const res = await fetch(WESENDER_API_URL, {
       method: 'POST',
@@ -180,7 +211,26 @@ async function sendLeadEmail(phone, data) {
 
 // ── Main handler ──────────────────────────────────────────────────────────────
 module.exports = async function handler(req, res) {
-  // Only accept POST
+  // ── 1. Meta Webhook Verification (GET request) ──────────────────────────────
+  if (req.method === 'GET') {
+    const mode = req.query?.['hub.mode'] || req.query?.mode;
+    const token = req.query?.['hub.verify_token'] || req.query?.verify_token;
+    const challenge = req.query?.['hub.challenge'] || req.query?.challenge;
+
+    const expectedToken = process.env.META_VERIFY_TOKEN || process.env.WEBHOOK_SECRET || 'apple_interiors_meta_token_2026';
+
+    if (mode === 'subscribe' && token === expectedToken) {
+      console.log('[WhatsApp Bot] Meta Webhook verified successfully!');
+      return res.status(200).send(challenge);
+    } else if (token === expectedToken || token === WEBHOOK_SECRET) {
+      return res.status(200).send(challenge || 'OK');
+    }
+
+    console.warn('[WhatsApp Bot] Meta Webhook verification failed. Token mismatch.');
+    return res.status(403).json({ error: 'Verification token mismatch' });
+  }
+
+  // Only accept POST for incoming events
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -197,6 +247,7 @@ module.exports = async function handler(req, res) {
 
     if (incomingSecret && !incomingSecret.includes(WEBHOOK_SECRET)) {
       console.warn('[WhatsApp Bot] Webhook secret mismatch:', incomingSecret);
+      // Only block if header was provided but incorrect
       return res.status(401).json({ error: 'Unauthorized' });
     }
   }
@@ -206,41 +257,66 @@ module.exports = async function handler(req, res) {
   let phone, text;
 
   try {
-    const data = body?.data || body;
-    const msgObj = data?.messages || data?.message || data;
-    const key = msgObj?.key || data?.key || {};
+    // Check if Meta Cloud API format
+    if (body?.object === 'whatsapp_business_account') {
+      const entry = body.entry?.[0];
+      const change = entry?.changes?.[0]?.value;
+      const message = change?.messages?.[0];
 
-    const jid = key.cleanedSenderPn || key.remoteJid || data?.remoteJid || '';
-    phone = jid.replace('@s.whatsapp.net', '').replace('@c.us', '').replace('@lid', '').trim();
+      if (!message) {
+        // Status update or non-message event (e.g. delivered, read)
+        return res.status(200).json({ ok: true, ignored: 'status_update' });
+      }
 
-    // If sales team / agent manually replies from the phone, disable bot for this contact (Human Takeover)
-    if (key.fromMe) {
-      if (phone) markHumanTakeover(phone);
-      return res.status(200).json({ ok: true, reason: 'human_takeover_activated' });
-    }
+      phone = message.from;
+      if (message.type === 'text') {
+        text = message.text?.body || '';
+      } else if (message.type === 'interactive') {
+        text = message.interactive?.button_reply?.title ||
+               message.interactive?.button_reply?.id ||
+               message.interactive?.list_reply?.title ||
+               message.interactive?.list_reply?.id || '';
+      } else if (message.type === 'button') {
+        text = message.button?.text || '';
+      }
+    } else {
+      // Legacy / WASenderApi / Evolution format
+      const data = body?.data || body;
+      const msgObj = data?.messages || data?.message || data;
+      const key = msgObj?.key || data?.key || {};
 
-    // Handle Poll / Button Results (user clicked an option button)
-    if (body?.event === 'poll.results' && Array.isArray(data?.pollResult)) {
-      for (const opt of data.pollResult) {
-        if (Array.isArray(opt.voters) && opt.voters.some(v => v.includes(phone))) {
-          text = opt.name;
-          break;
+      const jid = key.cleanedSenderPn || key.remoteJid || data?.remoteJid || '';
+      phone = jid.replace('@s.whatsapp.net', '').replace('@c.us', '').replace('@lid', '').trim();
+
+      // If sales team / agent manually replies from the phone, disable bot for this contact (Human Takeover)
+      if (key.fromMe) {
+        if (phone) markHumanTakeover(phone);
+        return res.status(200).json({ ok: true, reason: 'human_takeover_activated' });
+      }
+
+      // Handle Poll / Button Results (user clicked an option button)
+      if (body?.event === 'poll.results' && Array.isArray(data?.pollResult)) {
+        for (const opt of data.pollResult) {
+          if (Array.isArray(opt.voters) && opt.voters.some(v => v.includes(phone))) {
+            text = opt.name;
+            break;
+          }
         }
       }
-    }
 
-    // Extract text from various message types if not already from poll
-    if (!text) {
-      text = (
-        msgObj?.messageBody ||
-        msgObj?.conversation ||
-        msgObj?.message?.conversation ||
-        msgObj?.message?.extendedTextMessage?.text ||
-        msgObj?.message?.pollUpdateMessage?.vote ||
-        data?.messageBody ||
-        data?.conversation ||
-        ''
-      ).trim();
+      // Extract text from various message types if not already from poll
+      if (!text) {
+        text = (
+          msgObj?.messageBody ||
+          msgObj?.conversation ||
+          msgObj?.message?.conversation ||
+          msgObj?.message?.extendedTextMessage?.text ||
+          msgObj?.message?.pollUpdateMessage?.vote ||
+          data?.messageBody ||
+          data?.conversation ||
+          ''
+        ).trim();
+      }
     }
   } catch (err) {
     console.error('Payload parse error:', err.message, JSON.stringify(body));
