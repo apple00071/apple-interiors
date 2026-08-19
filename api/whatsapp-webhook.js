@@ -217,16 +217,21 @@ module.exports = async function handler(req, res) {
     const token = req.query?.['hub.verify_token'] || req.query?.verify_token;
     const challenge = req.query?.['hub.challenge'] || req.query?.challenge;
 
-    const expectedToken = process.env.META_VERIFY_TOKEN || process.env.WEBHOOK_SECRET || 'apple_interiors_meta_token_2026';
+    const validTokens = [
+      process.env.META_VERIFY_TOKEN,
+      'apple_interiors_meta_token_2026',
+      process.env.WEBHOOK_SECRET,
+      '62149449dfcfeedc290413f8174eba36'
+    ].filter(Boolean);
 
-    if (mode === 'subscribe' && token === expectedToken) {
+    if (mode === 'subscribe' && validTokens.includes(token)) {
       console.log('[WhatsApp Bot] Meta Webhook verified successfully!');
       return res.status(200).send(challenge);
-    } else if (token === expectedToken || token === WEBHOOK_SECRET) {
+    } else if (validTokens.includes(token)) {
       return res.status(200).send(challenge || 'OK');
     }
 
-    console.warn('[WhatsApp Bot] Meta Webhook verification failed. Token mismatch.');
+    console.warn('[WhatsApp Bot] Meta Webhook verification failed. Token received:', token);
     return res.status(403).json({ error: 'Verification token mismatch' });
   }
 
