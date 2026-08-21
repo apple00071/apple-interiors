@@ -174,4 +174,13 @@ class SharedNavigation {
 
 document.addEventListener('DOMContentLoaded', () => {
     new SharedNavigation();
+
+    // Auto-load NRI / International Geo Popup across all pages
+    if (!document.getElementById('nri-popup-script')) {
+        const nriScript = document.createElement('script');
+        nriScript.id = 'nri-popup-script';
+        nriScript.src = '/nri-popup.js';
+        nriScript.defer = true;
+        document.head.appendChild(nriScript);
+    }
 });
