@@ -4,8 +4,10 @@
  */
 
 (function () {
-    const STORAGE_KEY = 'apple_nri_popup_dismissed_until';
-    const DISMISS_DAYS = 7;
+    try {
+        // Clear any previous dismissal key so it opens freely for all visitors
+        localStorage.removeItem('apple_nri_popup_dismissed_until');
+    } catch (e) {}
 
     const urlParams = new URLSearchParams(window.location.search);
     const isPreview = urlParams.get('nri_preview') === '1' || urlParams.has('test_country');
@@ -31,20 +33,70 @@
         }
     ];
 
-    function isDismissed() {
-        if (isPreview) return false;
-        const dismissedUntil = localStorage.getItem(STORAGE_KEY);
-        if (!dismissedUntil) return false;
-        return Date.now() < parseInt(dismissedUntil, 10);
-    }
 
-    function markDismissed() {
-        const expiresAt = Date.now() + DISMISS_DAYS * 24 * 60 * 60 * 1000;
-        localStorage.setItem(STORAGE_KEY, expiresAt.toString());
+    function formatCountryName(rawCountry) {
+        if (!rawCountry || rawCountry === 'UNKNOWN' || rawCountry === 'LOCAL' || rawCountry === 'IN') {
+            return 'Abroad';
+        }
+
+        const trimmed = String(rawCountry).trim();
+        if (trimmed.length > 2 && !/^[A-Za-z]{2}$/.test(trimmed)) {
+            return trimmed;
+        }
+
+        const code = trimmed.toUpperCase();
+        const customNames = {
+            'US': 'the USA',
+            'USA': 'the USA',
+            'GB': 'the UK',
+            'UK': 'the UK',
+            'AE': 'the UAE',
+            'UAE': 'the UAE',
+            'SG': 'Singapore',
+            'CA': 'Canada',
+            'AU': 'Australia',
+            'NZ': 'New Zealand',
+            'QA': 'Qatar',
+            'SA': 'Saudi Arabia',
+            'KW': 'Kuwait',
+            'OM': 'Oman',
+            'BH': 'Bahrain',
+            'MY': 'Malaysia',
+            'DE': 'Germany',
+            'FR': 'France',
+            'IE': 'Ireland',
+            'NL': 'the Netherlands',
+            'CH': 'Switzerland',
+            'SE': 'Sweden',
+            'NO': 'Norway',
+            'DK': 'Denmark',
+            'IT': 'Italy',
+            'JP': 'Japan',
+            'KR': 'South Korea',
+            'HK': 'Hong Kong',
+            'ZA': 'South Africa'
+        };
+
+        if (customNames[code]) {
+            return customNames[code];
+        }
+
+        try {
+            if (typeof Intl !== 'undefined' && Intl.DisplayNames) {
+                const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+                const name = regionNames.of(code);
+                if (name) return name;
+            }
+        } catch (e) {
+            // Silently fallback
+        }
+
+        return code.length === 2 ? 'Abroad' : code;
     }
 
     function createModalHTML(countryName) {
-        const countryLabel = countryName && countryName !== 'UNKNOWN' && countryName !== 'LOCAL' ? countryName : 'Abroad';
+        const countryLabel = formatCountryName(countryName);
+        const headingPlace = (countryLabel === 'Abroad') ? 'the USA or Abroad' : countryLabel;
         const waMessage = encodeURIComponent(
             `Hi Apple Interiors, I'm an NRI based in ${countryLabel} looking for complete home interior design for my property in Hyderabad.`
         );
@@ -89,7 +141,7 @@
                     <div class="nri-content-pane">
                         <div class="nri-header-section">
                             <h2 class="nri-main-heading">
-                                Living in the USA or Abroad? <br>
+                                Living in ${headingPlace}? <br>
                                 <span class="nri-sub-heading">Complete Home Interiors in Hyderabad.</span>
                             </h2>
                             <p class="nri-lead-text">
@@ -552,7 +604,6 @@
 
         function closeModal() {
             overlay.classList.remove('nri-active');
-            markDismissed();
             setTimeout(() => {
                 wrapper.remove();
             }, 400);
@@ -575,8 +626,6 @@
     }
 
     async function checkAndTrigger() {
-        if (isDismissed()) return;
-
         if (isPreview) {
             const testCountry = urlParams.get('test_country') || 'United States';
             setTimeout(() => showPopup(testCountry), 400);
