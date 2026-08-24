@@ -5,12 +5,13 @@
 process.env.WESENDER_API_URL = '';
 process.env.WESENDER_API_KEY = '';
 process.env.RESEND_API_KEY = '';
+process.env.ENABLE_WHATSAPP_BOT = 'true';
 
 const handler = require('./api/whatsapp-webhook.js');
 
 const replies = [];
 
-const mockReq = (text, phone = '919876543210') => ({
+const mockReq = (text, phone = '918247494622') => ({
   method: 'POST',
   headers: {
     'x-webhook-secret': '62149449dfcfeedc290413f8174eba36'

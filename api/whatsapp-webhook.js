@@ -328,6 +328,14 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true }); // always 200 to webhook sender
   }
 
+  // WhatsApp Automation Master Switch (Turned OFF for all numbers)
+  // Set ENABLE_WHATSAPP_BOT=true in environment variables if ever needed to re-enable
+  const BOT_ENABLED = process.env.ENABLE_WHATSAPP_BOT === 'true';
+  if (!BOT_ENABLED) {
+    console.log(`[WhatsApp Bot] Automation is turned OFF for all numbers. Ignored message from: ${phone}`);
+    return res.status(200).json({ ok: true, status: 'bot_automation_disabled' });
+  }
+
   // TEST MODE: Only trigger the bot for test numbers: 8247494622 and 9603960337
   const ALLOWED_TEST_NUMBERS = ['8247494622', '9603960337'];
   const isAllowed = ALLOWED_TEST_NUMBERS.some(num => phone.endsWith(num));
