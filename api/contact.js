@@ -218,11 +218,11 @@ function generateAdminEmailHTML(formData) {
             <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e7e5e4;">
                 
                 <!-- Brand Header with Official Logo -->
-                <div style="background-color: #1f2937; padding: 28px 20px; text-align: center; border-bottom: 4px solid #eab308;">
+                <div style="background-color: #ffffff; padding: 26px 20px 20px 20px; text-align: center; border-bottom: 3px solid #eab308;">
                     <a href="https://appleinteriors.in" target="_blank" style="text-decoration: none; display: inline-block;">
-                        <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="180" style="display: block; margin: 0 auto 10px auto; max-width: 180px; height: auto;" />
+                        <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="190" style="display: block; margin: 0 auto 8px auto; max-width: 190px; height: auto;" />
                     </a>
-                    <p style="margin: 0; color: #eab308; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">
+                    <p style="margin: 0; color: #a16207; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">
                         New Client Inquiry
                     </p>
                 </div>
@@ -318,11 +318,11 @@ function generateCustomerEmailHTML(formData) {
             <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e7e5e4;">
                 
                 <!-- Brand Header with Official Logo -->
-                <div style="background-color: #1f2937; padding: 32px 20px; text-align: center; border-bottom: 4px solid #eab308;">
+                <div style="background-color: #ffffff; padding: 28px 20px 22px 20px; text-align: center; border-bottom: 3px solid #eab308;">
                     <a href="https://appleinteriors.in" target="_blank" style="text-decoration: none; display: inline-block;">
-                        <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="190" style="display: block; margin: 0 auto 10px auto; max-width: 190px; height: auto;" />
+                        <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="200" style="display: block; margin: 0 auto 8px auto; max-width: 200px; height: auto;" />
                     </a>
-                    <p style="margin: 0; color: #eab308; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px;">
+                    <p style="margin: 0; color: #a16207; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px;">
                         Best Interior Designers in Hyderabad
                     </p>
                 </div>
