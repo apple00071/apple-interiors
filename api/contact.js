@@ -211,88 +211,92 @@ function generateAdminEmailHTML(formData) {
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>New Contact Form Submission</title>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+            <title>New Lead Inquiry - Apple Interiors</title>
         </head>
-        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-                <h1 style="color: white; margin: 0; font-size: 28px;">🏠 New Contact Inquiry</h1>
-                <p style="color: #f0f0f0; margin: 10px 0 0 0; font-size: 16px;">${EMAIL_CONFIG.companyName}</p>
-            </div>
-            
-            <div style="background: white; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-                    <h2 style="color: #495057; margin: 0 0 15px 0; font-size: 20px;">👤 Customer Information</h2>
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #6c757d; width: 30%;">Name:</td>
-                            <td style="padding: 8px 0; color: #495057;">${formData.fullName}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #6c757d;">Email:</td>
-                            <td style="padding: 8px 0; color: #495057;">
-                                <a href="mailto:${formData.emailAddress}" style="color: #007bff; text-decoration: none;">${formData.emailAddress}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #6c757d;">Phone:</td>
-                            <td style="padding: 8px 0; color: #495057;">
-                                <a href="tel:${formData.phoneNumber}" style="color: #007bff; text-decoration: none;">${formData.phoneNumber}</a>
-                            </td>
-                        </tr>
-                    </table>
+        <body style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #374151; background-color: #f5f5f4; margin: 0; padding: 30px 10px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e7e5e4;">
+                
+                <!-- Brand Header with Official Logo -->
+                <div style="background-color: #1f2937; padding: 28px 20px; text-align: center; border-bottom: 4px solid #eab308;">
+                    <a href="https://appleinteriors.in" target="_blank" style="text-decoration: none; display: inline-block;">
+                        <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="180" style="display: block; margin: 0 auto 10px auto; max-width: 180px; height: auto;" />
+                    </a>
+                    <p style="margin: 0; color: #eab308; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">
+                        New Client Inquiry
+                    </p>
                 </div>
                 
-                ${formData.propertyType || formData.projectLocation ? `
-                <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-                    <h2 style="color: #1976d2; margin: 0 0 15px 0; font-size: 20px;">🏗️ Project Details</h2>
-                    <table style="width: 100%; border-collapse: collapse;">
+                <div style="padding: 32px 28px;">
+                    <h2 style="color: #1f2937; font-size: 22px; font-weight: 600; text-transform: uppercase; letter-spacing: -0.5px; margin: 0 0 20px 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px;">
+                        Customer Details
+                    </h2>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #1f2937; width: 34%; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Name:</td>
+                            <td style="padding: 10px 0; color: #374151; font-size: 15px; font-weight: 500;">${formData.fullName}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #1f2937; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Email:</td>
+                            <td style="padding: 10px 0; font-size: 15px;">
+                                <a href="mailto:${formData.emailAddress}" style="color: #a16207; text-decoration: none; font-weight: 600;">${formData.emailAddress}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #1f2937; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Phone:</td>
+                            <td style="padding: 10px 0; font-size: 15px;">
+                                <a href="tel:${formData.phoneNumber}" style="color: #a16207; text-decoration: none; font-weight: 600;">${formData.phoneNumber}</a>
+                            </td>
+                        </tr>
                         ${formData.propertyType ? `
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #1565c0; width: 30%;">Property Type:</td>
-                            <td style="padding: 8px 0; color: #1976d2;">${formData.propertyType}</td>
+                            <td style="padding: 10px 0; font-weight: 600; color: #1f2937; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Property Type:</td>
+                            <td style="padding: 10px 0; color: #374151; font-size: 15px;">${formData.propertyType}</td>
                         </tr>
                         ` : ''}
                         ${formData.projectLocation ? `
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #1565c0;">Location:</td>
-                            <td style="padding: 8px 0; color: #1976d2;">${formData.projectLocation}</td>
+                            <td style="padding: 10px 0; font-weight: 600; color: #1f2937; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Location:</td>
+                            <td style="padding: 10px 0; color: #374151; font-size: 15px;">${formData.projectLocation}</td>
                         </tr>
                         ` : ''}
                         ${formData.countryResidence ? `
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #1565c0;">Living In:</td>
-                            <td style="padding: 8px 0; color: #1976d2;">${formData.countryResidence}</td>
+                            <td style="padding: 10px 0; font-weight: 600; color: #eab308; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Living In:</td>
+                            <td style="padding: 10px 0; color: #1f2937; font-size: 15px; font-weight: 700;">🌍 ${formData.countryResidence}</td>
                         </tr>
                         ` : ''}
                     </table>
+
+                    ${(formData.projectMessage || formData.projectScope) ? `
+                    <div style="background-color: #fefce8; border-left: 4px solid #eab308; padding: 18px 20px; border-radius: 10px; margin-bottom: 28px;">
+                        <h4 style="color: #a16207; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0;">Customer Requirements</h4>
+                        <p style="color: #1f2937; font-size: 14px; margin: 0; white-space: pre-wrap; line-height: 1.6;">${formData.projectMessage || formData.projectScope}</p>
+                    </div>
+                    ` : ''}
+
+                    <!-- Quick Action Buttons for Admin -->
+                    <div style="text-align: center; margin: 24px 0 10px 0;">
+                        <a href="tel:${formData.phoneNumber}" 
+                           style="display: inline-block; background: #1f2937; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                            📞 Call Client
+                        </a>
+                        <a href="https://wa.me/${formData.phoneNumber.replace(/[^\d]/g, '')}?text=Hi%20${encodeURIComponent(formData.fullName)}%2C%20thank%20you%20for%20contacting%20Apple%20Interiors.%20I%20received%20your%20inquiry%20and%20would%20like%20to%20discuss%20your%20home%20interior%20requirements." 
+                           style="display: inline-block; background: #25d366; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                            💬 WhatsApp
+                        </a>
+                        <a href="mailto:${formData.emailAddress}?subject=Re: Your Interior Design Inquiry with Apple Interiors" 
+                           style="display: inline-block; background: #eab308; color: #1f2937; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                            ✉️ Reply Email
+                        </a>
+                    </div>
                 </div>
-                ` : ''}
-                
-                ${(formData.projectMessage || formData.projectScope) ? `
-                <div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-                    <h2 style="color: #f57c00; margin: 0 0 15px 0; font-size: 20px;">💬 Customer Message</h2>
-                    <p style="color: #ef6c00; margin: 0; white-space: pre-wrap; line-height: 1.6;">${formData.projectMessage || formData.projectScope}</p>
-                </div>
-                ` : ''}
-                
-                <div style="text-align: center; margin: 30px 0;">
-                    <a href="mailto:${formData.emailAddress}?subject=Re: Your Interior Design Inquiry" 
-                       style="display: inline-block; background: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
-                        📧 Reply via Email
-                    </a>
-                    <a href="tel:${formData.phoneNumber}" 
-                       style="display: inline-block; background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
-                        📞 Call Customer
-                    </a>
-                    <a href="https://wa.me/${formData.phoneNumber.replace(/[^\d]/g, '')}?text=Hi%20${encodeURIComponent(formData.fullName)}%2C%20thank%20you%20for%20your%20interest%20in%20Apple%20Interiors.%20I%20received%20your%20inquiry%20and%20would%20like%20to%20discuss%20your%20project." 
-                       style="display: inline-block; background: #25d366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
-                        💬 WhatsApp
-                    </a>
-                </div>
-                
-                <div style="border-top: 1px solid #dee2e6; padding-top: 20px; margin-top: 30px; text-align: center; color: #6c757d; font-size: 14px;">
-                    <p style="margin: 0;">📅 Received on: ${timestamp}</p>
-                    <p style="margin: 5px 0 0 0;">🌐 From: ${EMAIL_CONFIG.companyWebsite}</p>
+
+                <!-- Footer -->
+                <div style="background-color: #fafaf9; border-top: 1px solid #e7e5e4; padding: 18px 20px; text-align: center; color: #78716c; font-size: 12px;">
+                    <p style="margin: 0 0 4px 0;">Received on ${timestamp}</p>
+                    <p style="margin: 0;">Apple Interiors Lead System • Hyderabad</p>
                 </div>
             </div>
         </body>
@@ -307,87 +311,103 @@ function generateCustomerEmailHTML(formData) {
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Thank you for contacting Apple Interiors</title>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+            <title>Thank You for Contacting Apple Interiors</title>
         </head>
-        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-                <h1 style="color: white; margin: 0; font-size: 28px;">🏠 ${EMAIL_CONFIG.companyName}</h1>
-                <p style="color: #f0f0f0; margin: 10px 0 0 0; font-size: 16px;">Best Interior Designers in Hyderabad</p>
-            </div>
-            
-            <div style="background: white; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <h2 style="color: #495057; margin: 0 0 20px 0; font-size: 24px;">Thank you, ${formData.fullName}! 🎉</h2>
+        <body style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #374151; background-color: #f5f5f4; margin: 0; padding: 30px 10px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e7e5e4;">
                 
-                <p style="color: #495057; font-size: 16px; margin-bottom: 20px;">
-                    We have received your inquiry and are excited to help you transform your space into something beautiful and functional.
-                </p>
-                
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                    <h3 style="color: #495057; margin: 0 0 15px 0; font-size: 18px;">📋 Your Inquiry Summary</h3>
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 6px 0; font-weight: bold; color: #6c757d; width: 30%;">Name:</td>
-                            <td style="padding: 6px 0; color: #495057;">${formData.fullName}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 6px 0; font-weight: bold; color: #6c757d;">Email:</td>
-                            <td style="padding: 6px 0; color: #495057;">${formData.emailAddress}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 6px 0; font-weight: bold; color: #6c757d;">Phone:</td>
-                            <td style="padding: 6px 0; color: #495057;">${formData.phoneNumber}</td>
-                        </tr>
-                        ${formData.propertyType ? `
-                        <tr>
-                            <td style="padding: 6px 0; font-weight: bold; color: #6c757d;">Property Type:</td>
-                            <td style="padding: 6px 0; color: #495057;">${formData.propertyType}</td>
-                        </tr>
-                        ` : ''}
-                        ${formData.projectLocation ? `
-                        <tr>
-                            <td style="padding: 6px 0; font-weight: bold; color: #6c757d;">Location:</td>
-                            <td style="padding: 6px 0; color: #495057;">${formData.projectLocation}</td>
-                        </tr>
-                        ` : ''}
-                    </table>
-                </div>
-
-                ${formData.projectMessage ? `
-                <div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                    <h3 style="color: #f57c00; margin: 0 0 15px 0; font-size: 18px;">💬 Your Message</h3>
-                    <p style="color: #ef6c00; margin: 0; white-space: pre-wrap; line-height: 1.6; font-style: italic;">"${formData.projectMessage}"</p>
-                </div>
-                ` : ''}
-
-                <div style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                    <h3 style="color: #2e7d32; margin: 0 0 15px 0; font-size: 18px;">⏰ What Happens Next?</h3>
-                    <ul style="color: #388e3c; margin: 0; padding-left: 20px;">
-                        <li style="margin-bottom: 8px;">Our design expert will review your requirements</li>
-                        <li style="margin-bottom: 8px;">We'll contact you within 24 hours to discuss your project</li>
-                        <li style="margin-bottom: 8px;">Schedule a free consultation at your convenience</li>
-                        <li style="margin-bottom: 8px;">Receive a customized design proposal</li>
-                    </ul>
-                </div>
-                
-                <div style="text-align: center; margin: 30px 0;">
-                    <p style="color: #495057; font-size: 16px; margin-bottom: 20px;">
-                        <strong>Need immediate assistance?</strong>
+                <!-- Brand Header with Official Logo -->
+                <div style="background-color: #1f2937; padding: 32px 20px; text-align: center; border-bottom: 4px solid #eab308;">
+                    <a href="https://appleinteriors.in" target="_blank" style="text-decoration: none; display: inline-block;">
+                        <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="190" style="display: block; margin: 0 auto 10px auto; max-width: 190px; height: auto;" />
+                    </a>
+                    <p style="margin: 0; color: #eab308; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px;">
+                        Best Interior Designers in Hyderabad
                     </p>
-                    <a href="tel:${EMAIL_CONFIG.companyPhone}" 
-                       style="display: inline-block; background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
-                        📞 Call Us
-                    </a>
-                    <a href="https://wa.me/919160577899?text=Hi%2C%20I%20just%20submitted%20a%20contact%20form%20and%20would%20like%20to%20discuss%20my%20interior%20design%20project." 
-                       style="display: inline-block; background: #25d366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 0 10px 10px 0; font-weight: bold;">
-                        💬 WhatsApp
-                    </a>
                 </div>
                 
-                <div style="border-top: 1px solid #dee2e6; padding-top: 20px; margin-top: 30px; text-align: center; color: #6c757d; font-size: 14px;">
-                    <p style="margin: 0 0 10px 0;"><strong>${EMAIL_CONFIG.companyName}</strong></p>
-                    <p style="margin: 0 0 5px 0;">📞 ${EMAIL_CONFIG.companyPhone}</p>
-                    <p style="margin: 0 0 5px 0;">📧 ${EMAIL_CONFIG.adminEmail}</p>
-                    <p style="margin: 0;">🌐 ${EMAIL_CONFIG.companyWebsite}</p>
+                <div style="padding: 36px 30px;">
+                    <span style="color: #eab308; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 8px;">
+                        Consultation Request Received
+                    </span>
+                    <h1 style="color: #1f2937; font-size: 26px; font-weight: 600; text-transform: uppercase; letter-spacing: -0.5px; margin: 0 0 16px 0;">
+                        Thank you, ${formData.fullName}!
+                    </h1>
+                    
+                    <p style="color: #4b5563; font-size: 15px; margin: 0 0 24px 0; line-height: 1.65;">
+                        We have received your details. Our Senior Interior Design Director is reviewing your requirements and will connect with you within 24 hours to arrange your consultation.
+                    </p>
+
+                    <!-- Summary Box -->
+                    <div style="background-color: #fafaf9; border: 1px solid #e7e5e4; border-radius: 16px; padding: 22px; margin-bottom: 28px;">
+                        <h3 style="color: #1f2937; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 14px 0;">
+                            📋 Your Request Summary
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 6px 0; font-weight: 600; color: #6b7280; width: 34%; font-size: 13px; text-transform: uppercase;">Name:</td>
+                                <td style="padding: 6px 0; color: #1f2937; font-size: 14px; font-weight: 600;">${formData.fullName}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 6px 0; font-weight: 600; color: #6b7280; font-size: 13px; text-transform: uppercase;">Phone:</td>
+                                <td style="padding: 6px 0; color: #1f2937; font-size: 14px; font-weight: 600;">${formData.phoneNumber}</td>
+                            </tr>
+                            ${formData.propertyType ? `
+                            <tr>
+                                <td style="padding: 6px 0; font-weight: 600; color: #6b7280; font-size: 13px; text-transform: uppercase;">Configuration:</td>
+                                <td style="padding: 6px 0; color: #1f2937; font-size: 14px;">${formData.propertyType}</td>
+                            </tr>
+                            ` : ''}
+                            ${formData.projectLocation ? `
+                            <tr>
+                                <td style="padding: 6px 0; font-weight: 600; color: #6b7280; font-size: 13px; text-transform: uppercase;">Location:</td>
+                                <td style="padding: 6px 0; color: #1f2937; font-size: 14px;">${formData.projectLocation}</td>
+                            </tr>
+                            ` : ''}
+                            ${formData.countryResidence ? `
+                            <tr>
+                                <td style="padding: 6px 0; font-weight: 600; color: #6b7280; font-size: 13px; text-transform: uppercase;">Living In:</td>
+                                <td style="padding: 6px 0; color: #a16207; font-size: 14px; font-weight: 600;">🌍 ${formData.countryResidence}</td>
+                            </tr>
+                            ` : ''}
+                        </table>
+                    </div>
+
+                    <!-- What Happens Next Box -->
+                    <div style="background-color: #fefce8; border: 1px solid #fef08a; border-radius: 16px; padding: 22px; margin-bottom: 28px;">
+                        <h3 style="color: #a16207; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 12px 0;">
+                            ✨ Next Steps
+                        </h3>
+                        <ul style="color: #713f12; margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.7;">
+                            <li>Our senior designer reviews your floorplan and project scope</li>
+                            <li>We schedule a 3D visualization video call around your schedule</li>
+                            <li>Receive transparent, itemized factory-finish quotation</li>
+                            <li>Zero hassle turnkey execution with 10-year warranty</li>
+                        </ul>
+                    </div>
+
+                    <!-- Immediate Assistance -->
+                    <div style="text-align: center; padding: 10px 0 10px 0;">
+                        <p style="color: #1f2937; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;">
+                            Need Immediate Assistance?
+                        </p>
+                        <a href="tel:+919603960337" 
+                           style="display: inline-block; background: #1f2937; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                            📞 +91 9603 9603 37
+                        </a>
+                        <a href="https://wa.me/919603960337?text=Hi%20Apple%20Interiors%2C%20I%20just%20submitted%20a%20consultation%20request%20on%20your%20website%20and%20would%20like%20to%20connect." 
+                           style="display: inline-block; background: #25d366; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                            💬 Connect on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div style="background-color: #fafaf9; border-top: 1px solid #e7e5e4; padding: 22px 20px; text-align: center; color: #78716c; font-size: 12px; line-height: 1.6;">
+                    <p style="margin: 0 0 6px 0; font-weight: 600; color: #1f2937;">Apple Interiors</p>
+                    <p style="margin: 0 0 4px 0;">Maneesh Enclave, 1st floor, Bhagya Nagar Phase 3, Kukatpally, Hyderabad 500085</p>
+                    <p style="margin: 0;"><a href="https://appleinteriors.in" style="color: #a16207; text-decoration: none;">www.appleinteriors.in</a></p>
                 </div>
             </div>
         </body>
