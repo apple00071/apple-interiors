@@ -12,6 +12,7 @@ class SharedNavigation {
         if (path.includes('about')) return 'about';
         if (path.includes('services')) return 'services';
         if (path.includes('portfolio')) return 'portfolio';
+        if (path.includes('nri')) return 'nri';
         if (path.includes('contact')) return 'contact';
         if (path.includes('blog')) return 'blog';
         return 'home';
@@ -28,11 +29,12 @@ class SharedNavigation {
                     </a>
 
                     <!-- Desktop Nav (Absolutely Centered to Header/Screen Size) -->
-                    <nav class="hidden md:flex items-center space-x-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <nav class="hidden md:flex items-center space-x-5 lg:space-x-7 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                         <a href="/" class="text-secondary font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center h-8 leading-none ${this.currentPage === 'home' ? 'text-primary' : ''}">Home</a>
                         <a href="/about" class="text-secondary font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center h-8 leading-none ${this.currentPage === 'about' ? 'text-primary' : ''}">About</a>
                         <a href="/services" class="text-secondary font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center h-8 leading-none ${this.currentPage === 'services' ? 'text-primary' : ''}">Services</a>
                         <a href="/portfolio" class="text-secondary font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center h-8 leading-none ${this.currentPage === 'portfolio' ? 'text-primary' : ''}">Portfolio</a>
+                        <a href="/nri-interior-designers-hyderabad" class="text-secondary font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center h-8 leading-none ${this.currentPage === 'nri' ? 'text-primary' : ''}">NRI Services</a>
                         <a href="/blog" class="text-secondary font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center h-8 leading-none ${this.currentPage === 'blog' ? 'text-primary' : ''}">Blog</a>
                     </nav>
 
@@ -86,6 +88,7 @@ class SharedNavigation {
                     <a href="/about" class="text-3xl font-bold text-secondary uppercase tracking-wider ${this.currentPage === 'about' ? 'text-primary' : ''}">About</a>
                     <a href="/services" class="text-3xl font-bold text-secondary uppercase tracking-wider ${this.currentPage === 'services' ? 'text-primary' : ''}">Services</a>
                     <a href="/portfolio" class="text-3xl font-bold text-secondary uppercase tracking-wider ${this.currentPage === 'portfolio' ? 'text-primary' : ''}">Portfolio</a>
+                    <a href="/nri-interior-designers-hyderabad" class="text-3xl font-bold text-secondary uppercase tracking-wider ${this.currentPage === 'nri' ? 'text-primary' : ''}">NRI Services</a>
                     <a href="/blog" class="text-3xl font-bold text-secondary uppercase tracking-wider ${this.currentPage === 'blog' ? 'text-primary' : ''}">Blog</a>
                     <a href="/contact" class="text-3xl font-bold text-secondary uppercase tracking-wider ${this.currentPage === 'contact' ? 'text-primary' : ''}">Contact</a>
                 </nav>

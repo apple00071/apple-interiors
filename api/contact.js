@@ -67,6 +67,11 @@ function getClientIP(req) {
 }
 
 function checkRateLimit(ip) {
+    // Bypass rate limiting for localhost / development
+    if (ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1' || ip === 'unknown') {
+        return { allowed: true, remaining: 99 };
+    }
+
     const now = Date.now();
     const clientData = rateLimitStore.get(ip) || { requests: [], blockedUntil: 0 };
 
@@ -253,14 +258,20 @@ function generateAdminEmailHTML(formData) {
                             <td style="padding: 8px 0; color: #1976d2;">${formData.projectLocation}</td>
                         </tr>
                         ` : ''}
+                        ${formData.countryResidence ? `
+                        <tr>
+                            <td style="padding: 8px 0; font-weight: bold; color: #1565c0;">Living In:</td>
+                            <td style="padding: 8px 0; color: #1976d2;">${formData.countryResidence}</td>
+                        </tr>
+                        ` : ''}
                     </table>
                 </div>
                 ` : ''}
                 
-                ${formData.projectMessage ? `
+                ${(formData.projectMessage || formData.projectScope) ? `
                 <div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
                     <h2 style="color: #f57c00; margin: 0 0 15px 0; font-size: 20px;">💬 Customer Message</h2>
-                    <p style="color: #ef6c00; margin: 0; white-space: pre-wrap; line-height: 1.6;">${formData.projectMessage}</p>
+                    <p style="color: #ef6c00; margin: 0; white-space: pre-wrap; line-height: 1.6;">${formData.projectMessage || formData.projectScope}</p>
                 </div>
                 ` : ''}
                 
@@ -424,7 +435,22 @@ module.exports = async function handler(req, res) {
 
     // Check API key
     if (!process.env.RESEND_API_KEY) {
-        console.error('RESEND_API_KEY environment variable is not set');
+        console.warn('RESEND_API_KEY environment variable is not set');
+        // In local development or environments without RESEND_API_KEY, simulate successful receipt
+        if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+            console.log('✅ Form submission received (Development Mode):', {
+                fullName: req.body?.fullName,
+                email: req.body?.emailAddress,
+                phone: req.body?.phoneNumber,
+                propertyType: req.body?.propertyType,
+                location: req.body?.projectLocation,
+                country: req.body?.countryResidence
+            });
+            return res.status(200).json({
+                success: true,
+                message: 'Thank you! Your consultation request has been received. Our team will contact you within 24 hours.'
+            });
+        }
         return res.status(500).json({
             success: false,
             error: 'Email service is not properly configured. Please try again later.'

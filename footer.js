@@ -126,6 +126,10 @@ class SharedFooter {
                                     class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">Portfolio</a>
                             </div>
                             <div>
+                                <a href="/nri-interior-designers-hyderabad"
+                                    class="text-gray-600 hover:text-yellow-500 transition-colors duration-300 font-medium text-primary">NRI Home Interiors</a>
+                            </div>
+                            <div>
                                 <a href="/case-studies/bandlaguda-dream-home-transformation"
                                     class="text-gray-600 hover:text-yellow-500 transition-colors duration-300">Case
                                     Studies</a>
