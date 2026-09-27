@@ -330,7 +330,7 @@ function initializeAnimations() {
 }
 
 function initializeFAQAccordions() {
-    const faqItems = document.querySelectorAll('#faq .faq-item');
+    const faqItems = document.querySelectorAll('#faq .faq-item, .faq-item');
     if (!faqItems.length) return;
 
     faqItems.forEach(item => {
