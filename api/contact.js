@@ -199,6 +199,13 @@ function validateFormData(data) {
 
 // Email template functions
 function generateAdminEmailHTML(formData) {
+    const isNRI = Boolean(
+        formData.countryResidence || 
+        formData.isNRI === 'true' || 
+        formData.isNRI === true || 
+        formData.formSource === 'NRI Services'
+    );
+
     const timestamp = new Date().toLocaleString('en-IN', {
         timeZone: 'Asia/Kolkata',
         dateStyle: 'full',
@@ -212,7 +219,7 @@ function generateAdminEmailHTML(formData) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-            <title>New Lead Inquiry - Apple Interiors</title>
+            <title>${isNRI ? 'New NRI Lead Inquiry - Apple Interiors' : 'New Lead Inquiry - Apple Interiors'}</title>
         </head>
         <body style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #374151; background-color: #f5f5f4; margin: 0; padding: 30px 10px;">
             <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e7e5e4;">
@@ -223,7 +230,7 @@ function generateAdminEmailHTML(formData) {
                         <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="190" style="display: block; margin: 0 auto 8px auto; max-width: 190px; height: auto;" />
                     </a>
                     <p style="margin: 0; color: #a16207; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">
-                        New Client Inquiry
+                        ${isNRI ? '🌟 New NRI Client Consultation Request' : 'New Client Inquiry'}
                     </p>
                 </div>
                 
@@ -305,6 +312,13 @@ function generateAdminEmailHTML(formData) {
 }
 
 function generateCustomerEmailHTML(formData) {
+    const isNRI = Boolean(
+        formData.countryResidence || 
+        formData.isNRI === 'true' || 
+        formData.isNRI === true || 
+        formData.formSource === 'NRI Services'
+    );
+
     return `
         <!DOCTYPE html>
         <html>
@@ -312,7 +326,7 @@ function generateCustomerEmailHTML(formData) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-            <title>Thank You for Contacting Apple Interiors</title>
+            <title>${isNRI ? 'Thank You for Contacting Apple Interiors - NRI Concierge Desk' : 'Thank You for Contacting Apple Interiors'}</title>
         </head>
         <body style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #374151; background-color: #f5f5f4; margin: 0; padding: 30px 10px;">
             <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e7e5e4;">
@@ -323,20 +337,22 @@ function generateCustomerEmailHTML(formData) {
                         <img src="https://appleinteriors.in/images/New-logo.png" alt="Apple Interiors" width="200" style="display: block; margin: 0 auto 8px auto; max-width: 200px; height: auto;" />
                     </a>
                     <p style="margin: 0; color: #a16207; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px;">
-                        Best Interior Designers in Hyderabad
+                        ${isNRI ? 'NRI Turnkey Home Interiors • Hyderabad' : 'Best Interior Designers in Hyderabad'}
                     </p>
                 </div>
                 
                 <div style="padding: 36px 30px;">
                     <span style="color: #eab308; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 8px;">
-                        Consultation Request Received
+                        ${isNRI ? 'NRI Concierge Consultation Request Received' : 'Consultation Request Received'}
                     </span>
                     <h1 style="color: #1f2937; font-size: 26px; font-weight: 600; text-transform: uppercase; letter-spacing: -0.5px; margin: 0 0 16px 0;">
                         Thank you, ${formData.fullName}!
                     </h1>
                     
                     <p style="color: #4b5563; font-size: 15px; margin: 0 0 24px 0; line-height: 1.65;">
-                        We have received your details. Our Senior Interior Design Director is reviewing your requirements and will connect with you within 24 hours to arrange your consultation.
+                        ${isNRI 
+                            ? 'We have received your details. Our dedicated NRI Design Desk is reviewing your requirements and will reach out within 24 hours via WhatsApp or email to schedule your virtual design consultation.'
+                            : 'We have received your details. Our Senior Interior Design Director is reviewing your requirements and will connect with you within 24 hours to arrange your consultation.'}
                     </p>
 
                     <!-- Summary Box -->
@@ -380,10 +396,17 @@ function generateCustomerEmailHTML(formData) {
                             ✨ Next Steps
                         </h3>
                         <ul style="color: #713f12; margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.7;">
+                            ${isNRI ? `
+                            <li>Our dedicated NRI design desk reviews your floorplan and project scope</li>
+                            <li>We schedule a virtual 3D visualization video call tailored to your local timezone</li>
+                            <li>Receive transparent, itemized factory-finish quotation with locked-in delivery timelines</li>
+                            <li>100% remote supervision with weekly WhatsApp milestone videos and 10-year warranty</li>
+                            ` : `
                             <li>Our senior designer reviews your floorplan and project scope</li>
                             <li>We schedule a 3D visualization video call around your schedule</li>
                             <li>Receive transparent, itemized factory-finish quotation</li>
                             <li>Zero hassle turnkey execution with 10-year warranty</li>
+                            `}
                         </ul>
                     </div>
 
@@ -396,7 +419,9 @@ function generateCustomerEmailHTML(formData) {
                            style="display: inline-block; background: #1f2937; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
                             📞 +91 9603 9603 37
                         </a>
-                        <a href="https://wa.me/919603960337?text=Hi%20Apple%20Interiors%2C%20I%20just%20submitted%20a%20consultation%20request%20on%20your%20website%20and%20would%20like%20to%20connect." 
+                        <a href="${isNRI 
+                            ? 'https://wa.me/919603960337?text=Hi%20Apple%20Interiors%2C%20I%20just%20submitted%20an%20NRI%20consultation%20request%20on%20your%20website%20and%20would%20like%20to%20connect.'
+                            : 'https://wa.me/919603960337?text=Hi%20Apple%20Interiors%2C%20I%20just%20submitted%20a%20consultation%20request%20on%20your%20website%20and%20would%20like%20to%20connect.'}" 
                            style="display: inline-block; background: #25d366; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
                             💬 Connect on WhatsApp
                         </a>
@@ -564,14 +589,20 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        // Initialize client only after env check
-        const resend = new Resend(process.env.RESEND_API_KEY);
+        const isNRI = Boolean(
+            formData.countryResidence || 
+            formData.isNRI === 'true' || 
+            formData.isNRI === true || 
+            formData.formSource === 'NRI Services'
+        );
 
         // Send admin notification email
         const adminEmailResult = await resend.emails.send({
             from: EMAIL_CONFIG.from,
             to: EMAIL_CONFIG.adminEmail,
-            subject: `🏠 New Contact Inquiry from ${formData.fullName}`,
+            subject: isNRI
+                ? `🌟 [NRI Inquiry] ${formData.fullName} (${formData.countryResidence || 'NRI'}) - ${formData.propertyType || 'Interiors'}`
+                : `🏠 New Contact Inquiry from ${formData.fullName}`,
             html: generateAdminEmailHTML(formData)
         });
 
@@ -579,7 +610,9 @@ module.exports = async function handler(req, res) {
         const customerEmailResult = await resend.emails.send({
             from: EMAIL_CONFIG.from,
             to: formData.emailAddress,
-            subject: `Thank you for contacting ${EMAIL_CONFIG.companyName}`,
+            subject: isNRI
+                ? `Thank you for contacting Apple Interiors - NRI Concierge Desk`
+                : `Thank you for contacting ${EMAIL_CONFIG.companyName}`,
             html: generateCustomerEmailHTML(formData)
         });
 
@@ -593,6 +626,7 @@ module.exports = async function handler(req, res) {
             timestamp: new Date().toISOString(),
             customerName: formData.fullName,
             customerEmail: formData.emailAddress,
+            isNRI,
             ip: clientIP,
             processingTime: `${processingTime}ms`,
             rateLimitRemaining: rateLimitResult.remaining
@@ -600,7 +634,9 @@ module.exports = async function handler(req, res) {
 
         return res.status(200).json({
             success: true,
-            message: 'Your message has been sent successfully! We will contact you within 24 hours.',
+            message: isNRI
+                ? 'Thank you! Our dedicated NRI Design Desk is reviewing your requirements and will reach out within 24 hours via WhatsApp or email to schedule your virtual design consultation.'
+                : 'Your message has been sent successfully! We will contact you within 24 hours.',
             emailIds: {
                 admin: adminEmailResult.data?.id,
                 customer: customerEmailResult.data?.id
