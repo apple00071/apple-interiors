@@ -286,15 +286,15 @@ function generateAdminEmailHTML(formData) {
                     <!-- Quick Action Buttons for Admin -->
                     <div style="text-align: center; margin: 24px 0 10px 0;">
                         <a href="tel:${formData.phoneNumber}" 
-                           style="display: inline-block; background: #1f2937; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                           style="display: inline-block; background-color: #1f2937; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                             📞 Call Client
                         </a>
                         <a href="https://wa.me/${formData.phoneNumber.replace(/[^\d]/g, '')}?text=Hi%20${encodeURIComponent(formData.fullName)}%2C%20thank%20you%20for%20contacting%20Apple%20Interiors.%20I%20received%20your%20inquiry%20and%20would%20like%20to%20discuss%20your%20home%20interior%20requirements." 
-                           style="display: inline-block; background: #25d366; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                           style="display: inline-block; background-color: #eab308; color: #1f2937; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px; border: 1px solid #ca8a04; box-shadow: 0 4px 12px rgba(234, 179, 8, 0.25);">
                             💬 WhatsApp
                         </a>
                         <a href="mailto:${formData.emailAddress}?subject=Re: Your Interior Design Inquiry with Apple Interiors" 
-                           style="display: inline-block; background: #eab308; color: #1f2937; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                           style="display: inline-block; background-color: #ffffff; color: #1f2937; border: 1.5px solid #d6d3d1; padding: 12px 22px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
                             ✉️ Reply Email
                         </a>
                     </div>
@@ -411,18 +411,18 @@ function generateCustomerEmailHTML(formData) {
                     </div>
 
                     <!-- Immediate Assistance -->
-                    <div style="text-align: center; padding: 10px 0 10px 0;">
-                        <p style="color: #1f2937; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;">
+                    <div style="text-align: center; padding: 14px 0 6px 0;">
+                        <p style="color: #6b7280; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px;">
                             Need Immediate Assistance?
                         </p>
                         <a href="tel:+919603960337" 
-                           style="display: inline-block; background: #1f2937; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                           style="display: inline-block; background-color: #1f2937; color: #ffffff; padding: 13px 24px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 10px 6px; border: 1px solid #1f2937; box-shadow: 0 4px 12px rgba(31, 41, 55, 0.12);">
                             📞 +91 9603 9603 37
                         </a>
                         <a href="${isNRI 
                             ? 'https://wa.me/919603960337?text=Hi%20Apple%20Interiors%2C%20I%20just%20submitted%20an%20NRI%20consultation%20request%20on%20your%20website%20and%20would%20like%20to%20connect.'
                             : 'https://wa.me/919603960337?text=Hi%20Apple%20Interiors%2C%20I%20just%20submitted%20a%20consultation%20request%20on%20your%20website%20and%20would%20like%20to%20connect.'}" 
-                           style="display: inline-block; background: #25d366; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 8px 6px;">
+                           style="display: inline-block; background-color: #eab308; color: #1f2937; padding: 13px 26px; text-decoration: none; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 6px 10px 6px; border: 1px solid #ca8a04; box-shadow: 0 4px 14px rgba(234, 179, 8, 0.28);">
                             💬 Connect on WhatsApp
                         </a>
                     </div>
