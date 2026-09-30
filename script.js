@@ -41,8 +41,8 @@ const fallbackItems = [
         id: 1,
         image_paths: [
             "/images/portfolio/bedroom/104.webp",
-            "/images/portfolio/bedroom/3.webp",
-            "/images/portfolio/bedroom/99.webp",
+            "/images/portfolio/bedroom/6_00000.webp",
+            "/images/portfolio/bedroom/8_00000.webp",
             "/images/portfolio/bedroom/J7.webp",
             "/images/portfolio/bedroom/J8.webp",
             "/images/portfolio/bedroom/N3.webp"
@@ -52,7 +52,8 @@ const fallbackItems = [
     {
         id: 2,
         image_paths: [
-            "/images/portfolio/living-room/1.webp",
+            "/images/portfolio/living-room/124_00000.webp",
+            "/images/portfolio/living-room/126_00000.webp",
             "/images/portfolio/living-room/12.webp",
             "/images/portfolio/living-room/13.webp",
             "/images/portfolio/living-room/4.webp",
@@ -63,8 +64,8 @@ const fallbackItems = [
     {
         id: 3,
         image_paths: [
-            "/images/portfolio/kitchen/J1.webp",
-            "/images/portfolio/kitchen/J2.webp",
+            "/images/portfolio/kitchen/11_00000.webp",
+            "/images/portfolio/kitchen/19.webp",
             "/images/portfolio/kitchen/J3.webp",
             "/images/portfolio/kitchen/J4.webp",
             "/images/portfolio/kitchen/J8.webp",
@@ -80,10 +81,7 @@ const fallbackItems = [
             "/images/portfolio/dining/10.webp",
             "/images/portfolio/dining/26.webp",
             "/images/portfolio/dining/9.webp",
-            "/images/portfolio/dining/N2.webp",
-            "/images/portfolio/dining/1751715683787-1751690341351.webp",
-            "/images/portfolio/dining/1751715717108-1751690341351.webp",
-            "/images/portfolio/dining/1751715735243-1751690341351.webp"
+            "/images/portfolio/dining/N2.webp"
         ],
         category: "dining"
     },
