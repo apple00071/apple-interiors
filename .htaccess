@@ -25,6 +25,21 @@ Redirect 301 /interior-designers-madhapur https://appleinteriors.in/interior-des
 Redirect 301 /interior-designers-banjara-hills https://appleinteriors.in/interior-designers-in-banjara-hills
 Redirect 301 /interior-designers-jubilee-hills https://appleinteriors.in/interior-designers-in-jubilee-hills
 
+# 301 Redirects for legacy/phantom service URLs
+Redirect 301 /villa-interiors-hyderabad https://appleinteriors.in/complete-home-interiors-hyderabad
+Redirect 301 /grand-villa-interiors-hyderabad https://appleinteriors.in/complete-home-interiors-hyderabad
+Redirect 301 /premium-apartment-interiors-hyderabad https://appleinteriors.in/complete-home-interiors-hyderabad
+Redirect 301 /smart-home-interiors-hyderabad https://appleinteriors.in/complete-home-interiors-hyderabad
+Redirect 301 /luxury-modular-kitchens-hyderabad https://appleinteriors.in/modular-kitchen-hyderabad
+Redirect 301 /modern-modular-kitchens-hyderabad https://appleinteriors.in/modular-kitchen-hyderabad
+Redirect 301 /efficient-modular-kitchens-hyderabad https://appleinteriors.in/modular-kitchen-hyderabad
+Redirect 301 /office-interior-design-hyderabad https://appleinteriors.in/commercial-interior-design-hyderabad
+Redirect 301 /home-office-design-hyderabad https://appleinteriors.in/commercial-interior-design-hyderabad
+Redirect 301 /home-automation-hyderabad https://appleinteriors.in/services
+Redirect 301 /smart-home-automation-hyderabad https://appleinteriors.in/services
+Redirect 301 /luxury-home-theater-design-hyderabad https://appleinteriors.in/living-room-interior-design-hyderabad
+Redirect 301 /bespoke-foyer-design-hyderabad https://appleinteriors.in/living-room-interior-design-hyderabad
+
 # Ensure trailing slash for homepage
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^$ https://appleinteriors.in/ [L,R=301]

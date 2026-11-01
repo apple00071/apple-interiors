@@ -201,6 +201,17 @@ class SharedFooter {
 
                 <!-- Copyright -->
                 <div class="text-center border-t border-gray-200 pt-8">
+                    <div class="flex flex-wrap justify-center gap-4 mb-3 text-sm text-gray-500">
+                        <span class="font-semibold text-gray-900">Our Services:</span>
+                        <a href="/complete-home-interiors-hyderabad" class="hover:text-primary transition-colors">Complete Home Interiors</a>
+                        <a href="/modular-kitchen-hyderabad" class="hover:text-primary transition-colors">Modular Kitchens</a>
+                        <a href="/wardrobe-design-hyderabad" class="hover:text-primary transition-colors">Wardrobes</a>
+                        <a href="/false-ceiling-design-hyderabad" class="hover:text-primary transition-colors">False Ceilings</a>
+                        <a href="/living-room-interior-design-hyderabad" class="hover:text-primary transition-colors">Living Room Design</a>
+                        <a href="/bedroom-interior-design-hyderabad" class="hover:text-primary transition-colors">Bedroom Design</a>
+                        <a href="/commercial-interior-design-hyderabad" class="hover:text-primary transition-colors">Commercial Interiors</a>
+                        <a href="/luxury-interior-designers-hyderabad" class="hover:text-primary transition-colors">Luxury Interiors</a>
+                    </div>
                     <div class="flex flex-wrap justify-center gap-4 mb-6 text-sm text-gray-500">
                         <span class="font-semibold text-gray-900">Service Areas:</span>
                         <a href="/interior-designers-in-kukatpally" class="hover:text-primary transition-colors">Kukatpally</a>
@@ -223,6 +234,7 @@ class SharedFooter {
                         <a href="/interior-designers-in-mokila" class="hover:text-primary transition-colors">Mokila</a>
                         <a href="/interior-designers-in-kollur" class="hover:text-primary transition-colors">Kollur</a>
                         <a href="/interior-designers-in-ameenpur" class="hover:text-primary transition-colors">Ameenpur</a>
+                        <a href="/interior-designers-in-bowrampet" class="hover:text-primary transition-colors">Bowrampet</a>
                     </div>
                     <p class="text-gray-600">&copy; 2026 Apple Interiors. All rights reserved.</p>
                 </div>

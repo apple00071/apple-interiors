@@ -72,6 +72,71 @@
       "source": "/blog/budget-friendly-interior-design-hyderabad",
       "destination": "/blog",
       "permanent": true
+    },
+    {
+      "source": "/villa-interiors-hyderabad",
+      "destination": "/complete-home-interiors-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/grand-villa-interiors-hyderabad",
+      "destination": "/complete-home-interiors-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/premium-apartment-interiors-hyderabad",
+      "destination": "/complete-home-interiors-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/smart-home-interiors-hyderabad",
+      "destination": "/complete-home-interiors-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/luxury-modular-kitchens-hyderabad",
+      "destination": "/modular-kitchen-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/modern-modular-kitchens-hyderabad",
+      "destination": "/modular-kitchen-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/efficient-modular-kitchens-hyderabad",
+      "destination": "/modular-kitchen-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/office-interior-design-hyderabad",
+      "destination": "/commercial-interior-design-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/home-office-design-hyderabad",
+      "destination": "/commercial-interior-design-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/home-automation-hyderabad",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/smart-home-automation-hyderabad",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/luxury-home-theater-design-hyderabad",
+      "destination": "/living-room-interior-design-hyderabad",
+      "permanent": true
+    },
+    {
+      "source": "/bespoke-foyer-design-hyderabad",
+      "destination": "/living-room-interior-design-hyderabad",
+      "permanent": true
     }
   ],
   "rewrites": [

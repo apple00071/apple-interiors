@@ -1,35 +1,12 @@
 User-agent: *
 Allow: /
 
-# Disallow admin and private directories
+# Disallow private and administrative directories
 Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/
 Disallow: /cache/
-Disallow: /.htaccess
-Disallow: /console-cleaner.js
-Disallow: /shared-nav.js
-
-# Allow important pages and resources
-Allow: /images/
-Allow: /css/
-Allow: /js/
-Allow: /styles.css
-Allow: /manifest.json
-Allow: /sitemap.xml
-
-# Specific crawlers
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
 
 # Sitemap location
 Sitemap: https://appleinteriors.in/sitemap.xml
-
-# Crawl delay for better server performance
-Crawl-delay: 1
