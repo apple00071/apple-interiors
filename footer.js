@@ -16,8 +16,9 @@ class SharedFooter {
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
                     <!-- Logo and Social Links -->
                     <div class="flex flex-col items-center lg:items-start">
-                        <img src="/images/New-logo.png" alt="Apple Interiors - Best Interior Designers in Hyderabad"
-                            class="w-48 h-auto mb-4">
+                        <a href="/" title="Apple Interiors - Best Interior Designers in Hyderabad">
+                            <img src="/images/New-logo.png" alt="Apple Interiors - Best Interior Designers in Hyderabad" class="w-48 h-auto mb-4">
+                        </a>
                         <p class="text-gray-600 mb-4 text-center lg:text-left max-w-md">Transform your space into something
                             extraordinary with Apple Interiors. We bring your vision to life with expert design and
                             exceptional craftsmanship.</p>

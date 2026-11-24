@@ -24,8 +24,8 @@ class SharedNavigation {
                 <header class="bg-white rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.04)] px-6 py-3 flex items-center justify-between w-full max-w-6xl pointer-events-auto border border-gray-100 relative">
                     
                     <!-- Logo -->
-                    <a href="/" class="flex-shrink-0 flex items-center">
-                        <img src="/images/New-logo.png" alt="Apple Interiors Logo" class="h-12 md:h-16 object-contain">
+                    <a href="/" class="flex-shrink-0 flex items-center" aria-label="Apple Interiors Hyderabad Home" title="Apple Interiors - Best Interior Designers in Hyderabad">
+                        <img src="/images/New-logo.png" alt="Apple Interiors Hyderabad Logo" class="h-12 md:h-16 object-contain">
                     </a>
 
                     <!-- Desktop Nav (Absolutely Centered to Header/Screen Size) -->
